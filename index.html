@@ -1,140 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BELTPRO | Conveyor & Oven Solutions</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #e2e8f0;
-    }
+    <title>BELTPRO | Spiral Conveyor & Industrial Oven Specialists</title>
 
-    header {
-      background: #111827;
-      padding: 20px;
-      text-align: center;
-      border-bottom: 2px solid #1f2937;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    header h1 {
-      margin: 0;
-      font-size: 32px;
-      color: #38bdf8;
-    }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.7;
+        }
 
-    header p {
-      margin: 5px 0 0;
-      color: #94a3b8;
-    }
+        header {
+            background: linear-gradient(135deg, #111827, #1e293b);
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 3px solid #38bdf8;
+        }
 
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 30px;
-    }
+        header img {
+            max-height: 120px;
+            margin-bottom: 20px;
+        }
 
-    .card {
-      background: #1e293b;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    }
+        header h1 {
+            font-size: 48px;
+            color: #38bdf8;
+            letter-spacing: 2px;
+        }
 
-    h2 {
-      color: #38bdf8;
-    }
+        header h3 {
+            margin-top: 10px;
+            font-weight: normal;
+            color: #cbd5e1;
+        }
 
-    ul {
-      line-height: 1.8;
-    }
+        .since {
+            margin-top: 15px;
+            color: #22c55e;
+            font-weight: bold;
+            font-size: 18px;
+        }
 
-    .highlight {
-      color: #22c55e;
-      font-weight: bold;
-    }
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px 0;
+        }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #64748b;
-      font-size: 14px;
-    }
+        .card {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 18px rgba(0,0,0,.35);
+        }
 
-    .button {
-      display: inline-block;
-      padding: 10px 15px;
-      background: #38bdf8;
-      color: black;
-      text-decoration: none;
-      border-radius: 6px;
-      margin-top: 10px;
-    }
+        h2 {
+            color: #38bdf8;
+            margin-bottom: 20px;
+        }
 
-    .button:hover {
-      background: #0ea5e9;
-    }
-  </style>
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .contact p {
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #7dd3fc;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            background: #38bdf8;
+            color: black;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: .3s;
+        }
+
+        .button:hover {
+            background: #0ea5e9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #111827;
+            color: #94a3b8;
+            border-top: 2px solid #1f2937;
+        }
+
+        @media(max-width:700px){
+
+            header h1{
+                font-size:36px;
+            }
+
+            header img{
+                max-height:80px;
+            }
+
+            .card{
+                padding:20px;
+            }
+        }
+
+    </style>
+
 </head>
 
 <body>
 
 <header>
-  <h1>BELTPRO</h1>
-  <p>Spiral conveyor systems & Baking ovens Solutions</p>
+
+    <!-- Replace logo.png with your logo file -->
+    <img src="logo.png" alt="BELTPRO Logo">
+
+    <h1>BELTPRO</h1>
+
+    <h3>
+        Spiral Conveyor Systems • Industrial Baking Ovens • Engineering Services
+    </h3>
+
+    <div class="since">
+        Serving Industry Since 2014
+    </div>
+
 </header>
 
 <div class="container">
 
-  <div class="card">
-    <h2>About Us</h2>
-    <p>
-      BELTPRO specializes in professional installation, maintenance, and optimization of
-      <span class="highlight">spiral conveyor belts</span> and industrial baking ovens.
-    </p>
-  </div>
+    <div class="card">
 
-  <div class="card">
-    <h2>Our Services</h2>
-    <ul>
-      <li>Installation of spiral conveyor belt systems</li>
-      <li>Industrial baking oven setup and calibration</li>
-      <li>Troubleshooting and equipment diagnostics</li>
-      <li>Measurement of spiral belt tension</li>
-      <li>Adjustment of drive and overdrive systems</li>
-      <li>Efficiency optimization and belt life improvement</li>
-      <li>Recommendation of improved belt types and materials</li>
-    </ul>
-  </div>
+        <h2>About BELTPRO</h2>
 
-  <div class="card">
-    <h2>Engineering Expertise</h2>
-    <p>
-      We analyze mechanical performance and propose upgrades to improve:
-    </p>
-    <ul>
-      <li>Operational efficiency</li>
-      <li>Belt durability and lifespan</li>
-      <li>Energy consumption reduction</li>
-      <li>Production reliability</li>
-    </ul>
-  </div>
+        <p>
 
-  <div class="card">
-    <h2>Contact</h2>
-    <p>Need technical support or installation services?</p>
-    <a class="button" href="mailto:contact@beltpro.com">Contact Us</a>
-  </div>
+            BELTPRO specializes in professional installation, maintenance,
+            troubleshooting, and optimization of
+            <span class="highlight">spiral conveyor systems</span>
+            and
+            <span class="highlight">industrial baking ovens.</span>
+
+        </p>
+
+        <br>
+
+        <p>
+
+            Since 2014 we have supported food processing and manufacturing
+            companies with practical engineering solutions that improve
+            equipment reliability, production efficiency, and conveyor
+            performance.
+
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Our Services</h2>
+
+        <ul>
+
+            <li>✔ Spiral conveyor installation</li>
+
+            <li>✔ Industrial baking oven installation & commissioning</li>
+
+            <li>✔ Conveyor troubleshooting and diagnostics</li>
+
+            <li>✔ Spiral belt tension measurement</li>
+
+            <li>✔ Drive and overdrive adjustments</li>
+
+            <li>✔ Preventive maintenance inspections</li>
+
+            <li>✔ Conveyor performance optimization</li>
+
+            <li>✔ Engineering recommendations for improved belt designs</li>
+
+            <li>✔ Belt life extension and efficiency improvements</li>
+
+        </ul>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Engineering Expertise</h2>
+
+        <p>
+
+            We analyze mechanical systems to identify opportunities for
+            performance improvements through better engineering practices.
+
+        </p>
+
+        <br>
+
+        <ul>
+
+            <li>Operational efficiency</li>
+
+            <li>Production reliability</li>
+
+            <li>Reduced downtime</li>
+
+            <li>Lower maintenance costs</li>
+
+            <li>Longer belt life</li>
+
+            <li>Reduced energy consumption</li>
+
+        </ul>
+
+    </div>
+
+    <div class="card contact">
+
+        <h2>Contact</h2>
+
+        <p>
+
+            Need technical support, installation services, troubleshooting,
+            or engineering assistance?
+
+        </p>
+
+        <br>
+
+        <p>
+
+            <strong>Ricardo Pio Barakat</strong>
+
+        </p>
+
+        <p>
+
+            📱 Phone / WhatsApp<br>
+
+            <a href="https://wa.me/5514998005395">
+
+                +55 14 99800-5395
+
+            </a>
+
+        </p>
+
+        <p>
+
+            ✉ Email<br>
+
+            <a href="mailto:msc.barakat@outlook.com">
+
+                msc.barakat@outlook.com
+
+            </a>
+
+        </p>
+
+        <a class="button"
+           href="mailto:msc.barakat@outlook.com">
+
+            Request Technical Assistance
+
+        </a>
+
+    </div>
 
 </div>
 
 <footer>
-  © 2026 BELTPRO - Industrial Engineering Solutions
+
+    <strong>BELTPRO</strong><br>
+
+    Spiral Conveyor & Industrial Oven Specialists<br><br>
+
+    Since 2014<br><br>
+
+    Ricardo Pio Barakat<br>
+
+    Phone / WhatsApp: +55 14 99800-5395<br>
+
+    msc.barakat@outlook.com
+
 </footer>
 
 </body>
+
 </html>
