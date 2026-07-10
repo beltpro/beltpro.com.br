@@ -1,1 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BELTPRO | Spiral Conveyor & Industrial Oven Specialists</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+    body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f8fafc;
+    color: #1f2937;
+    line-height: 1.7;
+}
+
+        .language-bar {
+            background: #111827;
+            border-bottom: 2px solid #38bdf8;
+            padding: 12px 25px;
+            text-align: right;
+        }
+
+        .language-bar button {
+            background: #1e293b;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+            margin-left: 8px;
+            transition: .3s;
+        }
+
+        .language-bar button:hover {
+            background: #334155;
+        }
+
+        .language-bar button.active {
+            background: #38bdf8;
+            color: #000;
+            border-color: #38bdf8;
+        }
+
+header {
+    background: linear-gradient(135deg, #ffffff, #f1f5f9);
+    text-align: center;
+    padding: 40px 20px;
+    border-bottom: 3px solid #38bdf8;
+}
+
+header img {
+    height: 180px;
+    width: auto;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 48px;
+    color: #0f4c81;
+    letter-spacing: 2px;
+}
+
+header h3 {
+    margin-top: 10px;
+    font-weight: normal;
+    color: #475569;
+}
+
+.since {
+    margin-top: 15px;
+    color: #22c55e;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 18px rgba(0,0,0,.35);
+        }
+
+        h2 {
+            color: #0f4c81;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            color: #d97706;
+            font-weight: bold;
+        }
+
+        .contact p {
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #7dd3fc;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            background: #0f4c81;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: .3s;
+        }
+
+        .button:hover {
+            background: #0b3a61;
+        }
+
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #0f4c81;
+            color: white;
+            border-top: 2px solid #1f2937;
+        }
+
+        .navbar{
+    position: sticky;
+    top:0;
+    z-index:1000;
+    background:#0f4c81;
+    padding:15px;
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.navbar a:hover{
+    color:#38bdf8;
+}
+        .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    min-width: 280px;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.2);
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.dropdown-content a {
+    display: block;
+    color: #0f4c81;
+    padding: 12px 16px;
+    text-decoration: none;
+    font-weight: normal;
+    white-space: nowrap;
+}
+
+.dropdown-content a:hover {
+    background: #f1f5f9;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+        .banner-image{
+    width:100%;
+    height:auto;
+    display:block;
+}
+
+
+        @media(max-width:700px){
+
+            header h1{
+                font-size:36px;
+            }
+
+            header img{
+                max-height:80px;
+            }
+
+            .card{
+                padding:20px;
+            }
+
+            .language-bar{
+                text-align:center;
+            }
+
+            .language-bar button{
+                margin:5px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="language-bar">
+
+    <button type="button" data-lang="en" onclick="setLanguage('en')" aria-label="Switch to English">🇺🇸 English</button>
+
+    <button type="button" data-lang="es" onclick="setLanguage('es')" aria-label="Cambiar a Español">🇪🇸 Español</button>
+
+    <button type="button" data-lang="pt" onclick="setLanguage('pt')" aria-label="Mudar para Português">🇧🇷 Português</button>
+
+    <button type="button" data-lang="it" onclick="setLanguage('it')" aria-label="Passa all'Italiano">🇮🇹 Italiano</button>
+
+</div>
+
+<header id="home">
+
+    <!-- Replace logo.png with your logo file -->
+    <img src="logo.png" alt="BELTPRO Logo">
+
+
+
+    <h3
+        data-en="Spiral Conveyor Systems • Industrial Baking Ovens • Engineering Services"
+        data-es="Sistemas de Transportadores en Espiral • Hornos Industriales de Panificación • Servicios de Ingeniería"
+        data-pt="Sistemas de Transportadores Espirais • Fornos Industriais de Panificação • Serviços de Engenharia"
+        data-it="Sistemi di Trasportatori a Spirale • Forni Industriali da Forno • Servizi di Ingegneria">
+        Spiral Conveyor Systems • Industrial Baking Ovens • Engineering Services
+    </h3>
+
+    <div class="since"
+        data-en="Serving Industry Since 2014"
+        data-es="Al Servicio de la Industria Desde 2014"
+        data-pt="Atendendo a Indústria Desde 2014"
+        data-it="Al Servizio dell'Industria Dal 2014">
+        Serving Industry Since 2014
+    </div>
+
+
+
+<nav class="navbar">
+
+
+    <a href="#home">Home</a>
+<div class="dropdown">
+
+    <a href="#services"
+       data-en="Services ▼"
+       data-es="Servicios ▼"
+       data-pt="Serviços ▼"
+       data-it="Servizi ▼">
+        Services ▼
+    </a>
+
+    <div class="dropdown-content">
+
+        <a href="#services"
+           data-en="Belt Tension Measurement"
+           data-es="Medição da Tensão da Correia"
+           data-pt="Medição da Tensão da esteira"
+           data-it="Misurazione della Tensione del Nastro">
+            Belt Tension Measurement
+        </a>
+
+        <a href="#services"
+           data-en="Belt Tension Analysis & Calculations"
+           data-es="Análisis y Cálculos de Tensión"
+           data-pt="Análise e Cálculos de Tensão"
+           data-it="Analisi e Calcoli della Tensione">
+            Belt Tension Analysis & Calculations
+        </a>
+
+        <a href="#services"
+           data-en="Spiral Conveyor Installation"
+           data-es="Instalación de Transportadores Espirales"
+           data-pt="Instalação de Transportadores Espirais"
+           data-it="Installazione di Trasportatori a Spirale">
+            Spiral Conveyor Installation
+        </a>
+
+        <a href="#services"
+           data-en="Spiral Conveyor Troubleshooting"
+           data-es="Diagnóstico de Transportadores Espirales"
+           data-pt="Diagnóstico de Transportadores Espirais"
+           data-it="Risoluzione Problemi Trasportatori a Spirale">
+            Spiral Conveyor Troubleshooting
+        </a>
+
+        <a href="#services"
+           data-en="Overdrive Adjustment & Optimization"
+           data-es="Ajuste y Optimización del Overdrive"
+           data-pt="Ajuste e Otimização de escorregamento"
+           data-it="Regolazione e Ottimizzazione Overdrive">
+            Overdrive Adjustment & Optimization
+        </a>
+
+        <a href="#services"
+           data-en="Stacker Drive Parts Inspection"
+           data-es="Inspección de Componentes del Accionamiento"
+           data-pt="Inspeção de Componentes do Acionamento"
+           data-it="Ispezione Componenti del Sistema di Azionamento">
+            Stacker Drive Parts Inspection
+        </a>
+
+        <a href="#services"
+           data-en="Oven Precision Leveling & Alignment"
+           data-es="Nivelación y Alineación de Hornos"
+           data-pt="Nivelamento e Alinhamento de Fornos"
+           data-it="Livellamento e Allineamento Forni">
+            Oven Precision Leveling & Alignment
+        </a>
+
+        <a href="#services"
+           data-en="Baking Oven Troubleshooting"
+           data-es="Diagnóstico de Hornos"
+           data-pt="Diagnóstico de Fornos"
+           data-it="Risoluzione Problemi Forni">
+            Baking Oven Troubleshooting
+        </a>
+
+        <a href="#services"
+           data-en="Equipment Inspection & Performance Assessment"
+           data-es="Inspección y Evaluación del Rendimiento"
+           data-pt="Inspeção e Avaliação de Desempenho"
+           data-it="Ispezione e Valutazione delle Prestazioni">
+            Equipment Inspection & Performance Assessment
+        </a>
+
+        <a href="#services"
+           data-en="Preventive Maintenance Programs"
+           data-es="Programas de Mantenimiento Preventivo"
+           data-pt="Programas de Manutenção Preventiva"
+           data-it="Programmi di Manutenzione Preventiva">
+            Preventive Maintenance Programs
+        </a>
+
+        <a href="#services"
+           data-en="Equipment Retrofits & Upgrades"
+           data-es="Modernización de Equipos"
+           data-pt="Retrofit e Modernização de Equipamentos"
+           data-it="Retrofit e Aggiornamenti delle Attrezzature">
+            Equipment Retrofits & Upgrades
+        </a>
+
+        <a href="#services"
+           data-en="Commissioning & Start-Up Support"
+           data-es="Puesta en Marcha y Comisionamiento"
+           data-pt="Comissionamento e Start-Up"
+           data-it="Commissioning e Avviamento">
+            Commissioning & Start-Up Support
+        </a>
+
+        <a href="#services"
+           data-en="Technical Training – Theory of Operation"
+           data-es="Capacitación Técnica – Teoría de Operación"
+           data-pt="Treinamento Técnico – Teoria de Operação"
+           data-it="Formazione Tecnica – Teoria di Funzionamento">
+            Technical Training – Theory of Operation
+        </a>
+
+        <a href="#services"
+           data-en="Engineering Consulting"
+           data-es="Consultoría de Ingeniería"
+           data-pt="Consultoria de Engenharia"
+           data-it="Consulenza di Ingegneria">
+            Engineering Consulting
+        </a>
+
+        <a href="#services"
+           data-en="Cold & Hot Band Tracking"
+           data-es="Guiado de Bandas Frías y Calientes"
+           data-pt="Alinhamento frio e quente de esteiras"
+           data-it="Allineamento Nastri Caldi e Freddi">
+            Cold & Hot Band Tracking
+        </a>
+
+    </div>
+
+</div>
+
+
+    <div class="dropdown">
+
+        <a href="#industries"
+           data-en="Industries ▼"
+           data-es="Industrias ▼"
+           data-pt="Indústrias ▼"
+           data-it="Settori ▼">
+            Industries ▼
+        </a>
+
+
+        <div class="dropdown-content">
+
+            <a href="#industries"
+               data-en="Bakeries"
+               data-es="Panaderías"
+               data-pt="Panificadoras"
+               data-it="Panifici">
+                Bakeries
+            </a>
+
+            <a href="#industries"
+               data-en="Breweries"
+               data-es="Cervecerías"
+               data-pt="Cervejarias"
+               data-it="Birrifici">
+                Breweries
+            </a>
+
+            <a href="#industries"
+               data-en="Meat &amp; Poultry Processing"
+               data-es="Procesamiento de Carne y Aves"
+               data-pt="Processamento de Carnes e Aves"
+               data-it="Lavorazione di Carne e Pollame">
+                Meat &amp; Poultry Processing
+            </a>
+
+            <a href="#industries"
+               data-en="Seafood Processing"
+               data-es="Procesamiento de Productos del Mar"
+               data-pt="Processamento de Frutos do Mar"
+               data-it="Lavorazione dei Prodotti Ittici">
+                Seafood Processing
+            </a>
+
+            <a href="#industries"
+               data-en="Ice Cream &amp; Frozen Desserts"
+               data-es="Helados y Postres Congelados"
+               data-pt="Sorvetes e Sobremesas Congeladas"
+               data-it="Gelati e Dessert Surgelati">
+                Ice Cream &amp; Frozen Desserts
+            </a>
+
+            <a href="#industries"
+               data-en="Chocolate &amp; Confectionery"
+               data-es="Chocolate y Confitería"
+               data-pt="Chocolate e Confeitaria"
+               data-it="Cioccolato e Confetteria">
+                Chocolate &amp; Confectionery
+            </a>
+
+            <a href="#industries"
+               data-en="Snack Food Manufacturing"
+               data-es="Fabricación de Snacks"
+               data-pt="Fabricação de Snacks"
+               data-it="Produzione di Snack">
+                Snack Food Manufacturing
+            </a>
+
+            <a href="#industries"
+               data-en="Glass Manufacturing"
+               data-es="Fabricación de Vidrio"
+               data-pt="Fabricação de Vidro"
+               data-it="Produzione del Vetro">
+                Glass Manufacturing
+            </a>
+
+        </div>
+
+         </div>
+
+
+    <div class="dropdown">
+
+    <a href="#projects"
+       data-en="Global Projects ▼"
+       data-es="Proyectos globales ▼"
+       data-pt="Projetos globais ▼"
+       data-it="Progetti Globali ▼">
+        Projects ▼
+    </a>
+
+    <div class="dropdown-content">
+
+        <a href="#projects"
+           data-en="PepsiCo – Mexico"
+           data-es="PepsiCo – México"
+           data-pt="PepsiCo – México"
+           data-it="PepsiCo – Messico">
+            PepsiCo – Mexico
+        </a>
+
+        <a href="#projects"
+           data-en="Cargill – Costa Rica"
+           data-es="Cargill – Costa Rica"
+           data-pt="Cargill – Costa Rica"
+           data-it="Cargill – Costa Rica">
+            Cargill – Costa Rica
+        </a>
+
+        <a href="#projects"
+           data-en="Santa Priscila – Ecuador"
+           data-es="Santa Priscila – Ecuador"
+           data-pt="Santa Priscila – Equador"
+           data-it="Santa Priscila – Ecuador">
+            Santa Priscila – Ecuador
+        </a>
+
+        <a href="#projects"
+           data-en="Gonnella – USA"
+           data-es="Gonnella – EE.UU."
+           data-pt="Gonnella – EUA"
+           data-it="Gonnella – USA">
+            Gonnella – USA
+        </a>
+
+        <a href="#projects"
+           data-en="Bermudez – Trinidad & Tobago"
+           data-es="Bermudez – Trinidad y Tobago"
+           data-pt="Bermudez – Trinidad e Tobago"
+           data-it="Bermudez – Trinidad e Tobago">
+            Bermudez – Trinidad & Tobago
+        </a>
+
+        <a href="#projects"
+           data-en="Noel – Colombia"
+           data-es="Noel – Colombia"
+           data-pt="Noel – Colômbia"
+           data-it="Noel – Colombia">
+            Noel – Colombia
+        </a>
+
+        <a href="#projects"
+           data-en="Carozzi – Chile"
+           data-es="Carozzi – Chile"
+           data-pt="Carozzi – Chile"
+           data-it="Carozzi – Cile">
+            Carozzi – Chile
+        </a>
+
+        <a href="#projects"
+           data-en="Mondelez – Argentina"
+           data-es="Mondelez – Argentina"
+           data-pt="Mondelez – Argentina"
+           data-it="Mondelez – Argentina">
+            Mondelez – Argentina
+        </a>
+
+        <a href="#projects"
+           data-en="Mondelez – Peru"
+           data-es="Mondelez – Perú"
+           data-pt="Mondelez – Peru"
+           data-it="Mondelez – Perù">
+            Mondelez – Peru
+        </a>
+
+        <a href="#projects"
+           data-en="Carabobo – Venezuela"
+           data-es="Carabobo – Venezuela"
+           data-pt="Carabobo – Venezuela"
+           data-it="Carabobo – Venezuela">
+            Carabobo – Venezuela
+        </a>
+
+        <a href="#projects"
+           data-en="MBRF – Brazil"
+           data-es="MBRF – Brasil"
+           data-pt="MBRF – Brasil"
+           data-it="MBRF – Brasile">
+            MBRF – Brazil
+        </a>
+
+        <a href="#projects"
+           data-en="JBS / Seara – Brazil"
+           data-es="JBS / Seara – Brasil"
+           data-pt="JBS / Seara – Brasil"
+           data-it="JBS / Seara – Brasile">
+            JBS / Seara – Brazil
+        </a>
+
+        <a href="#projects"
+           data-en="Froneri – Brazil"
+           data-es="Froneri – Brasil"
+           data-pt="Froneri – Brasil"
+           data-it="Froneri – Brasile">
+            Froneri – Brazil
+        </a>
+
+        <a href="#projects"
+           data-en="Capricche – Brazil"
+           data-es="Capricche – Brasil"
+           data-pt="Capricche – Brasil"
+           data-it="Capricche – Brasile">
+            Capricche – Brazil
+        </a>
+
+            <a href="#projects"
+           data-en="Cooperativa Aurora – Brazil"
+           data-es="Cooperativa Aurora – Brasil"
+           data-pt="Cooperativa Aurora – Brasil"
+           data-it="Cooperativa Aurora – Brasile">
+            Capricche – Brazil
+        </a>
+
+        <a href="#projects"
+           data-en="Forno de Minas – Brazil"
+           data-es="Forno de Minas – Brasil"
+           data-pt="Forno de Minas – Brasil"
+           data-it="Forno de Minas – Brasile">
+            Capricche – Brazil
+        </a>
+
+        <a href="#projects"
+           data-en="Bimbo – Brazil"
+           data-es="Bimbo – Brasil"
+           data-pt="Bimbo – Brasil"
+           data-it="Bimbo – Brasile">
+            Bimbo – Brazil
+        </a>
+
+    </div>
+    </div>
+
+    <div class="dropdown">
+ 
+    <a href="#articles"
+       data-en="Technical Articles ▼"
+       data-es="Artículos Técnicos ▼"
+       data-pt="Artigos Técnicos ▼"
+       data-it="Articoli Tecnici ▼">
+        Technical Articles ▼
+    </a>
+
+    <div class="dropdown-content">
+
+        <a href="#articles"
+           data-en="Calculating System Turn Ratio"
+           data-es="Cálculo de la Relación de Giro"
+           data-pt="Cálculo da Relação de Giro"
+           data-it="Calcolo del Rapporto di Curvatura">
+            Calculating System Turn Ratio
+        </a>
+
+        <a href="#articles"
+           data-en="New Spiral Belt Tension Estimation"
+           data-es="Nueva Estimación de Tensión de Banda"
+           data-pt="Nova Estimativa de Tensão da Esteira"
+           data-it="Nuova Stima della Tensione del Nastro">
+            New Spiral Belt Tension Estimation
+        </a>
+
+        <a href="#articles"
+           data-en="Overdrive Adjustment"
+           data-es="Ajuste de Overdrive"
+           data-pt="Ajuste de Overdrive"
+           data-it="Regolazione Overdrive">
+            Overdrive Adjustment
+        </a>
+
+        <a href="#articles"
+           data-en="Force Calculation Based on Band Pressure"
+           data-es="Cálculo de Fuerzas Basado en la Presión de la Banda"
+           data-pt="Cálculo de Forças Baseado na Pressão da esteira"
+           data-it="Calcolo delle Forze Basato sulla Pressione del Nastro">
+            Force Calculation Based on Band Pressure
+        </a>
+
+        <a href="#articles"
+           data-en="Spiral Theory"
+           data-es="Teoría de Espirales"
+           data-pt="Teoria das Espirais"
+           data-it="Teoria delle Spirali">
+            Spiral Theory
+        </a>
+
+        <a href="#articles"
+           data-en="Controls and Trackers"
+           data-es="Controles y Guiadores"
+           data-pt="Controles e alinhadores"
+           data-it="Controlli e Guide">
+            Controls and Trackers
+        </a>
+
+        <a href="#articles"
+           data-en="Belt Specification"
+           data-es="Especificación de Bandas"
+           data-pt="Especificação de Esteiras"
+           data-it="Specifiche del Nastro">
+            Belt Specification
+        </a>
+
+        <a href="#articles"
+           data-en="Baking Band Installation Instructions"
+           data-es="Instrucciones de Instalación de Bandas para Hornos"
+           data-pt="Instruções para Instalação de esteiras em Fornos"
+           data-it="Istruzioni per l'Installazione dei Nastri da Forno">
+            Baking Band Installation Instructions
+        </a>
+
+    </div>
+
+</div>
+
+    <a href="#about">About</a>
+
+    <a href="#contact">Contact</a>
+
+               <a href="#heritage"
+   data-en="Professional Heritage"
+   data-es="Herencia Profesional"
+   data-pt="Herança Profissional"
+   data-it="Eredità Professionale">
+    Professional Heritage
+</a>
+
+    <a href="field-experience.html"
+   data-en="Field Experience"
+   data-es="Experiencia de Campo"
+   data-pt="Experiência de Campo"
+   data-it="Esperienza sul Campo">
+    Field Experience
+</a>
+
+
+</nav>
+    <img src="beltbackground.jpg" alt="BELTPRO Conveyor Belt" class="banner-image">
+
+<div class="container">
+
+    <div class="card" id="about">
+
+        <h2
+            data-en="About BELTPRO"
+            data-es="Sobre BELTPRO"
+            data-pt="Sobre a BELTPRO"
+            data-it="Chi è BELTPRO">
+            About BELTPRO
+        </h2>
+
+        <p
+            data-en="BELTPRO specializes in professional installation, precision levelling and alignment, maintenance, troubleshooting, and optimization of <span class='highlight'>spiral conveyor systems</span> and <span class='highlight'>industrial baking ovens.</span>"
+            data-es="BELTPRO se especializa en la instalación profesional, el mantenimiento, el diagnóstico de fallas y la optimización de <span class='highlight'>sistemas de transportadores en espiral</span> y <span class='highlight'>hornos industriales de panificación.</span>"
+            data-pt="A BELTPRO é especializada na instalação profissional, manutenção, diagnóstico de falhas e otimização de <span class='highlight'>transportadores espirais</span> e <span class='highlight'>fornos industriais de panificação.</span>"
+            data-it="BELTPRO è specializzata nell'installazione professionale, manutenzione, risoluzione dei problemi e ottimizzazione di <span class='highlight'>sistemi di trasportatori a spirale</span> e <span class='highlight'>forni industriali da forno.</span>">
+            BELTPRO specializes in professional installation, maintenance,
+            troubleshooting, and optimization of
+            <span class="highlight">spiral conveyor systems</span>
+            and
+            <span class="highlight">industrial baking ovens.</span>
+        </p>
+
+        <br>
+
+        <p
+            data-en="Since 2014 we have supported food processing and manufacturing companies with practical engineering solutions that improve equipment reliability, production efficiency, and conveyor performance."
+            data-es="Desde 2014 hemos apoyado a empresas de procesamiento de alimentos y manufactura con soluciones prácticas de ingeniería que mejoran la fiabilidad de los equipos, la eficiencia de la producción y el rendimiento de los transportadores."
+            data-pt="Desde 2014 apoiamos empresas do setor alimentício e de manufatura com soluções práticas de engenharia que aumentam a confiabilidade dos equipamentos, a eficiência da produção e o desempenho dos transportadores."
+            data-it="Dal 2014 supportiamo aziende della trasformazione alimentare e manifatturiere con soluzioni pratiche di ingegneria che migliorano l'affidabilità delle attrezzature, l'efficienza produttiva e le prestazioni dei trasportatori.">
+            Since 2014 we have supported food processing and manufacturing
+            companies with practical engineering solutions that improve
+            equipment reliability, production efficiency, and conveyor
+            performance.
+        </p>
+
+    </div>
+
+    <div class="card" id="services">
+
+        <h2
+            data-en="Our Services"
+            data-es="Nuestros Servicios"
+            data-pt="Nossos Serviços"
+            data-it="I Nostri Servizi">
+            Our Services
+        </h2>
+
+        <ul>
+
+            <li
+                data-en="✔ Spiral conveyor installation"
+                data-es="✔ Instalación de transportadores en espiral"
+                data-pt="✔ Instalação de transportadores espirais"
+                data-it="✔ Installazione di trasportatori a spirale">
+                ✔ Spiral conveyor installation
+            </li>
+
+            <li
+                data-en="✔ Industrial baking oven installation &amp; commissioning"
+                data-es="✔ Instalación y puesta en marcha de hornos industriales de panificación"
+                data-pt="✔ Instalação e comissionamento de fornos industriais de panificação"
+                data-it="✔ Installazione e messa in servizio di forni industriali da forno">
+                ✔ Industrial baking oven installation &amp; commissioning
+            </li>
+
+                   <li
+                data-en="✔ Belt tension calculations"
+                data-es="✔ Cálculo de la tensión de la banda"
+                data-pt="✔ Cálculo de tensão da esteira"
+                data-it="✔ Calcolo de la tensione del nastro">
+                
+            </li>
+
+            <li
+                data-en="✔ Conveyor troubleshooting and diagnostics"
+                data-es="✔ Diagnóstico y resolución de fallas en transportadores"
+                data-pt="✔ Diagnóstico e resolução de falhas em transportadores"
+                data-it="✔ Diagnostica e risoluzione dei problemi dei trasportatori">
+                ✔ Conveyor troubleshooting and diagnostics
+            </li>
+
+            <li
+                data-en="✔ Spiral belt tension measurement"
+                data-es="✔ Medición de tensión de bandas en espiral"
+                data-pt="✔ Medição de tensão de esteiras espirais"
+                data-it="✔ Misurazione della tensione del nastro a spirale">
+                ✔ Spiral belt tension measurement
+            </li>
+
+            <li
+                data-en="✔ Drive and overdrive adjustments"
+                data-es="✔ Ajustes de accionamiento y sobreaccionamiento"
+                data-pt="✔ Ajustes de acionamento e escorregamento"
+                data-it="✔ Regolazioni di azionamento e sovravelocità">
+                ✔ Drive and overdrive adjustments
+            </li>
+
+            <li
+                data-en="✔ Preventive maintenance inspections"
+                data-es="✔ Inspecciones de mantenimiento preventivo"
+                data-pt="✔ Inspeções de manutenção preventiva"
+                data-it="✔ Ispezioni di manutenzione preventiva">
+                ✔ Preventive maintenance inspections
+            </li>
+
+            <li
+                data-en="✔ Conveyor performance optimization"
+                data-es="✔ Optimización del rendimiento de transportadores"
+                data-pt="✔ Otimização do desempenho de transportadores"
+                data-it="✔ Ottimizzazione delle prestazioni dei trasportatori">
+                ✔ Conveyor performance optimization
+            </li>
+
+            <li
+                data-en="✔ On-Site system training"
+                data-es="✔ Capacitacion del sistema en sitio"
+                data-pt="✔ Treinamento na planta"
+                data-it="✔ Formazione sul sistema in loco">
+                ✔ Conveyor performance optimization
+            </li>
+
+            <li
+                data-en="✔ Engineering recommendations for improved belt designs"
+                data-es="✔ Recomendaciones de ingeniería para mejorar el diseño de bandas"
+                data-pt="✔ Recomendações de engenharia para melhorar o design de esteiras"
+                data-it="✔ Raccomandazioni di ingegneria per migliorare il design dei nastri">
+                ✔ Engineering recommendations for improved belt designs
+            </li>
+
+            <li
+                data-en="✔ Belt life extension and efficiency improvements"
+                data-es="✔ Extensión de la vida útil de las bandas y mejoras de eficiencia"
+                data-pt="✔ Extensão da vida útil das esteiras e melhorias de eficiência"
+                data-it="✔ Estensione della durata del nastro e miglioramenti di efficienza">
+                ✔ Belt life extension and efficiency improvements
+            </li>
+
+        </ul>
+
+    </div>
+
+    <div class="card">
+
+        <h2
+            data-en="Engineering Expertise"
+            data-es="Experiencia en Ingeniería"
+            data-pt="Especialização em Engenharia"
+            data-it="Competenza Ingegneristica">
+            Engineering Expertise
+        </h2>
+
+        <p
+            data-en="We analyze mechanical systems to identify opportunities for performance improvements through better engineering practices."
+            data-es="Analizamos sistemas mecánicos para identificar oportunidades de mejora del rendimiento mediante mejores prácticas de ingeniería."
+            data-pt="Analisamos sistemas mecânicos para identificar oportunidades de melhoria de desempenho por meio de melhores práticas de engenharia."
+            data-it="Analizziamo i sistemi meccanici per individuare opportunità di miglioramento delle prestazioni attraverso migliori pratiche di ingegneria.">
+            We analyze mechanical systems to identify opportunities for
+            performance improvements through better engineering practices.
+        </p>
+
+        <br>
+
+        <ul>
+
+            <li
+                data-en="Operational efficiency"
+                data-es="Eficiencia operativa"
+                data-pt="Eficiência operacional"
+                data-it="Efficienza operativa">
+                Operational efficiency
+            </li>
+
+            <li
+                data-en="Production reliability"
+                data-es="Fiabilidad de la producción"
+                data-pt="Confiabilidade da produção"
+                data-it="Affidabilità della produzione">
+                Production reliability
+            </li>
+
+            <li
+                data-en="Reduced downtime"
+                data-es="Menor tiempo de inactividad"
+                data-pt="Redução do tempo de inatividade"
+                data-it="Riduzione dei tempi di fermo">
+                Reduced downtime
+            </li>
+
+            <li
+                data-en="Lower maintenance costs"
+                data-es="Menores costos de mantenimiento"
+                data-pt="Menores custos de manutenção"
+                data-it="Costi di manutenzione ridotti">
+                Lower maintenance costs
+            </li>
+
+            <li
+                data-en="Longer belt life"
+                data-es="Mayor vida útil de las bandas"
+                data-pt="Maior vida útil das esteiras"
+                data-it="Maggiore durata del nastro">
+                Longer belt life
+            </li>
+
+            <li
+                data-en="Reduced energy consumption"
+                data-es="Menor consumo de energía"
+                data-pt="Redução do consumo de energia"
+                data-it="Riduzione del consumo energetico">
+                Reduced energy consumption
+            </li>
+
+        </ul>
+
+    </div>
+
+    </div>   <!-- END Engineering Expertise card -->
+
+<!-- PASTE THE NEW PROFESSIONAL HERITAGE CARD HERE -->
+
+<div class="card" id="heritage">
+
+    <h2
+        data-en="Professional Heritage"
+        data-es="Herencia Profesional"
+        data-pt="Herança Profissional"
+        data-it="Eredità Professionale">
+        Professional Heritage
+    </h2>
+
+    <h3>Hands-On Training from Industry Leaders</h3>
+
+    <p>
+        BELTPRO's expertise has been built through years of hands-on training
+        and field experience with some of the most respected and experienced professionals
+        in the spiral conveyor industry, including
+        Marty Tabaka, Mike Whittle, Joe Lackner, John Tech and others.
+        This knowledge has been complemented by decades of practical
+        experience supporting installations, commissioning,
+        troubleshooting, inspections, maintenance, retrofits,
+        and performance optimization for spiral conveyor belts
+        and baking oven systems across the Americas.
+    </p>
+
+    <p>
+        Our technical approach is rooted in proven engineering principles,
+        practical field experience, and a commitment to continuous learning.
+        This professional heritage traces back to the pioneering innovations
+        of Gerald Roinestad, whose work laid the foundation
+        for modern spiral conveyor technology.
+    </p>
+
+</div>
+
+<!-- THEN YOUR CONTACT CARD STARTS HERE -->
+
+<div class="card contact" id="contact">
+
+ 
+        <h2
+            data-en="Contact"
+            data-es="Contacto"
+            data-pt="Contato"
+            data-it="Contatti">
+            Contact
+        </h2>
+
+        <p
+            data-en="Need technical support, installation services, troubleshooting, or engineering assistance?"
+            data-es="¿Necesita soporte técnico, servicios de instalación, resolución de fallas o asistencia de ingeniería?"
+            data-pt="Precisa de suporte técnico, serviços de instalação, resolução de falhas ou assistência de engenharia?"
+            data-it="Hai bisogno di supporto tecnico, servizi di installazione, risoluzione dei problemi o assistenza ingegneristica?">
+            Need technical support, installation services, troubleshooting,
+            or engineering assistance?
+        </p>
+
+        <br>
+
+        <p>
+            <strong>Ricardo Pio Barakat</strong>
+        </p>
+
+        <p
+            data-en="📱 Phone / WhatsApp<br><a href='https://wa.me/5514998005395'>+55 14 99800-5395</a>"
+            data-es="📱 Teléfono / WhatsApp<br><a href='https://wa.me/5514998005395'>+55 14 99800-5395</a>"
+            data-pt="📱 Telefone / WhatsApp<br><a href='https://wa.me/5514998005395'>+55 14 99800-5395</a>"
+            data-it="📱 Telefono / WhatsApp<br><a href='https://wa.me/5514998005395'>+55 14 99800-5395</a>">
+            📱 Phone / WhatsApp<br>
+            <a href="https://wa.me/5514998005395">
+                +55 14 99800-5395
+            </a>
+        </p>
+
+        <p
+            data-en="✉ Email<br><a href='mailto:msc.barakat@outlook.com'>msc.barakat@outlook.com</a>"
+            data-es="✉ Correo electrónico<br><a href='mailto:msc.barakat@outlook.com'>msc.barakat@outlook.com</a>"
+            data-pt="✉ E-mail<br><a href='mailto:msc.barakat@outlook.com'>msc.barakat@outlook.com</a>"
+            data-it="✉ E-mail<br><a href='mailto:msc.barakat@outlook.com'>msc.barakat@outlook.com</a>">
+            ✉ Email<br>
+            <a href="mailto:msc.barakat@outlook.com">
+                msc.barakat@outlook.com
+            </a>
+        </p>
+
+        <a class="button"
+           href="mailto:msc.barakat@outlook.com"
+           data-en="Request Technical Assistance"
+           data-es="Solicitar Asistencia Técnica"
+           data-pt="Solicitar Assistência Técnica"
+           data-it="Richiedi Assistenza Tecnica">
+            Request Technical Assistance
+        </a>
+
+    </div>
+
+</div>
+
+<footer
+    data-en="<strong>BELTPRO</strong><br>Spiral Conveyor &amp; Industrial Oven Specialists<br><br>Since 2014<br><br>Ricardo Pio Barakat<br>Phone / WhatsApp: +55 14 99800-5395<br>msc.barakat@outlook.com"
+    data-es="<strong>BELTPRO</strong><br>Especialistas en Transportadores en Espiral y Hornos Industriales<br><br>Desde 2014<br><br>Ricardo Pio Barakat<br>Teléfono / WhatsApp: +55 14 99800-5395<br>msc.barakat@outlook.com"
+    data-pt="<strong>BELTPRO</strong><br>Especialistas em Transportadores Espirais e Fornos Industriais<br><br>Desde 2014<br><br>Ricardo Pio Barakat<br>Telefone / WhatsApp: +55 14 99800-5395<br>msc.barakat@outlook.com"
+    data-it="<strong>BELTPRO</strong><br>Specialisti in Trasportatori a Spirale e Forni Industriali<br><br>Dal 2014<br><br>Ricardo Pio Barakat<br>Telefono / WhatsApp: +55 14 99800-5395<br>msc.barakat@outlook.com">
+    <strong>BELTPRO</strong><br>
+    Spiral Conveyor &amp; Industrial Oven Specialists<br><br>
+    Since 2014<br><br>
+    Ricardo Pio Barakat<br>
+    Phone / WhatsApp: +55 14 99800-5395<br>
+    msc.barakat@outlook.com
+</footer>
+
+<script>
+
+    function setLanguage(lang){
+
+        // Swap the text of every element that has a translation for this language
+        document.querySelectorAll('[data-' + lang + ']').forEach(function(el){
+            el.innerHTML = el.getAttribute('data-' + lang);
+        });
+
+        // Update <html lang="..."> for accessibility and SEO
+        document.documentElement.setAttribute('lang', lang);
+
+        // Remember the choice for the next visit
+        try { localStorage.setItem('beltpro_lang', lang); } catch(e){}
+
+        // Highlight the active flag button
+        document.querySelectorAll('.language-bar button').forEach(function(btn){
+            btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+        });
+    }
+
+    // On load, restore the saved language (default: English)
+    document.addEventListener('DOMContentLoaded', function(){
+        var saved = 'en';
+        try { saved = localStorage.getItem('beltpro_lang') || 'en'; } catch(e){}
+        setLanguage(saved);
+    });
+
+</script>
+
+</body>
+
+</html>
