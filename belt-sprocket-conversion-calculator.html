@@ -1,1 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Belt Sprocket Conversion Calculator | BeltPro</title>
+<link rel="icon" type="image/png" href="favicon.png">
+
+<style>
+:root {
+  --navy: #1a3660;
+  --navy-dark: #142c50;
+  --blue: #2d7dd2;
+  --green: #2ecc71;
+  --orange: #f39c12;
+  --border: #d7dee6;
+  --bg: #f7f9fb;
+  --text: #2c3e50;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.page-header {
+  text-align: center;
+  padding: 30px 20px 10px;
+}
+
+.page-header h1 {
+  margin: 0 0 6px;
+  color: var(--navy);
+  font-size: 28px;
+}
+
+.page-header p {
+  max-width: 760px;
+  margin: auto;
+  color: #5a6b7a;
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 760px;
+  margin: 20px auto 60px;
+  padding: 30px 40px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.section-title {
+  margin-bottom: 24px;
+  padding-bottom: 8px;
+  color: var(--navy);
+  font-size: 20px;
+  border-bottom: 3px solid var(--blue);
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
+}
+
+.sub-title {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+  padding-bottom: 6px;
+  color: var(--navy);
+  font-size: 15px;
+  border-bottom: 1px solid var(--border);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+label {
+  margin-bottom: 6px;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 9px 10px;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 2px rgba(45,125,210,0.15);
+}
+
+.input-unit {
+  display: grid;
+  grid-template-columns: 1fr 90px;
+  gap: 8px;
+}
+
+.help {
+  margin-top: 5px;
+  color: #73808d;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.actions {
+  grid-column: 1 / -1;
+  margin-top: 10px;
+  text-align: center;
+}
+
+button {
+  margin: 4px;
+  padding: 12px 38px;
+  color: #fff;
+  background: var(--navy);
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--navy-dark);
+}
+
+.secondary {
+  background: #718096;
+}
+
+.secondary:hover {
+  background: #5a6875;
+}
+
+#error,
+#results,
+#comparison,
+#correction {
+  grid-column: 1 / -1;
+  display: none;
+  margin-top: 20px;
+}
+
+.show {
+  display: block !important;
+}
+
+.error-box {
+  padding: 12px 16px;
+  color: #a33;
+  background: #fdecea;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+}
+
+.box {
+  padding: 20px 24px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--green);
+  border-radius: 6px;
+}
+
+.comparison-box {
+  border-left-color: var(--blue);
+}
+
+.correction-box {
+  border-left-color: var(--orange);
+}
+
+.box h3 {
+  margin-top: 0;
+  color: var(--navy);
+  font-size: 16px;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+}
+
+.result-row:last-child {
+  border-bottom: none;
+}
+
+.result-label {
+  color: #5a6b7a;
+}
+
+.result-value {
+  color: var(--navy);
+  font-weight: bold;
+  text-align: right;
+}
+
+.good {
+  color: #1e8449;
+}
+
+.warning {
+  color: #b9770e;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th,
+td {
+  padding: 10px 8px;
+  text-align: right;
+  border-bottom: 1px solid var(--border);
+}
+
+th:first-child,
+td:first-child {
+  text-align: left;
+}
+
+th {
+  color: var(--navy);
+  background: #eef3f8;
+}
+
+.recommended {
+  background: #eafaf1;
+  font-weight: bold;
+}
+
+.correction-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
+  margin-top: 16px;
+}
+
+.correction-result {
+  display: none;
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: #fff8e8;
+  border: 1px solid #f4d28c;
+  border-radius: 6px;
+  line-height: 1.6;
+}
+
+.note {
+  grid-column: 1 / -1;
+  margin-top: 20px;
+  color: #6b7785;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  form,
+  .correction-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    margin: 15px 12px 40px;
+    padding: 24px 20px;
+  }
+
+  .result-row {
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .result-value {
+    text-align: left;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th,
+  td {
+    padding: 8px 5px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page-header">
+  <h1>Belt Sprocket Conversion Calculator</h1>
+
+  <p>
+    Calculate the new belt sprocket tooth count required when replacing a spiral
+    conveyor belt with a different longitudinal pitch while maintaining the existing belt speed.
+  </p>
+</div>
+
+<div class="container">
+  <div class="section-title">Belt Conversion Parameters</div>
+
+  <form id="calculatorForm">
+
+    <div class="sub-title">Existing Belt</div>
+
+    <div class="field">
+      <label for="existingDescription">Existing Belt Description</label>
+      <input
+        type="text"
+        id="existingDescription"
+        placeholder="Example: Omni-Grid 1 inch"
+      >
+    </div>
+
+    <div class="field">
+      <label for="existingTeeth">Existing Belt Sprocket Teeth</label>
+      <input
+        type="number"
+        id="existingTeeth"
+        min="1"
+        step="1"
+        value="9"
+        required
+      >
+
+      <div class="help">
+        Count the teeth on the belt sprocket, not the chain transmission sprocket.
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="existingPitch">Existing Belt Pitch</label>
+
+      <div class="input-unit">
+        <input
+          type="number"
+          id="existingPitch"
+          min="0.0001"
+          step="any"
+          value="1.08"
+          required
+        >
+
+        <select id="existingPitchUnit">
+          <option value="in" selected>in</option>
+          <option value="mm">mm</option>
+        </select>
+      </div>
+
+      <div class="help">
+        Enter the actual longitudinal drive pitch.
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="existingSpeed">Existing Belt Speed (optional)</label>
+
+      <div class="input-unit">
+        <input
+          type="number"
+          id="existingSpeed"
+          min="0"
+          step="any"
+          placeholder="Example: 35"
+        >
+
+        <select id="speedUnit">
+          <option value="ft/min" selected>ft/min</option>
+          <option value="m/min">m/min</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="sub-title">New Belt</div>
+
+    <div class="field">
+      <label for="newDescription">New Belt Description</label>
+      <input
+        type="text"
+        id="newDescription"
+        placeholder="Example: Omni-Grid 1.2 inch"
+      >
+    </div>
+
+    <div class="field">
+      <label for="newPitch">New Belt Pitch</label>
+
+      <div class="input-unit">
+        <input
+          type="number"
+          id="newPitch"
+          min="0.0001"
+          step="any"
+          value="1.20"
+          required
+        >
+
+        <select id="newPitchUnit">
+          <option value="in" selected>in</option>
+          <option value="mm">mm</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="tolerance">Acceptable Speed Error (%)</label>
+      <input
+        type="number"
+        id="tolerance"
+        min="0"
+        step="0.1"
+        value="2"
+      >
+    </div>
+
+    <div class="field">
+      <label for="compareRange">Comparison Range</label>
+      <input
+        type="number"
+        id="compareRange"
+        min="1"
+        max="5"
+        step="1"
+        value="2"
+      >
+
+      <div class="help">
+        Number of tooth counts shown above and below the ideal result.
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="submit">Calculate</button>
+      <button type="button" class="secondary" id="resetButton">Reset</button>
+    </div>
+
+    <div id="error">
+      <div class="error-box" id="errorText"></div>
+    </div>
+
+    <div id="results">
+      <div class="box">
+        <h3>Results</h3>
+
+        <div class="result-row">
+          <span class="result-label">Original Travel per Revolution</span>
+          <span class="result-value" id="originalTravel">—</span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">Ideal New Tooth Count</span>
+          <span class="result-value" id="idealTeeth">—</span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">Recommended Whole-Number Tooth Count</span>
+          <span class="result-value" id="recommendedTeeth">—</span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">New Travel per Revolution</span>
+          <span class="result-value" id="newTravel">—</span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">Relative Belt Speed</span>
+          <span class="result-value" id="relativeSpeed">—</span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">Resulting Belt Speed</span>
+          <span class="result-value" id="resultingSpeed">—</span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">Speed Error</span>
+          <span class="result-value" id="speedError">—</span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">Recommendation</span>
+          <span class="result-value" id="recommendation">—</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="comparison">
+      <div class="box comparison-box">
+        <h3>Whole-Number Tooth Comparison</h3>
+
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Teeth</th>
+                <th>Travel / Rev</th>
+                <th>Relative Speed</th>
+                <th>Speed Error</th>
+                <th>Evaluation</th>
+              </tr>
+            </thead>
+
+            <tbody id="comparisonBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="correction">
+      <div class="box correction-box">
+        <h3>Optional Drive Ratio Correction</h3>
+
+        <p style="margin-top:0; color:#5a6b7a; font-size:13px;">
+          Use this section when the selected whole-number belt sprocket produces
+          more speed error than acceptable.
+        </p>
+
+        <div class="correction-grid">
+          <div class="field">
+            <label for="selectedTeeth">Selected New Belt Sprocket Teeth</label>
+            <input
+              type="number"
+              id="selectedTeeth"
+              min="1"
+              step="1"
+            >
+          </div>
+
+          <div class="field">
+            <label for="correctionType">Correction Method</label>
+
+            <select id="correctionType">
+              <option value="chain">Chain Sprocket Ratio</option>
+              <option value="pulley">Pulley Ratio</option>
+              <option value="gearbox">Gearbox Reduction</option>
+              <option value="vfd">VFD Frequency</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="correctionInputs" class="correction-grid"></div>
+
+        <div class="actions">
+          <button type="button" id="correctionButton">
+            Calculate Correction
+          </button>
+        </div>
+
+        <div id="correctionResult" class="correction-result"></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Engineering notice:</strong>
+      This calculator preserves theoretical linear belt travel per drive-shaft revolution.
+      Final sprocket design must also consider tooth geometry, belt engagement,
+      polygonal action, shaft torque, space limitations, manufacturer requirements,
+      and machine safety.
+    </div>
+
+  </form>
+</div>
+
+<script>
+const form = document.getElementById("calculatorForm");
+const errorBox = document.getElementById("error");
+const errorText = document.getElementById("errorText");
+const results = document.getElementById("results");
+const comparison = document.getElementById("comparison");
+const correction = document.getElementById("correction");
+const comparisonBody = document.getElementById("comparisonBody");
+const correctionType = document.getElementById("correctionType");
+const correctionInputs = document.getElementById("correctionInputs");
+const correctionResult = document.getElementById("correctionResult");
+
+let lastCalculation = null;
+
+function toInches(value, unit) {
+  return unit === "mm" ? value / 25.4 : value;
+}
+
+function fromInches(value, unit) {
+  return unit === "mm" ? value * 25.4 : value;
+}
+
+function formatNumber(value, decimals = 3) {
+  return Number(value).toLocaleString("en-US", {
+    maximumFractionDigits: decimals
+  });
+}
+
+function signedPercent(value) {
+  return `${value > 0 ? "+" : ""}${formatNumber(value, 3)}%`;
+}
+
+function showError(message) {
+  errorText.textContent = message;
+  errorBox.classList.add("show");
+}
+
+function clearMessages() {
+  errorBox.classList.remove("show");
+  correctionResult.classList.remove("show");
+  correctionResult.innerHTML = "";
+}
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+  clearMessages();
+
+  const existingPitchValue = Number(
+    document.getElementById("existingPitch").value
+  );
+
+  const newPitchValue = Number(
+    document.getElementById("newPitch").value
+  );
+
+  const existingTeethValue = Number(
+    document.getElementById("existingTeeth").value
+  );
+
+  const existingPitchUnit =
+    document.getElementById("existingPitchUnit").value;
+
+  const newPitchUnit =
+    document.getElementById("newPitchUnit").value;
+
+  const existingSpeedValue = Number(
+    document.getElementById("existingSpeed").value
+  );
+
+  const speedUnit =
+    document.getElementById("speedUnit").value;
+
+  const toleranceValue = Math.max(
+    0,
+    Number(document.getElementById("tolerance").value) || 0
+  );
+
+  const compareRangeValue = Math.min(
+    5,
+    Math.max(
+      1,
+      Math.round(
+        Number(document.getElementById("compareRange").value) || 2
+      )
+    )
+  );
+
+  if (
+    existingPitchValue <= 0 ||
+    newPitchValue <= 0 ||
+    existingTeethValue <= 0 ||
+    !Number.isInteger(existingTeethValue)
+  ) {
+    showError(
+      "Please enter valid positive values. Existing sprocket teeth must be a whole number."
+    );
+    return;
+  }
+
+  const existingPitchInches =
+    toInches(existingPitchValue, existingPitchUnit);
+
+  const newPitchInches =
+    toInches(newPitchValue, newPitchUnit);
+
+  const originalTravelInches =
+    existingPitchInches * existingTeethValue;
+
+  const idealTeethValue =
+    originalTravelInches / newPitchInches;
+
+  const recommendedTeethValue =
+    Math.max(1, Math.round(idealTeethValue));
+
+  const newTravelInches =
+    newPitchInches * recommendedTeethValue;
+
+  const relativeSpeedValue =
+    newTravelInches / originalTravelInches;
+
+  const speedErrorValue =
+    (relativeSpeedValue - 1) * 100;
+
+  const displayUnit =
+    existingPitchUnit === newPitchUnit
+      ? existingPitchUnit
+      : "in";
+
+  const originalTravelDisplay =
+    fromInches(originalTravelInches, displayUnit);
+
+  const newTravelDisplay =
+    fromInches(newTravelInches, displayUnit);
+
+  document.getElementById("originalTravel").textContent =
+    `${formatNumber(originalTravelDisplay, 4)} ${displayUnit}/rev`;
+
+  document.getElementById("idealTeeth").textContent =
+    `${formatNumber(idealTeethValue, 3)} teeth`;
+
+  document.getElementById("recommendedTeeth").textContent =
+    `${recommendedTeethValue} teeth`;
+
+  document.getElementById("newTravel").textContent =
+    `${formatNumber(newTravelDisplay, 4)} ${displayUnit}/rev`;
+
+  document.getElementById("relativeSpeed").textContent =
+    `${formatNumber(relativeSpeedValue * 100, 3)}%`;
+
+  document.getElementById("speedError").textContent =
+    signedPercent(speedErrorValue);
+
+  if (existingSpeedValue > 0) {
+    document.getElementById("resultingSpeed").textContent =
+      `${formatNumber(
+        existingSpeedValue * relativeSpeedValue,
+        3
+      )} ${speedUnit}`;
+  } else {
+    document.getElementById("resultingSpeed").textContent =
+      "Not entered";
+  }
+
+  const recommendationElement =
+    document.getElementById("recommendation");
+
+  const withinTolerance =
+    Math.abs(speedErrorValue) <= toleranceValue;
+
+  if (withinTolerance) {
+    recommendationElement.textContent =
+      "Existing drive may be maintained";
+
+    recommendationElement.className =
+      "result-value good";
+
+    correction.classList.remove("show");
+  } else {
+    recommendationElement.textContent =
+      "Drive ratio correction recommended";
+
+    recommendationElement.className =
+      "result-value warning";
+
+    correction.classList.add("show");
+  }
+
+  comparisonBody.innerHTML = "";
+
+  const minimumTeeth = Math.max(
+    1,
+    Math.floor(idealTeethValue) - compareRangeValue
+  );
+
+  const maximumTeeth =
+    Math.ceil(idealTeethValue) + compareRangeValue;
+
+  for (
+    let teeth = minimumTeeth;
+    teeth <= maximumTeeth;
+    teeth++
+  ) {
+    const travelInches =
+      newPitchInches * teeth;
+
+    const ratio =
+      travelInches / originalTravelInches;
+
+    const error =
+      (ratio - 1) * 100;
+
+    const travelDisplay =
+      fromInches(travelInches, displayUnit);
+
+    const isRecommended =
+      teeth === recommendedTeethValue;
+
+    const rowWithinTolerance =
+      Math.abs(error) <= toleranceValue;
+
+    const row =
+      document.createElement("tr");
+
+    if (isRecommended) {
+      row.classList.add("recommended");
+    }
+
+    let evaluation = "Outside tolerance";
+
+    if (isRecommended) {
+      evaluation = "Recommended";
+    } else if (rowWithinTolerance) {
+      evaluation = "Within tolerance";
+    }
+
+    row.innerHTML = `
+      <td>${teeth} teeth</td>
+      <td>${formatNumber(travelDisplay, 4)} ${displayUnit}/rev</td>
+      <td>${formatNumber(ratio * 100, 3)}%</td>
+      <td>${signedPercent(error)}</td>
+      <td>${evaluation}</td>
+    `;
+
+    comparisonBody.appendChild(row);
+  }
+
+  document.getElementById("selectedTeeth").value =
+    recommendedTeethValue;
+
+  lastCalculation = {
+    originalTravelInches,
+    newPitchInches
+  };
+
+  results.classList.add("show");
+  comparison.classList.add("show");
+
+  renderCorrectionInputs();
+});
+
+function renderCorrectionInputs() {
+  const method = correctionType.value;
+
+  if (method === "chain") {
+    correctionInputs.innerHTML = `
+      <div class="field">
+        <label for="driverTeeth">Current Driver Chain Sprocket Teeth</label>
+        <input type="number" id="driverTeeth" min="1" step="1" value="18">
+      </div>
+
+      <div class="field">
+        <label for="drivenTeeth">Current Driven Chain Sprocket Teeth</label>
+        <input type="number" id="drivenTeeth" min="1" step="1" value="30">
+      </div>
+    `;
+  }
+
+  if (method === "pulley") {
+    correctionInputs.innerHTML = `
+      <div class="field">
+        <label for="driverDiameter">Current Drive Pulley Diameter</label>
+        <input type="number" id="driverDiameter" min="0.001" step="any" value="6">
+      </div>
+
+      <div class="field">
+        <label for="drivenDiameter">Current Driven Pulley Diameter</label>
+        <input type="number" id="drivenDiameter" min="0.001" step="any" value="10">
+      </div>
+    `;
+  }
+
+  if (method === "gearbox") {
+    correctionInputs.innerHTML = `
+      <div class="field full-width">
+        <label for="gearboxRatio">Current Gearbox Reduction Ratio</label>
+        <input type="number" id="gearboxRatio" min="0.001" step="any" value="30">
+
+        <div class="help">
+          Enter 30 for a 30:1 gearbox reduction.
+        </div>
+      </div>
+    `;
+  }
+
+  if (method === "vfd") {
+    correctionInputs.innerHTML = `
+      <div class="field full-width">
+        <label for="currentFrequency">Current VFD Frequency</label>
+        <input type="number" id="currentFrequency" min="0.001" step="any" value="60">
+      </div>
+    `;
+  }
+}
+
+correctionType.addEventListener("change", function() {
+  correctionResult.classList.remove("show");
+  renderCorrectionInputs();
+});
+
+document
+  .getElementById("correctionButton")
+  .addEventListener("click", function() {
+    clearMessages();
+
+    if (!lastCalculation) {
+      showError(
+        "Complete the belt sprocket calculation first."
+      );
+      return;
+    }
+
+    const selectedTeethValue = Number(
+      document.getElementById("selectedTeeth").value
+    );
+
+    if (
+      selectedTeethValue <= 0 ||
+      !Number.isInteger(selectedTeethValue)
+    ) {
+      showError(
+        "Selected belt sprocket teeth must be a positive whole number."
+      );
+      return;
+    }
+
+    const selectedTravel =
+      lastCalculation.newPitchInches *
+      selectedTeethValue;
+
+    const correctionFactor =
+      lastCalculation.originalTravelInches /
+      selectedTravel;
+
+    const selectedError =
+      (
+        selectedTravel /
+        lastCalculation.originalTravelInches -
+        1
+      ) * 100;
+
+    let output = `
+      <strong>Required shaft speed correction factor:</strong>
+      ${formatNumber(correctionFactor, 6)}
+      <br>
+      <span style="font-size:12px; color:#6b7785;">
+        Speed error before correction:
+        ${signedPercent(selectedError)}
+      </span>
+    `;
+
+    const method = correctionType.value;
+
+    if (method === "chain") {
+      const driverTeeth = Number(
+        document.getElementById("driverTeeth").value
+      );
+
+      const drivenTeeth = Number(
+        document.getElementById("drivenTeeth").value
+      );
+
+      if (
+        driverTeeth <= 0 ||
+        drivenTeeth <= 0 ||
+        !Number.isInteger(driverTeeth) ||
+        !Number.isInteger(drivenTeeth)
+      ) {
+        showError(
+          "Chain sprocket teeth must be positive whole numbers."
+        );
+        return;
+      }
+
+      const currentRatio =
+        driverTeeth / drivenTeeth;
+
+      const requiredRatio =
+        currentRatio * correctionFactor;
+
+      const requiredDriver =
+        requiredRatio * drivenTeeth;
+
+      const requiredDriven =
+        driverTeeth / requiredRatio;
+
+      output += `
+        <br><br>
+        <strong>Current chain ratio:</strong>
+        ${formatNumber(currentRatio, 6)}
+        <br>
+
+        <strong>Required chain ratio:</strong>
+        ${formatNumber(requiredRatio, 6)}
+        <br>
+
+        <strong>Required driver teeth if driven sprocket is maintained:</strong>
+        ${formatNumber(requiredDriver, 3)} teeth
+        <br>
+
+        <strong>Required driven teeth if driver sprocket is maintained:</strong>
+        ${formatNumber(requiredDriven, 3)} teeth
+      `;
+    }
+
+    if (method === "pulley") {
+      const driverDiameter = Number(
+        document.getElementById("driverDiameter").value
+      );
+
+      const drivenDiameter = Number(
+        document.getElementById("drivenDiameter").value
+      );
+
+      if (
+        driverDiameter <= 0 ||
+        drivenDiameter <= 0
+      ) {
+        showError(
+          "Pulley diameters must be positive values."
+        );
+        return;
+      }
+
+      const currentRatio =
+        driverDiameter / drivenDiameter;
+
+      const requiredRatio =
+        currentRatio * correctionFactor;
+
+      const requiredDriver =
+        requiredRatio * drivenDiameter;
+
+      const requiredDriven =
+        driverDiameter / requiredRatio;
+
+      output += `
+        <br><br>
+        <strong>Current pulley ratio:</strong>
+        ${formatNumber(currentRatio, 6)}
+        <br>
+
+        <strong>Required pulley ratio:</strong>
+        ${formatNumber(requiredRatio, 6)}
+        <br>
+
+        <strong>Required drive pulley diameter if driven pulley is maintained:</strong>
+        ${formatNumber(requiredDriver, 3)}
+        <br>
+
+        <strong>Required driven pulley diameter if drive pulley is maintained:</strong>
+        ${formatNumber(requiredDriven, 3)}
+      `;
+    }
+
+    if (method === "gearbox") {
+      const gearboxRatio = Number(
+        document.getElementById("gearboxRatio").value
+      );
+
+      if (gearboxRatio <= 0) {
+        showError(
+          "Gearbox reduction ratio must be positive."
+        );
+        return;
+      }
+
+      const requiredGearboxRatio =
+        gearboxRatio / correctionFactor;
+
+      output += `
+        <br><br>
+        <strong>Required gearbox reduction ratio:</strong>
+        ${formatNumber(requiredGearboxRatio, 4)} : 1
+      `;
+    }
+
+    if (method === "vfd") {
+      const currentFrequency = Number(
+        document.getElementById("currentFrequency").value
+      );
+
+      if (currentFrequency <= 0) {
+        showError(
+          "VFD frequency must be positive."
+        );
+        return;
+      }
+
+      const requiredFrequency =
+        currentFrequency * correctionFactor;
+
+      output += `
+        <br><br>
+        <strong>Required VFD frequency:</strong>
+        ${formatNumber(requiredFrequency, 3)} Hz
+      `;
+    }
+
+    correctionResult.innerHTML = output;
+    correctionResult.classList.add("show");
+  });
+
+document
+  .getElementById("resetButton")
+  .addEventListener("click", function() {
+    form.reset();
+
+    document.getElementById("existingPitch").value = "1.08";
+    document.getElementById("existingTeeth").value = "9";
+    document.getElementById("newPitch").value = "1.20";
+    document.getElementById("tolerance").value = "2";
+    document.getElementById("compareRange").value = "2";
+
+    errorBox.classList.remove("show");
+    results.classList.remove("show");
+    comparison.classList.remove("show");
+    correction.classList.remove("show");
+    correctionResult.classList.remove("show");
+
+    comparisonBody.innerHTML = "";
+    lastCalculation = null;
+
+    renderCorrectionInputs();
+  });
+
+renderCorrectionInputs();
+</script>
+
+</body>
+</html>
