@@ -992,11 +992,42 @@ document
       const requiredRatio =
         currentRatio * correctionFactor;
 
-      const requiredDriver =
+      const selectedRelativeSpeed =
+        selectedTravel / lastCalculation.originalTravelInches;
+
+      // Option 1: keep the driven sprocket, round the driver sprocket
+      const theoreticalDriver =
         requiredRatio * drivenTeeth;
 
-      const requiredDriven =
+      const recommendedDriver =
+        Math.max(1, Math.round(theoreticalDriver));
+
+      const achievedRatioOption1 =
+        recommendedDriver / drivenTeeth;
+
+      const finalRatioOption1 =
+        selectedRelativeSpeed *
+        (achievedRatioOption1 / currentRatio);
+
+      const finalErrorOption1 =
+        (finalRatioOption1 - 1) * 100;
+
+      // Option 2: keep the driver sprocket, round the driven sprocket
+      const theoreticalDriven =
         driverTeeth / requiredRatio;
+
+      const recommendedDriven =
+        Math.max(1, Math.round(theoreticalDriven));
+
+      const achievedRatioOption2 =
+        driverTeeth / recommendedDriven;
+
+      const finalRatioOption2 =
+        selectedRelativeSpeed *
+        (achievedRatioOption2 / currentRatio);
+
+      const finalErrorOption2 =
+        (finalRatioOption2 - 1) * 100;
 
       output += `
         <br><br>
@@ -1004,16 +1035,32 @@ document
         ${formatNumber(currentRatio, 6)}
         <br>
 
-        <strong>Required chain ratio:</strong>
+        <strong>Required theoretical chain ratio:</strong>
         ${formatNumber(requiredRatio, 6)}
-        <br>
+        <br><br>
 
-        <strong>Required driver teeth if driven sprocket is maintained:</strong>
-        ${formatNumber(requiredDriver, 3)} teeth
+        <strong>Option 1 — Keep the ${drivenTeeth}-tooth driven sprocket</strong>
         <br>
+        Theoretical driver sprocket:
+        ${formatNumber(theoreticalDriver, 3)} teeth (not a real sprocket size)
+        <br>
+        Recommended driver sprocket:
+        <strong>${recommendedDriver} teeth</strong>
+        <br>
+        Resulting speed error after rounding:
+        <strong>${signedPercent(finalErrorOption1)}</strong>
+        <br><br>
 
-        <strong>Required driven teeth if driver sprocket is maintained:</strong>
-        ${formatNumber(requiredDriven, 3)} teeth
+        <strong>Option 2 — Keep the ${driverTeeth}-tooth driver sprocket</strong>
+        <br>
+        Theoretical driven sprocket:
+        ${formatNumber(theoreticalDriven, 3)} teeth (not a real sprocket size)
+        <br>
+        Recommended driven sprocket:
+        <strong>${recommendedDriven} teeth</strong>
+        <br>
+        Resulting speed error after rounding:
+        <strong>${signedPercent(finalErrorOption2)}</strong>
       `;
     }
 
