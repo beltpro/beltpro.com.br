@@ -1182,11 +1182,17 @@ header h3 {
     }
 
     // On load, restore the saved language (default: English)
-    document.addEventListener('DOMContentLoaded', function(){
-      document.addEventListener('DOMContentLoaded', function(){
-  var saved = 'en';
-    try { saved = localStorage.getItem('beltpro_lang') || 'en'; } catch(e){}
+   // Restore saved language (default: English)
+document.addEventListener('DOMContentLoaded', function () {
+
+    var saved = 'en';
+
+    try {
+        saved = localStorage.getItem('beltpro_lang') || 'en';
+    } catch(e){}
+
     setLanguage(saved);
+
 });
 
 </script>
