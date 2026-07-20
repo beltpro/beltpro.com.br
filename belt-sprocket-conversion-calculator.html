@@ -856,126 +856,19 @@ form.addEventListener("submit", function(event) {
 function renderCorrectionInputs() {
   const method = correctionType.value;
 
- if (method === "chain") {
-  const driverTeeth = Number(
-    document.getElementById("driverTeeth").value
-  );
+  if (method === "chain") {
+    correctionInputs.innerHTML = `
+      <div class="field">
+        <label for="driverTeeth">Current Driver Sprocket Teeth</label>
+        <input type="number" id="driverTeeth" min="1" step="1" value="15">
+      </div>
 
-  const drivenTeeth = Number(
-    document.getElementById("drivenTeeth").value
-  );
-
-  if (
-    driverTeeth <= 0 ||
-    drivenTeeth <= 0 ||
-    !Number.isInteger(driverTeeth) ||
-    !Number.isInteger(drivenTeeth)
-  ) {
-    showError(
-      "Chain sprocket teeth must be positive whole numbers."
-    );
-    return;
+      <div class="field">
+        <label for="drivenTeeth">Current Driven Sprocket Teeth</label>
+        <input type="number" id="drivenTeeth" min="1" step="1" value="15">
+      </div>
+    `;
   }
-
-  const currentRatio =
-    driverTeeth / drivenTeeth;
-
-  const requiredRatio =
-    currentRatio * correctionFactor;
-
-  /*
-    OPTION 1:
-    Keep the driven sprocket and calculate a whole-number driver.
-  */
-
-  const theoreticalDriver =
-    requiredRatio * drivenTeeth;
-
-  const recommendedDriver =
-    Math.max(1, Math.round(theoreticalDriver));
-
-  const driverActualRatio =
-    recommendedDriver / drivenTeeth;
-
-  const driverCorrectionAchieved =
-    driverActualRatio / currentRatio;
-
-  const driverFinalSpeedRatio =
-    (
-      selectedTravel /
-      lastCalculation.originalTravelInches
-    ) * driverCorrectionAchieved;
-
-  const driverFinalError =
-    (driverFinalSpeedRatio - 1) * 100;
-
-  /*
-    OPTION 2:
-    Keep the driver sprocket and calculate a whole-number driven.
-  */
-
-  const theoreticalDriven =
-    driverTeeth / requiredRatio;
-
-  const recommendedDriven =
-    Math.max(1, Math.round(theoreticalDriven));
-
-  const drivenActualRatio =
-    driverTeeth / recommendedDriven;
-
-  const drivenCorrectionAchieved =
-    drivenActualRatio / currentRatio;
-
-  const drivenFinalSpeedRatio =
-    (
-      selectedTravel /
-      lastCalculation.originalTravelInches
-    ) * drivenCorrectionAchieved;
-
-  const drivenFinalError =
-    (drivenFinalSpeedRatio - 1) * 100;
-
-  output += `
-    <br><br>
-
-    <strong>Current chain ratio:</strong>
-    ${formatNumber(currentRatio, 6)}
-    <br>
-
-    <strong>Required theoretical chain ratio:</strong>
-    ${formatNumber(requiredRatio, 6)}
-    <br><br>
-
-    <strong>Option 1 — Maintain the ${drivenTeeth}-tooth driven sprocket</strong>
-    <br>
-
-    Theoretical driver sprocket:
-    ${formatNumber(theoreticalDriver, 3)} teeth
-    <br>
-
-    Recommended driver sprocket:
-    <strong>${recommendedDriver} teeth</strong>
-    <br>
-
-    Resulting speed error:
-    <strong>${signedPercent(driverFinalError)}</strong>
-    <br><br>
-
-    <strong>Option 2 — Maintain the ${driverTeeth}-tooth driver sprocket</strong>
-    <br>
-
-    Theoretical driven sprocket:
-    ${formatNumber(theoreticalDriven, 3)} teeth
-    <br>
-
-    Recommended driven sprocket:
-    <strong>${recommendedDriven} teeth</strong>
-    <br>
-
-    Resulting speed error:
-    <strong>${signedPercent(drivenFinalError)}</strong>
-  `;
-}
 
   if (method === "pulley") {
     correctionInputs.innerHTML = `
