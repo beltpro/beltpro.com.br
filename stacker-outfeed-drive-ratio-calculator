@@ -1,1 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Stacker Outfeed Drive Ratio Calculator | BELTPRO</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 15px;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8fafc;
+            color: #1f2937;
+            line-height: 1.5;
+        }
+
+        .calculator-container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 10px 35px rgba(15, 23, 42, 0.12);
+            overflow: hidden;
+        }
+
+        .calculator-header {
+            padding: 34px 28px;
+            text-align: center;
+            color: white;
+            background: linear-gradient(135deg, #0f172a, #1e3a5f);
+            border-bottom: 4px solid #38bdf8;
+        }
+
+        .calculator-header h1 {
+            margin: 0 0 12px;
+            font-size: 30px;
+            line-height: 1.2;
+        }
+
+        .calculator-header p {
+            max-width: 680px;
+            margin: 0 auto;
+            color: #dbeafe;
+            font-size: 16px;
+        }
+
+        .calculator-body {
+            padding: 30px;
+        }
+
+        .section-title {
+            margin: 0 0 20px;
+            padding-bottom: 9px;
+            color: #0f172a;
+            font-size: 21px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            margin-bottom: 7px;
+            color: #334155;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            background: #ffffff;
+            color: #0f172a;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: #0284c7;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.14);
+        }
+
+        .input-note {
+            margin-top: 5px;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        button {
+            padding: 13px 23px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            transition: transform 0.15s, opacity 0.15s;
+        }
+
+        button:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+        .calculate-button {
+            flex: 1;
+            background: #0284c7;
+            color: white;
+        }
+
+        .reset-button {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        .error-box {
+            display: none;
+            margin-top: 22px;
+            padding: 14px 16px;
+            border: 1px solid #fca5a5;
+            border-radius: 7px;
+            background: #fef2f2;
+            color: #b91c1c;
+            font-weight: bold;
+        }
+
+        .results {
+            display: none;
+            margin-top: 32px;
+        }
+
+        .ratio-panel {
+            margin-bottom: 22px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #bae6fd;
+            border-radius: 10px;
+            background: #f0f9ff;
+        }
+
+        .ratio-panel .ratio-label {
+            display: block;
+            margin-bottom: 5px;
+            color: #475569;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .ratio-panel .ratio-value {
+            color: #0369a1;
+            font-size: 34px;
+            font-weight: bold;
+        }
+
+        .recommended-panel {
+            margin-bottom: 30px;
+            padding: 24px;
+            border: 2px solid #22c55e;
+            border-radius: 12px;
+            background: #f0fdf4;
+        }
+
+        .recommended-panel h2 {
+            margin: 0 0 20px;
+            color: #166534;
+            text-align: center;
+            font-size: 23px;
+        }
+
+        .recommended-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .result-item {
+            padding: 14px;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            background: white;
+            text-align: center;
+        }
+
+        .result-item.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .result-label {
+            display: block;
+            margin-bottom: 4px;
+            color: #64748b;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .result-value {
+            color: #0f172a;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .selection-note {
+            margin: 13px 0 0;
+            color: #475569;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .table-section h2 {
+            margin: 0 0 7px;
+            color: #0f172a;
+            font-size: 22px;
+        }
+
+        .table-instruction {
+            margin: 0 0 14px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 9px;
+        }
+
+        table {
+            width: 100%;
+            min-width: 720px;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th,
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        th {
+            background: #0f172a;
+            color: white;
+            font-size: 13px;
+        }
+
+        td {
+            font-size: 14px;
+        }
+
+        tbody tr {
+            cursor: pointer;
+            transition: background-color 0.15s;
+        }
+
+        tbody tr:hover {
+            background: #f0f9ff;
+        }
+
+        tbody tr.selected-row {
+            background: #dcfce7;
+            font-weight: bold;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .rank-badge {
+            display: inline-block;
+            min-width: 28px;
+            padding: 3px 7px;
+            border-radius: 20px;
+            background: #e2e8f0;
+            color: #334155;
+            font-weight: bold;
+        }
+
+        .best-rank {
+            background: #22c55e;
+            color: white;
+        }
+
+        .positive {
+            color: #b45309;
+        }
+
+        .negative {
+            color: #0369a1;
+        }
+
+        .exact {
+            color: #15803d;
+        }
+
+        .engineering-note {
+            margin-top: 25px;
+            padding: 16px;
+            border-left: 4px solid #38bdf8;
+            background: #f8fafc;
+            color: #475569;
+            font-size: 13px;
+        }
+
+        .engineering-note strong {
+            color: #0f172a;
+        }
+
+        .calculator-footer {
+            padding: 18px 25px;
+            background: #0f172a;
+            color: #94a3b8;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 12px;
+            }
+
+            .calculator-header {
+                padding: 28px 18px;
+            }
+
+            .calculator-header h1 {
+                font-size: 25px;
+            }
+
+            .calculator-body {
+                padding: 22px 17px;
+            }
+
+            .input-grid,
+            .recommended-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-item.full-width {
+                grid-column: auto;
+            }
+
+            .button-row {
+                flex-direction: column;
+            }
+
+            .ratio-panel .ratio-value {
+                font-size: 29px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="calculator-container">
+
+    <header class="calculator-header">
+        <h1>Stacker Outfeed Drive Ratio Calculator</h1>
+
+        <p>
+            Find the optimal chain sprocket combination to synchronize the
+            outfeed drive and belt outfeed shaft speeds.
+        </p>
+    </header>
+
+    <main class="calculator-body">
+
+        <section>
+            <h2 class="section-title">Input Parameters</h2>
+
+            <div class="input-grid">
+
+                <div class="input-group">
+                    <label for="driveRpm">
+                        Outfeed Drive Shaft RPM
+                    </label>
+
+                    <input
+                        type="number"
+                        id="driveRpm"
+                        min="0.001"
+                        step="any"
+                        placeholder="Example: 51.5"
+                    >
+
+                    <span class="input-note">
+                        Measured with the chain removed.
+                    </span>
+                </div>
+
+                <div class="input-group">
+                    <label for="beltRpm">
+                        Belt Outfeed Shaft RPM
+                    </label>
+
+                    <input
+                        type="number"
+                        id="beltRpm"
+                        min="0.001"
+                        step="any"
+                        placeholder="Example: 46.2"
+                    >
+
+                    <span class="input-note">
+                        Enter the shaft speed to be matched.
+                    </span>
+                </div>
+
+                <div class="input-group">
+                    <label for="minimumTeeth">
+                        Minimum Sprocket Teeth
+                    </label>
+
+                    <input
+                        type="number"
+                        id="minimumTeeth"
+                        min="5"
+                        max="200"
+                        step="1"
+                        value="19"
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="maximumTeeth">
+                        Maximum Sprocket Teeth
+                    </label>
+
+                    <input
+                        type="number"
+                        id="maximumTeeth"
+                        min="5"
+                        max="200"
+                        step="1"
+                        value="40"
+                    >
+                </div>
+
+            </div>
+
+            <div class="button-row">
+                <button
+                    type="button"
+                    class="calculate-button"
+                    onclick="calculateSprockets()"
+                >
+                    Find Sprockets
+                </button>
+
+                <button
+                    type="button"
+                    class="reset-button"
+                    onclick="resetCalculator()"
+                >
+                    Reset
+                </button>
+            </div>
+
+            <div id="errorBox" class="error-box"></div>
+        </section>
+
+        <section id="results" class="results">
+
+            <div class="ratio-panel">
+                <span class="ratio-label">Required Shaft Ratio</span>
+
+                <span id="requiredRatio" class="ratio-value">
+                    0.00000
+                </span>
+            </div>
+
+            <div class="recommended-panel">
+                <h2>★ Recommended Combination</h2>
+
+                <div class="recommended-grid">
+
+                    <div class="result-item">
+                        <span class="result-label">
+                            Drive Sprocket
+                        </span>
+
+                        <span id="selectedDriveTeeth" class="result-value">
+                            —
+                        </span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">
+                            Driven Sprocket
+                        </span>
+
+                        <span id="selectedDrivenTeeth" class="result-value">
+                            —
+                        </span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">
+                            Chain Ratio
+                        </span>
+
+                        <span id="selectedRatio" class="result-value">
+                            —
+                        </span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">
+                            Speed Error
+                        </span>
+
+                        <span id="selectedError" class="result-value">
+                            —
+                        </span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">
+                            Predicted Belt Outfeed RPM
+                        </span>
+
+                        <span id="selectedPredictedRpm" class="result-value">
+                            —
+                        </span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">
+                            RPM Difference
+                        </span>
+
+                        <span id="selectedRpmDifference" class="result-value">
+                            —
+                        </span>
+                    </div>
+
+                </div>
+
+                <p class="selection-note">
+                    Click any row in the table to select a different combination.
+                </p>
+            </div>
+
+            <div class="table-section">
+                <h2>Top 10 Sprocket Combinations</h2>
+
+                <p class="table-instruction">
+                    Combinations are ranked by the smallest absolute speed error.
+                </p>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Drive Teeth</th>
+                                <th>Driven Teeth</th>
+                                <th>Ratio</th>
+                                <th>Predicted RPM</th>
+                                <th>RPM Difference</th>
+                                <th>Speed Error</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="resultsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="engineering-note">
+                <strong>Calculation basis:</strong>
+
+                Chain ratio equals drive sprocket teeth divided by driven
+                sprocket teeth. Predicted belt outfeed shaft speed equals the
+                outfeed drive shaft RPM multiplied by this chain ratio.
+                Confirm the final adjustment under actual operating conditions.
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="calculator-footer">
+        BELTPRO Engineering Calculator
+    </footer>
+
+</div>
+
+<script>
+    let currentResults = [];
+    let currentBeltRpm = 0;
+
+    function calculateSprockets() {
+        hideError();
+
+        const driveRpm = Number(
+            document.getElementById("driveRpm").value
+        );
+
+        const beltRpm = Number(
+            document.getElementById("beltRpm").value
+        );
+
+        const minimumTeeth = Number(
+            document.getElementById("minimumTeeth").value
+        );
+
+        const maximumTeeth = Number(
+            document.getElementById("maximumTeeth").value
+        );
+
+        if (!Number.isFinite(driveRpm) || driveRpm <= 0) {
+            showError(
+                "Enter a valid outfeed drive shaft RPM greater than zero."
+            );
+            return;
+        }
+
+        if (!Number.isFinite(beltRpm) || beltRpm <= 0) {
+            showError(
+                "Enter a valid belt outfeed shaft RPM greater than zero."
+            );
+            return;
+        }
+
+        if (
+            !Number.isInteger(minimumTeeth) ||
+            !Number.isInteger(maximumTeeth)
+        ) {
+            showError(
+                "Minimum and maximum sprocket tooth counts must be whole numbers."
+            );
+            return;
+        }
+
+        if (minimumTeeth < 5 || maximumTeeth < 5) {
+            showError(
+                "Sprocket tooth counts must be at least 5."
+            );
+            return;
+        }
+
+        if (minimumTeeth > maximumTeeth) {
+            showError(
+                "Minimum sprocket teeth cannot be greater than maximum sprocket teeth."
+            );
+            return;
+        }
+
+        if (maximumTeeth - minimumTeeth > 200) {
+            showError(
+                "Please use a sprocket search range of 200 teeth or less."
+            );
+            return;
+        }
+
+        /*
+            Required ratio:
+
+            Belt outfeed shaft RPM
+            ----------------------
+            Outfeed drive shaft RPM
+        */
+
+        const requiredRatio = beltRpm / driveRpm;
+
+        const combinations = [];
+
+        for (
+            let driveTeeth = minimumTeeth;
+            driveTeeth <= maximumTeeth;
+            driveTeeth++
+        ) {
+            for (
+                let drivenTeeth = minimumTeeth;
+                drivenTeeth <= maximumTeeth;
+                drivenTeeth++
+            ) {
+                const actualRatio = driveTeeth / drivenTeeth;
+
+                const predictedRpm = driveRpm * actualRatio;
+
+                const rpmDifference = predictedRpm - beltRpm;
+
+                const speedErrorPercent =
+                    (rpmDifference / beltRpm) * 100;
+
+                combinations.push({
+                    driveTeeth: driveTeeth,
+                    drivenTeeth: drivenTeeth,
+                    ratio: actualRatio,
+                    predictedRpm: predictedRpm,
+                    rpmDifference: rpmDifference,
+                    speedErrorPercent: speedErrorPercent,
+                    absoluteError: Math.abs(speedErrorPercent)
+                });
+            }
+        }
+
+        combinations.sort(function(a, b) {
+            if (a.absoluteError !== b.absoluteError) {
+                return a.absoluteError - b.absoluteError;
+            }
+
+            /*
+                If two combinations have the same error,
+                list the lower tooth-count combination first.
+            */
+
+            const aTotalTeeth =
+                a.driveTeeth + a.drivenTeeth;
+
+            const bTotalTeeth =
+                b.driveTeeth + b.drivenTeeth;
+
+            if (aTotalTeeth !== bTotalTeeth) {
+                return aTotalTeeth - bTotalTeeth;
+            }
+
+            return a.driveTeeth - b.driveTeeth;
+        });
+
+        currentResults = combinations.slice(0, 10);
+        currentBeltRpm = beltRpm;
+
+        document.getElementById("requiredRatio").textContent =
+            requiredRatio.toFixed(5);
+
+        displayResultsTable();
+
+        document.getElementById("results").style.display = "block";
+
+        selectCombination(0);
+
+        document.getElementById("results").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+    function displayResultsTable() {
+        const tableBody =
+            document.getElementById("resultsTableBody");
+
+        tableBody.innerHTML = "";
+
+        currentResults.forEach(function(result, index) {
+            const row = document.createElement("tr");
+
+            row.dataset.index = index;
+
+            row.addEventListener("click", function() {
+                selectCombination(index);
+            });
+
+            const rankText =
+                index === 0 ? "★ 1" : String(index + 1);
+
+            const rankClass =
+                index === 0
+                    ? "rank-badge best-rank"
+                    : "rank-badge";
+
+            const differenceClass =
+                getValueClass(result.rpmDifference);
+
+            const errorClass =
+                getValueClass(result.speedErrorPercent);
+
+            row.innerHTML = `
+                <td>
+                    <span class="${rankClass}">
+                        ${rankText}
+                    </span>
+                </td>
+
+                <td>${result.driveTeeth}</td>
+
+                <td>${result.drivenTeeth}</td>
+
+                <td>${result.ratio.toFixed(5)}</td>
+
+                <td>${result.predictedRpm.toFixed(3)} RPM</td>
+
+                <td class="${differenceClass}">
+                    ${formatSigned(result.rpmDifference, 3)} RPM
+                </td>
+
+                <td class="${errorClass}">
+                    ${formatSigned(result.speedErrorPercent, 3)}%
+                </td>
+            `;
+
+            tableBody.appendChild(row);
+        });
+    }
+
+    function selectCombination(index) {
+        const result = currentResults[index];
+
+        if (!result) {
+            return;
+        }
+
+        document.getElementById("selectedDriveTeeth").textContent =
+            result.driveTeeth + " teeth";
+
+        document.getElementById("selectedDrivenTeeth").textContent =
+            result.drivenTeeth + " teeth";
+
+        document.getElementById("selectedRatio").textContent =
+            result.ratio.toFixed(5);
+
+        const errorElement =
+            document.getElementById("selectedError");
+
+        errorElement.textContent =
+            formatSigned(result.speedErrorPercent, 3) + "%";
+
+        errorElement.className =
+            "result-value " +
+            getValueClass(result.speedErrorPercent);
+
+        document.getElementById(
+            "selectedPredictedRpm"
+        ).textContent =
+            result.predictedRpm.toFixed(3) + " RPM";
+
+        const differenceElement =
+            document.getElementById("selectedRpmDifference");
+
+        differenceElement.textContent =
+            formatSigned(result.rpmDifference, 3) + " RPM";
+
+        differenceElement.className =
+            "result-value " +
+            getValueClass(result.rpmDifference);
+
+        const rows = document.querySelectorAll(
+            "#resultsTableBody tr"
+        );
+
+        rows.forEach(function(row, rowIndex) {
+            row.classList.toggle(
+                "selected-row",
+                rowIndex === index
+            );
+        });
+    }
+
+    function formatSigned(value, decimalPlaces) {
+        const tolerance = Math.pow(
+            10,
+            -(decimalPlaces + 1)
+        );
+
+        if (Math.abs(value) < tolerance) {
+            return Number(0).toFixed(decimalPlaces);
+        }
+
+        const sign = value > 0 ? "+" : "";
+
+        return sign + value.toFixed(decimalPlaces);
+    }
+
+    function getValueClass(value) {
+        if (Math.abs(value) < 0.00005) {
+            return "exact";
+        }
+
+        return value > 0 ? "positive" : "negative";
+    }
+
+    function showError(message) {
+        const errorBox =
+            document.getElementById("errorBox");
+
+        errorBox.textContent = message;
+        errorBox.style.display = "block";
+
+        document.getElementById("results").style.display =
+            "none";
+    }
+
+    function hideError() {
+        const errorBox =
+            document.getElementById("errorBox");
+
+        errorBox.textContent = "";
+        errorBox.style.display = "none";
+    }
+
+    function resetCalculator() {
+        document.getElementById("driveRpm").value = "";
+        document.getElementById("beltRpm").value = "";
+        document.getElementById("minimumTeeth").value = "19";
+        document.getElementById("maximumTeeth").value = "40";
+
+        document.getElementById("results").style.display =
+            "none";
+
+        hideError();
+
+        currentResults = [];
+        currentBeltRpm = 0;
+
+        document.getElementById("driveRpm").focus();
+    }
+
+    /*
+        Allow the Enter key to run the calculation.
+    */
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            calculateSprockets();
+        }
+    });
+</script>
+
+</body>
+</html>
