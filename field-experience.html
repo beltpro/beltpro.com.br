@@ -743,6 +743,13 @@ Since 2014
    data-it="Calcolatore Cicli del Nastro">
     Spiral Belting Cycles Calculator
 </a>
+        <a href="/max-allowable-tension-calculator.html"
+   data-en="Maximum Allowable Tension"
+   data-es="Tensión Máxima Admisible"
+   data-pt="Tensão Máxima Admissível"
+   data-it="Tensione Massima Ammissibile">
+    Maximum Allowable Tension
+</a>
          <a href="/cb5-air-pressure-calculator.html"
    data-en="CB5 Air Pressure Calculator"
    data-es="Calculadora de Presión de Aire CB5"
@@ -926,14 +933,18 @@ Since 2014
         });
     }
 
-    // On load, restore the saved language (default: English)
-    document.addEventListener('DOMContentLoaded', function(){
-       document.addEventListener('DOMContentLoaded', function(){
-   var saved = 'en';
-    try { saved = localStorage.getItem('beltpro_lang') || 'en'; } catch(e){}
-    setLanguage(saved);
-});
+  // Restore saved language when the page loads
+document.addEventListener('DOMContentLoaded', function () {
 
+    var saved = 'en';
+
+    try {
+        saved = localStorage.getItem('beltpro_lang') || 'en';
+    } catch(e){}
+
+    setLanguage(saved);
+
+});
 </script>
 
 </body>
