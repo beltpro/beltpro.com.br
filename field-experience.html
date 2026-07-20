@@ -927,10 +927,11 @@ Since 2014
 
     // On load, restore the saved language (default: English)
     document.addEventListener('DOMContentLoaded', function(){
-        var saved = 'en';
-        try { saved = localStorage.getItem('beltpro_lang') || 'en'; } catch(e){}
-        setLanguage(saved);
-    });
+       document.addEventListener('DOMContentLoaded', function(){
+    var saved = 'pt';
+    try { saved = localStorage.getItem('beltpro_lang') || 'pt'; } catch(e){}
+    setLanguage(saved);
+});
 
 </script>
 
