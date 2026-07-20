@@ -1,1 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oven Band Cylinder Force Calculator | BELTPRO</title>
+<link rel="icon" type="image/png" href="favicon.png">
+
+<style>
+  :root {
+    --navy: #1a3660;
+    --navy-dark: #142c50;
+    --accent-blue: #2d7dd2;
+    --accent-green: #2ecc71;
+    --accent-red: #d9534f;
+    --accent-amber: #e6a700;
+    --border: #d7dee6;
+    --bg: #f7f9fb;
+    --text: #2c3e50;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+  }
+
+  .page-header {
+    text-align: center;
+    padding: 30px 20px 10px;
+  }
+
+  .page-header h1 {
+    color: var(--navy);
+    font-size: 29px;
+    margin: 0 0 6px;
+  }
+
+  .page-header p {
+    color: #5a6b7a;
+    margin: 0 auto;
+    max-width: 760px;
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 820px;
+    margin: 20px auto 60px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.05);
+    padding: 30px 40px;
+  }
+
+  .section-title {
+    grid-column: 1 / -1;
+    color: var(--navy);
+    border-bottom: 3px solid var(--accent-blue);
+    padding-bottom: 8px;
+    margin: 22px 0 4px;
+    font-size: 18px;
+  }
+
+  .section-title:first-child { margin-top: 0; }
+
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 24px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .field.full-width { grid-column: 1 / -1; }
+
+  label {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+
+  input, select {
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 14px;
+    color: var(--text);
+    background: #fff;
+  }
+
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 2px rgba(45,125,210,.15);
+  }
+
+  .hint {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #6d7b88;
+    line-height: 1.35;
+  }
+
+  .actions {
+    grid-column: 1 / -1;
+    margin-top: 18px;
+    text-align: center;
+  }
+
+  button {
+    background: var(--navy);
+    color: #fff;
+    border: 0;
+    padding: 12px 38px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button:hover { background: var(--navy-dark); }
+
+  #error-box {
+    grid-column: 1 / -1;
+    display: none;
+    background: #fdecea;
+    border: 1px solid #f5c6cb;
+    color: #a33;
+    padding: 12px 16px;
+    border-radius: 6px;
+  }
+
+  #error-box.show { display: block; }
+
+  #results {
+    grid-column: 1 / -1;
+    display: none;
+    margin-top: 8px;
+  }
+
+  #results.show { display: block; }
+
+  .results-box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--accent-green);
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin-top: 16px;
+  }
+
+  .results-box.warning { border-left-color: var(--accent-amber); }
+  .results-box.danger { border-left-color: var(--accent-red); }
+
+  .results-box h3 {
+    color: var(--navy);
+    margin: 0 0 10px;
+    font-size: 16px;
+  }
+
+  .result-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+  }
+
+  .result-row:last-child { border-bottom: 0; }
+
+  .result-label { color: #5a6b7a; }
+
+  .result-value {
+    font-weight: bold;
+    color: var(--navy);
+    text-align: right;
+  }
+
+  .comparison {
+    margin-top: 14px;
+    padding: 13px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    line-height: 1.45;
+  }
+
+  .comparison.safe {
+    background: #eaf8f0;
+    color: #217a46;
+  }
+
+  .comparison.warning {
+    background: #fff7df;
+    color: #8a6500;
+  }
+
+  .comparison.danger {
+    background: #fdecea;
+    color: #a33;
+  }
+
+  .formula-box {
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    background: #eef4fa;
+    border: 1px solid #cbd9e7;
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #455766;
+  }
+
+  .formula-box strong { color: var(--navy); }
+
+  .note {
+    grid-column: 1 / -1;
+    font-size: 12px;
+    color: #697987;
+    line-height: 1.5;
+    margin-top: 2px;
+  }
+
+  @media (max-width: 640px) {
+    form { grid-template-columns: 1fr; }
+    .container { padding: 24px 20px; margin: 15px 12px 40px; }
+    .result-row { align-items: flex-start; }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="page-header">
+  <h1>Oven Band Cylinder Force Calculator</h1>
+  <p>
+    Calculate the total force applied by pneumatic take-up cylinders and compare it
+    with the maximum allowable oven band tension.
+  </p>
+</div>
+
+<div class="container">
+  <form id="force-form">
+
+    <div class="section-title">Cylinder Data</div>
+
+    <div class="field">
+      <label for="unit_system">Unit System</label>
+      <select id="unit_system">
+        <option value="imperial">Imperial — in, psi, lbf</option>
+        <option value="metric">Metric — mm, bar, N</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="num_cylinders">Number of Cylinders</label>
+      <input type="number" id="num_cylinders" min="1" step="1" value="2" required>
+    </div>
+
+    <div class="field">
+      <label for="bore_diameter" id="bore_label">Cylinder Bore Diameter (in)</label>
+      <input type="number" id="bore_diameter" min="0" step="any" value="6" required>
+    </div>
+
+    <div class="field">
+      <label for="rod_diameter" id="rod_label">Rod Diameter (in)</label>
+      <input type="number" id="rod_diameter" min="0" step="any" value="1.5">
+      <div class="hint">Used only when force is applied during cylinder retraction.</div>
+    </div>
+
+    <div class="field">
+      <label for="pressure" id="pressure_label">Air Pressure (psi)</label>
+      <input type="number" id="pressure" min="0" step="any" value="65" required>
+    </div>
+
+    <div class="field">
+      <label for="stroke_direction">Force Direction</label>
+      <select id="stroke_direction">
+        <option value="extension">Extension — full piston area</option>
+        <option value="retraction">Retraction — piston area minus rod area</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="efficiency">Cylinder Efficiency (%)</label>
+      <input type="number" id="efficiency" min="1" max="100" step="any" value="90" required>
+      <div class="hint">Allows for seal friction and practical losses. Use 100% for theoretical force.</div>
+    </div>
+
+    <div class="field">
+      <label for="mechanical_ratio">Mechanical Ratio</label>
+      <input type="number" id="mechanical_ratio" min="0.0001" step="any" value="1" required>
+      <div class="hint">Use 1.0 for direct acting cylinders. Enter pulley, lever, or linkage multiplier when applicable.</div>
+    </div>
+
+    <div class="section-title">Band Comparison</div>
+
+    <div class="field full-width">
+      <label for="max_band_tension" id="max_tension_label">Band Strength (lbf)</label>
+      <input type="number" id="max_band_tension" min="0" step="any" placeholder="Optional">
+      <div class="hint">Enter the published band strength supplied by the band manufacturer.</div>
+    </div>
+
+    <div class="actions">
+      <button type="submit">Calculate Total Force</button>
+    </div>
+
+    <div id="error-box"></div>
+
+    <div id="results">
+      <div class="results-box" id="main-results-box">
+        <h3>Calculated Cylinder Force</h3>
+
+        <div class="result-row">
+          <span class="result-label">Full Piston Area</span>
+          <span class="result-value" id="res-piston-area">—</span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">Effective Area Per Cylinder</span>
+          <span class="result-value" id="res-effective-area">—</span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">Theoretical Force Per Cylinder</span>
+          <span class="result-value" id="res-theoretical-force">—</span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">Adjusted Force Per Cylinder</span>
+          <span class="result-value" id="res-force-per-cylinder">—</span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">Total Force From All Cylinders</span>
+          <span class="result-value" id="res-total-force">—</span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">Calculated Band Tension</span>
+          <span class="result-value" id="res-band-tension">—</span>
+        </div>
+
+        <div id="comparison-message" class="comparison" style="display:none;"></div>
+      </div>
+    </div>
+
+    <div class="formula-box">
+      <strong>Calculation:</strong><br>
+      Extension area = π × bore² ÷ 4<br>
+      Retraction area = π × (bore² − rod²) ÷ 4<br>
+      Force per cylinder = pressure × effective area × efficiency<br>
+      Total force = force per cylinder × number of cylinders × mechanical ratio<br>
+      Calculated band tension = total cylinder force ÷ 2
+    </div>
+
+    <div class="note">
+      Assumption: The oven band wraps approximately 180° around the take-up drum, creating two
+      tensioned band spans. Therefore, calculated band tension equals one-half of the total cylinder
+      force. Verify any additional pulley, lever, linkage, or mechanical ratio used by the equipment.
+      Confirm the published band strength with the band manufacturer and apply an appropriate safety margin.
+    </div>
+
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById("force-form");
+  const unitSystem = document.getElementById("unit_system");
+  const results = document.getElementById("results");
+  const errorBox = document.getElementById("error-box");
+  const mainResultsBox = document.getElementById("main-results-box");
+
+  const boreLabel = document.getElementById("bore_label");
+  const rodLabel = document.getElementById("rod_label");
+  const pressureLabel = document.getElementById("pressure_label");
+  const maxTensionLabel = document.getElementById("max_tension_label");
+
+  function updateUnitLabels() {
+    const metric = unitSystem.value === "metric";
+
+    boreLabel.textContent = metric
+      ? "Cylinder Bore Diameter (mm)"
+      : "Cylinder Bore Diameter (in)";
+
+    rodLabel.textContent = metric
+      ? "Rod Diameter (mm)"
+      : "Rod Diameter (in)";
+
+    pressureLabel.textContent = metric
+      ? "Air Pressure (bar)"
+      : "Air Pressure (psi)";
+
+    maxTensionLabel.textContent = metric
+      ? "Band Strength (N)"
+      : "Band Strength (lbf)";
+  }
+
+  unitSystem.addEventListener("change", updateUnitLabels);
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    errorBox.classList.remove("show");
+    errorBox.textContent = "";
+    results.classList.remove("show");
+    mainResultsBox.className = "results-box";
+
+    const units = unitSystem.value;
+    const count = Number(document.getElementById("num_cylinders").value);
+    const bore = Number(document.getElementById("bore_diameter").value);
+    const rod = Number(document.getElementById("rod_diameter").value || 0);
+    const pressure = Number(document.getElementById("pressure").value);
+    const direction = document.getElementById("stroke_direction").value;
+    const efficiency = Number(document.getElementById("efficiency").value) / 100;
+    const mechanicalRatio = Number(document.getElementById("mechanical_ratio").value);
+    const maxBandTensionInput = document.getElementById("max_band_tension").value.trim();
+    const maxBandTension = maxBandTensionInput === "" ? null : Number(maxBandTensionInput);
+
+    if (!Number.isFinite(count) || count < 1 || !Number.isInteger(count)) {
+      return showError("Enter a whole number of cylinders greater than zero.");
+    }
+
+    if (!Number.isFinite(bore) || bore <= 0) {
+      return showError("Cylinder bore diameter must be greater than zero.");
+    }
+
+    if (!Number.isFinite(rod) || rod < 0) {
+      return showError("Rod diameter cannot be negative.");
+    }
+
+    if (direction === "retraction" && rod >= bore) {
+      return showError("Rod diameter must be smaller than the cylinder bore diameter.");
+    }
+
+    if (!Number.isFinite(pressure) || pressure < 0) {
+      return showError("Pressure cannot be negative.");
+    }
+
+    if (!Number.isFinite(efficiency) || efficiency <= 0 || efficiency > 1) {
+      return showError("Efficiency must be between 1% and 100%.");
+    }
+
+    if (!Number.isFinite(mechanicalRatio) || mechanicalRatio <= 0) {
+      return showError("Mechanical ratio must be greater than zero.");
+    }
+
+    if (maxBandTension !== null && (!Number.isFinite(maxBandTension) || maxBandTension <= 0)) {
+      return showError("Band strength must be greater than zero.");
+    }
+
+    let pistonArea;
+    let rodArea;
+    let effectiveArea;
+    let theoreticalForce;
+    let adjustedForce;
+    let totalForce;
+    let bandTension;
+    let areaUnit;
+    let forceUnit;
+
+    if (units === "imperial") {
+      pistonArea = Math.PI * Math.pow(bore, 2) / 4;
+      rodArea = Math.PI * Math.pow(rod, 2) / 4;
+      effectiveArea = direction === "extension"
+        ? pistonArea
+        : pistonArea - rodArea;
+
+      theoreticalForce = pressure * effectiveArea;
+      adjustedForce = theoreticalForce * efficiency;
+      totalForce = adjustedForce * count * mechanicalRatio;
+      bandTension = totalForce / 2;
+
+      areaUnit = "in²";
+      forceUnit = "lbf";
+    } else {
+      // Convert mm² to m² and bar to Pa.
+      pistonArea = Math.PI * Math.pow(bore, 2) / 4;
+      rodArea = Math.PI * Math.pow(rod, 2) / 4;
+      effectiveArea = direction === "extension"
+        ? pistonArea
+        : pistonArea - rodArea;
+
+      theoreticalForce = (pressure * 100000) * (effectiveArea / 1000000);
+      adjustedForce = theoreticalForce * efficiency;
+      totalForce = adjustedForce * count * mechanicalRatio;
+      bandTension = totalForce / 2;
+
+      areaUnit = "mm²";
+      forceUnit = "N";
+    }
+
+    document.getElementById("res-piston-area").textContent =
+      formatNumber(pistonArea, 3) + " " + areaUnit;
+
+    document.getElementById("res-effective-area").textContent =
+      formatNumber(effectiveArea, 3) + " " + areaUnit;
+
+    document.getElementById("res-theoretical-force").textContent =
+      formatNumber(theoreticalForce, 1) + " " + forceUnit;
+
+    document.getElementById("res-force-per-cylinder").textContent =
+      formatNumber(adjustedForce, 1) + " " + forceUnit;
+
+    document.getElementById("res-total-force").textContent =
+      formatNumber(totalForce, 1) + " " + forceUnit;
+
+    document.getElementById("res-band-tension").textContent =
+      formatNumber(bandTension, 1) + " " + forceUnit;
+
+    const comparisonMessage = document.getElementById("comparison-message");
+
+    if (maxBandTension !== null) {
+      const utilization = bandTension / maxBandTension * 100;
+      const margin = maxBandTension - bandTension;
+
+      comparisonMessage.style.display = "block";
+
+      if (utilization <= 80) {
+        comparisonMessage.className = "comparison safe";
+        mainResultsBox.classList.add("safe");
+        comparisonMessage.innerHTML =
+          "Calculated band tension is within the entered band strength.<br>" +
+          "Utilization: " + formatNumber(utilization, 1) + "% &nbsp;|&nbsp; " +
+          "Remaining strength margin: " + formatNumber(margin, 1) + " " + forceUnit;
+      } else if (utilization <= 100) {
+        comparisonMessage.className = "comparison warning";
+        mainResultsBox.classList.add("warning");
+        comparisonMessage.innerHTML =
+          "Caution: calculated band tension is close to the entered band strength.<br>" +
+          "Utilization: " + formatNumber(utilization, 1) + "% &nbsp;|&nbsp; " +
+          "Remaining strength margin: " + formatNumber(margin, 1) + " " + forceUnit;
+      } else {
+        comparisonMessage.className = "comparison danger";
+        mainResultsBox.classList.add("danger");
+        comparisonMessage.innerHTML =
+          "Warning: calculated band tension exceeds the entered band strength.<br>" +
+          "Utilization: " + formatNumber(utilization, 1) + "% &nbsp;|&nbsp; " +
+          "Amount above band strength: " + formatNumber(Math.abs(margin), 1) + " " + forceUnit;
+      }
+    } else {
+      comparisonMessage.style.display = "none";
+    }
+
+    results.classList.add("show");
+    results.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+
+  function showError(message) {
+    errorBox.textContent = message;
+    errorBox.classList.add("show");
+  }
+
+  function formatNumber(value, decimals) {
+    return value.toLocaleString(undefined, {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals
+    });
+  }
+
+  updateUnitLabels();
+</script>
+
+</body>
+</html>
 
