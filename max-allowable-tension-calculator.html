@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BELTPRO | Maximum Allowable Tension Calculator</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8fafc;
+            color: #1f2937;
+            line-height: 1.7;
+        }
+
+        .language-bar {
+            background: #111827;
+            border-bottom: 2px solid #38bdf8;
+            padding: 12px 25px;
+            text-align: right;
+        }
+
+        .language-bar button {
+            background: #1e293b;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+            margin-left: 8px;
+            transition: .3s;
+        }
+
+        .language-bar button:hover {
+            background: #334155;
+        }
+
+        .language-bar button.active {
+            background: #38bdf8;
+            color: #000;
+            border-color: #38bdf8;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ffffff, #f1f5f9);
+            text-align: center;
+            padding: 35px 20px;
+            border-bottom: 3px solid #38bdf8;
+        }
+
+        header img {
+            height: 150px;
+            width: auto;
+            margin-bottom: 15px;
+        }
+
+        header h1 {
+            font-size: 38px;
+            color: #0f4c81;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin-top: 8px;
+            color: #475569;
+        }
+
+        .navbar {
+            background: #0f4c81;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            color: #38bdf8;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 720px;
+            margin: auto;
+            padding: 40px 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 0 18px rgba(0, 0, 0, .20);
+        }
+
+        h2 {
+            color: #0f4c81;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .intro {
+            text-align: center;
+            color: #475569;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #0f4c81;
+            font-weight: bold;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background: white;
+            font-size: 16px;
+        }
+
+        select:disabled {
+            background: #e2e8f0;
+            cursor: not-allowed;
+        }
+
+        .find-button {
+            width: 100%;
+            background: #0f4c81;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 14px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .find-button:hover {
+            background: #0b3a61;
+        }
+
+        .find-button:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .status {
+            margin-top: 18px;
+            text-align: center;
+            min-height: 28px;
+            color: #475569;
+        }
+
+        .error {
+            color: #b91c1c;
+            font-weight: bold;
+        }
+
+        .result {
+            display: none;
+            margin-top: 28px;
+            padding: 24px;
+            text-align: center;
+            background: #eff6ff;
+            border: 2px solid #38bdf8;
+            border-radius: 12px;
+        }
+
+        .result h3 {
+            color: #0f4c81;
+            margin-bottom: 10px;
+        }
+
+        .result-value {
+            font-size: 42px;
+            font-weight: bold;
+            color: #0f4c81;
+        }
+
+        .disclaimer {
+            margin-top: 22px;
+            font-size: 13px;
+            color: #64748b;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #0f4c81;
+            color: white;
+        }
+
+        @media(max-width: 700px) {
+            header img {
+                height: 95px;
+            }
+
+            header h1 {
+                font-size: 28px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .language-bar {
+                text-align: center;
+            }
+
+            .language-bar button {
+                margin: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="language-bar">
+    <button type="button" data-lang="en" onclick="setLanguage('en')">🇺🇸 English</button>
+    <button type="button" data-lang="es" onclick="setLanguage('es')">🇪🇸 Español</button>
+    <button type="button" data-lang="pt" onclick="setLanguage('pt')">🇧🇷 Português</button>
+    <button type="button" data-lang="it" onclick="setLanguage('it')">🇮🇹 Italiano</button>
+</div>
+
+<header>
+    <img src="logo.png" alt="BELTPRO Logo">
+
+    <h1
+        data-en="Maximum Allowable Tension Calculator"
+        data-es="Calculadora de Tensión Máxima Admisible"
+        data-pt="Calculadora de Tensão Máxima Admissível"
+        data-it="Calcolatore della Tensione Massima Ammissibile">
+        Maximum Allowable Tension Calculator
+    </h1>
+
+    <p
+        data-en="Select the belt type and pitch to find the maximum allowable spiral tension."
+        data-es="Seleccione el tipo de banda y el paso para encontrar la tensión máxima admisible."
+        data-pt="Selecione o tipo de esteira e o passo para encontrar a tensão máxima admissível."
+        data-it="Seleziona il tipo di nastro e il passo per trovare la tensione massima ammissibile.">
+        Select the belt type and pitch to find the maximum allowable spiral tension.
+    </p>
+</header>
+
+<nav class="navbar">
+    <a href="index.html"
+       data-en="← Back to Home"
+       data-es="← Volver al Inicio"
+       data-pt="← Voltar ao Início"
+       data-it="← Torna alla Home">
+        ← Back to Home
+    </a>
+</nav>
+
+<div class="container">
+    <div class="card">
+
+        <h2
+            data-en="Belt Selection"
+            data-es="Selección de Banda"
+            data-pt="Seleção da Esteira"
+            data-it="Selezione del Nastro">
+            Belt Selection
+        </h2>
+
+        <p class="intro"
+           data-en="The available values are loaded directly from the BELTPRO database."
+           data-es="Los valores disponibles se cargan directamente desde la base de datos de BELTPRO."
+           data-pt="Os valores disponíveis são carregados diretamente do banco de dados da BELTPRO."
+           data-it="I valori disponibili vengono caricati direttamente dal database BELTPRO.">
+            The available values are loaded directly from the BELTPRO database.
+        </p>
+
+        <div class="form-group">
+            <label for="beltType"
+                   data-en="Belt Type"
+                   data-es="Tipo de Banda"
+                   data-pt="Tipo de Esteira"
+                   data-it="Tipo di Nastro">
+                Belt Type
+            </label>
+
+            <select id="beltType">
+                <option value=""
+                        data-en="Loading belt types..."
+                        data-es="Cargando tipos de banda..."
+                        data-pt="Carregando tipos de esteira..."
+                        data-it="Caricamento tipi di nastro...">
+                    Loading belt types...
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="pitch"
+                   data-en="Pitch (inches)"
+                   data-es="Paso (pulgadas)"
+                   data-pt="Passo (polegadas)"
+                   data-it="Passo (pollici)">
+                Pitch (inches)
+            </label>
+
+            <select id="pitch" disabled>
+                <option value=""
+                        data-en="Select a belt type first"
+                        data-es="Seleccione primero un tipo de banda"
+                        data-pt="Selecione primeiro um tipo de esteira"
+                        data-it="Seleziona prima un tipo di nastro">
+                    Select a belt type first
+                </option>
+            </select>
+        </div>
+
+        <button id="findButton" class="find-button" type="button" disabled
+                data-en="Find Maximum Tension"
+                data-es="Buscar Tensión Máxima"
+                data-pt="Encontrar Tensão Máxima"
+                data-it="Trova Tensione Massima">
+            Find Maximum Tension
+        </button>
+
+        <div id="status" class="status"></div>
+
+        <div id="result" class="result">
+            <h3
+                data-en="Maximum Allowable Tension"
+                data-es="Tensión Máxima Admisible"
+                data-pt="Tensão Máxima Admissível"
+                data-it="Tensione Massima Ammissibile">
+                Maximum Allowable Tension
+            </h3>
+
+            <div id="resultValue" class="result-value">—</div>
+        </div>
+
+        <p class="disclaimer"
+           data-en="Values are engineering reference limits for the listed belt type and pitch. Confirm the final application with the applicable belt specification."
+           data-es="Los valores son límites de referencia de ingeniería para el tipo de banda y paso indicados. Confirme la aplicación final con la especificación correspondiente."
+           data-pt="Os valores são limites de referência de engenharia para o tipo de esteira e passo indicados. Confirme a aplicação final com a especificação correspondente."
+           data-it="I valori sono limiti di riferimento ingegneristici per il tipo di nastro e il passo indicati. Confermare l'applicazione finale con la specifica pertinente.">
+            Values are engineering reference limits for the listed belt type and pitch. Confirm the final application with the applicable belt specification.
+        </p>
+
+    </div>
+</div>
+
+<footer>
+    <strong>BELTPRO</strong><br>
+    Spiral Conveyor &amp; Industrial Oven Specialists
+</footer>
+
+<script>
+    const API_BASE = "https://spiral-tension-api.onrender.com";
+
+    const beltTypeSelect = document.getElementById("beltType");
+    const pitchSelect = document.getElementById("pitch");
+    const findButton = document.getElementById("findButton");
+    const statusBox = document.getElementById("status");
+    const resultBox = document.getElementById("result");
+    const resultValue = document.getElementById("resultValue");
+
+    function currentLanguage() {
+        try {
+            return localStorage.getItem("beltpro_lang") || "en";
+        } catch (error) {
+            return "en";
+        }
+    }
+
+    function message(key) {
+        const translations = {
+            loadingBelts: {
+                en: "Loading belt types...",
+                es: "Cargando tipos de banda...",
+                pt: "Carregando tipos de esteira...",
+                it: "Caricamento tipi di nastro..."
+            },
+            loadingPitches: {
+                en: "Loading pitches...",
+                es: "Cargando pasos...",
+                pt: "Carregando passos...",
+                it: "Caricamento passi..."
+            },
+            chooseBelt: {
+                en: "Select a belt type",
+                es: "Seleccione un tipo de banda",
+                pt: "Selecione um tipo de esteira",
+                it: "Seleziona un tipo di nastro"
+            },
+            choosePitch: {
+                en: "Select a pitch",
+                es: "Seleccione un paso",
+                pt: "Selecione um passo",
+                it: "Seleziona un passo"
+            },
+            unavailable: {
+                en: "The calculator is temporarily unavailable. Please try again.",
+                es: "La calculadora no está disponible temporalmente. Inténtelo de nuevo.",
+                pt: "A calculadora está temporariamente indisponível. Tente novamente.",
+                it: "Il calcolatore è temporaneamente non disponibile. Riprova."
+            }
+        };
+
+        const lang = currentLanguage();
+        return translations[key][lang] || translations[key].en;
+    }
+
+    function setStatus(text, isError = false) {
+        statusBox.textContent = text;
+        statusBox.classList.toggle("error", isError);
+    }
+
+    async function loadBeltTypes() {
+        setStatus(message("loadingBelts"));
+        beltTypeSelect.disabled = true;
+
+        try {
+            const response = await fetch(`${API_BASE}/belt-types`);
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || "Unable to load belt types.");
+            }
+
+            beltTypeSelect.innerHTML = `<option value="">${message("chooseBelt")}</option>`;
+
+            data.forEach(function (beltType) {
+                const option = document.createElement("option");
+                option.value = beltType;
+                option.textContent = beltType;
+                beltTypeSelect.appendChild(option);
+            });
+
+            beltTypeSelect.disabled = false;
+            setStatus("");
+        } catch (error) {
+            beltTypeSelect.innerHTML = `<option value="">${message("unavailable")}</option>`;
+            setStatus(message("unavailable"), true);
+        }
+    }
+
+    async function loadPitches() {
+        const beltType = beltTypeSelect.value;
+
+        resultBox.style.display = "none";
+        findButton.disabled = true;
+
+        if (!beltType) {
+            pitchSelect.disabled = true;
+            pitchSelect.innerHTML = `<option value="">${message("choosePitch")}</option>`;
+            return;
+        }
+
+        setStatus(message("loadingPitches"));
+        pitchSelect.disabled = true;
+        pitchSelect.innerHTML = `<option value="">${message("loadingPitches")}</option>`;
+
+        try {
+            const response = await fetch(
+                `${API_BASE}/pitches?belt_type=${encodeURIComponent(beltType)}`
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || "Unable to load pitches.");
+            }
+
+            pitchSelect.innerHTML = `<option value="">${message("choosePitch")}</option>`;
+
+            data.forEach(function (pitch) {
+                const option = document.createElement("option");
+                option.value = pitch;
+                option.textContent = Number(pitch).toFixed(2) + '"';
+                pitchSelect.appendChild(option);
+            });
+
+            pitchSelect.disabled = false;
+            setStatus("");
+        } catch (error) {
+            pitchSelect.innerHTML = `<option value="">${message("unavailable")}</option>`;
+            setStatus(message("unavailable"), true);
+        }
+    }
+
+    async function findMaximumTension() {
+        const beltType = beltTypeSelect.value;
+        const pitch = pitchSelect.value;
+
+        if (!beltType || !pitch) {
+            return;
+        }
+
+        findButton.disabled = true;
+        resultBox.style.display = "none";
+        setStatus("...");
+
+        try {
+            const response = await fetch(
+                `${API_BASE}/max-tension?belt_type=${encodeURIComponent(beltType)}&pitch=${encodeURIComponent(pitch)}`
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || "Unable to find the allowable tension.");
+            }
+
+            resultValue.textContent =
+                `${data.maximum_allowable_tension} ${data.unit}`;
+
+            resultBox.style.display = "block";
+            setStatus("");
+        } catch (error) {
+            setStatus(message("unavailable"), true);
+        } finally {
+            findButton.disabled = false;
+        }
+    }
+
+    beltTypeSelect.addEventListener("change", loadPitches);
+
+    pitchSelect.addEventListener("change", function () {
+        findButton.disabled = !pitchSelect.value;
+        resultBox.style.display = "none";
+    });
+
+    findButton.addEventListener("click", findMaximumTension);
+
+    function setLanguage(lang) {
+        document.querySelectorAll("[data-" + lang + "]").forEach(function (element) {
+            element.innerHTML = element.getAttribute("data-" + lang);
+        });
+
+        document.documentElement.setAttribute("lang", lang);
+
+        try {
+            localStorage.setItem("beltpro_lang", lang);
+        } catch (error) {}
+
+        document.querySelectorAll(".language-bar button").forEach(function (button) {
+            button.classList.toggle(
+                "active",
+                button.getAttribute("data-lang") === lang
+            );
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const savedLanguage = currentLanguage();
+        setLanguage(savedLanguage);
+        loadBeltTypes();
+    });
+</script>
+
+</body>
+</html>
