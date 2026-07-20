@@ -278,8 +278,15 @@
     </div>
 
     <div class="field">
-      <label for="pressure" id="pressure_label">Air Pressure (psi)</label>
-      <input type="number" id="pressure" min="0" step="any" value="65" required>
+      <label for="pressure">Air Pressure</label>
+      <div class="input-with-unit">
+        <input type="number" id="pressure" min="0" step="any" placeholder="Enter pressure">
+        <select id="pressure_unit" aria-label="Pressure unit">
+          <option value="bar" selected>bar</option>
+          <option value="psi">psi</option>
+        </select>
+      </div>
+      <div class="hint">Bar is the default pressure unit. Select psi when required.</div>
     </div>
 
     <div class="field">
@@ -360,7 +367,7 @@
       Retraction area = π × (bore² − rod²) ÷ 4<br>
       Force per cylinder = pressure × effective area × efficiency<br>
       Total force = force per cylinder × number of cylinders × mechanical ratio<br>
-      Calculated band tension = total cylinder force ÷ 2
+      Calculated band tension = total cylinder force ÷ 2. Pressure may be entered in bar or psi.
     </div>
 
     <div class="note">
@@ -373,6 +380,7 @@
   </form>
 </div>
 
+
 <script>
   const form = document.getElementById("force-form");
   const unitSystem = document.getElementById("unit_system");
@@ -382,8 +390,11 @@
 
   const boreLabel = document.getElementById("bore_label");
   const rodLabel = document.getElementById("rod_label");
-  const pressureLabel = document.getElementById("pressure_label");
   const maxTensionLabel = document.getElementById("max_tension_label");
+
+  const BAR_TO_PSI = 14.5037738;
+  const LBF_TO_N = 4.4482216153;
+  const IN2_TO_MM2 = 645.16;
 
   function updateUnitLabels() {
     const metric = unitSystem.value === "metric";
@@ -396,13 +407,32 @@
       ? "Rod Diameter (mm)"
       : "Rod Diameter (in)";
 
-    pressureLabel.textContent = metric
-      ? "Air Pressure (bar)"
-      : "Air Pressure (psi)";
-
     maxTensionLabel.textContent = metric
       ? "Band Strength (N)"
       : "Band Strength (lbf)";
+  }
+
+  function formatNumber(value, decimals = 1) {
+    return Number(value).toLocaleString(undefined, {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals
+    });
+  }
+
+  function dualForceFromNewtons(forceN) {
+    const forceLbf = forceN / LBF_TO_N;
+    return `${formatNumber(forceN, 1)} N<br><span class="secondary-unit">${formatNumber(forceLbf, 1)} lbf</span>`;
+  }
+
+  function dualArea(areaMm2) {
+    const areaIn2 = areaMm2 / IN2_TO_MM2;
+    return `${formatNumber(areaMm2, 1)} mm²<br><span class="secondary-unit">${formatNumber(areaIn2, 3)} in²</span>`;
+  }
+
+  function showError(message) {
+    errorBox.textContent = message;
+    errorBox.classList.add("show");
+    results.classList.remove("show");
   }
 
   unitSystem.addEventListener("change", updateUnitLabels);
@@ -417,32 +447,33 @@
 
     const units = unitSystem.value;
     const count = Number(document.getElementById("num_cylinders").value);
-    const bore = Number(document.getElementById("bore_diameter").value);
-    const rod = Number(document.getElementById("rod_diameter").value || 0);
-    const pressure = Number(document.getElementById("pressure").value);
+    const boreInput = Number(document.getElementById("bore_diameter").value);
+    const rodInput = Number(document.getElementById("rod_diameter").value || 0);
+    const pressureInput = Number(document.getElementById("pressure").value);
+    const pressureUnit = document.getElementById("pressure_unit").value;
     const direction = document.getElementById("stroke_direction").value;
     const efficiency = Number(document.getElementById("efficiency").value) / 100;
     const mechanicalRatio = Number(document.getElementById("mechanical_ratio").value);
-    const maxBandTensionInput = document.getElementById("max_band_tension").value.trim();
-    const maxBandTension = maxBandTensionInput === "" ? null : Number(maxBandTensionInput);
+    const bandStrengthInput = document.getElementById("max_band_tension").value.trim();
+    const bandStrengthEntered = bandStrengthInput === "" ? null : Number(bandStrengthInput);
 
     if (!Number.isFinite(count) || count < 1 || !Number.isInteger(count)) {
       return showError("Enter a whole number of cylinders greater than zero.");
     }
 
-    if (!Number.isFinite(bore) || bore <= 0) {
+    if (!Number.isFinite(boreInput) || boreInput <= 0) {
       return showError("Cylinder bore diameter must be greater than zero.");
     }
 
-    if (!Number.isFinite(rod) || rod < 0) {
+    if (!Number.isFinite(rodInput) || rodInput < 0) {
       return showError("Rod diameter cannot be negative.");
     }
 
-    if (direction === "retraction" && rod >= bore) {
+    if (direction === "retraction" && rodInput >= boreInput) {
       return showError("Rod diameter must be smaller than the cylinder bore diameter.");
     }
 
-    if (!Number.isFinite(pressure) || pressure < 0) {
+    if (!Number.isFinite(pressureInput) || pressureInput < 0) {
       return showError("Pressure cannot be negative.");
     }
 
@@ -454,122 +485,98 @@
       return showError("Mechanical ratio must be greater than zero.");
     }
 
-    if (maxBandTension !== null && (!Number.isFinite(maxBandTension) || maxBandTension <= 0)) {
+    if (
+      bandStrengthEntered !== null &&
+      (!Number.isFinite(bandStrengthEntered) || bandStrengthEntered <= 0)
+    ) {
       return showError("Band strength must be greater than zero.");
     }
 
-    let pistonArea;
-    let rodArea;
-    let effectiveArea;
-    let theoreticalForce;
-    let adjustedForce;
-    let totalForce;
-    let bandTension;
-    let areaUnit;
-    let forceUnit;
+    // Convert all geometry to millimetres and pressure to pascals.
+    const boreMm = units === "metric" ? boreInput : boreInput * 25.4;
+    const rodMm = units === "metric" ? rodInput : rodInput * 25.4;
+    const pressureBar = pressureUnit === "bar"
+      ? pressureInput
+      : pressureInput / BAR_TO_PSI;
+    const pressurePa = pressureBar * 100000;
 
-    if (units === "imperial") {
-      pistonArea = Math.PI * Math.pow(bore, 2) / 4;
-      rodArea = Math.PI * Math.pow(rod, 2) / 4;
-      effectiveArea = direction === "extension"
-        ? pistonArea
-        : pistonArea - rodArea;
+    const pistonAreaMm2 = Math.PI * Math.pow(boreMm, 2) / 4;
+    const rodAreaMm2 = Math.PI * Math.pow(rodMm, 2) / 4;
+    const effectiveAreaMm2 = direction === "extension"
+      ? pistonAreaMm2
+      : pistonAreaMm2 - rodAreaMm2;
 
-      theoreticalForce = pressure * effectiveArea;
-      adjustedForce = theoreticalForce * efficiency;
-      totalForce = adjustedForce * count * mechanicalRatio;
-      bandTension = totalForce / 2;
+    const theoreticalForceN = pressurePa * (effectiveAreaMm2 / 1000000);
+    const adjustedForceN = theoreticalForceN * efficiency;
+    const totalForceN = adjustedForceN * count * mechanicalRatio;
+    const bandTensionN = totalForceN / 2;
 
-      areaUnit = "in²";
-      forceUnit = "lbf";
-    } else {
-      // Convert mm² to m² and bar to Pa.
-      pistonArea = Math.PI * Math.pow(bore, 2) / 4;
-      rodArea = Math.PI * Math.pow(rod, 2) / 4;
-      effectiveArea = direction === "extension"
-        ? pistonArea
-        : pistonArea - rodArea;
+    document.getElementById("res-piston-area").innerHTML =
+      dualArea(pistonAreaMm2);
 
-      theoreticalForce = (pressure * 100000) * (effectiveArea / 1000000);
-      adjustedForce = theoreticalForce * efficiency;
-      totalForce = adjustedForce * count * mechanicalRatio;
-      bandTension = totalForce / 2;
+    document.getElementById("res-effective-area").innerHTML =
+      dualArea(effectiveAreaMm2);
 
-      areaUnit = "mm²";
-      forceUnit = "N";
-    }
+    document.getElementById("res-theoretical-force").innerHTML =
+      dualForceFromNewtons(theoreticalForceN);
 
-    document.getElementById("res-piston-area").textContent =
-      formatNumber(pistonArea, 3) + " " + areaUnit;
+    document.getElementById("res-force-per-cylinder").innerHTML =
+      dualForceFromNewtons(adjustedForceN);
 
-    document.getElementById("res-effective-area").textContent =
-      formatNumber(effectiveArea, 3) + " " + areaUnit;
+    document.getElementById("res-total-force").innerHTML =
+      dualForceFromNewtons(totalForceN);
 
-    document.getElementById("res-theoretical-force").textContent =
-      formatNumber(theoreticalForce, 1) + " " + forceUnit;
-
-    document.getElementById("res-force-per-cylinder").textContent =
-      formatNumber(adjustedForce, 1) + " " + forceUnit;
-
-    document.getElementById("res-total-force").textContent =
-      formatNumber(totalForce, 1) + " " + forceUnit;
-
-    document.getElementById("res-band-tension").textContent =
-      formatNumber(bandTension, 1) + " " + forceUnit;
+    document.getElementById("res-band-tension").innerHTML =
+      dualForceFromNewtons(bandTensionN);
 
     const comparisonMessage = document.getElementById("comparison-message");
+    comparisonMessage.style.display = "none";
 
-    if (maxBandTension !== null) {
-      const utilization = bandTension / maxBandTension * 100;
-      const margin = maxBandTension - bandTension;
+    if (bandStrengthEntered !== null) {
+      const bandStrengthN = units === "metric"
+        ? bandStrengthEntered
+        : bandStrengthEntered * LBF_TO_N;
+
+      const utilization = bandTensionN / bandStrengthN * 100;
+      const marginN = bandStrengthN - bandTensionN;
+      const marginLbf = marginN / LBF_TO_N;
 
       comparisonMessage.style.display = "block";
+
+      const marginText = marginN >= 0
+        ? `Remaining strength margin: ${formatNumber(marginN, 1)} N / ${formatNumber(marginLbf, 1)} lbf`
+        : `Amount above band strength: ${formatNumber(Math.abs(marginN), 1)} N / ${formatNumber(Math.abs(marginLbf), 1)} lbf`;
 
       if (utilization <= 80) {
         comparisonMessage.className = "comparison safe";
         mainResultsBox.classList.add("safe");
         comparisonMessage.innerHTML =
           "Calculated band tension is within the entered band strength.<br>" +
-          "Utilization: " + formatNumber(utilization, 1) + "% &nbsp;|&nbsp; " +
-          "Remaining strength margin: " + formatNumber(margin, 1) + " " + forceUnit;
+          "Band strength utilization: " + formatNumber(utilization, 1) + "%<br>" +
+          marginText;
       } else if (utilization <= 100) {
         comparisonMessage.className = "comparison warning";
         mainResultsBox.classList.add("warning");
         comparisonMessage.innerHTML =
           "Caution: calculated band tension is close to the entered band strength.<br>" +
-          "Utilization: " + formatNumber(utilization, 1) + "% &nbsp;|&nbsp; " +
-          "Remaining strength margin: " + formatNumber(margin, 1) + " " + forceUnit;
+          "Band strength utilization: " + formatNumber(utilization, 1) + "%<br>" +
+          marginText;
       } else {
         comparisonMessage.className = "comparison danger";
         mainResultsBox.classList.add("danger");
         comparisonMessage.innerHTML =
           "Warning: calculated band tension exceeds the entered band strength.<br>" +
-          "Utilization: " + formatNumber(utilization, 1) + "% &nbsp;|&nbsp; " +
-          "Amount above band strength: " + formatNumber(Math.abs(margin), 1) + " " + forceUnit;
+          "Band strength utilization: " + formatNumber(utilization, 1) + "%<br>" +
+          marginText;
       }
-    } else {
-      comparisonMessage.style.display = "none";
     }
 
     results.classList.add("show");
-    results.scrollIntoView({ behavior: "smooth", block: "nearest" });
   });
-
-  function showError(message) {
-    errorBox.textContent = message;
-    errorBox.classList.add("show");
-  }
-
-  function formatNumber(value, decimals) {
-    return value.toLocaleString(undefined, {
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals
-    });
-  }
 
   updateUnitLabels();
 </script>
 
+
 </body>
 </html>
-
