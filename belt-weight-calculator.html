@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BELTPRO | Belt Weight Calculator</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8fafc;
+            color: #1f2937;
+            line-height: 1.5;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ffffff, #eef4f8);
+            border-bottom: 3px solid #38bdf8;
+            text-align: center;
+            padding: 28px 20px;
+        }
+
+        header img {
+            width: min(330px, 75vw);
+            height: auto;
+        }
+
+        header h1 {
+            margin: 15px 0 5px;
+            color: #0f4c81;
+            font-size: 34px;
+        }
+
+        header p {
+            margin: 0;
+            color: #475569;
+        }
+
+        .navbar {
+            background: #0f4c81;
+            padding: 14px 20px;
+            text-align: center;
+        }
+
+        .navbar a {
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            margin: 0 12px;
+        }
+
+        .navbar a:hover { color: #38bdf8; }
+
+        .container {
+            width: min(1100px, 92%);
+            margin: 30px auto;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 8px 28px rgba(15, 76, 129, 0.14);
+            padding: 28px;
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #0f4c81;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .field.full { grid-column: 1 / -1; }
+
+        label {
+            font-weight: bold;
+            color: #334155;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #fff;
+        }
+
+        input:focus, select:focus {
+            outline: 3px solid rgba(56, 189, 248, 0.22);
+            border-color: #38bdf8;
+        }
+
+        .hint {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .button-row {
+            margin-top: 22px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 22px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .primary {
+            background: #0f4c81;
+            color: #fff;
+        }
+
+        .primary:hover { background: #0b3a61; }
+
+        .secondary {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .error {
+            display: none;
+            margin-top: 18px;
+            padding: 12px;
+            border-left: 4px solid #dc2626;
+            background: #fef2f2;
+            color: #991b1b;
+            border-radius: 6px;
+        }
+
+        .results {
+            display: none;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .result-box {
+            padding: 18px;
+            border-radius: 10px;
+            background: #f1f5f9;
+            border: 1px solid #dbe5ee;
+        }
+
+        .result-box.highlight {
+            background: #e8f7ff;
+            border-color: #38bdf8;
+        }
+
+        .result-box.total {
+            background: #ecfdf5;
+            border-color: #22c55e;
+        }
+
+        .result-label {
+            color: #475569;
+            font-size: 14px;
+        }
+
+        .result-value {
+            margin-top: 5px;
+            color: #0f4c81;
+            font-weight: bold;
+            font-size: 23px;
+        }
+
+        .calculation-note {
+            margin-top: 18px;
+            padding: 13px;
+            background: #fff7ed;
+            border-left: 4px solid #f59e0b;
+            border-radius: 6px;
+            color: #7c2d12;
+            font-size: 14px;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            padding: 25px;
+            background: #0f4c81;
+            color: #fff;
+        }
+
+        @media (max-width: 760px) {
+            header h1 { font-size: 27px; }
+
+            .grid, .result-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card { padding: 20px; }
+
+            .navbar a {
+                display: inline-block;
+                margin: 5px 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <img src="logo.png" alt="BELTPRO Logo">
+    <h1>Belt Weight & Packing Calculator</h1>
+    <p>Estimate belt weight, packing boxes and gross shipping weight.</p>
+</header>
+
+<nav class="navbar">
+    <a href="index.html">Home</a>
+    <a href="index.html#calculators">Calculators</a>
+    <a href="index.html#contact">Contact</a>
+</nav>
+
+<main class="container">
+    <section class="card">
+        <h2>Belt Information</h2>
+
+        <div class="grid">
+            <div class="field full">
+                <label for="beltType">Belt type</label>
+                <select id="beltType">
+                    <option value="">Select a belt</option>
+                    <option value="ofe1">Omni-Flex E1</option>
+                    <option value="ofe2">Omni-Flex E2</option>
+                    <option value="og075">Omni-Grid — 3/4 in pitch</option>
+                    <option value="og100">Omni-Grid — 1 in pitch</option>
+                    <option value="og120">Omni-Grid — 1.2 in pitch</option>
+                    <option value="og150">Omni-Grid 360 Weld — 1.5 in pitch</option>
+                    <option value="srog075">Small Radius Omni-Grid — 3/4 in pitch</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="width">Overall belt width</label>
+                <input id="width" type="number" min="1" step="0.01" placeholder="Example: 36">
+                <span class="hint">Enter width in inches.</span>
+            </div>
+
+            <div class="field">
+                <label for="length">Total belt length</label>
+                <input id="length" type="number" min="0.1" step="0.1" placeholder="Example: 500">
+                <span class="hint">Enter length in feet.</span>
+            </div>
+
+            <div class="field full" id="meshField">
+                <label for="mesh">Mesh overlay</label>
+                <select id="mesh">
+                    <option value="none">No mesh</option>
+                </select>
+            </div>
+
+            <div class="field full" id="centerLinkField" style="display:none;">
+                <label for="centerLink">Center-link coverage width</label>
+                <input id="centerLink" type="number" min="0" step="0.25" value="0">
+                <span class="hint">Inches of center-link area. Leave at zero when no center link is used.</span>
+            </div>
+        </div>
+
+        <div class="button-row">
+            <button class="primary" type="button" onclick="calculate()">Calculate</button>
+            <button class="secondary" type="button" onclick="resetCalculator()">Clear</button>
+        </div>
+
+        <div id="error" class="error"></div>
+    </section>
+
+    <section id="results" class="card results">
+        <h2>Calculated Results</h2>
+
+        <div class="result-grid">
+            <div class="result-box">
+                <div class="result-label">Belt weight per foot</div>
+                <div id="lbft" class="result-value">—</div>
+            </div>
+
+            <div class="result-box">
+                <div class="result-label">Belt weight per meter</div>
+                <div id="kgm" class="result-value">—</div>
+            </div>
+
+            <div class="result-box highlight">
+                <div class="result-label">Total net belt weight</div>
+                <div id="netWeight" class="result-value">—</div>
+            </div>
+
+            <div class="result-box">
+                <div class="result-label">Estimated packing boxes</div>
+                <div id="boxQty" class="result-value">—</div>
+            </div>
+
+            <div class="result-box">
+                <div class="result-label">Estimated total box weight</div>
+                <div id="boxWeight" class="result-value">—</div>
+            </div>
+
+            <div class="result-box total">
+                <div class="result-label">Estimated gross shipping weight</div>
+                <div id="grossWeight" class="result-value">—</div>
+            </div>
+        </div>
+
+        <div id="packingDetail" class="calculation-note"></div>
+    </section>
+
+    <section class="card">
+        <h2>Important</h2>
+        <p>
+            Belt weights are engineering estimates based on the selected construction,
+            belt width and mesh. Packing results are preliminary estimates for quotation
+            and freight planning. Final box construction and shipping weight should be
+            confirmed before dispatch.
+        </p>
+    </section>
+</main>
+
+<footer>
+    <strong>BELTPRO</strong><br>
+    Spiral Conveyor & Industrial Oven Specialists
+</footer>
+
+<script>
+    const LBFT_TO_KGM = 1.48816394;
+    const LB_TO_KG = 0.45359237;
+
+    /*
+      Estimated standard packing assumptions.
+      These can be changed later in one place.
+    */
+    const PACKING = {
+        maximumBeltLengthPerBoxFt: 100,
+        maximumNetBeltWeightPerBoxLb: 1000,
+        minimumBoxTareLb: 45,
+        plywoodWeightLbFt2: 2.85,
+        clearanceIn: 6
+    };
+
+    const mesh075 = {
+        "none": { label: "No mesh", meshLbFt2: 0, allowance: 0 },
+        "12-16-17": { label: "12-16-17", meshLbFt2: 0.34, allowance: 0.03 },
+        "12-16-16": { label: "12-16-16", meshLbFt2: 0.45, allowance: 0.032 },
+        "18-16-17": { label: "18-16-17", meshLbFt2: 0.48, allowance: 0.03 },
+        "18-16-16": { label: "18-16-16", meshLbFt2: 0.65, allowance: 0.032 },
+        "24-16-17": { label: "24-16-17", meshLbFt2: 0.63, allowance: 0.03 },
+        "24-16-16": { label: "24-16-16", meshLbFt2: 0.85, allowance: 0.032 },
+        "30-16-17": { label: "30-16-17", meshLbFt2: 0.78, allowance: 0.03 },
+        "30-16-16": { label: "30-16-16", meshLbFt2: 1.05, allowance: 0.032 },
+        "36-16-17": { label: "36-16-17", meshLbFt2: 0.93, allowance: 0.03 },
+        "36-16-16": { label: "36-16-16", meshLbFt2: 1.26, allowance: 0.032 },
+        "42-16-17": { label: "42-16-17", meshLbFt2: 1.08, allowance: 0.03 },
+        "42-16-16": { label: "42-16-16", meshLbFt2: 1.47, allowance: 0.032 },
+        "48-16-17": { label: "48-16-17", meshLbFt2: 1.24, allowance: 0.03 },
+        "48-16-16": { label: "48-16-16", meshLbFt2: 1.67, allowance: 0.032 },
+        "54-16-17": { label: "54-16-17", meshLbFt2: 1.39, allowance: 0.03 },
+        "54-16-16": { label: "54-16-16", meshLbFt2: 1.88, allowance: 0.032 },
+        "60-16-17": { label: "60-16-17", meshLbFt2: 1.54, allowance: 0.03 },
+        "60-16-16": { label: "60-16-16", meshLbFt2: 2.09, allowance: 0.032 }
+    };
+
+    const mesh100 = {
+        "none": { label: "No mesh", meshLbFt2: 0, allowance: 0 },
+        "12-12-17": { label: "12-12-17", meshLbFt2: 0.31, allowance: 0.02 },
+        "12-12-16": { label: "12-12-16", meshLbFt2: 0.39, allowance: 0.028 },
+        "18-12-17": { label: "18-12-17", meshLbFt2: 0.46, allowance: 0.02 },
+        "18-12-16": { label: "18-12-16", meshLbFt2: 0.57, allowance: 0.028 },
+        "24-12-17": { label: "24-12-17", meshLbFt2: 0.60, allowance: 0.02 },
+        "24-12-16": { label: "24-12-16", meshLbFt2: 0.76, allowance: 0.028 },
+        "30-12-17": { label: "30-12-17", meshLbFt2: 0.75, allowance: 0.02 },
+        "30-12-16": { label: "30-12-16", meshLbFt2: 0.94, allowance: 0.028 },
+        "36-12-17": { label: "36-12-17", meshLbFt2: 0.90, allowance: 0.02 },
+        "36-12-16": { label: "36-12-16", meshLbFt2: 1.12, allowance: 0.028 },
+        "42-12-17": { label: "42-12-17", meshLbFt2: 1.05, allowance: 0.02 },
+        "42-12-16": { label: "42-12-16", meshLbFt2: 1.31, allowance: 0.028 },
+        "48-12-17": { label: "48-12-17", meshLbFt2: 1.20, allowance: 0.02 },
+        "48-12-16": { label: "48-12-16", meshLbFt2: 1.49, allowance: 0.028 },
+        "54-12-17": { label: "54-12-17", meshLbFt2: 1.34, allowance: 0.02 },
+        "54-12-16": { label: "54-12-16", meshLbFt2: 1.68, allowance: 0.028 },
+        "60-12-17": { label: "60-12-17", meshLbFt2: 1.49, allowance: 0.02 },
+        "60-12-16": { label: "60-12-16", meshLbFt2: 1.87, allowance: 0.028 }
+    };
+
+    const mesh120 = {
+        "none": { label: "No mesh", meshLbFt2: 0, allowance: 0 },
+        "18-10-17": { label: "18-10-17", meshLbFt2: 0.42, allowance: 0.02 },
+        "18-10-16": { label: "18-10-16", meshLbFt2: 0.57, allowance: 0.02 },
+        "24-10-17": { label: "24-10-17", meshLbFt2: 0.56, allowance: 0.02 },
+        "24-10-16": { label: "24-10-16", meshLbFt2: 0.75, allowance: 0.02 },
+        "30-10-17": { label: "30-10-17", meshLbFt2: 0.69, allowance: 0.02 },
+        "30-10-16": { label: "30-10-16", meshLbFt2: 0.93, allowance: 0.02 },
+        "36-10-17": { label: "36-10-17", meshLbFt2: 0.83, allowance: 0.02 },
+        "36-10-16": { label: "36-10-16", meshLbFt2: 1.12, allowance: 0.02 },
+        "42-10-17": { label: "42-10-17", meshLbFt2: 0.97, allowance: 0.02 },
+        "42-10-16": { label: "42-10-16", meshLbFt2: 1.30, allowance: 0.02 },
+        "48-10-17": { label: "48-10-17", meshLbFt2: 1.10, allowance: 0.02 },
+        "48-10-16": { label: "48-10-16", meshLbFt2: 1.49, allowance: 0.02 },
+        "54-10-17": { label: "54-10-17", meshLbFt2: 1.24, allowance: 0.02 },
+        "54-10-16": { label: "54-10-16", meshLbFt2: 1.67, allowance: 0.02 },
+        "60-10-17": { label: "60-10-17", meshLbFt2: 1.38, allowance: 0.02 },
+        "60-10-16": { label: "60-10-16", meshLbFt2: 1.86, allowance: 0.02 }
+    };
+
+    const mesh150 = {
+        "none": { label: "No mesh", meshLbFt2: 0, allowance: 0 },
+        "18-8-16": { label: "18-8-16", meshLbFt2: 0.53, allowance: 0 },
+        "24-8-16": { label: "24-8-16", meshLbFt2: 0.69, allowance: 0 },
+        "30-8-16": { label: "30-8-16", meshLbFt2: 0.86, allowance: 0 },
+        "36-8-16": { label: "36-8-16", meshLbFt2: 1.03, allowance: 0 },
+        "36-8-17": { label: "36-8-17", meshLbFt2: 0.78, allowance: 0 },
+        "42-8-16": { label: "42-8-16", meshLbFt2: 1.20, allowance: 0 },
+        "42-8-17": { label: "42-8-17", meshLbFt2: 0.91, allowance: 0 },
+        "48-8-16": { label: "48-8-16", meshLbFt2: 1.37, allowance: 0 },
+        "48-8-17": { label: "48-8-17", meshLbFt2: 1.03, allowance: 0 },
+        "54-8-16": { label: "54-8-16", meshLbFt2: 1.54, allowance: 0 },
+        "54-8-17": { label: "54-8-17", meshLbFt2: 1.16, allowance: 0 }
+    };
+
+    const og150BaseTable = [
+        [12, 2.30], [14, 2.49], [16, 2.69], [18, 2.88], [20, 3.08],
+        [22, 3.28], [24, 3.47], [26, 3.67], [28, 3.86], [30, 4.06],
+        [32, 4.26], [34, 4.45], [36, 4.65], [38, 4.84], [40, 5.04],
+        [42, 5.24], [44, 5.43], [46, 5.63], [48, 5.82], [50, 6.02],
+        [52, 6.22], [54, 6.41], [56, 6.61], [58, 6.80], [60, 7.00]
+    ];
+
+    const beltDefinitions = {
+        ofe1: {
+            mesh: null,
+            calculate: width => (((width - 0.97) / 12) * 3.10) + 0.04
+        },
+        ofe2: {
+            mesh: null,
+            calculate: width => (((width - 0.97) / 12) * 3.35) + 0.04
+        },
+        og075: {
+            mesh: mesh075,
+            calculate: (width, mesh) => {
+                const base = (0.008396 * width * 16) + (0.021 * 32) + 0.04;
+                return base + mesh.meshLbFt2 * ((width - 2.224) / 12) + mesh.allowance;
+            }
+        },
+        og100: {
+            mesh: mesh100,
+            calculate: (width, mesh) => {
+                const base = (0.008396 * width * 11.1) + (0.0348 * 22.2);
+                return base + mesh.meshLbFt2 * ((width - 2.5) / 12) + mesh.allowance + (mesh.meshLbFt2 > 0 ? 0.04 : 0);
+            }
+        },
+        og120: {
+            mesh: mesh120,
+            calculate: (width, mesh) => {
+                const base = (0.009759 * width * 10) + (0.0785 * 20) + 0.054;
+                return base + mesh.meshLbFt2 * ((width - 3) / 12) + mesh.allowance;
+            }
+        },
+        og150: {
+            mesh: mesh150,
+            calculate: (width, mesh) => {
+                const base = interpolateTable(og150BaseTable, width);
+                const conveyingSurfaceFt = Math.max(0, width - 2.75) / 12;
+                return base + mesh.meshLbFt2 * conveyingSurfaceFt;
+            }
+        },
+        srog075: {
+            mesh: mesh075,
+            centerLink: true,
+            calculate: (width, mesh, centerLink) => {
+                const c = Math.max(0, Math.min(centerLink, width - 1.668));
+                const base =
+                    (0.008396 * width * 16) +
+                    (0.021 * 16) +
+                    (0.027 * 16) +
+                    (0.0348 * 16) +
+                    0.04;
+
+                const centerMesh = mesh.meshLbFt2 * Math.max(0, c - 1.668) / 12;
+                const outerMesh = mesh.meshLbFt2 * (16 / 12) *
+                    Math.max(0, width - c - 1.668) / 12;
+
+                return base + centerMesh + outerMesh +
+                    (mesh.meshLbFt2 > 0 ? mesh.allowance + 0.04 : 0);
+            }
+        }
+    };
+
+    function interpolateTable(table, x) {
+        if (x < table[0][0] || x > table[table.length - 1][0]) {
+            throw new Error("The 1.5-inch Omni-Grid width must be between 12 and 60 inches.");
+        }
+
+        for (let i = 0; i < table.length; i++) {
+            if (x === table[i][0]) return table[i][1];
+
+            if (x < table[i][0]) {
+                const [x1, y1] = table[i - 1];
+                const [x2, y2] = table[i];
+                return y1 + ((x - x1) / (x2 - x1)) * (y2 - y1);
+            }
+        }
+
+        return table[table.length - 1][1];
+    }
+
+    function populateMeshOptions() {
+        const type = document.getElementById("beltType").value;
+        const definition = beltDefinitions[type];
+        const meshSelect = document.getElementById("mesh");
+        const meshField = document.getElementById("meshField");
+        const centerLinkField = document.getElementById("centerLinkField");
+
+        meshSelect.innerHTML = "";
+
+        if (!definition || !definition.mesh) {
+            meshField.style.display = "none";
+        } else {
+            meshField.style.display = "flex";
+
+            Object.entries(definition.mesh).forEach(([value, item]) => {
+                const option = document.createElement("option");
+                option.value = value;
+                option.textContent = item.label;
+                meshSelect.appendChild(option);
+            });
+        }
+
+        centerLinkField.style.display =
+            definition && definition.centerLink ? "flex" : "none";
+    }
+
+    function calculatePacking(width, length, netBeltWeightLb) {
+        const boxesByLength = Math.ceil(length / PACKING.maximumBeltLengthPerBoxFt);
+        const boxesByWeight = Math.ceil(netBeltWeightLb / PACKING.maximumNetBeltWeightPerBoxLb);
+        const boxQty = Math.max(1, boxesByLength, boxesByWeight);
+
+        const lengthPerBox = length / boxQty;
+        const beltWeightPerBox = netBeltWeightLb / boxQty;
+
+        /*
+          Preliminary wooden-box estimate:
+          box length follows belt width plus clearance;
+          rolled-belt diameter is estimated from length per box.
+        */
+        const estimatedRollDiameter =
+            Math.max(12, 1.43 + Math.sqrt(Math.max(0, lengthPerBox)) * 2.6);
+
+        const boxLength = width + PACKING.clearanceIn;
+        const boxWidth = estimatedRollDiameter + PACKING.clearanceIn;
+        const boxHeight = estimatedRollDiameter + PACKING.clearanceIn;
+
+        const boxSurfaceFt2 =
+            2 * ((boxLength * boxWidth) +
+                 (boxLength * boxHeight) +
+                 (boxWidth * boxHeight)) / 144;
+
+        const estimatedTareEach =
+            Math.max(PACKING.minimumBoxTareLb,
+                     boxSurfaceFt2 * PACKING.plywoodWeightLbFt2);
+
+        return {
+            qty: boxQty,
+            tareEachLb: estimatedTareEach,
+            totalTareLb: estimatedTareEach * boxQty,
+            grossLb: netBeltWeightLb + estimatedTareEach * boxQty,
+            beltWeightPerBoxLb,
+            lengthPerBox,
+            dimensions: {
+                length: boxLength,
+                width: boxWidth,
+                height: boxHeight
+            }
+        };
+    }
+
+    function calculate() {
+        hideError();
+
+        const type = document.getElementById("beltType").value;
+        const width = Number(document.getElementById("width").value);
+        const length = Number(document.getElementById("length").value);
+        const meshKey = document.getElementById("mesh").value || "none";
+        const centerLink = Number(document.getElementById("centerLink").value || 0);
+
+        if (!type) return showError("Please select a belt type.");
+        if (!Number.isFinite(width) || width <= 0) {
+            return showError("Please enter a valid belt width.");
+        }
+        if (!Number.isFinite(length) || length <= 0) {
+            return showError("Please enter a valid belt length.");
+        }
+
+        const definition = beltDefinitions[type];
+        const mesh = definition.mesh ? definition.mesh[meshKey] : null;
+
+        try {
+            const weightLbFt = definition.calculate(width, mesh, centerLink);
+
+            if (!Number.isFinite(weightLbFt) || weightLbFt <= 0) {
+                throw new Error("The selected values did not produce a valid weight.");
+            }
+
+            const weightKgM = weightLbFt * LBFT_TO_KGM;
+            const totalNetLb = weightLbFt * length;
+            const totalNetKg = totalNetLb * LB_TO_KG;
+            const packing = calculatePacking(width, length, totalNetLb);
+
+            document.getElementById("lbft").textContent =
+                `${weightLbFt.toFixed(2)} lb/ft`;
+
+            document.getElementById("kgm").textContent =
+                `${weightKgM.toFixed(2)} kg/m`;
+
+            document.getElementById("netWeight").innerHTML =
+                `${formatNumber(totalNetLb)} lb<br>` +
+                `<span style="font-size:15px;color:#475569;">${formatNumber(totalNetKg)} kg</span>`;
+
+            document.getElementById("boxQty").textContent =
+                `${packing.qty}`;
+
+            document.getElementById("boxWeight").innerHTML =
+                `${formatNumber(packing.totalTareLb)} lb<br>` +
+                `<span style="font-size:15px;color:#475569;">${formatNumber(packing.totalTareLb * LB_TO_KG)} kg</span>`;
+
+            document.getElementById("grossWeight").innerHTML =
+                `${formatNumber(packing.grossLb)} lb<br>` +
+                `<span style="font-size:15px;color:#475569;">${formatNumber(packing.grossLb * LB_TO_KG)} kg</span>`;
+
+            document.getElementById("packingDetail").innerHTML =
+                `<strong>Preliminary packing estimate:</strong><br>` +
+                `${packing.qty} box(es), approximately ` +
+                `${formatNumber(packing.lengthPerBox)} ft of belt and ` +
+                `${formatNumber(packing.beltWeightPerBoxLb)} lb net belt weight per box.<br>` +
+                `Approximate box dimensions: ` +
+                `${Math.ceil(packing.dimensions.length)} × ` +
+                `${Math.ceil(packing.dimensions.width)} × ` +
+                `${Math.ceil(packing.dimensions.height)} in. ` +
+                `Estimated empty-box weight: ${formatNumber(packing.tareEachLb)} lb each.`;
+
+            document.getElementById("results").style.display = "block";
+            document.getElementById("results").scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        } catch (error) {
+            showError(error.message || "Unable to calculate.");
+        }
+    }
+
+    function formatNumber(value) {
+        return value.toLocaleString("en-US", {
+            maximumFractionDigits: 1,
+            minimumFractionDigits: 1
+        });
+    }
+
+    function showError(message) {
+        const error = document.getElementById("error");
+        error.textContent = message;
+        error.style.display = "block";
+        document.getElementById("results").style.display = "none";
+    }
+
+    function hideError() {
+        const error = document.getElementById("error");
+        error.textContent = "";
+        error.style.display = "none";
+    }
+
+    function resetCalculator() {
+        document.getElementById("beltType").value = "";
+        document.getElementById("width").value = "";
+        document.getElementById("length").value = "";
+        document.getElementById("centerLink").value = "0";
+        document.getElementById("results").style.display = "none";
+        hideError();
+        populateMeshOptions();
+    }
+
+    document.getElementById("beltType").addEventListener(
+        "change",
+        populateMeshOptions
+    );
+
+    populateMeshOptions();
+</script>
+</body>
+</html>
