@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="BELTPRO curve conveyor inside radius and angle calculator."
+  />
+  <title>BELTPRO | Curve Conveyor Radius & Angle Calculator</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --navy: #0f2b5b;
+      --blue: #0672ce;
+      --green: #07913d;
+      --orange: #d76a00;
+      --red: #d7191c;
+      --purple: #6b21a8;
+      --ink: #111827;
+      --muted: #64748b;
+      --line: #d7dee8;
+      --page: #f4f7fb;
+      --card: #ffffff;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--page);
+      line-height: 1.5;
+    }
+
+    header {
+      padding: 28px 18px 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      color: var(--navy);
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.1;
+    }
+
+    header p {
+      max-width: 900px;
+      margin: 10px auto 0;
+      color: #4b5563;
+      font-size: 18px;
+    }
+
+    main {
+      width: min(1220px, calc(100% - 28px));
+      margin: 0 auto 34px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(350px, 0.9fr);
+      gap: 20px;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(15, 43, 91, 0.08);
+    }
+
+    .drawing-panel {
+      padding: 18px;
+    }
+
+    .top-view-label {
+      display: inline-block;
+      margin: 0 0 10px 10px;
+      padding: 7px 13px;
+      color: #fff;
+      background: var(--navy);
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 0.3px;
+    }
+
+    .drawing {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .info-box {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fbfdff;
+    }
+
+    .info-box h3 {
+      margin-bottom: 8px;
+      color: var(--navy);
+      font-size: 16px;
+    }
+
+    .legend p,
+    .info-box p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    .legend-key {
+      display: inline-block;
+      min-width: 46px;
+      font-weight: bold;
+    }
+
+    .important {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border: 1px solid #b9d4f5;
+      border-radius: 10px;
+      background: #f4f9ff;
+      color: var(--navy);
+      font-size: 14px;
+    }
+
+    .units-note {
+      margin-top: 12px;
+      color: #4b5563;
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    .controls-panel {
+      padding: 22px;
+      align-self: start;
+    }
+
+    .section-title {
+      margin-bottom: 18px;
+      color: var(--navy);
+      font-size: 22px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 190px;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .field-row label {
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .input-wrap {
+      display: grid;
+      grid-template-columns: 1fr 66px;
+    }
+
+    .input-wrap input,
+    .input-wrap select {
+      min-width: 0;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      background: #fffdf0;
+      font-size: 17px;
+    }
+
+    .input-wrap input {
+      border-radius: 8px 0 0 8px;
+    }
+
+    .input-wrap select {
+      border-left: 0;
+      border-radius: 0 8px 8px 0;
+      background: #f8fafc;
+    }
+
+    .input-wrap input:focus,
+    .input-wrap select:focus {
+      position: relative;
+      z-index: 1;
+      outline: 3px solid rgba(6, 114, 206, 0.15);
+      border-color: var(--blue);
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    button {
+      padding: 13px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--navy);
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .calculate {
+      color: #fff;
+      background: var(--navy);
+    }
+
+    .clear {
+      color: var(--navy);
+      background: #fff;
+    }
+
+    .message {
+      display: none;
+      margin-top: 18px;
+      padding: 12px 14px;
+      border-radius: 8px;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .error {
+      color: #991b1b;
+      background: #fef2f2;
+      border: 1px solid #fca5a5;
+    }
+
+    .results {
+      margin-top: 22px;
+      padding: 18px;
+      border: 1px solid #b7e2c7;
+      border-radius: 12px;
+      background: #f3fbf6;
+    }
+
+    .results h2 {
+      margin-bottom: 14px;
+      color: #12652a;
+      font-size: 22px;
+    }
+
+    .result-row {
+      display: grid;
+      grid-template-columns: 1fr 175px;
+      gap: 14px;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .result-row strong {
+      font-size: 17px;
+    }
+
+    .result-value {
+      padding: 13px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: #fff;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    footer {
+      padding: 18px;
+      text-align: center;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    @media (max-width: 940px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      .controls-panel {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .guide-grid,
+      .field-row,
+      .result-row,
+      .buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .input-wrap {
+        grid-template-columns: 1fr 72px;
+      }
+
+      .controls-panel,
+      .drawing-panel {
+        padding: 16px;
+      }
+
+      header p {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Curve Conveyor Radius &amp; Angle Calculator</h1>
+    <p>
+      Enter D1, D2 and Belt Width (BW). The calculator returns the
+      Inside Radius (R) and the Curve Angle (ANG).
+    </p>
+  </header>
+
+  <main>
+    <section class="panel drawing-panel">
+      <span class="top-view-label">TOP VIEW (PLAN)</span>
+
+      <svg
+        class="drawing"
+        viewBox="0 0 820 650"
+        role="img"
+        aria-labelledby="drawingTitle drawingDescription"
+      >
+        <title id="drawingTitle">Curve conveyor measurement guide</title>
+        <desc id="drawingDescription">
+          Annular sector showing D1, D2, belt width measured along both
+          radial side lines, calculated inside radius, and included angle.
+        </desc>
+
+        <defs>
+          <marker id="arrowBlue" markerWidth="8" markerHeight="8"
+                  refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 z" fill="#0672ce"></path>
+          </marker>
+
+          <marker id="arrowGreen" markerWidth="8" markerHeight="8"
+                  refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 z" fill="#07913d"></path>
+          </marker>
+
+          <marker id="arrowOrange" markerWidth="8" markerHeight="8"
+                  refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 z" fill="#d76a00"></path>
+          </marker>
+
+          <marker id="arrowRed" markerWidth="8" markerHeight="8"
+                  refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 z" fill="#d7191c"></path>
+          </marker>
+
+          <marker id="arrowPurple" markerWidth="8" markerHeight="8"
+                  refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 z" fill="#6b21a8"></path>
+          </marker>
+        </defs>
+
+        <!-- Common center -->
+        <circle cx="410" cy="600" r="7" fill="#111827" />
+
+        <!-- Two radial construction lines from the center.
+             The black belt-end lines are collinear with these lines. -->
+        <line x1="410" y1="600" x2="145" y2="190"
+              stroke="#111827" stroke-width="3" />
+        <line x1="410" y1="600" x2="675" y2="190"
+              stroke="#111827" stroke-width="3" />
+
+        <!-- Outer and inner curved belt edges -->
+        <path d="M145 190 A390 390 0 0 1 675 190"
+              fill="none" stroke="#111827" stroke-width="3" />
+
+        <path d="M220 305 A280 280 0 0 1 600 305"
+              fill="none" stroke="#111827" stroke-width="3" />
+
+        <!-- End points -->
+        <g fill="#111827">
+          <circle cx="145" cy="190" r="6" />
+          <circle cx="220" cy="305" r="6" />
+          <circle cx="675" cy="190" r="6" />
+          <circle cx="600" cy="305" r="6" />
+        </g>
+
+        <!-- Outside diagonal D2 -->
+        <line x1="152" y1="190" x2="668" y2="190"
+              stroke="#0672ce" stroke-width="3"
+              stroke-dasharray="10 7"
+              marker-start="url(#arrowBlue)"
+              marker-end="url(#arrowBlue)" />
+
+        <text x="410" y="128" text-anchor="middle"
+              font-size="27" font-weight="bold" fill="#0672ce">
+          D2
+        </text>
+
+        <text x="410" y="156" text-anchor="middle"
+              font-size="17" font-weight="bold" fill="#0672ce">
+          Outside Diagonal
+        </text>
+
+        <!-- Inside diagonal D1 -->
+        <line x1="227" y1="305" x2="593" y2="305"
+              stroke="#07913d" stroke-width="3"
+              stroke-dasharray="10 7"
+              marker-start="url(#arrowGreen)"
+              marker-end="url(#arrowGreen)" />
+
+        <text x="410" y="250" text-anchor="middle"
+              font-size="27" font-weight="bold" fill="#07913d">
+          D1
+        </text>
+
+        <text x="410" y="278" text-anchor="middle"
+              font-size="17" font-weight="bold" fill="#07913d">
+          Inside Diagonal
+        </text>
+
+        <!-- Belt width along the left radial side -->
+        <line x1="145" y1="190" x2="220" y2="305"
+              stroke="#d76a00" stroke-width="4"
+              marker-start="url(#arrowOrange)"
+              marker-end="url(#arrowOrange)" />
+
+        <text x="105" y="238" text-anchor="middle"
+              font-size="24" font-weight="bold" fill="#d76a00">
+          BW
+        </text>
+
+        <text x="94" y="263" text-anchor="middle"
+              font-size="14" font-weight="bold" fill="#d76a00">
+          Belt Width
+        </text>
+
+        <!-- Belt width along the right radial side -->
+        <line x1="675" y1="190" x2="600" y2="305"
+              stroke="#d76a00" stroke-width="4"
+              marker-start="url(#arrowOrange)"
+              marker-end="url(#arrowOrange)" />
+
+        <text x="715" y="238" text-anchor="middle"
+              font-size="24" font-weight="bold" fill="#d76a00">
+          BW
+        </text>
+
+        <text x="726" y="263" text-anchor="middle"
+              font-size="14" font-weight="bold" fill="#d76a00">
+          Belt Width
+        </text>
+
+        <!-- Radius from center to the inner curve -->
+        <line x1="410" y1="600" x2="410" y2="305"
+              stroke="#d7191c" stroke-width="4"
+              marker-end="url(#arrowRed)" />
+
+        <text x="448" y="425" font-size="27"
+              font-weight="bold" fill="#d7191c">
+          R
+        </text>
+
+        <text x="448" y="453" font-size="16"
+              font-weight="bold" fill="#d7191c">
+          Inside Radius
+        </text>
+
+        <text x="448" y="478" font-size="16"
+              font-weight="bold" fill="#d7191c">
+          Calculated
+        </text>
+
+        <!-- Included angle at the common center -->
+        <path d="M335 505 A98 98 0 0 1 485 505"
+              fill="none" stroke="#6b21a8" stroke-width="4"
+              marker-start="url(#arrowPurple)"
+              marker-end="url(#arrowPurple)" />
+
+        <text x="410" y="505" text-anchor="middle"
+              font-size="25" font-weight="bold" fill="#6b21a8">
+          ANG
+        </text>
+
+        <text x="410" y="532" text-anchor="middle"
+              font-size="16" font-weight="bold" fill="#6b21a8">
+          Calculated Angle
+        </text>
+
+        <text x="410" y="635" text-anchor="middle"
+              font-size="17" font-weight="bold" fill="#111827">
+          Center of Curve
+        </text>
+      </svg>
+
+      <div class="guide-grid">
+        <div class="info-box legend">
+          <h3>LEGEND</h3>
+          <p><span class="legend-key" style="color:#07913d;">D1</span>Inside diagonal</p>
+          <p><span class="legend-key" style="color:#0672ce;">D2</span>Outside diagonal</p>
+          <p><span class="legend-key" style="color:#d76a00;">BW</span>Belt width along radial sides</p>
+          <p><span class="legend-key" style="color:#d7191c;">R</span>Inside radius, calculated</p>
+          <p><span class="legend-key" style="color:#6b21a8;">ANG</span>Curve angle, calculated</p>
+        </div>
+
+        <div class="info-box">
+          <h3>WHAT IS ANGLE (ANG)?</h3>
+          <p>
+            The included angle between the two radial ends of the curve,
+            measured at the center of the curve.
+          </p>
+        </div>
+      </div>
+
+      <div class="important">
+        <strong>IMPORTANT:</strong> D1 and D2 are straight-line diagonal
+        measurements. Do not measure along the curved belt edges.
+      </div>
+
+      <div class="units-note">
+        Use the same unit for D1, D2 and BW.
+      </div>
+    </section>
+
+    <section class="panel controls-panel">
+      <h2 class="section-title">INPUT DIMENSIONS</h2>
+
+      <div class="field-row">
+        <label for="d1" style="color:#07913d;">Inside Diagonal (D1)</label>
+        <div class="input-wrap">
+          <input id="d1" type="number" min="0" step="any"
+                 inputmode="decimal" placeholder="1000" />
+          <select id="unit1" class="unit-select" aria-label="D1 unit">
+            <option value="mm">mm</option>
+            <option value="in">in</option>
+            <option value="m">m</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <label for="d2" style="color:#0672ce;">Outside Diagonal (D2)</label>
+        <div class="input-wrap">
+          <input id="d2" type="number" min="0" step="any"
+                 inputmode="decimal" placeholder="1200" />
+          <select id="unit2" class="unit-select" aria-label="D2 unit">
+            <option value="mm">mm</option>
+            <option value="in">in</option>
+            <option value="m">m</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <label for="bw" style="color:#d76a00;">Belt Width (BW)</label>
+        <div class="input-wrap">
+          <input id="bw" type="number" min="0" step="any"
+                 inputmode="decimal" placeholder="300" />
+          <select id="unit3" class="unit-select" aria-label="BW unit">
+            <option value="mm">mm</option>
+            <option value="in">in</option>
+            <option value="m">m</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button id="calculateButton" class="calculate" type="button">
+          CALCULATE
+        </button>
+        <button id="clearButton" class="clear" type="button">
+          CLEAR
+        </button>
+      </div>
+
+      <div id="errorMessage" class="message error" role="alert"></div>
+
+      <div class="results">
+        <h2>RESULTS</h2>
+
+        <div class="result-row">
+          <strong style="color:#d7191c;">Inside Radius (R)</strong>
+          <div id="radiusResult" class="result-value">—</div>
+        </div>
+
+        <div class="result-row">
+          <strong style="color:#6b21a8;">Curve Angle (ANG)</strong>
+          <div id="angleResult" class="result-value">—</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    BELTPRO • Spiral Conveyor Engineering
+  </footer>
+
+  <script>
+    const d1Input = document.getElementById("d1");
+    const d2Input = document.getElementById("d2");
+    const bwInput = document.getElementById("bw");
+    const unitSelects = Array.from(
+      document.querySelectorAll(".unit-select")
+    );
+
+    const errorMessage = document.getElementById("errorMessage");
+    const radiusResult = document.getElementById("radiusResult");
+    const angleResult = document.getElementById("angleResult");
+
+    function formatNumber(value) {
+      return new Intl.NumberFormat("en-US", {
+        maximumFractionDigits: 2
+      }).format(value);
+    }
+
+    function hideError() {
+      errorMessage.textContent = "";
+      errorMessage.classList.remove("show");
+    }
+
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.classList.add("show");
+      radiusResult.textContent = "—";
+      angleResult.textContent = "—";
+    }
+
+    function calculate() {
+      hideError();
+
+      const d1 = Number.parseFloat(d1Input.value);
+      const d2 = Number.parseFloat(d2Input.value);
+      const bw = Number.parseFloat(bwInput.value);
+      const unit = unitSelects[0].value;
+
+      if (![d1, d2, bw].every(Number.isFinite)) {
+        showError("Please enter D1, D2 and BW.");
+        return;
+      }
+
+      if (d1 <= 0 || d2 <= 0 || bw <= 0) {
+        showError("All dimensions must be greater than zero.");
+        return;
+      }
+
+      if (d2 <= d1) {
+        showError("D2 must be greater than D1.");
+        return;
+      }
+
+      const radius = (bw * d1) / (d2 - d1);
+      const angle = (57.295779513 * d1) / radius;
+
+      if (
+        !Number.isFinite(radius) ||
+        !Number.isFinite(angle) ||
+        radius <= 0 ||
+        angle <= 0
+      ) {
+        showError("The entered dimensions did not produce a valid result.");
+        return;
+      }
+
+      if (angle >= 180) {
+        showError(
+          "The dimensions produce an angle of 180° or more. " +
+          "Please verify the measurements."
+        );
+        return;
+      }
+
+      radiusResult.textContent = `${formatNumber(radius)} ${unit}`;
+      angleResult.textContent = `${formatNumber(angle)}°`;
+    }
+
+    function clearCalculator() {
+      d1Input.value = "";
+      d2Input.value = "";
+      bwInput.value = "";
+      unitSelects.forEach(select => {
+        select.value = "mm";
+      });
+      hideError();
+      radiusResult.textContent = "—";
+      angleResult.textContent = "—";
+      d1Input.focus();
+    }
+
+    function synchronizeUnits(changedSelect) {
+      unitSelects.forEach(select => {
+        select.value = changedSelect.value;
+      });
+    }
+
+    unitSelects.forEach(select => {
+      select.addEventListener("change", function () {
+        synchronizeUnits(this);
+      });
+    });
+
+    document
+      .getElementById("calculateButton")
+      .addEventListener("click", calculate);
+
+    document
+      .getElementById("clearButton")
+      .addEventListener("click", clearCalculator);
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        calculate();
+      }
+    });
+  </script>
+</body>
+</html>
