@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="BELTPRO turn ratio calculator for spiral conveyor belts."
+  />
+  <title>BELTPRO | Belt Turn Ratio Calculator</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f8fafc;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 34px 20px;
+      text-align: center;
+      background: #111827;
+      border-bottom: 4px solid #38bdf8;
+      color: #ffffff;
+    }
+
+    header h1 {
+      margin-bottom: 7px;
+      color: #38bdf8;
+      font-size: clamp(28px, 5vw, 42px);
+    }
+
+    header p {
+      max-width: 720px;
+      margin: auto;
+      color: #cbd5e1;
+      font-size: 17px;
+    }
+
+    main {
+      width: min(760px, calc(100% - 32px));
+      margin: 38px auto;
+    }
+
+    .calculator {
+      overflow: hidden;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+    }
+
+    .calculator-heading {
+      padding: 22px 26px;
+      background: #1e293b;
+      color: #ffffff;
+    }
+
+    .calculator-heading h2 {
+      margin-bottom: 5px;
+      font-size: 25px;
+    }
+
+    .calculator-heading p {
+      color: #cbd5e1;
+    }
+
+    .calculator-body {
+      padding: 28px;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
+      color: #0f172a;
+      font-weight: bold;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 13px 14px;
+      background: #fff7cc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      outline: none;
+      font-size: 17px;
+    }
+
+    .field input:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.20);
+    }
+
+    .field small {
+      display: block;
+      margin-top: 6px;
+      color: #64748b;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    button {
+      padding: 13px 22px;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .calculate-button {
+      background: #0284c7;
+      color: #ffffff;
+    }
+
+    .clear-button {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: 0.65;
+    }
+
+    .message {
+      display: none;
+      margin-top: 22px;
+      padding: 14px 16px;
+      border-radius: 9px;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .error {
+      background: #fef2f2;
+      border: 1px solid #fca5a5;
+      color: #991b1b;
+    }
+
+    .result {
+      background: #ecfdf5;
+      border: 1px solid #86efac;
+      color: #166534;
+      text-align: center;
+    }
+
+    .result-label {
+      margin-bottom: 4px;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .result-value {
+      font-size: 40px;
+      font-weight: bold;
+    }
+
+    .note {
+      margin-top: 22px;
+      padding: 15px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      color: #475569;
+    }
+
+    footer {
+      padding: 24px;
+      text-align: center;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .input-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .calculator-body {
+        padding: 20px;
+      }
+
+      .button-row button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>BELTPRO</h1>
+    <p>Spiral Conveyor Belt Turn Ratio Calculator</p>
+  </header>
+
+  <main>
+    <section class="calculator">
+      <div class="calculator-heading">
+        <h2>Turn Ratio Calculator</h2>
+        <p>Enter both pitch values using the same unit.</p>
+      </div>
+
+      <div class="calculator-body">
+        <div class="input-grid">
+          <div class="field">
+            <label for="extendedPitch">Extended Pitch</label>
+            <input
+              id="extendedPitch"
+              type="number"
+              min="0"
+              step="any"
+              inputmode="decimal"
+              placeholder="Example: 60"
+            />
+            <small>Millimetres or inches</small>
+          </div>
+
+          <div class="field">
+            <label for="compressedPitch">Compressed Pitch</label>
+            <input
+              id="compressedPitch"
+              type="number"
+              min="0"
+              step="any"
+              inputmode="decimal"
+              placeholder="Example: 40"
+            />
+            <small>Use the same unit as extended pitch</small>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button
+            id="calculateButton"
+            class="calculate-button"
+            type="button"
+          >
+            Calculate
+          </button>
+
+          <button
+            id="clearButton"
+            class="clear-button"
+            type="button"
+          >
+            Clear
+          </button>
+        </div>
+
+        <div id="errorMessage" class="message error" role="alert"></div>
+
+        <div id="resultBox" class="message result" aria-live="polite">
+          <div class="result-label">Turn Ratio</div>
+          <div id="turnRatioResult" class="result-value">—</div>
+        </div>
+
+        <div class="note">
+          The pitch values must use the same unit. The engineering
+          calculation is performed securely on the BELTPRO server.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    BELTPRO • Spiral Conveyor Engineering
+  </footer>
+
+  <script>
+    /*
+      Replace only the address below with the public URL of your
+      Render Flask service. Do not add a slash at the end.
+
+      Example:
+      const API_BASE_URL = "https://your-service.onrender.com";
+    */
+    const API_BASE_URL = "https://YOUR-RENDER-SERVICE.onrender.com";
+
+    const extendedPitchInput =
+      document.getElementById("extendedPitch");
+    const compressedPitchInput =
+      document.getElementById("compressedPitch");
+    const calculateButton =
+      document.getElementById("calculateButton");
+    const clearButton =
+      document.getElementById("clearButton");
+    const errorMessage =
+      document.getElementById("errorMessage");
+    const resultBox =
+      document.getElementById("resultBox");
+    const turnRatioResult =
+      document.getElementById("turnRatioResult");
+
+    function hideMessages() {
+      errorMessage.classList.remove("show");
+      resultBox.classList.remove("show");
+      errorMessage.textContent = "";
+      turnRatioResult.textContent = "—";
+    }
+
+    function showError(message) {
+      resultBox.classList.remove("show");
+      errorMessage.textContent = message;
+      errorMessage.classList.add("show");
+    }
+
+    async function calculateTurnRatio() {
+      hideMessages();
+
+      const extendedPitch =
+        Number.parseFloat(extendedPitchInput.value);
+      const compressedPitch =
+        Number.parseFloat(compressedPitchInput.value);
+
+      if (
+        !Number.isFinite(extendedPitch) ||
+        !Number.isFinite(compressedPitch)
+      ) {
+        showError("Please enter both pitch values.");
+        return;
+      }
+
+      if (extendedPitch <= 0 || compressedPitch <= 0) {
+        showError("Both pitch values must be greater than zero.");
+        return;
+      }
+
+      if (compressedPitch >= extendedPitch) {
+        showError(
+          "Compressed pitch must be smaller than extended pitch."
+        );
+        return;
+      }
+
+      calculateButton.disabled = true;
+      calculateButton.textContent = "Calculating...";
+
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/turn-ratio`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              extended_pitch: extendedPitch,
+              compressed_pitch: compressedPitch
+            })
+          }
+        );
+
+        let data;
+
+        try {
+          data = await response.json();
+        } catch {
+          throw new Error(
+            "The server returned an invalid response."
+          );
+        }
+
+        if (!response.ok) {
+          throw new Error(
+            data.error || "The calculation could not be completed."
+          );
+        }
+
+        turnRatioResult.textContent =
+          Number(data.turn_ratio).toFixed(3);
+        resultBox.classList.add("show");
+
+      } catch (error) {
+        showError(
+          error.message ||
+          "Unable to connect to the calculation server."
+        );
+      } finally {
+        calculateButton.disabled = false;
+        calculateButton.textContent = "Calculate";
+      }
+    }
+
+    function clearCalculator() {
+      extendedPitchInput.value = "";
+      compressedPitchInput.value = "";
+      hideMessages();
+      extendedPitchInput.focus();
+    }
+
+    calculateButton.addEventListener(
+      "click",
+      calculateTurnRatio
+    );
+
+    clearButton.addEventListener(
+      "click",
+      clearCalculator
+    );
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        calculateTurnRatio();
+      }
+    });
+  </script>
+</body>
+</html>
