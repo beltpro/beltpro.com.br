@@ -362,19 +362,16 @@
     </div>
 
     <div class="formula-box">
-      <strong>Calculation:</strong><br>
-      Extension area = π × bore² ÷ 4<br>
-      Retraction area = π × (bore² − rod²) ÷ 4<br>
-      Force per cylinder = pressure × effective area × efficiency<br>
-      Total force = force per cylinder × number of cylinders × mechanical ratio<br>
-      Calculated band tension = total cylinder force ÷ 2. Pressure may be entered in bar or psi.
+      <strong>Engineering Method:</strong><br>
+      This calculator uses BELTPRO's server-side engineering model to estimate
+      pneumatic cylinder force, total take-up force, oven-band tension,
+      utilization, and remaining strength margin from the supplied equipment data.
     </div>
 
     <div class="note">
-      Assumption: The oven band wraps approximately 180° around the take-up drum, creating two
-      tensioned band spans. Therefore, calculated band tension equals one-half of the total cylinder
-      force. Verify any additional pulley, lever, linkage, or mechanical ratio used by the equipment.
-      Confirm the published band strength with the band manufacturer and apply an appropriate safety margin.
+      Verify the cylinder arrangement, force direction, equipment linkage,
+      manufacturer-rated band strength, and an appropriate engineering safety
+      margin before making equipment changes.
     </div>
 
   </form>
@@ -382,6 +379,9 @@
 
 
 <script>
+  const API_URL =
+    "https://spiral-tension-api.onrender.com/oven-band-force";
+
   const form = document.getElementById("force-form");
   const unitSystem = document.getElementById("unit_system");
   const results = document.getElementById("results");
@@ -390,9 +390,9 @@
 
   const boreLabel = document.getElementById("bore_label");
   const rodLabel = document.getElementById("rod_label");
-  const maxTensionLabel = document.getElementById("max_tension_label");
+  const maxTensionLabel =
+    document.getElementById("max_tension_label");
 
-  const BAR_TO_PSI = 14.5037738;
   const LBF_TO_N = 4.4482216153;
   const IN2_TO_MM2 = 645.16;
 
@@ -421,12 +421,22 @@
 
   function dualForceFromNewtons(forceN) {
     const forceLbf = forceN / LBF_TO_N;
-    return `${formatNumber(forceN, 1)} N<br><span class="secondary-unit">${formatNumber(forceLbf, 1)} lbf</span>`;
+
+    return `${formatNumber(forceN, 1)} N
+      <br>
+      <span class="secondary-unit">
+        ${formatNumber(forceLbf, 1)} lbf
+      </span>`;
   }
 
   function dualArea(areaMm2) {
     const areaIn2 = areaMm2 / IN2_TO_MM2;
-    return `${formatNumber(areaMm2, 1)} mm²<br><span class="secondary-unit">${formatNumber(areaIn2, 3)} in²</span>`;
+
+    return `${formatNumber(areaMm2, 1)} mm²
+      <br>
+      <span class="secondary-unit">
+        ${formatNumber(areaIn2, 3)} in²
+      </span>`;
   }
 
   function showError(message) {
@@ -437,7 +447,7 @@
 
   unitSystem.addEventListener("change", updateUnitLabels);
 
-  form.addEventListener("submit", function(event) {
+  form.addEventListener("submit", async function(event) {
     event.preventDefault();
 
     errorBox.classList.remove("show");
@@ -445,133 +455,123 @@
     results.classList.remove("show");
     mainResultsBox.className = "results-box";
 
-    const units = unitSystem.value;
-    const count = Number(document.getElementById("num_cylinders").value);
-    const boreInput = Number(document.getElementById("bore_diameter").value);
-    const rodInput = Number(document.getElementById("rod_diameter").value || 0);
-    const pressureInput = Number(document.getElementById("pressure").value);
-    const pressureUnit = document.getElementById("pressure_unit").value;
-    const direction = document.getElementById("stroke_direction").value;
-    const efficiency = Number(document.getElementById("efficiency").value) / 100;
-    const mechanicalRatio = Number(document.getElementById("mechanical_ratio").value);
-    const bandStrengthInput = document.getElementById("max_band_tension").value.trim();
-    const bandStrengthEntered = bandStrengthInput === "" ? null : Number(bandStrengthInput);
+    const bandStrengthText =
+      document.getElementById("max_band_tension").value.trim();
 
-    if (!Number.isFinite(count) || count < 1 || !Number.isInteger(count)) {
-      return showError("Enter a whole number of cylinders greater than zero.");
-    }
+    const payload = {
+      unit_system: unitSystem.value,
+      num_cylinders: Number(
+        document.getElementById("num_cylinders").value
+      ),
+      bore_diameter: Number(
+        document.getElementById("bore_diameter").value
+      ),
+      rod_diameter: Number(
+        document.getElementById("rod_diameter").value || 0
+      ),
+      pressure: Number(
+        document.getElementById("pressure").value
+      ),
+      pressure_unit:
+        document.getElementById("pressure_unit").value,
+      stroke_direction:
+        document.getElementById("stroke_direction").value,
+      efficiency_percent: Number(
+        document.getElementById("efficiency").value
+      ),
+      mechanical_ratio: Number(
+        document.getElementById("mechanical_ratio").value
+      ),
+      band_strength:
+        bandStrengthText === ""
+          ? null
+          : Number(bandStrengthText)
+    };
 
-    if (!Number.isFinite(boreInput) || boreInput <= 0) {
-      return showError("Cylinder bore diameter must be greater than zero.");
-    }
+    const button = form.querySelector('button[type="submit"]');
+    const originalText = button.textContent;
 
-    if (!Number.isFinite(rodInput) || rodInput < 0) {
-      return showError("Rod diameter cannot be negative.");
-    }
+    button.disabled = true;
+    button.textContent = "Calculating...";
 
-    if (direction === "retraction" && rodInput >= boreInput) {
-      return showError("Rod diameter must be smaller than the cylinder bore diameter.");
-    }
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
 
-    if (!Number.isFinite(pressureInput) || pressureInput < 0) {
-      return showError("Pressure cannot be negative.");
-    }
+      const data = await response.json();
 
-    if (!Number.isFinite(efficiency) || efficiency <= 0 || efficiency > 1) {
-      return showError("Efficiency must be between 1% and 100%.");
-    }
-
-    if (!Number.isFinite(mechanicalRatio) || mechanicalRatio <= 0) {
-      return showError("Mechanical ratio must be greater than zero.");
-    }
-
-    if (
-      bandStrengthEntered !== null &&
-      (!Number.isFinite(bandStrengthEntered) || bandStrengthEntered <= 0)
-    ) {
-      return showError("Band strength must be greater than zero.");
-    }
-
-    // Convert all geometry to millimetres and pressure to pascals.
-    const boreMm = units === "metric" ? boreInput : boreInput * 25.4;
-    const rodMm = units === "metric" ? rodInput : rodInput * 25.4;
-    const pressureBar = pressureUnit === "bar"
-      ? pressureInput
-      : pressureInput / BAR_TO_PSI;
-    const pressurePa = pressureBar * 100000;
-
-    const pistonAreaMm2 = Math.PI * Math.pow(boreMm, 2) / 4;
-    const rodAreaMm2 = Math.PI * Math.pow(rodMm, 2) / 4;
-    const effectiveAreaMm2 = direction === "extension"
-      ? pistonAreaMm2
-      : pistonAreaMm2 - rodAreaMm2;
-
-    const theoreticalForceN = pressurePa * (effectiveAreaMm2 / 1000000);
-    const adjustedForceN = theoreticalForceN * efficiency;
-    const totalForceN = adjustedForceN * count * mechanicalRatio;
-    const bandTensionN = totalForceN / 2;
-
-    document.getElementById("res-piston-area").innerHTML =
-      dualArea(pistonAreaMm2);
-
-    document.getElementById("res-effective-area").innerHTML =
-      dualArea(effectiveAreaMm2);
-
-    document.getElementById("res-theoretical-force").innerHTML =
-      dualForceFromNewtons(theoreticalForceN);
-
-    document.getElementById("res-force-per-cylinder").innerHTML =
-      dualForceFromNewtons(adjustedForceN);
-
-    document.getElementById("res-total-force").innerHTML =
-      dualForceFromNewtons(totalForceN);
-
-    document.getElementById("res-band-tension").innerHTML =
-      dualForceFromNewtons(bandTensionN);
-
-    const comparisonMessage = document.getElementById("comparison-message");
-    comparisonMessage.style.display = "none";
-
-    if (bandStrengthEntered !== null) {
-      const bandStrengthN = units === "metric"
-        ? bandStrengthEntered
-        : bandStrengthEntered * LBF_TO_N;
-
-      const utilization = bandTensionN / bandStrengthN * 100;
-      const marginN = bandStrengthN - bandTensionN;
-      const marginLbf = marginN / LBF_TO_N;
-
-      comparisonMessage.style.display = "block";
-
-      const marginText = marginN >= 0
-        ? `Remaining strength margin: ${formatNumber(marginN, 1)} N / ${formatNumber(marginLbf, 1)} lbf`
-        : `Amount above band strength: ${formatNumber(Math.abs(marginN), 1)} N / ${formatNumber(Math.abs(marginLbf), 1)} lbf`;
-
-      if (utilization <= 80) {
-        comparisonMessage.className = "comparison safe";
-        mainResultsBox.classList.add("safe");
-        comparisonMessage.innerHTML =
-          "Calculated band tension is within the entered band strength.<br>" +
-          "Band strength utilization: " + formatNumber(utilization, 1) + "%<br>" +
-          marginText;
-      } else if (utilization <= 100) {
-        comparisonMessage.className = "comparison warning";
-        mainResultsBox.classList.add("warning");
-        comparisonMessage.innerHTML =
-          "Caution: calculated band tension is close to the entered band strength.<br>" +
-          "Band strength utilization: " + formatNumber(utilization, 1) + "%<br>" +
-          marginText;
-      } else {
-        comparisonMessage.className = "comparison danger";
-        mainResultsBox.classList.add("danger");
-        comparisonMessage.innerHTML =
-          "Warning: calculated band tension exceeds the entered band strength.<br>" +
-          "Band strength utilization: " + formatNumber(utilization, 1) + "%<br>" +
-          marginText;
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.error || "The calculation could not be completed."
+        );
       }
-    }
 
-    results.classList.add("show");
+      document.getElementById("res-piston-area").innerHTML =
+        dualArea(data.piston_area_mm2);
+
+      document.getElementById("res-effective-area").innerHTML =
+        dualArea(data.effective_area_mm2);
+
+      document.getElementById("res-theoretical-force").innerHTML =
+        dualForceFromNewtons(data.theoretical_force_n);
+
+      document.getElementById("res-force-per-cylinder").innerHTML =
+        dualForceFromNewtons(data.adjusted_force_n);
+
+      document.getElementById("res-total-force").innerHTML =
+        dualForceFromNewtons(data.total_force_n);
+
+      document.getElementById("res-band-tension").innerHTML =
+        dualForceFromNewtons(data.band_tension_n);
+
+      const comparisonMessage =
+        document.getElementById("comparison-message");
+
+      comparisonMessage.style.display = "none";
+      comparisonMessage.innerHTML = "";
+
+      if (data.comparison) {
+        const comparison = data.comparison;
+        comparisonMessage.style.display = "block";
+        comparisonMessage.className =
+          `comparison ${comparison.status}`;
+        mainResultsBox.classList.add(comparison.status);
+
+        const marginIsPositive = comparison.margin_n >= 0;
+
+        const marginText = marginIsPositive
+          ? `Remaining strength margin:
+             ${formatNumber(comparison.margin_n, 1)} N /
+             ${formatNumber(comparison.margin_lbf, 1)} lbf`
+          : `Amount above band strength:
+             ${formatNumber(Math.abs(comparison.margin_n), 1)} N /
+             ${formatNumber(Math.abs(comparison.margin_lbf), 1)} lbf`;
+
+        comparisonMessage.innerHTML =
+          `${comparison.message}<br>
+           Band strength utilization:
+           ${formatNumber(
+             comparison.utilization_percent, 1
+           )}%<br>
+           ${marginText}`;
+      }
+
+      results.classList.add("show");
+
+    } catch (error) {
+      showError(
+        error.message ||
+        "Unable to reach the calculation server. Please try again shortly."
+      );
+    } finally {
+      button.disabled = false;
+      button.textContent = originalText;
+    }
   });
 
   updateUnitLabels();
