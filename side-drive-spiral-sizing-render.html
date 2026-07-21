@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BELTPRO side drive spiral torque calculator." />
+  <title>BELTPRO | Side Drive Spiral Torque Calculator</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0f2b5b;
+      --blue: #0b6ecf;
+      --green: #0b7a35;
+      --green-bg: #effaf3;
+      --yellow-bg: #fff8d8;
+      --orange: #c65f00;
+      --red: #c81e1e;
+      --ink: #172033;
+      --muted: #64748b;
+      --line: #d8e0ea;
+      --page: #f4f7fb;
+      --white: #ffffff;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--page);
+      line-height: 1.5;
+    }
+
+    header {
+      padding: 30px 18px 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      color: var(--navy);
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.1;
+    }
+
+    header p {
+      max-width: 920px;
+      margin: 10px auto 0;
+      color: #4b5563;
+      font-size: 17px;
+    }
+
+    main {
+      width: min(1280px, calc(100% - 28px));
+      margin: 0 auto 36px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(390px, 0.85fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(15, 43, 91, 0.08);
+    }
+
+    .inputs-panel,
+    .results-panel {
+      padding: 22px;
+    }
+
+    .section {
+      padding-bottom: 22px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid #e5eaf1;
+    }
+
+    .section:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .section h2,
+    .results-panel h2 {
+      color: var(--navy);
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
+
+    .section-note {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .field {
+      min-width: 0;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #26344d;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .input-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 78px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-width: 0;
+      padding: 11px 12px;
+      border: 1px solid #c8d2df;
+      font-size: 16px;
+    }
+
+    input {
+      border-radius: 8px 0 0 8px;
+      background: var(--yellow-bg);
+    }
+
+    select {
+      border-radius: 8px;
+      background: var(--yellow-bg);
+    }
+
+    .input-wrap select {
+      border-left: 0;
+      border-radius: 0 8px 8px 0;
+      background: #f8fafc;
+      color: #334155;
+    }
+
+    input:focus,
+    select:focus {
+      position: relative;
+      z-index: 1;
+      outline: 3px solid rgba(11, 110, 207, 0.15);
+      border-color: var(--blue);
+    }
+
+    details {
+      margin-top: 6px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fbfdff;
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 13px 15px;
+      color: var(--navy);
+      font-weight: bold;
+    }
+
+    .advanced-content {
+      padding: 4px 15px 16px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 14px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--navy);
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .calculate {
+      color: #fff;
+      background: var(--navy);
+    }
+
+    .clear {
+      color: var(--navy);
+      background: #fff;
+    }
+
+    .error {
+      display: none;
+      margin-top: 16px;
+      padding: 12px 14px;
+      color: #991b1b;
+      background: #fef2f2;
+      border: 1px solid #fca5a5;
+      border-radius: 8px;
+    }
+
+    .error.show { display: block; }
+
+    .results-panel {
+      position: sticky;
+      top: 18px;
+    }
+
+    .primary-result {
+      margin-top: 16px;
+      padding: 18px;
+      color: #fff;
+      background: var(--navy);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .primary-result span {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .primary-result strong {
+      font-size: clamp(30px, 5vw, 44px);
+    }
+
+    .status {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 9px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .status.ok {
+      color: #166534;
+      background: #dcfce7;
+      border: 1px solid #86efac;
+    }
+
+    .status.more {
+      color: #9a3412;
+      background: #ffedd5;
+      border: 1px solid #fdba74;
+    }
+
+    .result-list {
+      display: grid;
+      gap: 11px;
+      margin-top: 16px;
+    }
+
+    .result-row {
+      display: grid;
+      grid-template-columns: 1fr 155px;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 13px;
+      background: var(--green-bg);
+      border: 1px solid #b9dfc7;
+      border-radius: 9px;
+    }
+
+    .result-row .name {
+      color: #155d2d;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .result-row .value {
+      min-height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .subheading {
+      margin-top: 22px;
+      color: var(--navy);
+      font-size: 17px;
+    }
+
+    .note {
+      margin-top: 18px;
+      padding: 13px 14px;
+      color: #475569;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      font-size: 13px;
+    }
+
+    footer {
+      padding: 18px;
+      text-align: center;
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px) {
+      main { grid-template-columns: 1fr; }
+      .results-panel { position: static; }
+    }
+
+    @media (max-width: 620px) {
+      .field-grid,
+      .buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .result-row {
+        grid-template-columns: 1fr;
+      }
+
+      .result-row .value {
+        justify-content: flex-start;
+        text-align: left;
+      }
+
+      .inputs-panel,
+      .results-panel {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Side Drive Spiral Torque Calculator</h1>
+    <p>
+      Estimate side-drive torque, drive power, shaft diameter and the number
+      of drive shafts required from spiral geometry, belt loading and return-path tension.
+    </p>
+  </header>
+
+  <main>
+    <section class="panel inputs-panel">
+      <div class="section">
+        <h2>Spiral and Production Data</h2>
+        <p class="section-note">Enter the operating data for one belt.</p>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="direction">Running Direction</label>
+            <select id="direction">
+              <option value="up">Up running</option>
+              <option value="down">Down running</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="productionRate">Production Rate per Belt</label>
+            <div class="input-wrap">
+              <input id="productionRate" type="number" min="0" step="any" value="1500" />
+              <select disabled><option>kg/h</option></select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="beltWidth">Belt Width</label>
+            <div class="input-wrap">
+              <input id="beltWidth" type="number" min="0" step="any" value="0.937" />
+              <select disabled><option>m</option></select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="beltWeight">Belt Weight</label>
+            <div class="input-wrap">
+              <input id="beltWeight" type="number" min="0" step="any" value="9.37" />
+              <select disabled><option>kg/m</option></select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="turnRatio">Turn Ratio</label>
+            <div class="input-wrap">
+              <input id="turnRatio" type="number" min="0" step="any" value="2" />
+              <select disabled><option>—</option></select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="railFriction">Belt-to-Rail Friction Coefficient</label>
+            <div class="input-wrap">
+              <input id="railFriction" type="number" min="0" step="any" value="0.5" />
+              <select disabled><option>μ</option></select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="infeedLength">Infeed Length</label>
+            <div class="input-wrap">
+              <input id="infeedLength" type="number" min="0" step="any" value="4.6" />
+              <select disabled><option>m</option></select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="outfeedLength">Outfeed Length</label>
+            <div class="input-wrap">
+              <input id="outfeedLength" type="number" min="0" step="any" value="5.4" />
+              <select disabled><option>m</option></select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="tiers">Number of Tiers</label>
+            <div class="input-wrap">
+              <input id="tiers" type="number" min="1" step="1" value="15" />
+              <select disabled><option>tiers</option></select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="tierSpacing">Tier Spacing</label>
+            <div class="input-wrap">
+              <input id="tierSpacing" type="number" min="0" step="any" value="0.3" />
+              <select disabled><option>m</option></select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="dwellTime">Dwell Time</label>
+            <div class="input-wrap">
+              <input id="dwellTime" type="number" min="0" step="any" value="60" />
+              <select disabled><option>min</option></select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="sprocketRadius">Sprocket Pitch Radius</label>
+            <div class="input-wrap">
+              <input id="sprocketRadius" type="number" min="0" step="any" value="0.116" />
+              <select disabled><option>m</option></select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="accelTime">Time to Reach Full Speed</label>
+            <div class="input-wrap">
+              <input id="accelTime" type="number" min="0" step="any" value="2" />
+              <select disabled><option>s</option></select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="allowableTension">Maximum Allowable Belt Tension</label>
+            <div class="input-wrap">
+              <input id="allowableTension" type="number" min="0" step="any" value="2600" />
+              <select disabled><option>N</option></select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Take-Up and Return Path</h2>
+        <p class="section-note">
+          The return path is assumed level. 
+        </p>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="takeUpTension">Take-Up Tension</label>
+            <div class="input-wrap">
+              <input id="takeUpTension" type="number" min="0" step="any" value="0" />
+              <select disabled><option>N</option></select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="returnLength">Level Return-Path Length</label>
+            <div class="input-wrap">
+              <input id="returnLength" type="number" min="0" step="any" value="10" />
+              <select disabled><option>m</option></select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="returnFriction">Return-Path Friction Coefficient</label>
+            <div class="input-wrap">
+              <input id="returnFriction" type="number" min="0" step="any" value="0.15" />
+              <select disabled><option>μ</option></select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="additionalReturn">Additional Return Resistance</label>
+            <div class="input-wrap">
+              <input id="additionalReturn" type="number" min="0" step="any" value="0" />
+              <select disabled><option>N</option></select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <details>
+        <summary>Advanced Engineering Assumptions</summary>
+        <div class="advanced-content">
+          <div class="field-grid">
+            <div class="field">
+              <label for="driveEfficiency">Drive Efficiency</label>
+              <div class="input-wrap">
+                <input id="driveEfficiency" type="number" min="0.01" max="1" step="any" value="0.85" />
+                <select disabled><option>—</option></select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="serviceFactor">Service Factor</label>
+              <div class="input-wrap">
+                <input id="serviceFactor" type="number" min="1" step="any" value="1.5" />
+                <select disabled><option>—</option></select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="curveDragCoefficient">Curve-Drag Coefficient</label>
+              <div class="input-wrap">
+                <input id="curveDragCoefficient" type="number" min="0" step="any" value="0.2" />
+                <select disabled><option>—</option></select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="shaftStress">Allowable Shaft Shear Stress</label>
+              <div class="input-wrap">
+                <input id="shaftStress" type="number" min="0" step="any" value="35" />
+                <select disabled><option>MPa</option></select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <div class="buttons">
+        <button class="calculate" id="calculateButton" type="button">CALCULATE</button>
+        <button class="clear" id="clearButton" type="button">CLEAR</button>
+      </div>
+
+      <div id="errorMessage" class="error" role="alert"></div>
+    </section>
+
+    <aside class="panel results-panel">
+      <h2>RESULTS</h2>
+
+      <div class="primary-result">
+        <span>Recommended Number of Drive Shafts</span>
+        <strong id="driveCount">—</strong>
+      </div>
+
+      <div id="statusMessage" class="status ok">
+        Enter the operating data and calculate.
+      </div>
+
+      <div class="result-list">
+        <div class="result-row">
+          <div class="name">Design Torque per Drive Shaft</div>
+          <div class="value" id="designTorque">—</div>
+        </div>
+
+        <div class="result-row">
+          <div class="name">Power per Drive Shaft</div>
+          <div class="value" id="powerPerDrive">—</div>
+        </div>
+
+        <div class="result-row">
+          <div class="name">Sprocket Speed</div>
+          <div class="value" id="sprocketRpm">—</div>
+        </div>
+
+        <div class="result-row">
+          <div class="name">Minimum Shaft Diameter</div>
+          <div class="value" id="shaftDiameter">—</div>
+        </div>
+
+        <div class="result-row">
+          <div class="name">Maximum Belt Tension in Any Tier</div>
+          <div class="value" id="maxTierTension">—</div>
+        </div>
+
+        <div class="result-row">
+          <div class="name">Tension per Drive Location</div>
+          <div class="value" id="tensionPerDrive">—</div>
+        </div>
+
+        <div class="result-row">
+          <div class="name">Allowable Tension Utilization</div>
+          <div class="value" id="tensionUtilization">—</div>
+        </div>
+      </div>
+
+      <h3 class="subheading">Return and Spiral Details</h3>
+
+      <div class="result-list">
+        <div class="result-row">
+          <div class="name">Tension Entering First Tier</div>
+          <div class="value" id="entryTension">—</div>
+        </div>
+
+        <div class="result-row">
+          <div class="name">Spiral Force per Tier</div>
+          <div class="value" id="spiralForcePerTier">—</div>
+        </div>
+
+        <div class="result-row">
+          <div class="name">First-Tier Tension Before Sprocket</div>
+          <div class="value" id="firstTierTension">—</div>
+        </div>
+
+        <div class="result-row">
+          <div class="name">Subsequent-Tier Tension Before Sprocket</div>
+          <div class="value" id="otherTierTension">—</div>
+        </div>
+
+        <div class="result-row">
+          <div class="name">Belt Speed</div>
+          <div class="value" id="beltSpeed">—</div>
+        </div>
+      </div>
+
+      <div class="note">
+        Preliminary drive-sizing estimate. Final motor, gearbox, sprocket,
+        shaft and structural selection should be verified for the actual installation.
+      </div>
+    </aside>
+  </main>
+
+  <footer>BELTPRO • Spiral Conveyor Engineering</footer>
+
+  <script>
+    const API_URL =
+      "https://spiral-tension-api.onrender.com/side-drive-sizing";
+
+    const $ = id => document.getElementById(id);
+
+    const inputIds = [
+      "productionRate", "beltWidth", "beltWeight", "turnRatio",
+      "railFriction", "infeedLength", "outfeedLength", "tiers",
+      "tierSpacing", "dwellTime", "sprocketRadius", "accelTime",
+      "allowableTension", "takeUpTension", "returnLength",
+      "returnFriction", "additionalReturn", "driveEfficiency",
+      "serviceFactor", "curveDragCoefficient", "shaftStress"
+    ];
+
+    function num(id) {
+      return Number.parseFloat($(id).value);
+    }
+
+    function fmt(value, digits = 2) {
+      return new Intl.NumberFormat("en-US", {
+        minimumFractionDigits: digits,
+        maximumFractionDigits: digits
+      }).format(value);
+    }
+
+    function showError(message) {
+      $("errorMessage").textContent = message;
+      $("errorMessage").classList.add("show");
+    }
+
+    function hideError() {
+      $("errorMessage").textContent = "";
+      $("errorMessage").classList.remove("show");
+    }
+
+    function resetResults() {
+      [
+        "driveCount", "designTorque", "powerPerDrive", "sprocketRpm",
+        "shaftDiameter", "maxTierTension", "tensionPerDrive",
+        "tensionUtilization", "entryTension", "spiralForcePerTier",
+        "firstTierTension", "otherTierTension", "beltSpeed"
+      ].forEach(id => $(id).textContent = "—");
+
+      $("statusMessage").className = "status ok";
+      $("statusMessage").textContent =
+        "Enter the operating data and calculate.";
+    }
+
+    function buildPayload() {
+      const values = Object.fromEntries(
+        inputIds.map(id => [id, num(id)])
+      );
+
+      if (Object.values(values).some(
+        value => !Number.isFinite(value)
+      )) {
+        throw new Error(
+          "Please complete all input fields with valid numbers."
+        );
+      }
+
+      return {
+        direction: $("direction").value,
+        production_rate: values.productionRate,
+        belt_width: values.beltWidth,
+        belt_weight: values.beltWeight,
+        turn_ratio: values.turnRatio,
+        rail_friction: values.railFriction,
+        infeed_length: values.infeedLength,
+        outfeed_length: values.outfeedLength,
+        tiers: values.tiers,
+        tier_spacing: values.tierSpacing,
+        dwell_time: values.dwellTime,
+        sprocket_radius: values.sprocketRadius,
+        acceleration_time: values.accelTime,
+        allowable_tension: values.allowableTension,
+        take_up_tension: values.takeUpTension,
+        return_length: values.returnLength,
+        return_friction: values.returnFriction,
+        additional_return_resistance: values.additionalReturn,
+        drive_efficiency: values.driveEfficiency,
+        service_factor: values.serviceFactor,
+        curve_drag_coefficient: values.curveDragCoefficient,
+        allowable_shaft_shear_stress: values.shaftStress
+      };
+    }
+
+    function displayResults(data) {
+      const driveCount = data.drive_count;
+
+      $("driveCount").textContent =
+        `${driveCount} ${driveCount === 1 ? "shaft" : "shafts"}`;
+
+      $("designTorque").textContent =
+        `${fmt(data.design_torque_per_drive_nm)} N·m`;
+
+      $("powerPerDrive").textContent =
+        `${fmt(data.power_per_drive_kw)} kW`;
+
+      $("sprocketRpm").textContent =
+        `${fmt(data.sprocket_rpm)} RPM`;
+
+      $("shaftDiameter").textContent =
+        `${fmt(data.minimum_shaft_diameter_mm)} mm`;
+
+      $("maxTierTension").textContent =
+        `${fmt(data.maximum_tier_tension_n)} N`;
+
+      $("tensionPerDrive").textContent =
+        `${fmt(data.tension_per_drive_location_n)} N`;
+
+      $("tensionUtilization").textContent =
+        `${fmt(data.tension_utilization_percent, 1)}%`;
+
+      $("entryTension").textContent =
+        `${fmt(data.entry_tension_n)} N`;
+
+      $("spiralForcePerTier").textContent =
+        `${fmt(data.spiral_force_per_tier_n)} N`;
+
+      $("firstTierTension").textContent =
+        `${fmt(data.first_tier_tension_n)} N`;
+
+      $("otherTierTension").textContent =
+        `${fmt(data.subsequent_tier_tension_n)} N`;
+
+      $("beltSpeed").textContent =
+        `${fmt(data.belt_speed_m_per_min)} m/min`;
+
+      if (driveCount === 1) {
+        $("statusMessage").className = "status ok";
+        $("statusMessage").textContent =
+          "Belt tension is within the allowable limit for one drive shaft.";
+      } else {
+        $("statusMessage").className = "status more";
+        $("statusMessage").textContent =
+          `${driveCount} drive shafts are recommended to keep the tension at each drive location within the allowable limit.`;
+      }
+    }
+
+    async function calculate() {
+      hideError();
+
+      const button = $("calculateButton");
+      const originalText = button.textContent;
+
+      try {
+        button.disabled = true;
+        button.textContent = "CALCULATING...";
+
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(buildPayload())
+        });
+
+        let data;
+
+        try {
+          data = await response.json();
+        } catch {
+          throw new Error(
+            "The calculation server returned an invalid response."
+          );
+        }
+
+        if (!response.ok || data.error) {
+          throw new Error(
+            data.error || "The server could not complete the calculation."
+          );
+        }
+
+        displayResults(data);
+
+      } catch (error) {
+        resetResults();
+
+        if (error instanceof TypeError) {
+          showError(
+            "Unable to contact the calculation server. " +
+            "Please verify the Render service is running and try again."
+          );
+        } else {
+          showError(error.message);
+        }
+
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+    }
+
+    function clearCalculator() {
+      document.querySelectorAll("input").forEach(
+        input => input.value = ""
+      );
+
+      $("direction").value = "up";
+      hideError();
+      resetResults();
+      $("productionRate").focus();
+    }
+
+    $("calculateButton").addEventListener("click", calculate);
+    $("clearButton").addEventListener("click", clearCalculator);
+
+    document.addEventListener("keydown", event => {
+      if (
+        event.key === "Enter" &&
+        !event.shiftKey &&
+        event.target.tagName !== "BUTTON"
+      ) {
+        event.preventDefault();
+        calculate();
+      }
+    });
+
+    calculate();
+  </script>
+</body>
+</html>
