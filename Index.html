@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <title>BELTPRO | Website Under Maintenance</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --navy: #0f172a;
+      --navy-light: #1e293b;
+      --blue: #38bdf8;
+      --white: #f8fafc;
+      --muted: #cbd5e1;
+      --panel: rgba(15, 23, 42, 0.88);
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--white);
+      background:
+        radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 38%),
+        linear-gradient(135deg, #020617 0%, #0f172a 50%, #111827 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .maintenance-card {
+      width: min(760px, 100%);
+      padding: 48px 34px;
+      text-align: center;
+      background: var(--panel);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-top: 4px solid var(--blue);
+      border-radius: 18px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+    }
+
+    .logo {
+      margin-bottom: 24px;
+      font-size: clamp(42px, 8vw, 72px);
+      font-weight: 800;
+      letter-spacing: 4px;
+      color: var(--white);
+    }
+
+    .logo span {
+      color: var(--blue);
+    }
+
+    .tagline {
+      margin-bottom: 34px;
+      color: var(--muted);
+      font-size: 16px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .icon {
+      width: 92px;
+      height: 92px;
+      margin: 0 auto 28px;
+      border: 3px solid var(--blue);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 44px;
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+
+    h1 {
+      margin-bottom: 18px;
+      font-size: clamp(30px, 5vw, 46px);
+      line-height: 1.12;
+    }
+
+    .main-text {
+      max-width: 600px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .divider {
+      width: 90px;
+      height: 3px;
+      margin: 30px auto;
+      background: var(--blue);
+      border-radius: 999px;
+    }
+
+    .portuguese {
+      max-width: 600px;
+      margin: 0 auto;
+      color: #e2e8f0;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 34px;
+      padding: 11px 18px;
+      color: #e0f2fe;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--blue);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--blue);
+    }
+
+    footer {
+      margin-top: 38px;
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.35);
+      }
+
+      50% {
+        transform: scale(1.04);
+        box-shadow: 0 0 0 16px rgba(56, 189, 248, 0);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .maintenance-card {
+        padding: 38px 22px;
+      }
+
+      .main-text {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="maintenance-card">
+    <div class="logo">BELT<span>PRO</span></div>
+
+    <div class="tagline">
+      Spiral Conveyor Systems • Industrial Baking Ovens • Engineering Services
+    </div>
+
+    <div class="icon" aria-hidden="true">⚙</div>
+
+    <h1>Website Under Maintenance</h1>
+
+    <p class="main-text">
+      We are temporarily updating our website and engineering calculators
+      to improve security, reliability and user experience.
+      The website will be available again soon.
+    </p>
+
+    <div class="divider"></div>
+
+    <p class="portuguese">
+      Nosso site está temporariamente em manutenção enquanto atualizamos
+      a segurança e os calculadores de engenharia. Em breve estaremos
+      disponíveis novamente.
+    </p>
+
+    <div class="status">
+      <span class="status-dot"></span>
+      Maintenance in progress
+    </div>
+
+    <footer>
+      © <span id="year"></span> BELTPRO. Serving Industry Since 2014.
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
