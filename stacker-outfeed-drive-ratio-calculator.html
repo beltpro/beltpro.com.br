@@ -598,12 +598,12 @@
             </div>
 
             <div class="engineering-note">
-                <strong>Calculation basis:</strong>
+                <strong>Engineering notice:</strong>
 
-                Chain ratio equals drive sprocket teeth divided by driven
-                sprocket teeth. Predicted belt outfeed shaft speed equals the
-                outfeed drive shaft RPM multiplied by this chain ratio.
-                Confirm the final adjustment under actual operating conditions.
+                The calculator evaluates the available sprocket combinations
+                and ranks the closest matches for the requested shaft speed.
+                Confirm sprocket availability, chain compatibility and the
+                final adjustment under actual operating conditions.
             </div>
 
         </section>
@@ -617,207 +617,117 @@
 </div>
 
 <script>
-    let currentResults = [];
-    let currentBeltRpm = 0;
+    const API_URL =
+        "https://spiral-tension-api.onrender.com/stacker-drive-ratio";
 
-    function calculateSprockets() {
+    let currentResults = [];
+
+    async function calculateSprockets() {
         hideError();
 
-        const driveRpm = Number(
-            document.getElementById("driveRpm").value
-        );
-
-        const beltRpm = Number(
-            document.getElementById("beltRpm").value
-        );
-
-        const minimumTeeth = Number(
-            document.getElementById("minimumTeeth").value
-        );
-
-        const maximumTeeth = Number(
-            document.getElementById("maximumTeeth").value
-        );
+        const driveRpm = Number(document.getElementById("driveRpm").value);
+        const beltRpm = Number(document.getElementById("beltRpm").value);
+        const minimumTeeth = Number(document.getElementById("minimumTeeth").value);
+        const maximumTeeth = Number(document.getElementById("maximumTeeth").value);
 
         if (!Number.isFinite(driveRpm) || driveRpm <= 0) {
-            showError(
-                "Enter a valid outfeed drive shaft RPM greater than zero."
-            );
+            showError("Enter a valid outfeed drive shaft RPM greater than zero.");
             return;
         }
-
         if (!Number.isFinite(beltRpm) || beltRpm <= 0) {
-            showError(
-                "Enter a valid belt outfeed shaft RPM greater than zero."
-            );
+            showError("Enter a valid belt outfeed shaft RPM greater than zero.");
             return;
         }
-
-        if (
-            !Number.isInteger(minimumTeeth) ||
-            !Number.isInteger(maximumTeeth)
-        ) {
-            showError(
-                "Minimum and maximum sprocket tooth counts must be whole numbers."
-            );
+        if (!Number.isInteger(minimumTeeth) || !Number.isInteger(maximumTeeth)) {
+            showError("Minimum and maximum sprocket tooth counts must be whole numbers.");
             return;
         }
-
         if (minimumTeeth < 5 || maximumTeeth < 5) {
-            showError(
-                "Sprocket tooth counts must be at least 5."
-            );
+            showError("Sprocket tooth counts must be at least 5.");
             return;
         }
-
         if (minimumTeeth > maximumTeeth) {
-            showError(
-                "Minimum sprocket teeth cannot be greater than maximum sprocket teeth."
-            );
+            showError("Minimum sprocket teeth cannot be greater than maximum sprocket teeth.");
+            return;
+        }
+        if (maximumTeeth > 200) {
+            showError("Maximum sprocket teeth cannot exceed 200.");
             return;
         }
 
-        if (maximumTeeth - minimumTeeth > 200) {
+        const button = document.querySelector(".calculate-button");
+        const originalText = button.textContent;
+        button.disabled = true;
+        button.textContent = "Calculating...";
+
+        try {
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    drive_rpm: driveRpm,
+                    belt_rpm: beltRpm,
+                    minimum_teeth: minimumTeeth,
+                    maximum_teeth: maximumTeeth
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                throw new Error(data.error || "The calculation could not be completed.");
+            }
+
+            currentResults = data.combinations || [];
+
+            document.getElementById("requiredRatio").textContent =
+                Number(data.required_ratio).toFixed(5);
+
+            displayResultsTable();
+            document.getElementById("results").style.display = "block";
+            selectCombination(0);
+
+            document.getElementById("results").scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        } catch (error) {
             showError(
-                "Please use a sprocket search range of 200 teeth or less."
+                error.message ||
+                "Unable to reach the calculation server. Please try again shortly."
             );
-            return;
+        } finally {
+            button.disabled = false;
+            button.textContent = originalText;
         }
-
-        /*
-            Required ratio:
-
-            Belt outfeed shaft RPM
-            ----------------------
-            Outfeed drive shaft RPM
-        */
-
-        const requiredRatio = beltRpm / driveRpm;
-
-        const combinations = [];
-
-        for (
-            let driveTeeth = minimumTeeth;
-            driveTeeth <= maximumTeeth;
-            driveTeeth++
-        ) {
-            for (
-                let drivenTeeth = minimumTeeth;
-                drivenTeeth <= maximumTeeth;
-                drivenTeeth++
-            ) {
-                const actualRatio = driveTeeth / drivenTeeth;
-
-                const predictedRpm = driveRpm * actualRatio;
-
-                const rpmDifference = predictedRpm - beltRpm;
-
-                const speedErrorPercent =
-                    (rpmDifference / beltRpm) * 100;
-
-                combinations.push({
-                    driveTeeth: driveTeeth,
-                    drivenTeeth: drivenTeeth,
-                    ratio: actualRatio,
-                    predictedRpm: predictedRpm,
-                    rpmDifference: rpmDifference,
-                    speedErrorPercent: speedErrorPercent,
-                    absoluteError: Math.abs(speedErrorPercent)
-                });
-            }
-        }
-
-        combinations.sort(function(a, b) {
-            if (a.absoluteError !== b.absoluteError) {
-                return a.absoluteError - b.absoluteError;
-            }
-
-            /*
-                If two combinations have the same error,
-                list the lower tooth-count combination first.
-            */
-
-            const aTotalTeeth =
-                a.driveTeeth + a.drivenTeeth;
-
-            const bTotalTeeth =
-                b.driveTeeth + b.drivenTeeth;
-
-            if (aTotalTeeth !== bTotalTeeth) {
-                return aTotalTeeth - bTotalTeeth;
-            }
-
-            return a.driveTeeth - b.driveTeeth;
-        });
-
-        currentResults = combinations.slice(0, 10);
-        currentBeltRpm = beltRpm;
-
-        document.getElementById("requiredRatio").textContent =
-            requiredRatio.toFixed(5);
-
-        displayResultsTable();
-
-        document.getElementById("results").style.display = "block";
-
-        selectCombination(0);
-
-        document.getElementById("results").scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
     }
 
     function displayResultsTable() {
-        const tableBody =
-            document.getElementById("resultsTableBody");
-
+        const tableBody = document.getElementById("resultsTableBody");
         tableBody.innerHTML = "";
 
         currentResults.forEach(function(result, index) {
             const row = document.createElement("tr");
-
-            row.dataset.index = index;
-
             row.addEventListener("click", function() {
                 selectCombination(index);
             });
 
-            const rankText =
-                index === 0 ? "★ 1" : String(index + 1);
-
-            const rankClass =
-                index === 0
-                    ? "rank-badge best-rank"
-                    : "rank-badge";
-
-            const differenceClass =
-                getValueClass(result.rpmDifference);
-
-            const errorClass =
-                getValueClass(result.speedErrorPercent);
+            const rankText = index === 0 ? "★ 1" : String(index + 1);
+            const rankClass = index === 0
+                ? "rank-badge best-rank"
+                : "rank-badge";
 
             row.innerHTML = `
-                <td>
-                    <span class="${rankClass}">
-                        ${rankText}
-                    </span>
+                <td><span class="${rankClass}">${rankText}</span></td>
+                <td>${result.drive_teeth}</td>
+                <td>${result.driven_teeth}</td>
+                <td>${Number(result.ratio).toFixed(5)}</td>
+                <td>${Number(result.predicted_rpm).toFixed(3)} RPM</td>
+                <td class="${getValueClass(Number(result.rpm_difference))}">
+                    ${formatSigned(Number(result.rpm_difference), 3)} RPM
                 </td>
-
-                <td>${result.driveTeeth}</td>
-
-                <td>${result.drivenTeeth}</td>
-
-                <td>${result.ratio.toFixed(5)}</td>
-
-                <td>${result.predictedRpm.toFixed(3)} RPM</td>
-
-                <td class="${differenceClass}">
-                    ${formatSigned(result.rpmDifference, 3)} RPM
-                </td>
-
-                <td class="${errorClass}">
-                    ${formatSigned(result.speedErrorPercent, 3)}%
+                <td class="${getValueClass(Number(result.speed_error_percent))}">
+                    ${formatSigned(Number(result.speed_error_percent), 3)}%
                 </td>
             `;
 
@@ -827,95 +737,60 @@
 
     function selectCombination(index) {
         const result = currentResults[index];
-
-        if (!result) {
-            return;
-        }
+        if (!result) return;
 
         document.getElementById("selectedDriveTeeth").textContent =
-            result.driveTeeth + " teeth";
-
+            result.drive_teeth + " teeth";
         document.getElementById("selectedDrivenTeeth").textContent =
-            result.drivenTeeth + " teeth";
-
+            result.driven_teeth + " teeth";
         document.getElementById("selectedRatio").textContent =
-            result.ratio.toFixed(5);
+            Number(result.ratio).toFixed(5);
 
-        const errorElement =
-            document.getElementById("selectedError");
-
+        const errorElement = document.getElementById("selectedError");
         errorElement.textContent =
-            formatSigned(result.speedErrorPercent, 3) + "%";
-
+            formatSigned(Number(result.speed_error_percent), 3) + "%";
         errorElement.className =
-            "result-value " +
-            getValueClass(result.speedErrorPercent);
+            "result-value " + getValueClass(Number(result.speed_error_percent));
 
-        document.getElementById(
-            "selectedPredictedRpm"
-        ).textContent =
-            result.predictedRpm.toFixed(3) + " RPM";
+        document.getElementById("selectedPredictedRpm").textContent =
+            Number(result.predicted_rpm).toFixed(3) + " RPM";
 
         const differenceElement =
             document.getElementById("selectedRpmDifference");
-
         differenceElement.textContent =
-            formatSigned(result.rpmDifference, 3) + " RPM";
-
+            formatSigned(Number(result.rpm_difference), 3) + " RPM";
         differenceElement.className =
-            "result-value " +
-            getValueClass(result.rpmDifference);
+            "result-value " + getValueClass(Number(result.rpm_difference));
 
-        const rows = document.querySelectorAll(
-            "#resultsTableBody tr"
+        document.querySelectorAll("#resultsTableBody tr").forEach(
+            function(row, rowIndex) {
+                row.classList.toggle("selected-row", rowIndex === index);
+            }
         );
-
-        rows.forEach(function(row, rowIndex) {
-            row.classList.toggle(
-                "selected-row",
-                rowIndex === index
-            );
-        });
     }
 
     function formatSigned(value, decimalPlaces) {
-        const tolerance = Math.pow(
-            10,
-            -(decimalPlaces + 1)
-        );
-
+        const tolerance = Math.pow(10, -(decimalPlaces + 1));
         if (Math.abs(value) < tolerance) {
             return Number(0).toFixed(decimalPlaces);
         }
-
-        const sign = value > 0 ? "+" : "";
-
-        return sign + value.toFixed(decimalPlaces);
+        return (value > 0 ? "+" : "") + value.toFixed(decimalPlaces);
     }
 
     function getValueClass(value) {
-        if (Math.abs(value) < 0.00005) {
-            return "exact";
-        }
-
+        if (Math.abs(value) < 0.00005) return "exact";
         return value > 0 ? "positive" : "negative";
     }
 
     function showError(message) {
-        const errorBox =
-            document.getElementById("errorBox");
-
+        const errorBox = document.getElementById("errorBox");
         errorBox.textContent = message;
         errorBox.style.display = "block";
-
-        document.getElementById("results").style.display =
-            "none";
+        document.getElementById("results").style.display = "none";
     }
 
     function hideError() {
-        const errorBox =
-            document.getElementById("errorBox");
-
+        const errorBox = document.getElementById("errorBox");
         errorBox.textContent = "";
         errorBox.style.display = "none";
     }
@@ -925,26 +800,14 @@
         document.getElementById("beltRpm").value = "";
         document.getElementById("minimumTeeth").value = "19";
         document.getElementById("maximumTeeth").value = "40";
-
-        document.getElementById("results").style.display =
-            "none";
-
+        document.getElementById("results").style.display = "none";
         hideError();
-
         currentResults = [];
-        currentBeltRpm = 0;
-
         document.getElementById("driveRpm").focus();
     }
 
-    /*
-        Allow the Enter key to run the calculation.
-    */
-
     document.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            calculateSprockets();
-        }
+        if (event.key === "Enter") calculateSprockets();
     });
 </script>
 
