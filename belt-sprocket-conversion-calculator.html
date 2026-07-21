@@ -594,6 +594,9 @@ th {
 </div>
 
 <script>
+const API_URL =
+  "https://spiral-tension-api.onrender.com/belt-sprocket-conversion";
+
 const form = document.getElementById("calculatorForm");
 const errorBox = document.getElementById("error");
 const errorText = document.getElementById("errorText");
@@ -605,15 +608,7 @@ const correctionType = document.getElementById("correctionType");
 const correctionInputs = document.getElementById("correctionInputs");
 const correctionResult = document.getElementById("correctionResult");
 
-let lastCalculation = null;
-
-function toInches(value, unit) {
-  return unit === "mm" ? value / 25.4 : value;
-}
-
-function fromInches(value, unit) {
-  return unit === "mm" ? value * 25.4 : value;
-}
+let lastRequest = null;
 
 function formatNumber(value, decimals = 3) {
   return Number(value).toLocaleString("en-US", {
@@ -636,221 +631,125 @@ function clearMessages() {
   correctionResult.innerHTML = "";
 }
 
-form.addEventListener("submit", function(event) {
+function collectBaseInputs() {
+  const existingSpeedText =
+    document.getElementById("existingSpeed").value.trim();
+
+  return {
+    existing_pitch: Number(document.getElementById("existingPitch").value),
+    existing_pitch_unit: document.getElementById("existingPitchUnit").value,
+    existing_teeth: Number(document.getElementById("existingTeeth").value),
+    new_pitch: Number(document.getElementById("newPitch").value),
+    new_pitch_unit: document.getElementById("newPitchUnit").value,
+    existing_speed:
+      existingSpeedText === "" ? null : Number(existingSpeedText),
+    speed_unit: document.getElementById("speedUnit").value,
+    tolerance: Number(document.getElementById("tolerance").value),
+    compare_range: Number(document.getElementById("compareRange").value)
+  };
+}
+
+async function callCalculator(payload) {
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(payload)
+  });
+
+  const data = await response.json();
+
+  if (!response.ok || !data.success) {
+    throw new Error(
+      data.error || "The calculation could not be completed."
+    );
+  }
+
+  return data.result;
+}
+
+form.addEventListener("submit", async function(event) {
   event.preventDefault();
   clearMessages();
 
-  const existingPitchValue = Number(
-    document.getElementById("existingPitch").value
-  );
+  const button = form.querySelector('button[type="submit"]');
+  const originalText = button.textContent;
+  button.disabled = true;
+  button.textContent = "Calculating...";
 
-  const newPitchValue = Number(
-    document.getElementById("newPitch").value
-  );
+  try {
+    const payload = {action: "calculate", ...collectBaseInputs()};
+    const result = await callCalculator(payload);
+    lastRequest = payload;
 
-  const existingTeethValue = Number(
-    document.getElementById("existingTeeth").value
-  );
+    document.getElementById("originalTravel").textContent =
+      `${formatNumber(result.original_travel, 4)} ${result.display_unit}/rev`;
+    document.getElementById("idealTeeth").textContent =
+      `${formatNumber(result.ideal_teeth, 3)} teeth`;
+    document.getElementById("recommendedTeeth").textContent =
+      `${result.recommended_teeth} teeth`;
+    document.getElementById("newTravel").textContent =
+      `${formatNumber(result.new_travel, 4)} ${result.display_unit}/rev`;
+    document.getElementById("relativeSpeed").textContent =
+      `${formatNumber(result.relative_speed_percent, 3)}%`;
+    document.getElementById("speedError").textContent =
+      signedPercent(result.speed_error_percent);
+    document.getElementById("resultingSpeed").textContent =
+      result.resulting_speed === null
+        ? "Not entered"
+        : `${formatNumber(result.resulting_speed, 3)} ${result.speed_unit}`;
 
-  const existingPitchUnit =
-    document.getElementById("existingPitchUnit").value;
+    const recommendationElement =
+      document.getElementById("recommendation");
 
-  const newPitchUnit =
-    document.getElementById("newPitchUnit").value;
+    if (result.within_tolerance) {
+      recommendationElement.textContent =
+        "Existing drive may be maintained";
+      recommendationElement.className = "result-value good";
+      correction.classList.remove("show");
+    } else {
+      recommendationElement.textContent =
+        "Drive ratio correction recommended";
+      recommendationElement.className = "result-value warning";
+      correction.classList.add("show");
+    }
 
-  const existingSpeedValue = Number(
-    document.getElementById("existingSpeed").value
-  );
+    comparisonBody.innerHTML = "";
 
-  const speedUnit =
-    document.getElementById("speedUnit").value;
+    result.comparisons.forEach(function(item) {
+      const row = document.createElement("tr");
 
-  const toleranceValue = Math.max(
-    0,
-    Number(document.getElementById("tolerance").value) || 0
-  );
+      if (item.recommended) {
+        row.classList.add("recommended");
+      }
 
-  const compareRangeValue = Math.min(
-    5,
-    Math.max(
-      1,
-      Math.round(
-        Number(document.getElementById("compareRange").value) || 2
-      )
-    )
-  );
+      row.innerHTML = `
+        <td>${item.teeth} teeth</td>
+        <td>${formatNumber(item.travel_per_revolution, 4)}
+          ${result.display_unit}/rev</td>
+        <td>${formatNumber(item.relative_speed_percent, 3)}%</td>
+        <td>${signedPercent(item.speed_error_percent)}</td>
+        <td>${item.evaluation}</td>
+      `;
 
-  if (
-    existingPitchValue <= 0 ||
-    newPitchValue <= 0 ||
-    existingTeethValue <= 0 ||
-    !Number.isInteger(existingTeethValue)
-  ) {
+      comparisonBody.appendChild(row);
+    });
+
+    document.getElementById("selectedTeeth").value =
+      result.recommended_teeth;
+
+    results.classList.add("show");
+    comparison.classList.add("show");
+    renderCorrectionInputs();
+
+  } catch (error) {
     showError(
-      "Please enter valid positive values. Existing sprocket teeth must be a whole number."
+      error.message ||
+      "Unable to reach the calculation server. Please try again shortly."
     );
-    return;
+  } finally {
+    button.disabled = false;
+    button.textContent = originalText;
   }
-
-  const existingPitchInches =
-    toInches(existingPitchValue, existingPitchUnit);
-
-  const newPitchInches =
-    toInches(newPitchValue, newPitchUnit);
-
-  const originalTravelInches =
-    existingPitchInches * existingTeethValue;
-
-  const idealTeethValue =
-    originalTravelInches / newPitchInches;
-
-  const recommendedTeethValue =
-    Math.max(1, Math.round(idealTeethValue));
-
-  const newTravelInches =
-    newPitchInches * recommendedTeethValue;
-
-  const relativeSpeedValue =
-    newTravelInches / originalTravelInches;
-
-  const speedErrorValue =
-    (relativeSpeedValue - 1) * 100;
-
-  const displayUnit =
-    existingPitchUnit === newPitchUnit
-      ? existingPitchUnit
-      : "in";
-
-  const originalTravelDisplay =
-    fromInches(originalTravelInches, displayUnit);
-
-  const newTravelDisplay =
-    fromInches(newTravelInches, displayUnit);
-
-  document.getElementById("originalTravel").textContent =
-    `${formatNumber(originalTravelDisplay, 4)} ${displayUnit}/rev`;
-
-  document.getElementById("idealTeeth").textContent =
-    `${formatNumber(idealTeethValue, 3)} teeth`;
-
-  document.getElementById("recommendedTeeth").textContent =
-    `${recommendedTeethValue} teeth`;
-
-  document.getElementById("newTravel").textContent =
-    `${formatNumber(newTravelDisplay, 4)} ${displayUnit}/rev`;
-
-  document.getElementById("relativeSpeed").textContent =
-    `${formatNumber(relativeSpeedValue * 100, 3)}%`;
-
-  document.getElementById("speedError").textContent =
-    signedPercent(speedErrorValue);
-
-  if (existingSpeedValue > 0) {
-    document.getElementById("resultingSpeed").textContent =
-      `${formatNumber(
-        existingSpeedValue * relativeSpeedValue,
-        3
-      )} ${speedUnit}`;
-  } else {
-    document.getElementById("resultingSpeed").textContent =
-      "Not entered";
-  }
-
-  const recommendationElement =
-    document.getElementById("recommendation");
-
-  const withinTolerance =
-    Math.abs(speedErrorValue) <= toleranceValue;
-
-  if (withinTolerance) {
-    recommendationElement.textContent =
-      "Existing drive may be maintained";
-
-    recommendationElement.className =
-      "result-value good";
-
-    correction.classList.remove("show");
-  } else {
-    recommendationElement.textContent =
-      "Drive ratio correction recommended";
-
-    recommendationElement.className =
-      "result-value warning";
-
-    correction.classList.add("show");
-  }
-
-  comparisonBody.innerHTML = "";
-
-  const minimumTeeth = Math.max(
-    1,
-    Math.floor(idealTeethValue) - compareRangeValue
-  );
-
-  const maximumTeeth =
-    Math.ceil(idealTeethValue) + compareRangeValue;
-
-  for (
-    let teeth = minimumTeeth;
-    teeth <= maximumTeeth;
-    teeth++
-  ) {
-    const travelInches =
-      newPitchInches * teeth;
-
-    const ratio =
-      travelInches / originalTravelInches;
-
-    const error =
-      (ratio - 1) * 100;
-
-    const travelDisplay =
-      fromInches(travelInches, displayUnit);
-
-    const isRecommended =
-      teeth === recommendedTeethValue;
-
-    const rowWithinTolerance =
-      Math.abs(error) <= toleranceValue;
-
-    const row =
-      document.createElement("tr");
-
-    if (isRecommended) {
-      row.classList.add("recommended");
-    }
-
-    let evaluation = "Outside tolerance";
-
-    if (isRecommended) {
-      evaluation = "Recommended";
-    } else if (rowWithinTolerance) {
-      evaluation = "Within tolerance";
-    }
-
-    row.innerHTML = `
-      <td>${teeth} teeth</td>
-      <td>${formatNumber(travelDisplay, 4)} ${displayUnit}/rev</td>
-      <td>${formatNumber(ratio * 100, 3)}%</td>
-      <td>${signedPercent(error)}</td>
-      <td>${evaluation}</td>
-    `;
-
-    comparisonBody.appendChild(row);
-  }
-
-  document.getElementById("selectedTeeth").value =
-    recommendedTeethValue;
-
-  lastCalculation = {
-    originalTravelInches,
-    newPitchInches
-  };
-
-  results.classList.add("show");
-  comparison.classList.add("show");
-
-  renderCorrectionInputs();
 });
 
 function renderCorrectionInputs() {
@@ -862,48 +761,33 @@ function renderCorrectionInputs() {
         <label for="driverTeeth">Current Driver Sprocket Teeth</label>
         <input type="number" id="driverTeeth" min="1" step="1" value="15">
       </div>
-
       <div class="field">
         <label for="drivenTeeth">Current Driven Sprocket Teeth</label>
         <input type="number" id="drivenTeeth" min="1" step="1" value="15">
-      </div>
-    `;
-  }
-
-  if (method === "pulley") {
+      </div>`;
+  } else if (method === "pulley") {
     correctionInputs.innerHTML = `
       <div class="field">
         <label for="driverDiameter">Current Drive Pulley Diameter</label>
         <input type="number" id="driverDiameter" min="0.001" step="any" value="6">
       </div>
-
       <div class="field">
         <label for="drivenDiameter">Current Driven Pulley Diameter</label>
         <input type="number" id="drivenDiameter" min="0.001" step="any" value="10">
-      </div>
-    `;
-  }
-
-  if (method === "gearbox") {
+      </div>`;
+  } else if (method === "gearbox") {
     correctionInputs.innerHTML = `
       <div class="field full-width">
         <label for="gearboxRatio">Current Gearbox Reduction Ratio</label>
         <input type="number" id="gearboxRatio" min="0.001" step="any" value="30">
-
-        <div class="help">
-          Enter 30 for a 30:1 gearbox reduction.
-        </div>
-      </div>
-    `;
-  }
-
-  if (method === "vfd") {
+        <div class="help">Enter 30 for a 30:1 gearbox reduction.</div>
+      </div>`;
+  } else {
     correctionInputs.innerHTML = `
       <div class="field full-width">
         <label for="currentFrequency">Current VFD Frequency</label>
         <input type="number" id="currentFrequency" min="0.001" step="any" value="60">
-      </div>
-    `;
+      </div>`;
   }
 }
 
@@ -912,261 +796,133 @@ correctionType.addEventListener("change", function() {
   renderCorrectionInputs();
 });
 
-document
-  .getElementById("correctionButton")
-  .addEventListener("click", function() {
+document.getElementById("correctionButton")
+  .addEventListener("click", async function() {
     clearMessages();
 
-    if (!lastCalculation) {
-      showError(
-        "Complete the belt sprocket calculation first."
-      );
+    if (!lastRequest) {
+      showError("Complete the belt sprocket calculation first.");
       return;
     }
-
-    const selectedTeethValue = Number(
-      document.getElementById("selectedTeeth").value
-    );
-
-    if (
-      selectedTeethValue <= 0 ||
-      !Number.isInteger(selectedTeethValue)
-    ) {
-      showError(
-        "Selected belt sprocket teeth must be a positive whole number."
-      );
-      return;
-    }
-
-    const selectedTravel =
-      lastCalculation.newPitchInches *
-      selectedTeethValue;
-
-    const correctionFactor =
-      lastCalculation.originalTravelInches /
-      selectedTravel;
-
-    const selectedError =
-      (
-        selectedTravel /
-        lastCalculation.originalTravelInches -
-        1
-      ) * 100;
-
-    let output = `
-      <strong>Required shaft speed correction factor:</strong>
-      ${formatNumber(correctionFactor, 6)}
-      <br>
-      <span style="font-size:12px; color:#6b7785;">
-        Speed error before correction:
-        ${signedPercent(selectedError)}
-      </span>
-    `;
 
     const method = correctionType.value;
+    const methodInputs = {};
 
     if (method === "chain") {
-      const driverTeeth = Number(
-        document.getElementById("driverTeeth").value
-      );
-
-      const drivenTeeth = Number(
-        document.getElementById("drivenTeeth").value
-      );
-
-      if (
-        driverTeeth <= 0 ||
-        drivenTeeth <= 0 ||
-        !Number.isInteger(driverTeeth) ||
-        !Number.isInteger(drivenTeeth)
-      ) {
-        showError(
-          "Chain sprocket teeth must be positive whole numbers."
-        );
-        return;
-      }
-
-      const currentRatio =
-        driverTeeth / drivenTeeth;
-
-      const requiredRatio =
-        currentRatio * correctionFactor;
-
-      const selectedRelativeSpeed =
-        selectedTravel / lastCalculation.originalTravelInches;
-
-      // Option 1: keep the driven sprocket, round the driver sprocket
-      const theoreticalDriver =
-        requiredRatio * drivenTeeth;
-
-      const recommendedDriver =
-        Math.max(1, Math.round(theoreticalDriver));
-
-      const achievedRatioOption1 =
-        recommendedDriver / drivenTeeth;
-
-      const finalRatioOption1 =
-        selectedRelativeSpeed *
-        (achievedRatioOption1 / currentRatio);
-
-      const finalErrorOption1 =
-        (finalRatioOption1 - 1) * 100;
-
-      // Option 2: keep the driver sprocket, round the driven sprocket
-      const theoreticalDriven =
-        driverTeeth / requiredRatio;
-
-      const recommendedDriven =
-        Math.max(1, Math.round(theoreticalDriven));
-
-      const achievedRatioOption2 =
-        driverTeeth / recommendedDriven;
-
-      const finalRatioOption2 =
-        selectedRelativeSpeed *
-        (achievedRatioOption2 / currentRatio);
-
-      const finalErrorOption2 =
-        (finalRatioOption2 - 1) * 100;
-
-      output += `
-        <br><br>
-        <strong>Current chain ratio:</strong>
-        ${formatNumber(currentRatio, 6)}
-        <br>
-
-        <strong>Required theoretical chain ratio:</strong>
-        ${formatNumber(requiredRatio, 6)}
-        <br><br>
-
-        <strong>Option 1 — Keep the ${drivenTeeth}-tooth driven sprocket</strong>
-        <br>
-        Theoretical driver sprocket:
-        ${formatNumber(theoreticalDriver, 3)} teeth (not a real sprocket size)
-        <br>
-        Recommended driver sprocket:
-        <strong>${recommendedDriver} teeth</strong>
-        <br>
-        Resulting speed error after rounding:
-        <strong>${signedPercent(finalErrorOption1)}</strong>
-        <br><br>
-
-        <strong>Option 2 — Keep the ${driverTeeth}-tooth driver sprocket</strong>
-        <br>
-        Theoretical driven sprocket:
-        ${formatNumber(theoreticalDriven, 3)} teeth (not a real sprocket size)
-        <br>
-        Recommended driven sprocket:
-        <strong>${recommendedDriven} teeth</strong>
-        <br>
-        Resulting speed error after rounding:
-        <strong>${signedPercent(finalErrorOption2)}</strong>
-      `;
+      methodInputs.driver_teeth =
+        Number(document.getElementById("driverTeeth").value);
+      methodInputs.driven_teeth =
+        Number(document.getElementById("drivenTeeth").value);
+    } else if (method === "pulley") {
+      methodInputs.driver_diameter =
+        Number(document.getElementById("driverDiameter").value);
+      methodInputs.driven_diameter =
+        Number(document.getElementById("drivenDiameter").value);
+    } else if (method === "gearbox") {
+      methodInputs.gearbox_ratio =
+        Number(document.getElementById("gearboxRatio").value);
+    } else {
+      methodInputs.current_frequency =
+        Number(document.getElementById("currentFrequency").value);
     }
 
-    if (method === "pulley") {
-      const driverDiameter = Number(
-        document.getElementById("driverDiameter").value
-      );
+    const button = document.getElementById("correctionButton");
+    const originalText = button.textContent;
+    button.disabled = true;
+    button.textContent = "Calculating...";
 
-      const drivenDiameter = Number(
-        document.getElementById("drivenDiameter").value
-      );
+    try {
+      const result = await callCalculator({
+        action: "correction",
+        ...lastRequest,
+        selected_teeth:
+          Number(document.getElementById("selectedTeeth").value),
+        method: method,
+        method_inputs: methodInputs
+      });
 
-      if (
-        driverDiameter <= 0 ||
-        drivenDiameter <= 0
-      ) {
-        showError(
-          "Pulley diameters must be positive values."
-        );
-        return;
+      let output = `
+        <strong>Required shaft speed correction factor:</strong>
+        ${formatNumber(result.correction_factor, 6)}
+        <br>
+        <span style="font-size:12px; color:#6b7785;">
+          Speed error before correction:
+          ${signedPercent(result.selected_error_percent)}
+        </span>`;
+
+      if (method === "chain") {
+        output += `
+          <br><br>
+          <strong>Current chain ratio:</strong>
+          ${formatNumber(result.current_ratio, 6)}
+          <br>
+          <strong>Required theoretical chain ratio:</strong>
+          ${formatNumber(result.required_ratio, 6)}
+          <br><br>
+          <strong>Option 1 — Keep the ${result.driven_teeth}-tooth driven sprocket</strong>
+          <br>
+          Theoretical driver sprocket:
+          ${formatNumber(result.theoretical_driver, 3)} teeth
+          <br>
+          Recommended driver sprocket:
+          <strong>${result.recommended_driver} teeth</strong>
+          <br>
+          Resulting speed error after rounding:
+          <strong>${signedPercent(result.final_error_option_1)}</strong>
+          <br><br>
+          <strong>Option 2 — Keep the ${result.driver_teeth}-tooth driver sprocket</strong>
+          <br>
+          Theoretical driven sprocket:
+          ${formatNumber(result.theoretical_driven, 3)} teeth
+          <br>
+          Recommended driven sprocket:
+          <strong>${result.recommended_driven} teeth</strong>
+          <br>
+          Resulting speed error after rounding:
+          <strong>${signedPercent(result.final_error_option_2)}</strong>`;
+      } else if (method === "pulley") {
+        output += `
+          <br><br>
+          <strong>Current pulley ratio:</strong>
+          ${formatNumber(result.current_ratio, 6)}
+          <br>
+          <strong>Required pulley ratio:</strong>
+          ${formatNumber(result.required_ratio, 6)}
+          <br>
+          <strong>Required drive pulley diameter if driven pulley is maintained:</strong>
+          ${formatNumber(result.required_driver, 3)}
+          <br>
+          <strong>Required driven pulley diameter if drive pulley is maintained:</strong>
+          ${formatNumber(result.required_driven, 3)}`;
+      } else if (method === "gearbox") {
+        output += `
+          <br><br>
+          <strong>Required gearbox reduction ratio:</strong>
+          ${formatNumber(result.required_gearbox_ratio, 4)} : 1`;
+      } else {
+        output += `
+          <br><br>
+          <strong>Required VFD frequency:</strong>
+          ${formatNumber(result.required_frequency, 3)} Hz`;
       }
 
-      const currentRatio =
-        driverDiameter / drivenDiameter;
+      correctionResult.innerHTML = output;
+      correctionResult.classList.add("show");
 
-      const requiredRatio =
-        currentRatio * correctionFactor;
-
-      const requiredDriver =
-        requiredRatio * drivenDiameter;
-
-      const requiredDriven =
-        driverDiameter / requiredRatio;
-
-      output += `
-        <br><br>
-        <strong>Current pulley ratio:</strong>
-        ${formatNumber(currentRatio, 6)}
-        <br>
-
-        <strong>Required pulley ratio:</strong>
-        ${formatNumber(requiredRatio, 6)}
-        <br>
-
-        <strong>Required drive pulley diameter if driven pulley is maintained:</strong>
-        ${formatNumber(requiredDriver, 3)}
-        <br>
-
-        <strong>Required driven pulley diameter if drive pulley is maintained:</strong>
-        ${formatNumber(requiredDriven, 3)}
-      `;
-    }
-
-    if (method === "gearbox") {
-      const gearboxRatio = Number(
-        document.getElementById("gearboxRatio").value
+    } catch (error) {
+      showError(
+        error.message ||
+        "Unable to reach the calculation server. Please try again shortly."
       );
-
-      if (gearboxRatio <= 0) {
-        showError(
-          "Gearbox reduction ratio must be positive."
-        );
-        return;
-      }
-
-      const requiredGearboxRatio =
-        gearboxRatio / correctionFactor;
-
-      output += `
-        <br><br>
-        <strong>Required gearbox reduction ratio:</strong>
-        ${formatNumber(requiredGearboxRatio, 4)} : 1
-      `;
+    } finally {
+      button.disabled = false;
+      button.textContent = originalText;
     }
-
-    if (method === "vfd") {
-      const currentFrequency = Number(
-        document.getElementById("currentFrequency").value
-      );
-
-      if (currentFrequency <= 0) {
-        showError(
-          "VFD frequency must be positive."
-        );
-        return;
-      }
-
-      const requiredFrequency =
-        currentFrequency * correctionFactor;
-
-      output += `
-        <br><br>
-        <strong>Required VFD frequency:</strong>
-        ${formatNumber(requiredFrequency, 3)} Hz
-      `;
-    }
-
-    correctionResult.innerHTML = output;
-    correctionResult.classList.add("show");
   });
 
-document
-  .getElementById("resetButton")
+document.getElementById("resetButton")
   .addEventListener("click", function() {
     form.reset();
-
     document.getElementById("existingPitch").value = "1.08";
     document.getElementById("existingTeeth").value = "9";
     document.getElementById("newPitch").value = "1.20";
@@ -1180,8 +936,7 @@ document
     correctionResult.classList.remove("show");
 
     comparisonBody.innerHTML = "";
-    lastCalculation = null;
-
+    lastRequest = null;
     renderCorrectionInputs();
   });
 
