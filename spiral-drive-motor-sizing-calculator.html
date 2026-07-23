@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BELTPRO | Spiral Drive Motor Sizing Calculator</title>
+  <meta name="description" content="Estimate drum and secondary drive torque, rotation and motor power for Lotension friction-drum spiral systems." />
+  <style>
+    :root{
+      --navy:#0f172a;
+      --blue:#0f4c81;
+      --light-blue:#38bdf8;
+      --text:#1f2937;
+      --muted:#64748b;
+      --background:#f8fafc;
+      --card:#ffffff;
+      --border:#dbe5ee;
+      --success:#166534;
+      --success-bg:#ecfdf5;
+      --warning:#92400e;
+      --warning-bg:#fff7ed;
+      --danger:#b91c1c;
+      --danger-bg:#fef2f2;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--background);
+      color:var(--text);
+      line-height:1.55;
+    }
+
+    .hero{
+      background:linear-gradient(135deg,var(--navy),var(--blue));
+      color:#fff;
+      padding:34px 20px;
+      text-align:center;
+      border-bottom:4px solid var(--light-blue);
+    }
+    .hero h1{margin:0 0 8px;font-size:clamp(1.8rem,4vw,2.7rem)}
+    .hero p{margin:0 auto;max-width:900px;color:#dbeafe}
+
+    .container{
+      width:min(1180px,94%);
+      margin:28px auto 50px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:20px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow:0 8px 24px rgba(15,23,42,.06);
+      padding:22px;
+    }
+
+    .card h2{
+      margin:0 0 6px;
+      color:var(--navy);
+      font-size:1.35rem;
+    }
+
+    .card h3{
+      margin:20px 0 10px;
+      color:var(--blue);
+      font-size:1.05rem;
+    }
+
+    .subtitle{color:var(--muted);margin:0 0 18px;font-size:.95rem}
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+    }
+
+    .field{display:flex;flex-direction:column;gap:6px}
+    label{font-weight:700;font-size:.92rem}
+    .hint{font-size:.78rem;color:var(--muted);font-weight:400}
+
+    input,select{
+      width:100%;
+      padding:11px 12px;
+      border:1px solid #cbd5e1;
+      border-radius:9px;
+      font-size:1rem;
+      background:#fff;
+      color:var(--text);
+    }
+
+    input:focus,select:focus{
+      outline:none;
+      border-color:var(--light-blue);
+      box-shadow:0 0 0 3px rgba(56,189,248,.18);
+    }
+
+    details{
+      margin-top:18px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:10px 12px;
+      background:#fbfdff;
+    }
+    summary{cursor:pointer;font-weight:700;color:var(--blue)}
+
+    .actions{
+      display:flex;
+      gap:12px;
+      margin-top:22px;
+      flex-wrap:wrap;
+    }
+
+    button{
+      border:0;
+      border-radius:10px;
+      padding:12px 18px;
+      font-size:1rem;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .primary{background:var(--blue);color:#fff}
+    .primary:hover{filter:brightness(1.06)}
+    .secondary{background:#e2e8f0;color:var(--navy)}
+
+    .results{
+      margin-top:24px;
+      display:none;
+    }
+
+    .result-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:20px;
+    }
+
+    .drive-card{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:20px;
+      background:#fff;
+      box-shadow:0 8px 24px rgba(15,23,42,.06);
+    }
+
+    .drive-card h2{margin:0 0 14px}
+    .main-results{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric{
+      background:#f8fafc;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:14px;
+      text-align:center;
+    }
+    .metric .label{font-size:.78rem;color:var(--muted);text-transform:uppercase;font-weight:700;letter-spacing:.04em}
+    .metric .value{font-size:1.45rem;color:var(--navy);font-weight:800;margin-top:4px}
+    .metric .unit{font-size:.8rem;color:var(--muted)}
+
+    .details-table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:16px;
+      font-size:.92rem;
+    }
+    .details-table td{
+      padding:9px 4px;
+      border-bottom:1px solid #e5edf4;
+    }
+    .details-table td:last-child{text-align:right;font-weight:700}
+
+    .notice{
+      margin-top:20px;
+      padding:14px 16px;
+      border-radius:10px;
+      background:var(--warning-bg);
+      color:var(--warning);
+      border:1px solid #fed7aa;
+      font-size:.9rem;
+    }
+
+    .error{
+      display:none;
+      margin-top:18px;
+      padding:13px 15px;
+      border-radius:10px;
+      background:var(--danger-bg);
+      color:var(--danger);
+      border:1px solid #fecaca;
+      font-weight:700;
+    }
+
+    .method{
+      margin-top:24px;
+      background:#eef6fb;
+      border:1px solid #c9e4f3;
+      border-radius:14px;
+      padding:18px;
+    }
+    .method h3{margin:0 0 10px;color:var(--blue)}
+    .method p{margin:8px 0;font-size:.9rem}
+
+    @media(max-width:900px){
+      .grid,.result-grid{grid-template-columns:1fr}
+      .main-results{grid-template-columns:1fr}
+    }
+    @media(max-width:620px){
+      .form-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1>Spiral Drive Motor Sizing Calculator</h1>
+    <p>Estimate torque, shaft speed and recommended motor power for the drum drive and the secondary belt drive of a Lotension friction-drum spiral.</p>
+  </header>
+
+  <main class="container">
+    <section class="grid">
+      <div class="card">
+        <h2>Drum Drive</h2>
+        <p class="subtitle">Main inputs for the cage/drum motor.</p>
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="drumDiameter">Drum diameter <span class="hint">(mm)</span></label>
+            <input id="drumDiameter" type="number" min="1" step="any" value="3000">
+          </div>
+
+          <div class="field">
+            <label for="beltWidth">Belt width <span class="hint">(mm)</span></label>
+            <input id="beltWidth" type="number" min="1" step="any" value="900">
+          </div>
+
+          <div class="field">
+            <label for="tiers">Number of tiers</label>
+            <input id="tiers" type="number" min="0.1" step="0.1" value="20">
+          </div>
+
+          <div class="field">
+            <label for="beltSpeed">Belt speed <span class="hint">(m/min)</span></label>
+            <input id="beltSpeed" type="number" min="0.01" step="any" value="12">
+          </div>
+
+          <div class="field">
+            <label for="beltWeight">Belt weight <span class="hint">(kg/m)</span></label>
+            <input id="beltWeight" type="number" min="0" step="any" value="8">
+          </div>
+
+          <div class="field">
+            <label for="productLoad">Product load <span class="hint">(kg/m)</span></label>
+            <input id="productLoad" type="number" min="0" step="any" value="10">
+          </div>
+
+          <div class="field">
+            <label for="supportType">Support rails</label>
+            <select id="supportType">
+              <option value="plastic">Plastic / UHMW rails</option>
+              <option value="steel">Steel supports in oven</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="friction">Support friction coefficient</label>
+            <input id="friction" type="number" min="0.01" max="1" step="0.01" value="0.20">
+          </div>
+
+          <div class="field">
+            <label for="drivenRadiusMode">Drum driven radius</label>
+            <select id="drivenRadiusMode">
+              <option value="cage">Same as cage radius</option>
+              <option value="custom">Custom sprocket radius</option>
+            </select>
+          </div>
+
+          <div class="field" id="customDrivenRadiusField" style="display:none">
+            <label for="customDrivenRadius">Driven sprocket radius <span class="hint">(mm)</span></label>
+            <input id="customDrivenRadius" type="number" min="1" step="any" value="1200">
+          </div>
+        </div>
+
+        <details>
+          <summary>Advanced drum settings</summary>
+          <div class="form-grid" style="margin-top:14px">
+            <div class="field">
+              <label for="drumEfficiency">Drum transmission efficiency</label>
+              <input id="drumEfficiency" type="number" min="0.1" max="1" step="0.01" value="0.85">
+            </div>
+            <div class="field">
+              <label for="drumServiceFactor">Drum service factor</label>
+              <input id="drumServiceFactor" type="number" min="1" step="0.05" value="1.25">
+            </div>
+            <div class="field">
+              <label for="motorRpm">Motor nominal speed <span class="hint">(rpm)</span></label>
+              <input id="motorRpm" type="number" min="100" step="any" value="1750">
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="card">
+        <h2>Secondary Belt Drive</h2>
+        <p class="subtitle">Inputs for the secondary belt-drive motor.</p>
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="equivalentLength">Equivalent belt length <span class="hint">(m)</span></label>
+            <input id="equivalentLength" type="number" min="0" step="any" value="6">
+          </div>
+
+          <div class="field">
+            <label for="secondaryFriction">Secondary path friction coefficient</label>
+            <input id="secondaryFriction" type="number" min="0" max="1" step="0.01" value="0.20">
+          </div>
+
+          <div class="field">
+            <label for="secondaryPitchDiameter">Secondary sprocket pitch diameter <span class="hint">(mm)</span></label>
+            <input id="secondaryPitchDiameter" type="number" min="1" step="any" value="250">
+          </div>
+
+          <div class="field">
+            <label for="secondaryEfficiency">Secondary transmission efficiency</label>
+            <input id="secondaryEfficiency" type="number" min="0.1" max="1" step="0.01" value="0.85">
+          </div>
+
+          <div class="field">
+            <label for="secondaryServiceFactor">Secondary service factor</label>
+            <input id="secondaryServiceFactor" type="number" min="1" step="0.05" value="1.25">
+          </div>
+        </div>
+
+        <div class="notice">
+          The “equivalent belt length” should represent the resistance between the spiral exit and the secondary belt-drive sprockets. Fixed turns, inclines and return-path effects should be converted into an equivalent resistance before use.
+        </div>
+
+        <div class="actions">
+          <button class="primary" type="button" onclick="calculate()">Calculate motor sizes</button>
+          <button class="secondary" type="button" onclick="resetForm()">Reset</button>
+        </div>
+
+        <div class="error" id="errorBox"></div>
+      </div>
+    </section>
+
+    <section class="results" id="results">
+      <div class="result-grid">
+        <article class="drive-card">
+          <h2>Drum Drive</h2>
+          <div class="main-results">
+            <div class="metric">
+              <div class="label">Required output torque</div>
+              <div class="value" id="drumTorque">—</div>
+              <div class="unit">kN·m</div>
+            </div>
+            <div class="metric">
+              <div class="label">Drum speed</div>
+              <div class="value" id="drumRpm">—</div>
+              <div class="unit">rpm</div>
+            </div>
+            <div class="metric">
+              <div class="label">Recommended motor size</div>
+              <div class="value" id="drumMotor">—</div>
+              <div class="unit">kW</div>
+            </div>
+          </div>
+
+          <table class="details-table">
+            <tr><td>Cage chain pull</td><td id="drumPull">—</td></tr>
+            <tr><td>Driven sprocket pull</td><td id="drivenPull">—</td></tr>
+            <tr><td>Running mechanical power</td><td id="drumMechanicalPower">—</td></tr>
+            <tr><td>Calculated motor power</td><td id="drumCalculatedPower">—</td></tr>
+            <tr><td>Approximate reducer ratio</td><td id="drumRatio">—</td></tr>
+            <tr><td>Cage surface speed</td><td id="cageSpeed">—</td></tr>
+          </table>
+        </article>
+
+        <article class="drive-card">
+          <h2>Secondary Drive</h2>
+          <div class="main-results">
+            <div class="metric">
+              <div class="label">Required output torque</div>
+              <div class="value" id="secondaryTorque">—</div>
+              <div class="unit">N·m</div>
+            </div>
+            <div class="metric">
+              <div class="label">Shaft speed</div>
+              <div class="value" id="secondaryRpm">—</div>
+              <div class="unit">rpm</div>
+            </div>
+            <div class="metric">
+              <div class="label">Recommended motor size</div>
+              <div class="value" id="secondaryMotor">—</div>
+              <div class="unit">kW</div>
+            </div>
+          </div>
+
+          <table class="details-table">
+            <tr><td>Secondary belt pull</td><td id="secondaryPull">—</td></tr>
+            <tr><td>Running mechanical power</td><td id="secondaryMechanicalPower">—</td></tr>
+            <tr><td>Calculated motor power</td><td id="secondaryCalculatedPower">—</td></tr>
+            <tr><td>Approximate reducer ratio</td><td id="secondaryRatio">—</td></tr>
+            <tr><td>Total recommended installed power</td><td id="totalInstalledPower">—</td></tr>
+          </table>
+        </article>
+      </div>
+
+      <div class="method">
+        <h3>Calculation basis</h3>
+        <p><strong>Drum drive:</strong> industry-standard friction-drum spiral model using system radius, total linear load, number of tiers, support type and operating friction.</p>
+        <p><strong>Secondary drive:</strong> simplified belt-pull calculation converted to shaft torque through the secondary sprocket pitch radius.</p>
+        <p><strong>Power:</strong> calculated from torque and shaft speed, then corrected for transmission efficiency and service factor. The calculator selects the next standard motor size.</p>
+      </div>
+
+      <div class="notice">
+        Preliminary sizing only. Final motor, gearbox, chain, shaft, bearing, acceleration, VFD and thermal selection must be checked against manufacturer ratings and the actual conveyor layout.
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const API_URL =
+      "https://email-generator-rkyy.onrender.com/spiral-drive-motor-sizing";
+
+    const $ = id => document.getElementById(id);
+    const num = id => Number($(id).value);
+
+    $('drivenRadiusMode').addEventListener('change', function () {
+      $('customDrivenRadiusField').style.display =
+        this.value === 'custom' ? 'flex' : 'none';
+    });
+
+    function fmt(value, digits = 2) {
+      return Number.isFinite(Number(value))
+        ? Number(value).toLocaleString(undefined, {
+            minimumFractionDigits: digits,
+            maximumFractionDigits: digits
+          })
+        : '—';
+    }
+
+    function showError(message) {
+      $('errorBox').textContent = message;
+      $('errorBox').style.display = 'block';
+      $('results').style.display = 'none';
+    }
+
+    async function calculate() {
+      $('errorBox').style.display = 'none';
+
+      const payload = {
+        drum_diameter_mm: num('drumDiameter'),
+        belt_width_mm: num('beltWidth'),
+        tiers: num('tiers'),
+        belt_speed_m_min: num('beltSpeed'),
+        belt_weight_kg_m: num('beltWeight'),
+        product_load_kg_m: num('productLoad'),
+        support_type: $('supportType').value,
+        support_friction: num('friction'),
+        driven_radius_mode: $('drivenRadiusMode').value,
+        driven_sprocket_radius_mm:
+          $('drivenRadiusMode').value === 'custom'
+            ? num('customDrivenRadius')
+            : null,
+        equivalent_belt_length_m: num('equivalentLength'),
+        secondary_friction: num('secondaryFriction'),
+        secondary_pitch_diameter_mm: num('secondaryPitchDiameter'),
+        drum_efficiency: num('drumEfficiency'),
+        secondary_efficiency: num('secondaryEfficiency'),
+        drum_service_factor: num('drumServiceFactor'),
+        secondary_service_factor: num('secondaryServiceFactor'),
+        motor_rpm: num('motorRpm')
+      };
+
+      const button = document.querySelector('button.primary');
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = 'Calculating...';
+
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        let data;
+
+        try {
+          data = await response.json();
+        } catch (jsonError) {
+          throw new Error(
+            'The calculation server returned an invalid response.'
+          );
+        }
+
+        if (!response.ok || !data.success) {
+          throw new Error(
+            data.error || 'The calculation could not be completed.'
+          );
+        }
+
+        const drum = data.drum;
+        const secondary = data.secondary;
+
+        $('drumTorque').textContent =
+          fmt(drum.output_torque_knm, 2);
+        $('drumRpm').textContent = fmt(drum.rpm, 3);
+        $('drumMotor').textContent =
+          fmt(drum.recommended_motor_kw, 2);
+        $('drumPull').textContent =
+          `${fmt(drum.cage_pull_n / 1000, 2)} kN`;
+        $('drivenPull').textContent =
+          `${fmt(drum.driven_sprocket_pull_n / 1000, 2)} kN`;
+        $('drumMechanicalPower').textContent =
+          `${fmt(drum.mechanical_power_kw, 2)} kW`;
+        $('drumCalculatedPower').textContent =
+          `${fmt(drum.required_motor_power_kw, 2)} kW`;
+        $('drumRatio').textContent =
+          `${fmt(drum.reducer_ratio, 1)} : 1`;
+        $('cageSpeed').textContent =
+          `${fmt(drum.cage_surface_speed_m_min, 2)} m/min`;
+
+        $('secondaryTorque').textContent =
+          fmt(secondary.output_torque_nm, 1);
+        $('secondaryRpm').textContent =
+          fmt(secondary.rpm, 2);
+        $('secondaryMotor').textContent =
+          fmt(secondary.recommended_motor_kw, 2);
+        $('secondaryPull').textContent =
+          `${fmt(secondary.belt_pull_n, 0)} N`;
+        $('secondaryMechanicalPower').textContent =
+          `${fmt(secondary.mechanical_power_kw, 3)} kW`;
+        $('secondaryCalculatedPower').textContent =
+          `${fmt(secondary.required_motor_power_kw, 3)} kW`;
+        $('secondaryRatio').textContent =
+          `${fmt(secondary.reducer_ratio, 1)} : 1`;
+        $('totalInstalledPower').textContent =
+          `${fmt(data.total_installed_power_kw, 2)} kW`;
+
+        $('results').style.display = 'block';
+        $('results').scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      } catch (error) {
+        showError(
+          error.message ||
+          'The server could not complete the calculation.'
+        );
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+    }
+
+    function resetForm() {
+      window.location.reload();
+    }
+  </script>
+</body>
+</html>
