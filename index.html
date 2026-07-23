@@ -1,1368 +1,1288 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>BELTPRO | Spiral Conveyor & Industrial Oven Specialists</title>
-    <link rel="icon" type="image/png" href="favicon.png">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-    body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f8fafc;
-    color: #1f2937;
-    line-height: 1.7;
-}
-
-        .language-bar {
-            background: #111827;
-            border-bottom: 2px solid #38bdf8;
-            padding: 12px 25px;
-            text-align: right;
-        }
-
-        .language-bar button {
-            background: #1e293b;
-            color: #e2e8f0;
-            border: 1px solid #334155;
-            padding: 8px 14px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 15px;
-            margin-left: 8px;
-            transition: .3s;
-        }
-
-        .language-bar button:hover {
-            background: #334155;
-        }
-
-        .language-bar button.active {
-            background: #38bdf8;
-            color: #000;
-            border-color: #38bdf8;
-        }
-
-header {
-    position: relative;      /* <-- ADD THIS LINE */
-    background: linear-gradient(135deg, #ffffff, #f1f5f9);
-    text-align: center;
-    padding: 40px 20px;
-    border-bottom: 3px solid #38bdf8;
-}
-.main-logo {
-    height: 180px;
-    width: auto;
-    margin-bottom: 20px;
-}
-        /* BELTPRO Stamp */
-
-.beltpro-stamp{
-
-    position:absolute;
-
-    width:190px;
-
-    left:80px;
-
-    top:25px;
-
-    transform:rotate(-15deg);
-
-    opacity:0.60;
-
-    z-index:10;
-
-}
-
-header h1 {
-    font-size: 48px;
-    color: #0f4c81;
-    letter-spacing: 2px;
-}
-
-header h3 {
-    margin-top: 10px;
-    font-weight: normal;
-    color: #475569;
-}
-
-.since {
-    margin-top: 15px;
-    color: #22c55e;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: auto;
-            padding: 40px 0;
-        }
-
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 25px;
-            box-shadow: 0 0 18px rgba(0,0,0,.35);
-        }
-
-        h2 {
-            color: #0f4c81;
-            margin-bottom: 20px;
-        }
-
-        ul {
-            padding-left: 20px;
-        }
-
-        li {
-            margin-bottom: 10px;
-        }
-
-        .highlight {
-            color: #d97706;
-            font-weight: bold;
-        }
-
-        .contact p {
-            margin-bottom: 15px;
-        }
-
-        a {
-            color: #0056b3;
-            text-decoration: none;
-        }
-
-        a:hover {
-            color: #7dd3fc;
-        }
-
-        .button {
-            display: inline-block;
-            margin-top: 20px;
-            background: #0f4c81;
-            color: white;
-            padding: 12px 22px;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: .3s;
-        }
-
-        .button:hover {
-            background: #0b3a61;
-        }
-
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            background: #0f4c81;
-            color: white;
-            border-top: 2px solid #1f2937;
-        }
-
-        .navbar{
-    position: sticky;
-    top:0;
-    z-index:1000;
-    background:#0f4c81;
-    padding:15px;
-    display:flex;
-    justify-content:center;
-    gap:30px;
-    flex-wrap:wrap;
-}
-
-.navbar a{
-    color:white;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-.navbar a:hover{
-    color:#38bdf8;
-}
-        .dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: white;
-    min-width: 280px;
-    border-radius: 8px;
-    box-shadow: 0 8px 20px rgba(0,0,0,.2);
-    overflow: hidden;
-    z-index: 1000;
-}
-
-.dropdown-content a {
-    display: block;
-    color: #0f4c81;
-    padding: 12px 16px;
-    text-decoration: none;
-    font-weight: normal;
-    white-space: nowrap;
-}
-
-.dropdown-content a:hover {
-    background: #f1f5f9;
-}
-
-.dropdown:not(.calculator-dropdown):hover .dropdown-content {
-    display: block;
-}
-        .banner-image{
-    width:100%;
-    height:auto;
-    display:block;
-}
-
-
-        @media(max-width:700px){
-
-            header h1{
-                font-size:36px;
-            }
-
-           .main-logo{
-    max-height:80px;
-}
-
-.beltpro-stamp{
-    width:70px;
-    left:10px;
-    top:15px;
-}
-
-            .card{
-                padding:20px;
-            }
-
-            .language-bar{
-                text-align:center;
-            }
-
-            .language-bar button{
-                margin:5px;
-            }
-        }
-
-    
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:5000;align-items:center;justify-content:center}
-.modal-overlay.show{display:flex}
-.modal-box{background:#fff;max-width:700px;width:90%;padding:24px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
-.modal-box h2{margin-top:0}
-.modal-actions{text-align:right;margin-top:20px}
-.modal-actions button{padding:10px 18px;border:none;border-radius:6px;cursor:pointer}
-#acceptDisclaimer{background:#0f4c81;color:#fff}
-#cancelDisclaimer{margin-right:10px}
-.calcs-open .dropdown-content{display:block!important;}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="language-bar">
-
-    <button type="button" data-lang="en" onclick="setLanguage('en')" aria-label="Switch to English">🇺🇸 English</button>
-
-    <button type="button" data-lang="es" onclick="setLanguage('es')" aria-label="Cambiar a Español">🇪🇸 Español</button>
-
-    <button type="button" data-lang="pt" onclick="setLanguage('pt')" aria-label="Mudar para Português">🇧🇷 Português</button>
-
-    <button type="button" data-lang="it" onclick="setLanguage('it')" aria-label="Passa all'Italiano">🇮🇹 Italiano</button>
-
-</div>
-
-<header id="home">
-
-    <img src="beltpro-stamp.png"
-     class="beltpro-stamp"
-     alt="BELTPRO Stamp">
-
-    <!-- Replace logo.png with your logo file -->
-    <img src="logo.png"
-     class="main-logo"
-     alt="BELTPRO Logo">
-
-
-
-    <h3
-        data-en="Spiral Conveyor Systems • Industrial Baking Ovens • Engineering Services"
-        data-es="Sistemas de Transportadores en Espiral • Hornos Industriales • Servicios de Ingeniería"
-        data-pt="Sistemas de Transportadores Espirais • Fornos Industriais • Serviços de Engenharia"
-        data-it="Sistemi di Trasportatori a Spirale • Forni Industriali • Servizi di Ingegneria">
-        Spiral Conveyor Systems • Industrial Baking Ovens • Engineering Services
-    </h3>
-
-    <div class="since"
-        data-en="Serving Industry Since 2014"
-        data-es="Al Servicio de la Industria Desde 2014"
-        data-pt="Atendendo a Indústria Desde 2014"
-        data-it="Al Servizio dell'Industria Dal 2014">
-        Serving Industry Since 2014
-    </div>
-
-
-
-<nav class="navbar">
-
-
-    <a href="#home">Home</a>
-<div class="dropdown">
-
-    <a href="#services"
-       data-en="Services ▼"
-       data-es="Servicios ▼"
-       data-pt="Serviços ▼"
-       data-it="Servizi ▼">
-        Services ▼
-    </a>
-
-    <div class="dropdown-content">
-
-        <a href="#services"
-           data-en="Belt Tension Measurement"
-           data-es="Medição da Tensão da Correia"
-           data-pt="Medição da Tensão da esteira"
-           data-it="Misurazione della Tensione del Nastro">
-            Belt Tension Measurement
-        </a>
-
-        <a href="#services"
-           data-en="Belt Tension Analysis & Calculations"
-           data-es="Análisis y Cálculos de Tensión"
-           data-pt="Análise e Cálculos de Tensão"
-           data-it="Analisi e Calcoli della Tensione">
-            Belt Tension Analysis & Calculations
-        </a>
-
-        <a href="#services"
-           data-en="Spiral Conveyor Installation"
-           data-es="Instalación de Transportadores Espirales"
-           data-pt="Instalação de Transportadores Espirais"
-           data-it="Installazione di Trasportatori a Spirale">
-            Spiral Conveyor Installation
-        </a>
-
-        <a href="#services"
-           data-en="Spiral Conveyor Troubleshooting"
-           data-es="Diagnóstico de Transportadores Espirales"
-           data-pt="Diagnóstico de Transportadores Espirais"
-           data-it="Risoluzione Problemi Trasportatori a Spirale">
-            Spiral Conveyor Troubleshooting
-        </a>
-
-        <a href="#services"
-           data-en="Overdrive Adjustment & Optimization"
-           data-es="Ajuste y Optimización del Overdrive"
-           data-pt="Ajuste e Otimização de escorregamento"
-           data-it="Regolazione e Ottimizzazione Overdrive">
-            Overdrive Adjustment & Optimization
-        </a>
-
-        <a href="#services"
-           data-en="Stacker Drive Parts Inspection"
-           data-es="Inspección de Componentes del Accionamiento"
-           data-pt="Inspeção de Componentes do Acionamento"
-           data-it="Ispezione Componenti del Sistema di Azionamento">
-            Stacker Drive Parts Inspection
-        </a>
-
-        <a href="#services"
-           data-en="Oven Precision Leveling & Alignment"
-           data-es="Nivelación y Alineación de Hornos"
-           data-pt="Nivelamento e Alinhamento de Fornos"
-           data-it="Livellamento e Allineamento Forni">
-            Oven Precision Leveling & Alignment
-        </a>
-
-        <a href="#services"
-           data-en="Baking Oven Troubleshooting"
-           data-es="Diagnóstico de Hornos"
-           data-pt="Diagnóstico de Fornos"
-           data-it="Risoluzione Problemi Forni">
-            Baking Oven Troubleshooting
-        </a>
-
-        <a href="#services"
-           data-en="Equipment Inspection & Performance Assessment"
-           data-es="Inspección y Evaluación del Rendimiento"
-           data-pt="Inspeção e Avaliação de Desempenho"
-           data-it="Ispezione e Valutazione delle Prestazioni">
-            Equipment Inspection & Performance Assessment
-        </a>
-
-        <a href="#services"
-           data-en="Preventive Maintenance Programs"
-           data-es="Programas de Mantenimiento Preventivo"
-           data-pt="Programas de Manutenção Preventiva"
-           data-it="Programmi di Manutenzione Preventiva">
-            Preventive Maintenance Programs
-        </a>
-
-        <a href="#services"
-           data-en="Equipment Retrofits & Upgrades"
-           data-es="Modernización de Equipos"
-           data-pt="Retrofit e Modernização de Equipamentos"
-           data-it="Retrofit e Aggiornamenti delle Attrezzature">
-            Equipment Retrofits & Upgrades
-        </a>
-
-        <a href="#services"
-           data-en="Commissioning & Start-Up Support"
-           data-es="Puesta en Marcha y Comisionamiento"
-           data-pt="Comissionamento e Start-Up"
-           data-it="Commissioning e Avviamento">
-            Commissioning & Start-Up Support
-        </a>
-
-        <a href="#services"
-           data-en="Technical Training – Theory of Operation"
-           data-es="Capacitación Técnica – Teoría de Operación"
-           data-pt="Treinamento Técnico – Teoria de Operação"
-           data-it="Formazione Tecnica – Teoria di Funzionamento">
-            Technical Training – Theory of Operation
-        </a>
-
-        <a href="#services"
-           data-en="Engineering Consulting"
-           data-es="Consultoría de Ingeniería"
-           data-pt="Consultoria de Engenharia"
-           data-it="Consulenza di Ingegneria">
-            Engineering Consulting
-        </a>
-
-        <a href="#services"
-           data-en="Cold & Hot Band Tracking"
-           data-es="Guiado de Bandas Frías y Calientes"
-           data-pt="Alinhamento frio e quente de esteiras"
-           data-it="Allineamento Nastri Caldi e Freddi">
-            Cold & Hot Band Tracking
-        </a>
-
-    </div>
-
-</div>
-
-
-    <div class="dropdown">
-
-        <a href="#industries"
-           data-en="Industries ▼"
-           data-es="Industrias ▼"
-           data-pt="Indústrias ▼"
-           data-it="Settori ▼">
-            Industries ▼
-        </a>
-
-
-        <div class="dropdown-content">
-
-            <a href="#industries"
-               data-en="Bakeries"
-               data-es="Panaderías"
-               data-pt="Panificadoras"
-               data-it="Panifici">
-                Bakeries
-            </a>
-
-            <a href="#industries"
-               data-en="Breweries"
-               data-es="Cervecerías"
-               data-pt="Cervejarias"
-               data-it="Birrifici">
-                Breweries
-            </a>
-
-            <a href="#industries"
-               data-en="Meat &amp; Poultry Processing"
-               data-es="Procesamiento de Carne y Aves"
-               data-pt="Processamento de Carnes e Aves"
-               data-it="Lavorazione di Carne e Pollame">
-                Meat &amp; Poultry Processing
-            </a>
-
-            <a href="#industries"
-               data-en="Seafood Processing"
-               data-es="Procesamiento de Productos del Mar"
-               data-pt="Processamento de Frutos do Mar"
-               data-it="Lavorazione dei Prodotti Ittici">
-                Seafood Processing
-            </a>
-
-            <a href="#industries"
-               data-en="Ice Cream &amp; Frozen Desserts"
-               data-es="Helados y Postres Congelados"
-               data-pt="Sorvetes e Sobremesas Congeladas"
-               data-it="Gelati e Dessert Surgelati">
-                Ice Cream &amp; Frozen Desserts
-            </a>
-
-            <a href="#industries"
-               data-en="Chocolate &amp; Confectionery"
-               data-es="Chocolate y Confitería"
-               data-pt="Chocolate e Confeitaria"
-               data-it="Cioccolato e Confetteria">
-                Chocolate &amp; Confectionery
-            </a>
-
-            <a href="#industries"
-               data-en="Snack Food Manufacturing"
-               data-es="Fabricación de Snacks"
-               data-pt="Fabricação de Snacks"
-               data-it="Produzione di Snack">
-                Snack Food Manufacturing
-            </a>
-
-            <a href="#industries"
-               data-en="Glass Manufacturing"
-               data-es="Fabricación de Vidrio"
-               data-pt="Fabricação de Vidro"
-               data-it="Produzione del Vetro">
-                Glass Manufacturing
-            </a>
-
-        </div>
-
-         </div>
-
-
-    <div class="dropdown">
-
-    <a href="#projects"
-       data-en="Global Projects ▼"
-       data-es="Proyectos globales ▼"
-       data-pt="Projetos globais ▼"
-       data-it="Progetti Globali ▼">
-        Projects ▼
-    </a>
-
-    <div class="dropdown-content">
-
-        <a href="#projects"
-           data-en="PepsiCo – Mexico"
-           data-es="PepsiCo – México"
-           data-pt="PepsiCo – México"
-           data-it="PepsiCo – Messico">
-            PepsiCo – Mexico
-        </a>
-
-        <a href="#projects"
-           data-en="Cargill – Costa Rica"
-           data-es="Cargill – Costa Rica"
-           data-pt="Cargill – Costa Rica"
-           data-it="Cargill – Costa Rica">
-            Cargill – Costa Rica
-        </a>
-
-        <a href="#projects"
-           data-en="Santa Priscila – Ecuador"
-           data-es="Santa Priscila – Ecuador"
-           data-pt="Santa Priscila – Equador"
-           data-it="Santa Priscila – Ecuador">
-            Santa Priscila – Ecuador
-        </a>
-
-        <a href="#projects"
-           data-en="Gonnella – USA"
-           data-es="Gonnella – EE.UU."
-           data-pt="Gonnella – EUA"
-           data-it="Gonnella – USA">
-            Gonnella – USA
-        </a>
-
-        <a href="#projects"
-           data-en="Bermudez – Trinidad & Tobago"
-           data-es="Bermudez – Trinidad y Tobago"
-           data-pt="Bermudez – Trinidad e Tobago"
-           data-it="Bermudez – Trinidad e Tobago">
-            Bermudez – Trinidad & Tobago
-        </a>
-
-        <a href="#projects"
-           data-en="Noel – Colombia"
-           data-es="Noel – Colombia"
-           data-pt="Noel – Colômbia"
-           data-it="Noel – Colombia">
-            Noel – Colombia
-        </a>
-
-        <a href="#projects"
-           data-en="Carozzi – Chile"
-           data-es="Carozzi – Chile"
-           data-pt="Carozzi – Chile"
-           data-it="Carozzi – Cile">
-            Carozzi – Chile
-        </a>
-
-        <a href="#projects"
-           data-en="Mondelez – Argentina"
-           data-es="Mondelez – Argentina"
-           data-pt="Mondelez – Argentina"
-           data-it="Mondelez – Argentina">
-            Mondelez – Argentina
-        </a>
-
-        <a href="#projects"
-           data-en="Mondelez – Peru"
-           data-es="Mondelez – Perú"
-           data-pt="Mondelez – Peru"
-           data-it="Mondelez – Perù">
-            Mondelez – Peru
-        </a>
-
-        <a href="#projects"
-           data-en="Carabobo – Venezuela"
-           data-es="Carabobo – Venezuela"
-           data-pt="Carabobo – Venezuela"
-           data-it="Carabobo – Venezuela">
-            Carabobo – Venezuela
-        </a>
-
-        <a href="#projects"
-           data-en="MBRF – Brazil"
-           data-es="MBRF – Brasil"
-           data-pt="MBRF – Brasil"
-           data-it="MBRF – Brasile">
-            MBRF – Brazil
-        </a>
-
-        <a href="#projects"
-           data-en="JBS / Seara – Brazil"
-           data-es="JBS / Seara – Brasil"
-           data-pt="JBS / Seara – Brasil"
-           data-it="JBS / Seara – Brasile">
-            JBS / Seara – Brazil
-        </a>
-
-        <a href="#projects"
-           data-en="Froneri – Brazil"
-           data-es="Froneri – Brasil"
-           data-pt="Froneri – Brasil"
-           data-it="Froneri – Brasile">
-            Froneri – Brazil
-        </a>
-
-        <a href="#projects"
-           data-en="Capricche – Brazil"
-           data-es="Capricche – Brasil"
-           data-pt="Capricche – Brasil"
-           data-it="Capricche – Brasile">
-            Capricche – Brazil
-        </a>
-
-            <a href="#projects"
-           data-en="Cooperativa Aurora – Brazil"
-           data-es="Cooperativa Aurora – Brasil"
-           data-pt="Cooperativa Aurora – Brasil"
-           data-it="Cooperativa Aurora – Brasile">
-            Capricche – Brazil
-        </a>
-
-        <a href="#projects"
-           data-en="Forno de Minas – Brazil"
-           data-es="Forno de Minas – Brasil"
-           data-pt="Forno de Minas – Brasil"
-           data-it="Forno de Minas – Brasile">
-            Capricche – Brazil
-        </a>
-
-        <a href="#projects"
-           data-en="Bimbo – Brazil"
-           data-es="Bimbo – Brasil"
-           data-pt="Bimbo – Brasil"
-           data-it="Bimbo – Brasile">
-            Bimbo – Brazil
-        </a>
-
-    </div>
-    </div>
-
-    <div class="dropdown">
- 
-    <a href="#articles"
-       data-en="Technical Articles ▼"
-       data-es="Artículos Técnicos ▼"
-       data-pt="Artigos Técnicos ▼"
-       data-it="Articoli Tecnici ▼">
-        Technical Articles ▼
-    </a>
-
-    <div class="dropdown-content">
-
-        <a href="#articles"
-           data-en="Calculating System Turn Ratio"
-           data-es="Cálculo de la Relación de Giro"
-           data-pt="Cálculo da Relação de Giro"
-           data-it="Calcolo del Rapporto di Curvatura">
-            Calculating System Turn Ratio
-        </a>
-
-   
-        <a href="#articles"
-           data-en="Overdrive Adjustment"
-           data-es="Ajuste de Overdrive"
-           data-pt="Ajuste de Overdrive"
-           data-it="Regolazione Overdrive">
-            Overdrive Adjustment
-        </a>
-
-      
-        <a href="#articles"
-           data-en="Spiral Theory"
-           data-es="Teoría de Espirales"
-           data-pt="Teoria das Espirais"
-           data-it="Teoria delle Spirali">
-            Spiral Theory
-        </a>
-
-        <a href="#articles"
-           data-en="Controls and Trackers"
-           data-es="Controles y Guiadores"
-           data-pt="Controles e alinhadores"
-           data-it="Controlli e Guide">
-            Controls and Trackers
-        </a>
-
-        <a href="#articles"
-           data-en="Belt Specification"
-           data-es="Especificación de Bandas"
-           data-pt="Especificação de Esteiras"
-           data-it="Specifiche del Nastro">
-            Belt Specification
-        </a>
-
-        <a href="#articles"
-           data-en="Baking Band Installation Instructions"
-           data-es="Instrucciones de Instalación de Bandas para Hornos"
-           data-pt="Instruções para Instalação de esteiras em Fornos"
-           data-it="Istruzioni per l'Installazione dei Nastri da Forno">
-            Baking Band Installation Instructions
-        </a>
-
-    </div>
-
-</div>
-
-    <div class="dropdown calculator-dropdown">
-
-    <a href="#" id="calculatorsMenu" data-en="Calculators ▼"
-       data-es="Calculadoras ▼"
-       data-pt="Calculadoras ▼"
-       data-it="Calcolatori ▼">
-        Calculators ▼
-    </a>
-
-    <div class="dropdown-content">
-
-        <a href="/spiral-tension-calculator.html"
-           data-en="Spiral system Tension Estimation"
-           data-es="Estimación de Tensión de espirales nuevos"
-           data-pt="Estimativa de tensão de espirais para OEM´s"
-           data-it="Stima della Tensione del nuovo Nastro">
-            New Spiral system Tension Estimation
-        </a>
-
-        <a href="/spiral-belting-cycles-calculator.html"
-   data-en="Spiral Belting Cycles Calculator"
-   data-es="Calculadora de Ciclos de la Banda"
-   data-pt="Calculadora de Ciclos de Esteira espiral"
-   data-it="Calcolatore Cicli del Nastro">
-    Spiral Belting Cycles Calculator
-</a>
-        
-        <a href="/max-allowable-tension-calculator.html"
-   data-en="Maximum Allowable Tension"
-   data-es="Tensión Máxima Admisible"
-   data-pt="Tensão Máxima Admissível por esteira"
-   data-it="Tensione Massima Ammissibile">
-    Maximum Allowable Tension
-</a>
-        
-        <a href="belt-weight-calculator.html"
-   data-en="Belt Weight Calculator"
-   data-es="Calculo de peso da banda"
-   data-pt="Estimativa de peso para embarque"
-   data-it="Stima del peso del nastro">
-     Belt Weight Calculator
-</a>
-
-        <a href="belt-sprocket-conversion-calculator.html"
-   data-en="Belt Sprocket conversion calculator"
-   data-es="Calculo de los piñones de la banda"
-   data-pt="Cálculo de engrenagens para mudança de passo"
-   data-it="Conversione a trasmissione">
-Belt Sprocket Conversion Calculator
-</a>
-        <a href="belt-turn-ratio-calculator.html"
-   data-en="Belt turn ratio calculator"
-   data-es="Calculo del turn ratio de la banda"
-   data-pt="Cálculo do turn ratio da esteira"
-   data-it="Calcolatore del turn ratio del nastro">
-Belt Turn Ratio Calculator
- </a>
-        
-        <a href="stacker-outfeed-drive-ratio-calculator.html"
-   data-en="Stacker outfeed drive ratio calculator"
-   data-es="Calculo del los piñones del autoapilable"
-   data-pt="Cálculo das engrenagens de saída do espiral auto-empilhável"
-   data-it="Calcolatore del autoinpilabile">
-    Stacker Outfeed Drive Ratio Calculator
-</a>
-        <a href="curve-conveyor-radius-angle-calculator.html"
-   data-en="Curve conveyor radius calculator"
-   data-es="Calculo del radio de la curva"
-   data-pt="Cálculo de raio e ângulo de curvas"
-   data-it="Calcolatore del raggio">
-    Curve Conveyor Radius &amp; Angle Calculator
-</a>
-        <a href="side-drive-spiral-calculator.html"
-   data-en="Side Drive spiral torque calculator"
-   data-es="Calculo de torque espiral side drive"
-   data-pt="Cálculo de torque espiral Side-Drive"
-   data-it="Calcolatore de coppia">
-    Side Drive Spiral Calculator
-</a>
-        
-         <a href="oven-band-force-calculator.html"
-   data-en="Oven band force calculator"
-   data-es="Calculo de fuerza en la banda"
-   data-pt="Cálculo de força de pistões de forno"
-   data-it="Calcolatore de forza horno">
-    Oven band force calculator
-</a>
-        <a href="/cb5-air-pressure-calculator.html"
-   data-en="CB5 Air Pressure Calculator"
-   data-es="Calculadora de Presión de Aire CB5"
-   data-pt="Calculadora de Pressão de Ar CB5"
-   data-it="Calcolatore Pressione Aria CB5">
-    CB5 Air Pressure Calculator
-</a>
-
-    </div>
-
-</div>
-
- 
-               <a href="#lineage"
-   data-en="Professional Lineage"
-   data-es="Linaje Profesional"
-   data-pt="Linhagem Profissional"
-   data-it="Lineaggio Professionale">
-    Professional Lineage
-</a>
-
-    <a href="field-experience.html"
-   data-en="Field Experience"
-   data-es="Experiencia de Campo"
-   data-pt="Experiência de Campo"
-   data-it="Esperienza sul Campo">
-    Field Experience
-</a>
-
-       <a href="#about">About</a>
-
-    <a href="#contact">Contact</a>
-
-
-</nav>
-    <img src="beltbackground.jpg" alt="BELTPRO Conveyor Belt" class="banner-image">
-
-<div class="container">
-
-    <div class="card" id="about">
-
-        <h2
-            data-en="About BELTPRO"
-            data-es="Sobre BELTPRO"
-            data-pt="Sobre a BELTPRO"
-            data-it="Chi è BELTPRO">
-            About BELTPRO
-        </h2>
-
-        <p
-            data-en="BELTPRO specializes in professional installation, precision levelling and alignment, maintenance, troubleshooting, and optimization of <span class='highlight'>spiral conveyor systems</span> and <span class='highlight'>industrial baking ovens.</span>"
-            data-es="BELTPRO se especializa en la instalación profesional, el mantenimiento, el diagnóstico de fallas y la optimización de <span class='highlight'>sistemas de transportadores en espiral</span> y <span class='highlight'>hornos industriales de panificación.</span>"
-            data-pt="A BELTPRO é especializada na instalação profissional, manutenção, diagnóstico de falhas e otimização de <span class='highlight'>transportadores espirais</span> e <span class='highlight'>fornos industriais de panificação.</span>"
-            data-it="BELTPRO è specializzata nell'installazione professionale, manutenzione, risoluzione dei problemi e ottimizzazione di <span class='highlight'>sistemi di trasportatori a spirale</span> e <span class='highlight'>forni industriali da forno.</span>">
-            BELTPRO specializes in professional installation, maintenance,
-            troubleshooting, and optimization of
-            <span class="highlight">spiral conveyor systems</span>
-            and
-            <span class="highlight">industrial baking ovens.</span>
-        </p>
-
-        <br>
-
-        <p
-            data-en="Since 2014 we have supported food processing and manufacturing companies with practical engineering solutions that improve equipment reliability, production efficiency, and conveyor performance."
-            data-es="Desde 2014 hemos apoyado a empresas de procesamiento de alimentos y manufactura con soluciones prácticas de ingeniería que mejoran la fiabilidad de los equipos, la eficiencia de la producción y el rendimiento de los transportadores."
-            data-pt="Desde 2014 apoiamos empresas do setor alimentício e de manufatura com soluções práticas de engenharia que aumentam a confiabilidade dos equipamentos, a eficiência da produção e o desempenho dos transportadores."
-            data-it="Dal 2014 supportiamo aziende della trasformazione alimentare e manifatturiere con soluzioni pratiche di ingegneria che migliorano l'affidabilità delle attrezzature, l'efficienza produttiva e le prestazioni dei trasportatori.">
-            Since 2014 we have supported food processing and manufacturing
-            companies with practical engineering solutions that improve
-            equipment reliability, production efficiency, and conveyor
-            performance.
-        </p>
-
-    </div>
-
-    <div class="card" id="services">
-
-        <h2
-            data-en="Our Services"
-            data-es="Nuestros Servicios"
-            data-pt="Nossos Serviços"
-            data-it="I Nostri Servizi">
-            Our Services
-        </h2>
-
-        <ul>
-
-            <li
-                data-en="✔ Spiral conveyor installation"
-                data-es="✔ Instalación de transportadores en espiral"
-                data-pt="✔ Instalação de transportadores espirais"
-                data-it="✔ Installazione di trasportatori a spirale">
-                ✔ Spiral conveyor installation
-            </li>
-
-            <li
-                data-en="✔ Industrial baking oven installation &amp; commissioning"
-                data-es="✔ Instalación y puesta en marcha de hornos industriales de panificación"
-                data-pt="✔ Instalação e comissionamento de fornos industriais de panificação"
-                data-it="✔ Installazione e messa in servizio di forni industriali da forno">
-                ✔ Industrial baking oven installation &amp; commissioning
-            </li>
-
-                   <li
-                data-en="✔ Belt tension calculations"
-                data-es="✔ Cálculo de la tensión de la banda"
-                data-pt="✔ Cálculo de tensão da esteira"
-                data-it="✔ Calcolo de la tensione del nastro">
-                
-            </li>
-
-            <li
-                data-en="✔ Conveyor troubleshooting and diagnostics"
-                data-es="✔ Diagnóstico y resolución de fallas en transportadores"
-                data-pt="✔ Diagnóstico e resolução de falhas em transportadores"
-                data-it="✔ Diagnostica e risoluzione dei problemi dei trasportatori">
-                ✔ Conveyor troubleshooting and diagnostics
-            </li>
-
-            <li
-                data-en="✔ Spiral belt tension measurement"
-                data-es="✔ Medición de tensión de bandas en espiral"
-                data-pt="✔ Medição de tensão de esteiras espirais"
-                data-it="✔ Misurazione della tensione del nastro a spirale">
-                ✔ Spiral belt tension measurement
-            </li>
-
-            <li
-                data-en="✔ Drive and overdrive adjustments"
-                data-es="✔ Ajustes de accionamiento y sobreaccionamiento"
-                data-pt="✔ Ajustes de acionamento e escorregamento"
-                data-it="✔ Regolazioni di azionamento e sovravelocità">
-                ✔ Drive and overdrive adjustments
-            </li>
-
-            <li
-                data-en="✔ Preventive maintenance inspections"
-                data-es="✔ Inspecciones de mantenimiento preventivo"
-                data-pt="✔ Inspeções de manutenção preventiva"
-                data-it="✔ Ispezioni di manutenzione preventiva">
-                ✔ Preventive maintenance inspections
-            </li>
-
-            <li
-                data-en="✔ Conveyor performance optimization"
-                data-es="✔ Optimización del rendimiento de transportadores"
-                data-pt="✔ Otimização do desempenho de transportadores"
-                data-it="✔ Ottimizzazione delle prestazioni dei trasportatori">
-                ✔ Conveyor performance optimization
-            </li>
-
-            <li
-                data-en="✔ On-Site system training"
-                data-es="✔ Capacitacion del sistema en sitio"
-                data-pt="✔ Treinamento na planta"
-                data-it="✔ Formazione sul sistema in loco">
-                ✔ Conveyor performance optimization
-            </li>
-
-            <li
-                data-en="✔ Engineering recommendations for improved belt designs"
-                data-es="✔ Recomendaciones de ingeniería para mejorar el diseño de bandas"
-                data-pt="✔ Recomendações de engenharia para melhorar o design de esteiras"
-                data-it="✔ Raccomandazioni di ingegneria per migliorare il design dei nastri">
-                ✔ Engineering recommendations for improved belt designs
-            </li>
-
-            <li
-                data-en="✔ Belt life extension and efficiency improvements"
-                data-es="✔ Extensión de la vida útil de las bandas y mejoras de eficiencia"
-                data-pt="✔ Extensão da vida útil das esteiras e melhorias de eficiência"
-                data-it="✔ Estensione della durata del nastro e miglioramenti di efficienza">
-                ✔ Belt life extension and efficiency improvements
-            </li>
-
-        </ul>
-
-    </div>
-
-    <div class="card">
-
-        <h2
-            data-en="Engineering Expertise"
-            data-es="Experiencia en Ingeniería"
-            data-pt="Especialização em Engenharia"
-            data-it="Competenza Ingegneristica">
-            Engineering Expertise
-        </h2>
-
-        <p
-            data-en="We analyze mechanical systems to identify opportunities for performance improvements through better engineering practices."
-            data-es="Analizamos sistemas mecánicos para identificar oportunidades de mejora del rendimiento mediante mejores prácticas de ingeniería."
-            data-pt="Analisamos sistemas mecânicos para identificar oportunidades de melhoria de desempenho por meio de melhores práticas de engenharia."
-            data-it="Analizziamo i sistemi meccanici per individuare opportunità di miglioramento delle prestazioni attraverso migliori pratiche di ingegneria.">
-            We analyze mechanical systems to identify opportunities for
-            performance improvements through better engineering practices.
-        </p>
-
-        <br>
-
-        <ul>
-
-            <li
-                data-en="Operational efficiency"
-                data-es="Eficiencia operativa"
-                data-pt="Eficiência operacional"
-                data-it="Efficienza operativa">
-                Operational efficiency
-            </li>
-
-            <li
-                data-en="Production reliability"
-                data-es="Fiabilidad de la producción"
-                data-pt="Confiabilidade da produção"
-                data-it="Affidabilità della produzione">
-                Production reliability
-            </li>
-
-            <li
-                data-en="Reduced downtime"
-                data-es="Menor tiempo de inactividad"
-                data-pt="Redução do tempo de inatividade"
-                data-it="Riduzione dei tempi di fermo">
-                Reduced downtime
-            </li>
-
-            <li
-                data-en="Lower maintenance costs"
-                data-es="Menores costos de mantenimiento"
-                data-pt="Menores custos de manutenção"
-                data-it="Costi di manutenzione ridotti">
-                Lower maintenance costs
-            </li>
-
-            <li
-                data-en="Longer belt life"
-                data-es="Mayor vida útil de las bandas"
-                data-pt="Maior vida útil das esteiras"
-                data-it="Maggiore durata del nastro">
-                Longer belt life
-            </li>
-
-            <li
-                data-en="Reduced energy consumption"
-                data-es="Menor consumo de energía"
-                data-pt="Redução do consumo de energia"
-                data-it="Riduzione del consumo energetico">
-                Reduced energy consumption
-            </li>
-
-        </ul>
-
-    </div>
-
-    </div>   <!-- END Engineering Expertise card -->
-
-<!-- PASTE THE NEW PROFESSIONAL HERITAGE CARD HERE -->
-
-<div class="card" id="lineage">
-
-    <h2
-        data-en="Professional Lineage"
-        data-pt="Linhagem Profissional"
-        data-es="Linaje Profesional"
-        data-it="Lineaggio Professionale">
-        Professional Lineage
-    </h2>
-
-    <h3
-        data-en="Hands-On Training from Industry Leaders"
-        data-pt="Treinamento Prático com Líderes da Indústria"
-        data-es="Capacitación Práctica con Líderes de la Industria"
-        data-it="Formazione Pratica con i Leader del Settore">
-        Hands-On Training from Industry Leaders
-    </h3>
-
-    <p
-        data-en="BELTPRO's expertise has been built through years of hands-on training and field experience with some of the most respected and experienced professionals in the spiral conveyor industry. This knowledge has been complemented by more than a decade of practical experience supporting installations, commissioning, troubleshooting, inspections, maintenance, retrofits, and performance optimization for spiral conveyor belts and baking oven systems across the Americas."
-
-        data-pt="A experiência da BELTPRO foi construída ao longo de anos de treinamento prático e atuação em campo com alguns dos profissionais mais respeitados e experientes da indústria de transportadores espirais. Esse conhecimento foi complementado por mais de uma década de experiência prática em instalações, comissionamento, diagnóstico de falhas, inspeções, manutenção, modernizações e otimização de desempenho de transportadores espirais e sistemas de fornos industriais em toda a América."
-
-        data-es="La experiencia de BELTPRO se ha desarrollado a través de años de capacitación práctica y trabajo en campo junto a algunos de los profesionales más respetados y experimentados de la industria de transportadores en espiral. Este conocimiento se ha complementado con más de una década de experiencia práctica en instalaciones, puesta en marcha, diagnóstico de fallas, inspecciones, mantenimiento, modernización y optimización del rendimiento de transportadores en espiral y sistemas de hornos industriales en todo el continente americano."
-
-        data-it="L'esperienza di BELTPRO è stata costruita attraverso anni di formazione pratica e attività sul campo con alcuni dei professionisti più rispettati ed esperti del settore dei trasportatori a spirale. Questa conoscenza è stata completata da decenni di esperienza pratica nel supporto a installazioni, messa in servizio, risoluzione dei problemi, ispezioni, manutenzione, ammodernamenti e ottimizzazione delle prestazioni di trasportatori a spirale e sistemi di forni industriali in tutte le Americhe.">
-
-        BELTPRO's expertise has been built through years of hands-on training
-        and field experience with some of the most respected and experienced professionals
-        in the spiral conveyor industry, including
-        Marty Tabaka, Mike Whittle, John Tech and others.
-        This knowledge has been complemented by more than a decade of practical
-        experience supporting installations, commissioning,
-        troubleshooting, inspections, maintenance, retrofits,
-        and performance optimization for spiral conveyor belts
-        and baking oven systems across the Americas.
-
-    </p>
-
-    <p
-        data-en="Our technical approach is rooted in proven engineering principles, practical field experience, and a commitment to continuous learning. This professional lineage traces back to the pioneering innovations of Gerald Roinestad, whose work laid the foundation for modern spiral conveyor technology."
-
-        data-pt="Nossa abordagem técnica é fundamentada em princípios de engenharia comprovados, experiência prática em campo e compromisso com o aprendizado contínuo. Essa linhagem profissional remonta às inovações pioneiras de Gerald Roinestad, cujo trabalho estabeleceu as bases da moderna tecnologia de transportadores espirais."
-
-        data-es="Nuestro enfoque técnico se basa en principios de ingeniería comprobados, experiencia práctica en campo y un compromiso con el aprendizaje continuo. Este legado profesional se remonta a las innovaciones pioneras de Gerald Roinestad, cuyo trabajo sentó las bases de la moderna tecnología de transportadores en espiral."
-
-        data-it="Il nostro approccio tecnico si basa su principi di ingegneria consolidati, esperienza pratica sul campo e un costante impegno nell'apprendimento continuo. Questo lineaggio professionale risale alle innovazioni pionieristiche di Gerald Roinestad, il cui lavoro ha posto le basi della moderna tecnologia dei trasportatori a spirale.">
-
-        Our technical approach is rooted in proven engineering principles,
-        practical field experience, and a commitment to continuous learning.
-        This professional lineage traces back to the pioneering innovations
-        and commitment of Gerald Roinestad in this field, whose work laid the foundation
-        for modern spiral conveyor technology.
-
-    </p>
-
-</div>
-
-<!-- THEN YOUR CONTACT CARD STARTS HERE -->
-
-<div class="card contact" id="contact">
-
- 
-        <h2
-            data-en="Contact"
-            data-es="Contacto"
-            data-pt="Contato"
-            data-it="Contatti">
-            Contact
-        </h2>
-
-        <p
-            data-en="Need technical support, installation services, troubleshooting, or engineering assistance?"
-            data-es="¿Necesita soporte técnico, servicios de instalación, resolución de fallas o asistencia de ingeniería?"
-            data-pt="Precisa de suporte técnico, serviços de instalação, resolução de falhas ou assistência de engenharia?"
-            data-it="Hai bisogno di supporto tecnico, servizi di installazione, risoluzione dei problemi o assistenza ingegneristica?">
-            Need technical support, installation services, troubleshooting,
-            or engineering assistance?
-        </p>
-
-        <br>
-
-        <p>
-            <strong>ME Ricardo Pio Barakat</strong>
-        </p>
-
-        <p
-            data-en="📱 Phone / WhatsApp<br><a href='https://wa.me/5514998005395'>+55 14 99800-5395</a>"
-            data-es="📱 Teléfono / WhatsApp<br><a href='https://wa.me/5514998005395'>+55 14 99800-5395</a>"
-            data-pt="📱 Telefone / WhatsApp<br><a href='https://wa.me/5514998005395'>+55 14 99800-5395</a>"
-            data-it="📱 Telefono / WhatsApp<br><a href='https://wa.me/5514998005395'>+55 14 99800-5395</a>">
-            📱 Phone / WhatsApp<br>
-            <a href="https://wa.me/5514998005395">
-                +55 14 99800-5395
-            </a>
-        </p>
-
-        <p
-            data-en="✉ Email<br>
-            <a href='mailto:engenharia@beltpro.com.br'>engenharia@beltpro.com.br</a><br>
-            <a href='mailto:msc.barakat@outlook.com'>msc.barakat@outlook.com</a>"
-            data-es="✉ Correo electrónico<br>
-            <a href='mailto:engenharia@beltpro.com.br'>engenharia@beltpro.com.br</a><br>
-            <a href='mailto:msc.barakat@outlook.com'>msc.barakat@outlook.com</a>"
-            data-pt="✉ E-mail<br>
-            <a href='mailto:engenharia@beltpro.com.br'>engenharia@beltpro.com.br</a><br>
-            <a href='mailto:msc.barakat@outlook.com'>msc.barakat@outlook.com</a>"
-           data-it="✉ E-mail<br>
-           <a href='mailto:engenharia@beltpro.com.br'>engenharia@beltpro.com.br</a><br>
-           <a href='mailto:msc.barakat@outlook.com'>msc.barakat@outlook.com</a>"
-            ✉ Email<br>
-           <a href="mailto:engenharia@beltpro.com.br">
-    engenharia@beltpro.com.br
-</a>
-<br>
-<a href="mailto:msc.barakat@outlook.com">
-    msc.barakat@outlook.com
-</a>
-        </p>
-
-        <a class="button"
-           href="mailto:msc.barakat@outlook.com"
-           data-en="Request Technical Assistance"
-           data-es="Solicitar Asistencia Técnica"
-           data-pt="Solicitar Assistência Técnica"
-           data-it="Richiedi Assistenza Tecnica">
-            Request Technical Assistance
-        </a>
-
-    </div>
-
-</div>
-
-<footer
-    data-en="<strong>BELTPRO</strong><br>Spiral Conveyor &amp; Industrial Oven Specialists<br><br>Since 2014<br><br>Ricardo Pio Barakat<br>Phone / WhatsApp: +55 14 99800-5395<br>"
-    data-es="<strong>BELTPRO</strong><br>Especialistas en Transportadores en Espiral y Hornos Industriales<br><br>Desde 2014<br><br>Ricardo Pio Barakat<br>Teléfono / WhatsApp: +55 14 99800-5395<br>"
-    data-pt="<strong>BELTPRO</strong><br>Especialistas em Transportadores Espirais e Fornos Industriais<br><br>Desde 2014<br><br>Ricardo Pio Barakat<br>Telefone / WhatsApp: +55 14 99800-5395<br>"
-    data-it="<strong>BELTPRO</strong><br>Specialisti in Trasportatori a Spirale e Forni Industriali<br><br>Dal 2014<br><br>Ricardo Pio Barakat<br>Telefono / WhatsApp: +55 14 99800-5395<br>">
-    <strong>BELTPRO</strong><br>
-    Spiral Conveyor &amp; Industrial Oven Specialists<br><br>
-    Since 2014<br><br>
-    ME Ricardo Pio Barakat<br>
-    Phone / WhatsApp: +55 14 99800-5395<br>
-   <a href="mailto:engenharia@beltpro.com.br">
-    engenharia@beltpro.com.br
-</a><br>
-
-<a href="mailto:msc.barakat@outlook.com">
-    msc.barakat@outlook.com
-</a>
-</footer>
-
-
-<div id="disclaimerModal" class="modal-overlay">
-<div class="modal-box">
-<h2>Engineering Disclaimer</h2>
-<p>The engineering calculators provided by BELTPRO are intended for engineering estimation purposes only.</p>
-<p><strong>BELTPRO makes no warranty regarding the accuracy, completeness, or suitability of these calculations for any specific application.</strong></p>
-<p>The user assumes full responsibility for verifying all calculated values before using them for design, equipment modification, procurement, operation, maintenance, or safety-related decisions.</p>
-<p>Always verify results against equipment specifications, manufacturer recommendations, and accepted engineering practices before implementation.</p>
-<div class="modal-actions">
-<button id="cancelDisclaimer">Cancel</button>
-<button id="acceptDisclaimer">I Understand</button>
-</div></div></div>
-
-<script>
-
-    function setLanguage(lang){
-
-        // Swap the text of every element that has a translation for this language
-        document.querySelectorAll('[data-' + lang + ']').forEach(function(el){
-            el.innerHTML = el.getAttribute('data-' + lang);
-        });
-
-        // Update <html lang="..."> for accessibility and SEO
-        document.documentElement.setAttribute('lang', lang);
-
-        // Remember the choice for the next visit
-        try { localStorage.setItem('beltpro_lang', lang); } catch(e){}
-
-        // Highlight the active flag button
-        document.querySelectorAll('.language-bar button').forEach(function(btn){
-            btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-        });
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="BELTPRO provides engineering services for spiral conveyor systems, industrial baking ovens, belt tension, tracking, inspections and technical calculations." name="description"/>
+<title>BELTPRO | Spiral Conveyor &amp; Industrial Oven Specialists</title>
+<link href="favicon.png" rel="icon" type="image/png"/>
+<style>
+    :root {
+      --navy: #082f49;
+      --blue: #0f4c81;
+      --blue-2: #0369a1;
+      --sky: #38bdf8;
+      --orange: #f97316;
+      --green: #16a34a;
+      --ink: #172033;
+      --muted: #5f6b7a;
+      --line: #dbe4ee;
+      --soft: #f4f8fb;
+      --white: #ffffff;
+      --shadow: 0 18px 45px rgba(15, 76, 129, 0.12);
+      --radius: 20px;
     }
 
-    // On load, restore the saved language (default: English)
-   // Restore saved language (default: English)
-document.addEventListener('DOMContentLoaded', function () {
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    var saved = 'en';
+    html {
+      scroll-behavior: smooth;
+    }
 
-    try {
-        saved = localStorage.getItem('beltpro_lang') || 'en';
-    } catch(e){}
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
 
-    setLanguage(saved);
+    body.modal-open {
+      overflow: hidden;
+    }
 
-});
+    img {
+      max-width: 100%;
+    }
 
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const menu = document.getElementById('calculatorsMenu');
-    const modal = document.getElementById('disclaimerModal');
-    const calcDropdown = menu.closest('.calculator-dropdown');
-    const cancelButton = document.getElementById('cancelDisclaimer');
-    const acceptButton = document.getElementById('acceptDisclaimer');
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
 
-    // The calculator list never opens by hovering.
-    // Clicking the menu first displays the engineering disclaimer.
-    menu.addEventListener('click', function (event) {
+    .shell {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 14px;
+      color: var(--blue-2);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 3px;
+      border-radius: 99px;
+      background: var(--orange);
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin-bottom: 44px;
+    }
+
+    .section-heading h2 {
+      color: var(--navy);
+      font-size: clamp(31px, 4vw, 48px);
+      line-height: 1.1;
+      letter-spacing: -0.035em;
+      margin-bottom: 16px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .language-bar {
+      background: #061f33;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .language-inner {
+      min-height: 42px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .language-bar button {
+      border: 0;
+      background: transparent;
+      color: #d9e7f2;
+      padding: 7px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+
+    .language-bar button:hover,
+    .language-bar button.active {
+      background: rgba(56,189,248,.16);
+      color: var(--white);
+    }
+
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(8,47,73,.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 8px 25px rgba(2, 22, 38, 0.14);
+    }
+
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .nav-brand img {
+      display: block;
+      width: 150px;
+      max-height: 52px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,.15));
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links > a,
+    .dropdown-trigger {
+      border: 0;
+      background: transparent;
+      color: #edf7fc;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 760;
+      padding: 11px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: .2s ease;
+    }
+
+    .nav-links > a:hover,
+    .dropdown:hover > .dropdown-trigger,
+    .dropdown-trigger:hover,
+    .dropdown.open > .dropdown-trigger {
+      background: rgba(255,255,255,.09);
+      color: var(--sky);
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: calc(100% + 9px);
+      left: 0;
+      min-width: 285px;
+      max-height: 70vh;
+      overflow-y: auto;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 8px;
+      box-shadow: 0 22px 55px rgba(2, 31, 51, .2);
+    }
+
+    .dropdown:not(.calculators-dropdown):hover .dropdown-content,
+    .dropdown.open .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a {
+      display: block;
+      color: var(--navy);
+      padding: 10px 12px;
+      border-radius: 9px;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .dropdown-content a:hover {
+      background: #edf7fc;
+      color: var(--blue-2);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 680px;
+      display: grid;
+      align-items: center;
+      isolation: isolate;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(4,32,53,.96) 0%, rgba(8,47,73,.91) 45%, rgba(8,47,73,.48) 75%, rgba(8,47,73,.25) 100%),
+        url("beltbackground.jpg") center/cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 160px;
+      background: linear-gradient(to top, rgba(4,32,53,.45), transparent);
+      z-index: -1;
+    }
+
+    .hero-content {
+      padding: 100px 0 92px;
+      max-width: 760px;
+      color: var(--white);
+    }
+
+    .hero-logo {
+      width: 270px;
+      margin-bottom: 28px;
+      filter: drop-shadow(0 8px 25px rgba(0,0,0,.25));
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding: 8px 13px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 999px;
+      background: rgba(255,255,255,.09);
+      color: #dff5ff;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero h1 {
+      font-size: clamp(43px, 6vw, 76px);
+      line-height: 1.02;
+      letter-spacing: -0.052em;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span {
+      color: var(--sky);
+    }
+
+    .hero-subtitle {
+      max-width: 720px;
+      color: #e1edf5;
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.55;
+      margin-bottom: 34px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 50px;
+      padding: 13px 20px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: var(--white);
+      box-shadow: 0 12px 30px rgba(249,115,22,.28);
+    }
+
+    .btn-primary:hover {
+      background: #ea580c;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,.1);
+      color: var(--white);
+      border-color: rgba(255,255,255,.28);
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,.18);
+    }
+
+    .trust-strip {
+      position: relative;
+      z-index: 2;
+      margin-top: -48px;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .trust-item {
+      padding: 25px 30px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .trust-item + .trust-item {
+      border-left: 1px solid var(--line);
+    }
+
+    .trust-icon {
+      width: 49px;
+      height: 49px;
+      flex: 0 0 49px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: #e8f5fb;
+      color: var(--blue-2);
+      font-size: 22px;
+    }
+
+    .trust-item strong {
+      display: block;
+      color: var(--navy);
+      font-size: 17px;
+      margin-bottom: 2px;
+    }
+
+    .trust-item span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    section {
+      padding: 100px 0;
+    }
+
+    .about-section {
+      background: var(--white);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.04fr .96fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-copy h2 {
+      color: var(--navy);
+      font-size: clamp(34px, 4vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -.04em;
+      margin-bottom: 24px;
+    }
+
+    .about-copy p {
+      color: var(--muted);
+      font-size: 18px;
+      margin-bottom: 18px;
+      max-width: 710px;
+    }
+
+    .about-visual {
+      position: relative;
+      min-height: 450px;
+      border-radius: 24px;
+      overflow: hidden;
+      background: url("beltbackground.jpg") center/cover no-repeat;
+      box-shadow: var(--shadow);
+    }
+
+    .about-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(5,38,62,.75), rgba(5,38,62,.02) 65%);
+    }
+
+    .experience-badge {
+      position: absolute;
+      z-index: 2;
+      left: 25px;
+      bottom: 25px;
+      width: min(300px, calc(100% - 50px));
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 17px;
+      background: rgba(255,255,255,.93);
+      backdrop-filter: blur(9px);
+    }
+
+    .experience-badge strong {
+      display: block;
+      color: var(--blue);
+      font-size: 30px;
+      line-height: 1;
+      margin-bottom: 7px;
+    }
+
+    .experience-badge span {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .services-section {
+      background: var(--soft);
+      border-top: 1px solid #e8eef4;
+      border-bottom: 1px solid #e8eef4;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 27px;
+      box-shadow: 0 12px 32px rgba(15, 76, 129, .06);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      border-color: #aad8eb;
+      box-shadow: 0 18px 40px rgba(15, 76, 129, .12);
+    }
+
+    .service-icon {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #e7f5fb, #d9f0fa);
+      color: var(--blue-2);
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .service-card h3 {
+      color: var(--navy);
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .calculators-section {
+      background: linear-gradient(145deg, #071f32, #0b446b);
+      color: var(--white);
+      overflow: hidden;
+    }
+
+    .calculators-section .section-heading h2,
+    .calculators-section .section-heading p {
+      color: var(--white);
+    }
+
+    .calculators-section .section-heading p {
+      color: #d4e7f1;
+    }
+
+    .calculators-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+    }
+
+    .calculator-card {
+      min-height: 175px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 23px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 17px;
+      background: rgba(255,255,255,.065);
+      backdrop-filter: blur(8px);
+      transition: .22s ease;
+    }
+
+    .calculator-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,.11);
+      border-color: rgba(56,189,248,.6);
+    }
+
+    .calculator-card span {
+      color: var(--sky);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .calculator-card h3 {
+      color: var(--white);
+      font-size: 19px;
+      line-height: 1.25;
+      margin: 13px 0 16px;
+    }
+
+    .calculator-card b {
+      color: #dff5ff;
+      font-size: 14px;
+    }
+
+    .calculator-card b::after {
+      content: " →";
+      color: var(--orange);
+    }
+
+    .projects-section {
+      background: var(--white);
+    }
+
+    .logos-panel {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 42px;
+      background: #fbfdff;
+    }
+
+    .company-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 11px;
+    }
+
+    .company-list span {
+      padding: 11px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--white);
+      color: #31445a;
+      font-weight: 780;
+      box-shadow: 0 6px 16px rgba(15,76,129,.05);
+    }
+
+    .lineage-section {
+      background: var(--soft);
+      border-top: 1px solid #e8eef4;
+    }
+
+    .lineage-panel {
+      display: grid;
+      grid-template-columns: .75fr 1.25fr;
+      gap: 45px;
+      align-items: center;
+      padding: 48px;
+      border-radius: 24px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .lineage-mark {
+      min-height: 270px;
+      display: grid;
+      place-items: center;
+      border-radius: 20px;
+      background: linear-gradient(145deg, #082f49, #0f4c81);
+      overflow: hidden;
+    }
+
+    .lineage-mark img {
+      width: 230px;
+      opacity: .9;
+      transform: rotate(-10deg);
+      filter: drop-shadow(0 12px 28px rgba(0,0,0,.25));
+    }
+
+    .lineage-copy h2 {
+      color: var(--navy);
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.1;
+      letter-spacing: -.035em;
+      margin-bottom: 16px;
+    }
+
+    .lineage-copy h3 {
+      color: var(--blue-2);
+      margin-bottom: 16px;
+    }
+
+    .lineage-copy p {
+      color: var(--muted);
+      margin-bottom: 15px;
+    }
+
+    .contact-section {
+      background: var(--white);
+    }
+
+    .contact-panel {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-copy {
+      padding: 55px;
+      background: linear-gradient(145deg, #082f49, #0f4c81);
+      color: var(--white);
+    }
+
+    .contact-copy h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      line-height: 1.1;
+      letter-spacing: -.04em;
+      margin-bottom: 18px;
+    }
+
+    .contact-copy p {
+      color: #dcebf4;
+      max-width: 660px;
+      font-size: 17px;
+      margin-bottom: 28px;
+    }
+
+    .contact-details {
+      padding: 55px;
+      background: var(--white);
+    }
+
+    .contact-details h3 {
+      color: var(--navy);
+      font-size: 22px;
+      margin-bottom: 22px;
+    }
+
+    .contact-row {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .contact-row:last-child {
+      border-bottom: 0;
+    }
+
+    .contact-row strong {
+      display: block;
+      color: var(--blue);
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .contact-row a {
+      color: var(--ink);
+      font-weight: 750;
+    }
+
+    .contact-row a:hover {
+      color: var(--orange);
+    }
+
+    footer {
+      padding: 55px 0 28px;
+      background: #061f33;
+      color: #cbdce8;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 38px;
+    }
+
+    .footer-brand img {
+      width: 170px;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      max-width: 330px;
+      color: #a9bdca;
+    }
+
+    footer h4 {
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+
+    footer a {
+      display: block;
+      margin-bottom: 9px;
+      color: #cbdce8;
+      font-size: 14px;
+    }
+
+    footer a:hover {
+      color: var(--sky);
+    }
+
+    .footer-bottom {
+      padding-top: 25px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      color: #8fa8b7;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      place-items: center;
+      padding: 22px;
+      background: rgba(2, 19, 32, .72);
+      backdrop-filter: blur(6px);
+    }
+
+    .modal-backdrop.show {
+      display: grid;
+    }
+
+    .modal {
+      width: min(650px, 100%);
+      max-height: calc(100vh - 44px);
+      overflow-y: auto;
+      border-radius: 20px;
+      background: var(--white);
+      box-shadow: 0 28px 75px rgba(0,0,0,.32);
+    }
+
+    .modal-head {
+      padding: 25px 28px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .modal-head h2 {
+      color: var(--navy);
+      font-size: 25px;
+      margin-bottom: 6px;
+    }
+
+    .modal-head p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .modal-body {
+      padding: 23px 28px;
+      color: #405065;
+      font-size: 15px;
+    }
+
+    .modal-body p + p {
+      margin-top: 14px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 18px 28px 25px;
+      border-top: 1px solid var(--line);
+    }
+
+    .modal-actions button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 18px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .modal-cancel {
+      background: #edf2f6;
+      color: #405065;
+    }
+
+    .modal-accept {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .mobile-menu-button {
+      display: none;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.08);
+      color: var(--white);
+      border-radius: 10px;
+      padding: 8px 11px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    @media (max-width: 1050px) {
+      .mobile-menu-button {
+        display: block;
+      }
+
+      .nav-inner {
+        min-height: 70px;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        align-items: stretch;
+        padding: 14px 20px 22px;
+        background: #082f49;
+        border-top: 1px solid rgba(255,255,255,.08);
+        box-shadow: 0 18px 30px rgba(0,0,0,.22);
+      }
+
+      .nav-links.show {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .nav-links > a,
+      .dropdown-trigger {
+        display: block;
+        width: 100%;
+        text-align: left;
+      }
+
+      .dropdown-content {
+        position: static;
+        margin: 5px 0 8px;
+        box-shadow: none;
+        max-height: 360px;
+      }
+
+      .dropdown:not(.calculators-dropdown):hover .dropdown-content {
+        display: none;
+      }
+
+      .dropdown.open .dropdown-content {
+        display: block;
+      }
+
+      .about-grid,
+      .lineage-panel,
+      .contact-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .services-grid,
+      .calculators-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .shell {
+        width: min(100% - 26px, 1180px);
+      }
+
+      .language-inner {
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 5px 0;
+      }
+
+      .language-bar button {
+        font-size: 12px;
+        padding: 6px 8px;
+      }
+
+      .nav-brand img {
+        width: 127px;
+      }
+
+      .hero {
+        min-height: 650px;
+        background-position: 62% center;
+      }
+
+      .hero-content {
+        padding: 78px 0 92px;
+      }
+
+      .hero-logo {
+        width: 220px;
+      }
+
+      .trust-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .trust-item + .trust-item {
+        border-left: 0;
+        border-top: 1px solid var(--line);
+      }
+
+      section {
+        padding: 78px 0;
+      }
+
+      .services-grid,
+      .calculators-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .logos-panel,
+      .lineage-panel,
+      .contact-copy,
+      .contact-details {
+        padding: 28px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-actions {
+        flex-direction: column-reverse;
+      }
+
+      .modal-actions button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="language-bar">
+<div class="shell language-inner">
+<button data-lang="en" onclick="setLanguage('en')" type="button">🇺🇸 English</button>
+<button data-lang="es" onclick="setLanguage('es')" type="button">🇪🇸 Español</button>
+<button data-lang="pt" onclick="setLanguage('pt')" type="button">🇧🇷 Português</button>
+<button data-lang="it" onclick="setLanguage('it')" type="button">🇮🇹 Italiano</button>
+</div>
+</div>
+<nav aria-label="Main navigation" class="site-nav">
+<div class="shell nav-inner">
+<a aria-label="BELTPRO home" class="nav-brand" href="#home">
+<img alt="BELTPRO Logo" src="logo.png"/>
+</a>
+<button aria-expanded="false" aria-label="Open navigation" class="mobile-menu-button" id="mobileMenuButton" type="button">☰</button>
+<div class="nav-links" id="navLinks">
+<a data-en="Home" data-es="Inicio" data-it="Home" data-pt="Início" href="#home">Home</a>
+<div class="dropdown"><button class="dropdown-trigger" data-en="Services ▼" data-es="Servicios ▼" data-it="Servizi ▼" data-pt="Serviços ▼" type="button">Services ▼</button><div class="dropdown-content"><a data-en="Belt Tension Measurement" data-es="Medição da Tensão da Correia" data-it="Misurazione della Tensione del Nastro" data-pt="Medição da Tensão da esteira" href="#services">Belt Tension Measurement</a><a data-en="Belt Tension Analysis &amp; Calculations" data-es="Análisis y Cálculos de Tensión" data-it="Analisi e Calcoli della Tensione" data-pt="Análise e Cálculos de Tensão" href="#services">Belt Tension Analysis &amp; Calculations</a><a data-en="Spiral Conveyor Installation" data-es="Instalación de Transportadores Espirales" data-it="Installazione di Trasportatori a Spirale" data-pt="Instalação de Transportadores Espirais" href="#services">Spiral Conveyor Installation</a><a data-en="Spiral Conveyor Troubleshooting" data-es="Diagnóstico de Transportadores Espirales" data-it="Risoluzione Problemi Trasportatori a Spirale" data-pt="Diagnóstico de Transportadores Espirais" href="#services">Spiral Conveyor Troubleshooting</a><a data-en="Overdrive Adjustment &amp; Optimization" data-es="Ajuste y Optimización del Overdrive" data-it="Regolazione e Ottimizzazione Overdrive" data-pt="Ajuste e Otimização de escorregamento" href="#services">Overdrive Adjustment &amp; Optimization</a><a data-en="Stacker Drive Parts Inspection" data-es="Inspección de Componentes del Accionamiento" data-it="Ispezione Componenti del Sistema di Azionamento" data-pt="Inspeção de Componentes do Acionamento" href="#services">Stacker Drive Parts Inspection</a><a data-en="Oven Precision Leveling &amp; Alignment" data-es="Nivelación y Alineación de Hornos" data-it="Livellamento e Allineamento Forni" data-pt="Nivelamento e Alinhamento de Fornos" href="#services">Oven Precision Leveling &amp; Alignment</a><a data-en="Baking Oven Troubleshooting" data-es="Diagnóstico de Hornos" data-it="Risoluzione Problemi Forni" data-pt="Diagnóstico de Fornos" href="#services">Baking Oven Troubleshooting</a><a data-en="Equipment Inspection &amp; Performance Assessment" data-es="Inspección y Evaluación del Rendimiento" data-it="Ispezione e Valutazione delle Prestazioni" data-pt="Inspeção e Avaliação de Desempenho" href="#services">Equipment Inspection &amp; Performance Assessment</a><a data-en="Preventive Maintenance Programs" data-es="Programas de Mantenimiento Preventivo" data-it="Programmi di Manutenzione Preventiva" data-pt="Programas de Manutenção Preventiva" href="#services">Preventive Maintenance Programs</a><a data-en="Equipment Retrofits &amp; Upgrades" data-es="Modernización de Equipos" data-it="Retrofit e Aggiornamenti delle Attrezzature" data-pt="Retrofit e Modernização de Equipamentos" href="#services">Equipment Retrofits &amp; Upgrades</a><a data-en="Commissioning &amp; Start-Up Support" data-es="Puesta en Marcha y Comisionamiento" data-it="Commissioning e Avviamento" data-pt="Comissionamento e Start-Up" href="#services">Commissioning &amp; Start-Up Support</a><a data-en="Technical Training – Theory of Operation" data-es="Capacitación Técnica – Teoría de Operación" data-it="Formazione Tecnica – Teoria di Funzionamento" data-pt="Treinamento Técnico – Teoria de Operação" href="#services">Technical Training – Theory of Operation</a><a data-en="Engineering Consulting" data-es="Consultoría de Ingeniería" data-it="Consulenza di Ingegneria" data-pt="Consultoria de Engenharia" href="#services">Engineering Consulting</a><a data-en="Cold &amp; Hot Band Tracking" data-es="Guiado de Bandas Frías y Calientes" data-it="Allineamento Nastri Caldi e Freddi" data-pt="Alinhamento frio e quente de esteiras" href="#services">Cold &amp; Hot Band Tracking</a></div></div>
+<div class="dropdown"><button class="dropdown-trigger" data-en="Industries ▼" data-es="Industrias ▼" data-it="Settori ▼" data-pt="Indústrias ▼" type="button">Industries ▼</button><div class="dropdown-content"><a data-en="Bakeries" data-es="Panaderías" data-it="Panifici" data-pt="Panificadoras" href="#industries">Bakeries</a><a data-en="Breweries" data-es="Cervecerías" data-it="Birrifici" data-pt="Cervejarias" href="#industries">Breweries</a><a data-en="Meat &amp; Poultry Processing" data-es="Procesamiento de Carne y Aves" data-it="Lavorazione di Carne e Pollame" data-pt="Processamento de Carnes e Aves" href="#industries">Meat &amp; Poultry Processing</a><a data-en="Seafood Processing" data-es="Procesamiento de Productos del Mar" data-it="Lavorazione dei Prodotti Ittici" data-pt="Processamento de Frutos do Mar" href="#industries">Seafood Processing</a><a data-en="Ice Cream &amp; Frozen Desserts" data-es="Helados y Postres Congelados" data-it="Gelati e Dessert Surgelati" data-pt="Sorvetes e Sobremesas Congeladas" href="#industries">Ice Cream &amp; Frozen Desserts</a><a data-en="Chocolate &amp; Confectionery" data-es="Chocolate y Confitería" data-it="Cioccolato e Confetteria" data-pt="Chocolate e Confeitaria" href="#industries">Chocolate &amp; Confectionery</a><a data-en="Snack Food Manufacturing" data-es="Fabricación de Snacks" data-it="Produzione di Snack" data-pt="Fabricação de Snacks" href="#industries">Snack Food Manufacturing</a><a data-en="Glass Manufacturing" data-es="Fabricación de Vidrio" data-it="Produzione del Vetro" data-pt="Fabricação de Vidro" href="#industries">Glass Manufacturing</a></div></div>
+<div class="dropdown"><button class="dropdown-trigger" data-en="Global Projects ▼" data-es="Proyectos globales ▼" data-it="Progetti Globali ▼" data-pt="Projetos globais ▼" type="button">Global Projects ▼</button><div class="dropdown-content"><a data-en="PepsiCo – Mexico" data-es="PepsiCo – México" data-it="PepsiCo – Messico" data-pt="PepsiCo – México" href="#projects">PepsiCo – Mexico</a><a data-en="Cargill – Costa Rica" data-es="Cargill – Costa Rica" data-it="Cargill – Costa Rica" data-pt="Cargill – Costa Rica" href="#projects">Cargill – Costa Rica</a><a data-en="Santa Priscila – Ecuador" data-es="Santa Priscila – Ecuador" data-it="Santa Priscila – Ecuador" data-pt="Santa Priscila – Equador" href="#projects">Santa Priscila – Ecuador</a><a data-en="Gonnella – USA" data-es="Gonnella – EE.UU." data-it="Gonnella – USA" data-pt="Gonnella – EUA" href="#projects">Gonnella – USA</a><a data-en="Bermudez – Trinidad &amp; Tobago" data-es="Bermudez – Trinidad y Tobago" data-it="Bermudez – Trinidad e Tobago" data-pt="Bermudez – Trinidad e Tobago" href="#projects">Bermudez – Trinidad &amp; Tobago</a><a data-en="Noel – Colombia" data-es="Noel – Colombia" data-it="Noel – Colombia" data-pt="Noel – Colômbia" href="#projects">Noel – Colombia</a><a data-en="Carozzi – Chile" data-es="Carozzi – Chile" data-it="Carozzi – Cile" data-pt="Carozzi – Chile" href="#projects">Carozzi – Chile</a><a data-en="Mondelez – Argentina" data-es="Mondelez – Argentina" data-it="Mondelez – Argentina" data-pt="Mondelez – Argentina" href="#projects">Mondelez – Argentina</a><a data-en="Mondelez – Peru" data-es="Mondelez – Perú" data-it="Mondelez – Perù" data-pt="Mondelez – Peru" href="#projects">Mondelez – Peru</a><a data-en="Carabobo – Venezuela" data-es="Carabobo – Venezuela" data-it="Carabobo – Venezuela" data-pt="Carabobo – Venezuela" href="#projects">Carabobo – Venezuela</a><a data-en="MBRF – Brazil" data-es="MBRF – Brasil" data-it="MBRF – Brasile" data-pt="MBRF – Brasil" href="#projects">MBRF – Brazil</a><a data-en="JBS / Seara – Brazil" data-es="JBS / Seara – Brasil" data-it="JBS / Seara – Brasile" data-pt="JBS / Seara – Brasil" href="#projects">JBS / Seara – Brazil</a><a data-en="Froneri – Brazil" data-es="Froneri – Brasil" data-it="Froneri – Brasile" data-pt="Froneri – Brasil" href="#projects">Froneri – Brazil</a><a data-en="Capricche – Brazil" data-es="Capricche – Brasil" data-it="Capricche – Brasile" data-pt="Capricche – Brasil" href="#projects">Capricche – Brazil</a><a data-en="Cooperativa Aurora – Brazil" data-es="Cooperativa Aurora – Brasil" data-it="Cooperativa Aurora – Brasile" data-pt="Cooperativa Aurora – Brasil" href="#projects">Cooperativa Aurora – Brazil</a><a data-en="Forno de Minas – Brazil" data-es="Forno de Minas – Brasil" data-it="Forno de Minas – Brasile" data-pt="Forno de Minas – Brasil" href="#projects">Forno de Minas – Brazil</a><a data-en="Bimbo – Brazil" data-es="Bimbo – Brasil" data-it="Bimbo – Brasile" data-pt="Bimbo – Brasil" href="#projects">Bimbo – Brazil</a></div></div>
+<div class="dropdown"><button class="dropdown-trigger" data-en="Technical Articles ▼" data-es="Artículos Técnicos ▼" data-it="Articoli Tecnici ▼" data-pt="Artigos Técnicos ▼" type="button">Technical Articles ▼</button><div class="dropdown-content"><a data-en="Calculating System Turn Ratio" data-es="Cálculo de la Relación de Giro" data-it="Calcolo del Rapporto di Curvatura" data-pt="Cálculo da Relação de Giro" href="#articles">Calculating System Turn Ratio</a><a data-en="Overdrive Adjustment" data-es="Ajuste de Overdrive" data-it="Regolazione Overdrive" data-pt="Ajuste de Overdrive" href="#articles">Overdrive Adjustment</a><a data-en="Spiral Theory" data-es="Teoría de Espirales" data-it="Teoria delle Spirali" data-pt="Teoria das Espirais" href="#articles">Spiral Theory</a><a data-en="Controls and Trackers" data-es="Controles y Guiadores" data-it="Controlli e Guide" data-pt="Controles e alinhadores" href="#articles">Controls and Trackers</a><a data-en="Belt Specification" data-es="Especificación de Bandas" data-it="Specifiche del Nastro" data-pt="Especificação de Esteiras" href="#articles">Belt Specification</a><a data-en="Baking Band Installation Instructions" data-es="Instrucciones de Instalación de Bandas para Hornos" data-it="Istruzioni per l'Installazione dei Nastri da Forno" data-pt="Instruções para Instalação de esteiras em Fornos" href="#articles">Baking Band Installation Instructions</a></div></div><div class="dropdown calculators-dropdown" id="calculatorsDropdown"><button class="dropdown-trigger" data-en="Calculators ▼" data-es="Calculadoras ▼" data-it="Calcolatori ▼" data-pt="Calculadoras ▼" id="calculatorsTrigger" type="button">Calculators ▼</button><div class="dropdown-content"><a data-en="Spiral system Tension Estimation" data-es="Estimación de Tensión de espirales nuevos" data-it="Stima della Tensione del nuovo Nastro" data-pt="Estimativa de tensão de espirais para OEM´s" href="/spiral-tension-calculator.html">Spiral system Tension Estimation</a><a data-en="Spiral Belting Cycles Calculator" data-es="Calculadora de Ciclos de la Banda" data-it="Calcolatore Cicli del Nastro" data-pt="Calculadora de Ciclos de Esteira espiral" href="/spiral-belting-cycles-calculator.html">Spiral Belting Cycles Calculator</a><a data-en="Maximum Allowable Tension" data-es="Tensión Máxima Admisible" data-it="Tensione Massima Ammissibile" data-pt="Tensão Máxima Admissível por esteira" href="/max-allowable-tension-calculator.html">Maximum Allowable Tension</a><a data-en="Belt Weight Calculator" data-es="Calculo de peso da banda" data-it="Stima del peso del nastro" data-pt="Estimativa de peso para embarque" href="belt-weight-calculator.html">Belt Weight Calculator</a><a data-en="Belt Sprocket conversion calculator" data-es="Calculo de los piñones de la banda" data-it="Conversione a trasmissione" data-pt="Cálculo de engrenagens para mudança de passo" href="belt-sprocket-conversion-calculator.html">Belt Sprocket conversion calculator</a><a data-en="Belt turn ratio calculator" data-es="Calculo del turn ratio de la banda" data-it="Calcolatore del turn ratio del nastro" data-pt="Cálculo do turn ratio da esteira" href="belt-turn-ratio-calculator.html">Belt turn ratio calculator</a><a data-en="Stacker outfeed drive ratio calculator" data-es="Calculo del los piñones del autoapilable" data-it="Calcolatore del autoinpilabile" data-pt="Cálculo das engrenagens de saída do espiral auto-empilhável" href="stacker-outfeed-drive-ratio-calculator.html">Stacker outfeed drive ratio calculator</a><a data-en="Curve conveyor radius calculator" data-es="Calculo del radio de la curva" data-it="Calcolatore del raggio" data-pt="Cálculo de raio e ângulo de curvas" href="curve-conveyor-radius-angle-calculator.html">Curve conveyor radius calculator</a><a data-en="Side Drive spiral torque calculator" data-es="Calculo de torque espiral side drive" data-it="Calcolatore de coppia" data-pt="Cálculo de torque espiral Side-Drive" href="side-drive-spiral-calculator.html">Side Drive spiral torque calculator</a><a data-en="Oven band force calculator" data-es="Calculo de fuerza en la banda" data-it="Calcolatore de forza horno" data-pt="Cálculo de força de pistões de forno" href="oven-band-force-calculator.html">Oven band force calculator</a><a data-en="CB5 Air Pressure Calculator" data-es="Calculadora de Presión de Aire CB5" data-it="Calcolatore Pressione Aria CB5" data-pt="Calculadora de Pressão de Ar CB5" href="/cb5-air-pressure-calculator.html">CB5 Air Pressure Calculator</a></div></div>
+<a data-en="Professional Lineage" data-es="Linaje Profesional" data-it="Lineaggio Professionale" data-pt="Linhagem Profissional" href="#lineage">Professional Lineage</a>
+<a data-en="Field Experience" data-es="Experiencia de Campo" data-it="Esperienza sul Campo" data-pt="Experiência de Campo" href="field-experience.html">Field Experience</a>
+<a href="#about">About</a><a data-en="Contact" data-es="Contacto" data-it="Contatti" data-pt="Contato" href="#contact">Contact</a>
+</div>
+</div>
+</nav>
+<header class="hero" id="home">
+<div class="shell">
+<div class="hero-content">
+<img alt="BELTPRO Logo" class="hero-logo" src="logo.png"/>
+<div class="hero-kicker" data-en="Serving industry since 2014" data-es="Al servicio de la industria desde 2014" data-it="Al servizio dell'industria dal 2014" data-pt="Atendendo a indústria desde 2014">Serving industry since 2014</div>
+<h1 data-en="Industrial engineering for &lt;span&gt;spiral conveyors&lt;/span&gt; and baking ovens." data-es="Ingeniería industrial para &lt;span&gt;transportadores espirales&lt;/span&gt; y hornos." data-it="Ingegneria industriale per &lt;span&gt;trasportatori a spirale&lt;/span&gt; e forni." data-pt="Engenharia industrial para &lt;span&gt;transportadores espirais&lt;/span&gt; e fornos.">Industrial engineering for <span>spiral conveyors</span> and baking ovens.</h1>
+<p class="hero-subtitle" data-en="Field-proven support for installation, precision alignment, belt tension, tracking, inspection, troubleshooting and performance optimization throughout the Americas." data-es="Soporte comprobado en campo para instalación, alineación de precisión, tensión, guiado, inspección, diagnóstico y optimización del rendimiento en las Américas." data-it="Supporto comprovato sul campo per installazione, allineamento di precisione, tensione, tracking, ispezione, diagnosi e ottimizzazione delle prestazioni nelle Americhe." data-pt="Suporte comprovado em campo para instalação, alinhamento de precisão, tensão, tracking, inspeção, diagnóstico e otimização de desempenho em toda a América.">Field-proven support for installation, precision alignment, belt tension, tracking, inspection, troubleshooting and performance optimization throughout the Americas.</p>
+<div class="hero-actions">
+<a class="btn btn-primary" data-en="Request Technical Assistance →" data-es="Solicitar Asistencia Técnica →" data-it="Richiedi Assistenza Tecnica →" data-pt="Solicitar Assistência Técnica →" href="#contact">Request Technical Assistance →</a>
+<button class="btn btn-secondary" data-en="Engineering Calculators →" data-es="Calculadoras de Ingeniería →" data-it="Calcolatori di Ingegneria →" data-pt="Calculadoras de Engenharia →" id="heroCalculatorsButton" type="button">Engineering Calculators →</button>
+</div>
+</div>
+</div>
+</header>
+<div class="trust-strip">
+<div class="shell trust-grid">
+<div class="trust-item">
+<div class="trust-icon">🌎</div>
+<div><strong data-en="Across the Americas" data-es="En toda América" data-it="In tutte le Americhe" data-pt="Em toda a América">Across the Americas</strong><span data-en="International field support" data-es="Soporte técnico internacional" data-it="Supporto tecnico internazionale" data-pt="Suporte técnico internacional">International field support</span></div>
+</div>
+<div class="trust-item">
+<div class="trust-icon">⚙️</div>
+<div><strong data-en="Engineering Tools" data-es="Herramientas de Ingeniería" data-it="Strumenti di Ingegneria" data-pt="Ferramentas de Engenharia">Engineering Tools</strong><span data-en="Online calculators for practical use" data-es="Calculadoras online para uso práctico" data-it="Calcolatori online per uso pratico" data-pt="Calculadoras online para uso prático">Online calculators for practical use</span></div>
+</div>
+<div class="trust-item">
+<div class="trust-icon">✓</div>
+<div><strong data-en="Since 2014" data-es="Desde 2014" data-it="Dal 2014" data-pt="Desde 2014">Since 2014</strong><span data-en="Hands-on industrial experience" data-es="Experiencia industrial práctica" data-it="Esperienza industriale pratica" data-pt="Experiência industrial prática">Hands-on industrial experience</span></div>
+</div>
+</div>
+</div>
+<main>
+<section class="about-section" id="about">
+<div class="shell about-grid">
+<div class="about-copy">
+<span class="eyebrow" data-en="About BELTPRO" data-es="Sobre BELTPRO" data-it="Chi è BELTPRO" data-pt="Sobre a BELTPRO">About BELTPRO</span>
+<h2 data-en="Practical engineering focused on reliability and performance." data-es="Ingeniería práctica enfocada en confiabilidad y rendimiento." data-it="Ingegneria pratica focalizzata su affidabilità e prestazioni." data-pt="Engenharia prática focada em confiabilidade e desempenho.">Practical engineering focused on reliability and performance.</h2>
+<p data-en="BELTPRO specializes in professional installation, precision levelling and alignment, maintenance, troubleshooting, and optimization of &lt;span class='highlight'&gt;spiral conveyor systems&lt;/span&gt; and &lt;span class='highlight'&gt;industrial baking ovens.&lt;/span&gt;" data-es="BELTPRO se especializa en la instalación profesional, el mantenimiento, el diagnóstico de fallas y la optimización de &lt;span class='highlight'&gt;sistemas de transportadores en espiral&lt;/span&gt; y &lt;span class='highlight'&gt;hornos industriales de panificación.&lt;/span&gt;" data-it="BELTPRO è specializzata nell'installazione professionale, manutenzione, risoluzione dei problemi e ottimizzazione di &lt;span class='highlight'&gt;sistemi di trasportatori a spirale&lt;/span&gt; e &lt;span class='highlight'&gt;forni industriali da forno.&lt;/span&gt;" data-pt="A BELTPRO é especializada na instalação profissional, manutenção, diagnóstico de falhas e otimização de &lt;span class='highlight'&gt;transportadores espirais&lt;/span&gt; e &lt;span class='highlight'&gt;fornos industriais de panificação.&lt;/span&gt;">BELTPRO specializes in professional installation, precision levelling and alignment, maintenance, troubleshooting, and optimization of <span class="highlight">spiral conveyor systems</span> and <span class="highlight">industrial baking ovens.</span></p>
+<p data-en="Since 2014 we have supported food processing and manufacturing companies with practical engineering solutions that improve equipment reliability, production efficiency, and conveyor performance." data-es="Desde 2014 hemos apoyado a empresas de procesamiento de alimentos y manufactura con soluciones prácticas de ingeniería que mejoran la fiabilidad de los equipos, la eficiencia de la producción y el rendimiento de los transportadores." data-it="Dal 2014 supportiamo aziende della trasformazione alimentare e manifatturiere con soluzioni pratiche di ingegneria che migliorano l'affidabilità delle attrezzature, l'efficienza produttiva e le prestazioni dei trasportatori." data-pt="Desde 2014 apoiamos empresas do setor alimentício e de manufatura com soluções práticas de engenharia que aumentam a confiabilidade dos equipamentos, a eficiência da produção e o desempenho dos transportadores.">Since 2014 we have supported food processing and manufacturing companies with practical engineering solutions that improve equipment reliability, production efficiency, and conveyor performance.</p>
+</div>
+<div aria-label="Industrial conveyor belt" class="about-visual">
+<div class="experience-badge">
+<strong>Since 2014</strong>
+<span data-en="Serving Industry" data-es="Al Servicio de la Industria" data-it="Al Servizio dell'Industria" data-pt="Atendendo a Indústria">Serving Industry</span>
+</div>
+</div>
+</div>
+</section>
+<section class="services-section" id="services">
+<div class="shell">
+<div class="section-heading">
+<span class="eyebrow" data-en="Engineering Services" data-es="Servicios de Ingeniería" data-it="Servizi di Ingegneria" data-pt="Serviços de Engenharia">Engineering Services</span>
+<h2 data-en="Technical support from installation to optimization." data-es="Soporte técnico desde la instalación hasta la optimización." data-it="Supporto tecnico dall'installazione all'ottimizzazione." data-pt="Suporte técnico da instalação à otimização.">Technical support from installation to optimization.</h2>
+<p data-en="Focused services for critical conveyor and oven systems, delivered with practical field experience and engineering discipline." data-es="Servicios enfocados en sistemas críticos de transportadores y hornos, con experiencia práctica y disciplina de ingeniería." data-it="Servizi mirati per sistemi critici di trasporto e forni, con esperienza pratica e disciplina ingegneristica." data-pt="Serviços focados em sistemas críticos de transportadores e fornos, com experiência prática e disciplina de engenharia.">Focused services for critical conveyor and oven systems, delivered with practical field experience and engineering discipline.</p>
+</div>
+<div class="services-grid"><article class="service-card"><div class="service-icon">↗</div><h3 data-en="Spiral conveyor installation" data-es="Instalación de transportadores en espiral" data-it="Installazione di trasportatori a spirale" data-pt="Instalação de transportadores espirais">Spiral conveyor installation</h3></article><article class="service-card"><div class="service-icon">◉</div><h3 data-en="Industrial baking oven installation &amp; commissioning" data-es="Instalación y puesta en marcha de hornos industriales de panificación" data-it="Installazione e messa in servizio di forni industriali da forno" data-pt="Instalação e comissionamento de fornos industriais de panificação">Industrial baking oven installation &amp; commissioning</h3></article><article class="service-card"><div class="service-icon">⌁</div><h3 data-en="Belt tension calculations" data-es="Cálculo de la tensión de la banda" data-it="Calcolo de la tensione del nastro" data-pt="Cálculo de tensão da esteira">Belt tension calculations</h3></article><article class="service-card"><div class="service-icon">◎</div><h3 data-en="Conveyor troubleshooting and diagnostics" data-es="Diagnóstico y resolución de fallas en transportadores" data-it="Diagnostica e risoluzione dei problemi dei trasportatori" data-pt="Diagnóstico e resolução de falhas em transportadores">Conveyor troubleshooting and diagnostics</h3></article><article class="service-card"><div class="service-icon">↔</div><h3 data-en="Spiral belt tension measurement" data-es="Medición de tensión de bandas en espiral" data-it="Misurazione della tensione del nastro a spirale" data-pt="Medição de tensão de esteiras espirais">Spiral belt tension measurement</h3></article><article class="service-card"><div class="service-icon">◇</div><h3 data-en="Drive and overdrive adjustments" data-es="Ajustes de accionamiento y sobreaccionamiento" data-it="Regolazioni di azionamento e sovravelocità" data-pt="Ajustes de acionamento e escorregamento">Drive and overdrive adjustments</h3></article><article class="service-card"><div class="service-icon">✓</div><h3 data-en="Preventive maintenance inspections" data-es="Inspecciones de mantenimiento preventivo" data-it="Ispezioni di manutenzione preventiva" data-pt="Inspeções de manutenção preventiva">Preventive maintenance inspections</h3></article><article class="service-card"><div class="service-icon">⚙</div><h3 data-en="Conveyor performance optimization" data-es="Optimización del rendimiento de transportadores" data-it="Ottimizzazione delle prestazioni dei trasportatori" data-pt="Otimização do desempenho de transportadores">Conveyor performance optimization</h3></article><article class="service-card"><div class="service-icon">▣</div><h3 data-en="On-Site system training" data-es="Capacitacion del sistema en sitio" data-it="Formazione sul sistema in loco" data-pt="Treinamento na planta">On-Site system training</h3></article><article class="service-card"><div class="service-icon">◌</div><h3 data-en="Engineering recommendations for improved belt designs" data-es="Recomendaciones de ingeniería para mejorar el diseño de bandas" data-it="Raccomandazioni di ingegneria per migliorare il design dei nastri" data-pt="Recomendações de engenharia para melhorar o design de esteiras">Engineering recommendations for improved belt designs</h3></article><article class="service-card"><div class="service-icon">△</div><h3 data-en="Belt life extension and efficiency improvements" data-es="Extensión de la vida útil de las bandas y mejoras de eficiencia" data-it="Estensione della durata del nastro e miglioramenti di efficienza" data-pt="Extensão da vida útil das esteiras e melhorias de eficiência">Belt life extension and efficiency improvements</h3></article></div>
+</div>
+</section>
+<section class="calculators-section" id="calculators">
+<div class="shell">
+<div class="section-heading">
+<span class="eyebrow" data-en="Engineering Calculators" data-es="Calculadoras de Ingeniería" data-it="Calcolatori di Ingegneria" data-pt="Calculadoras de Engenharia">Engineering Calculators</span>
+<h2 data-en="A practical suite of online engineering tools." data-es="Una suite práctica de herramientas de ingeniería online." data-it="Una suite pratica di strumenti ingegneristici online." data-pt="Uma suíte prática de ferramentas de engenharia online.">A practical suite of online engineering tools.</h2>
+<p data-en="Use BELTPRO calculators for preliminary estimates related to spiral belts, oven bands, drive ratios, geometry and equipment setup." data-es="Utilice las calculadoras BELTPRO para estimaciones preliminares de bandas, relaciones, geometría y configuración." data-it="Utilizza i calcolatori BELTPRO per stime preliminari di nastri, rapporti, geometria e configurazione." data-pt="Use as calculadoras BELTPRO para estimativas preliminares de esteiras, relações de transmissão, geometria e configuração de equipamentos.">Use BELTPRO calculators for preliminary estimates related to spiral belts, oven bands, drive ratios, geometry and equipment setup.</p>
+</div>
+<div class="calculators-grid">
+<a class="calculator-card protected-calculator-link" href="/spiral-tension-calculator.html"><span data-en="Spiral Systems" data-es="Sistemas Espirales" data-it="Sistemi a Spirale" data-pt="Sistemas Espirais">Spiral Systems</span><h3 data-en="Spiral System Tension Estimation" data-es="Estimación de Tensión del Sistema Espiral" data-it="Stima della Tensione del Sistema a Spirale" data-pt="Estimativa de Tensão do Sistema Espiral">Spiral System Tension Estimation</h3><b data-en="Open calculator" data-es="Abrir calculadora" data-it="Apri calcolatore" data-pt="Abrir calculadora">Open calculator</b></a>
+<a class="calculator-card protected-calculator-link" href="belt-turn-ratio-calculator.html"><span data-en="Belt Geometry" data-es="Geometría de Banda" data-it="Geometria del Nastro" data-pt="Geometria da Esteira">Belt Geometry</span><h3 data-en="Belt Turn Ratio Calculator" data-es="Calculadora de Turn Ratio" data-it="Calcolatore Turn Ratio" data-pt="Calculadora de Turn Ratio">Belt Turn Ratio Calculator</h3><b data-en="Open calculator" data-es="Abrir calculadora" data-it="Apri calcolatore" data-pt="Abrir calculadora">Open calculator</b></a>
+<a class="calculator-card protected-calculator-link" href="belt-weight-calculator.html"><span data-en="Shipping &amp; Handling" data-es="Envío y Manipulación" data-it="Spedizione e Movimentazione" data-pt="Embarque e Manuseio">Shipping &amp; Handling</span><h3 data-en="Belt Weight Calculator" data-es="Calculadora de Peso de Banda" data-it="Calcolatore Peso Nastro" data-pt="Calculadora de Peso de Esteira">Belt Weight Calculator</h3><b data-en="Open calculator" data-es="Abrir calculadora" data-it="Apri calcolatore" data-pt="Abrir calculadora">Open calculator</b></a>
+<a class="calculator-card protected-calculator-link" href="belt-sprocket-conversion-calculator.html"><span data-en="Drive Conversion" data-es="Conversión de Accionamiento" data-it="Conversione Azionamento" data-pt="Conversão de Acionamento">Drive Conversion</span><h3 data-en="Belt Sprocket Conversion" data-es="Conversión de Piñones" data-it="Conversione Pignoni" data-pt="Conversão de Engrenagens">Belt Sprocket Conversion</h3><b data-en="Open calculator" data-es="Abrir calculadora" data-it="Apri calcolatore" data-pt="Abrir calculadora">Open calculator</b></a>
+<a class="calculator-card protected-calculator-link" href="side-drive-spiral-calculator.html"><span data-en="Side Drive" data-es="Side Drive" data-it="Side Drive" data-pt="Side Drive">Side Drive</span><h3 data-en="Side Drive Spiral Torque" data-es="Torque de Espiral Side Drive" data-it="Coppia Spirale Side Drive" data-pt="Torque de Espiral Side Drive">Side Drive Spiral Torque</h3><b data-en="Open calculator" data-es="Abrir calculadora" data-it="Apri calcolatore" data-pt="Abrir calculadora">Open calculator</b></a>
+<a class="calculator-card protected-calculator-link" href="curve-conveyor-radius-angle-calculator.html"><span data-en="Conveyor Geometry" data-es="Geometría de Transportador" data-it="Geometria Trasportatore" data-pt="Geometria de Transportador">Conveyor Geometry</span><h3 data-en="Curve Radius &amp; Angle" data-es="Radio y Ángulo de Curva" data-it="Raggio e Angolo Curva" data-pt="Raio e Ângulo de Curva">Curve Radius &amp; Angle</h3><b data-en="Open calculator" data-es="Abrir calculadora" data-it="Apri calcolatore" data-pt="Abrir calculadora">Open calculator</b></a>
+</div>
+</div>
+</section>
+<section class="projects-section" id="projects">
+<div class="shell">
+<div class="section-heading">
+<span class="eyebrow" data-en="Global Projects" data-es="Proyectos Globales" data-it="Progetti Globali" data-pt="Projetos Globais">Global Projects</span>
+<h2 data-en="Field experience with leading manufacturers across the Americas." data-es="Experiencia de campo con fabricantes líderes en las Américas." data-it="Esperienza sul campo con produttori leader nelle Americhe." data-pt="Experiência de campo com fabricantes líderes em toda a América.">Field experience with leading manufacturers across the Americas.</h2>
+<p data-en="BELTPRO has supported projects and industrial operations in multiple countries and market segments." data-es="BELTPRO ha apoyado proyectos y operaciones industriales en varios países y segmentos." data-it="BELTPRO ha supportato progetti e attività industriali in diversi paesi e segmenti." data-pt="A BELTPRO apoiou projetos e operações industriais em diversos países e segmentos de mercado.">BELTPRO has supported projects and industrial operations in multiple countries and market segments.</p>
+</div>
+<div class="logos-panel">
+<div class="company-list"><span>PepsiCo – Mexico</span><span>Cargill – Costa Rica</span><span>Santa Priscila – Ecuador</span><span>Gonnella – USA</span><span>Bermudez – Trinidad &amp; Tobago</span><span>Noel – Colombia</span><span>Carozzi – Chile</span><span>Mondelez – Argentina</span><span>Mondelez – Peru</span><span>Carabobo – Venezuela</span><span>MBRF – Brazil</span><span>JBS / Seara – Brazil</span><span>Froneri – Brazil</span><span>Capricche – Brazil</span><span>Cooperativa Aurora – Brazil</span><span>Forno de Minas – Brazil</span><span>Bimbo – Brazil</span></div>
+</div>
+</div>
+</section>
+<section class="lineage-section" id="lineage">
+<div class="shell">
+<div class="lineage-panel">
+<div class="lineage-mark"><img alt="BELTPRO Stamp" src="beltpro-stamp.png"/></div>
+<div class="lineage-copy">
+<span class="eyebrow" data-en="Professional Lineage" data-es="Linaje Profesional" data-it="Lineaggio Professionale" data-pt="Linhagem Profissional">Professional Lineage</span>
+<h2 data-en="Hands-On Training from Industry Leaders" data-es="Capacitación Práctica con Líderes de la Industria" data-it="Formazione Pratica con i Leader del Settore" data-pt="Treinamento Prático com Líderes da Indústria">Hands-On Training from Industry Leaders</h2>
+
+<p data-en="BELTPRO's expertise has been built through years of hands-on training and field experience with some of the most respected and experienced professionals in the spiral conveyor industry. This knowledge has been complemented by more than a decade of practical experience supporting installations, commissioning, troubleshooting, inspections, maintenance, retrofits, and performance optimization for spiral conveyor belts and baking oven systems across the Americas." data-es="La experiencia de BELTPRO se ha desarrollado a través de años de capacitación práctica y trabajo en campo junto a algunos de los profesionales más respetados y experimentados de la industria de transportadores en espiral. Este conocimiento se ha complementado con más de una década de experiencia práctica en instalaciones, puesta en marcha, diagnóstico de fallas, inspecciones, mantenimiento, modernización y optimización del rendimiento de transportadores en espiral y sistemas de hornos industriales en todo el continente americano." data-it="L'esperienza di BELTPRO è stata costruita attraverso anni di formazione pratica e attività sul campo con alcuni dei professionisti più rispettati ed esperti del settore dei trasportatori a spirale. Questa conoscenza è stata completata da decenni di esperienza pratica nel supporto a installazioni, messa in servizio, risoluzione dei problemi, ispezioni, manutenzione, ammodernamenti e ottimizzazione delle prestazioni di trasportatori a spirale e sistemi di forni industriali in tutte le Americhe." data-pt="A experiência da BELTPRO foi construída ao longo de anos de treinamento prático e atuação em campo com alguns dos profissionais mais respeitados e experientes da indústria de transportadores espirais. Esse conhecimento foi complementado por mais de uma década de experiência prática em instalações, comissionamento, diagnóstico de falhas, inspeções, manutenção, modernizações e otimização de desempenho de transportadores espirais e sistemas de fornos industriais em toda a América.">BELTPRO's expertise has been built through years of hands-on training and field experience with some of the most respected and experienced professionals in the spiral conveyor industry. This knowledge has been complemented by more than a decade of practical experience supporting installations, commissioning, troubleshooting, inspections, maintenance, retrofits, and performance optimization for spiral conveyor belts and baking oven systems across the Americas.</p>
+<p data-en="Our technical approach is rooted in proven engineering principles, practical field experience, and a commitment to continuous learning. This professional lineage traces back to the pioneering innovations of Gerald Roinestad, whose work laid the foundation for modern spiral conveyor technology." data-es="Nuestro enfoque técnico se basa en principios de ingeniería comprobados, experiencia práctica en campo y un compromiso con el aprendizaje continuo. Este legado profesional se remonta a las innovaciones pioneras de Gerald Roinestad, cuyo trabajo sentó las bases de la moderna tecnología de transportadores en espiral." data-it="Il nostro approccio tecnico si basa su principi di ingegneria consolidati, esperienza pratica sul campo e un costante impegno nell'apprendimento continuo. Questo lineaggio professionale risale alle innovazioni pionieristiche di Gerald Roinestad, il cui lavoro ha posto le basi della moderna tecnologia dei trasportatori a spirale." data-pt="Nossa abordagem técnica é fundamentada em princípios de engenharia comprovados, experiência prática em campo e compromisso com o aprendizado contínuo. Essa linhagem profissional remonta às inovações pioneiras de Gerald Roinestad, cujo trabalho estabeleceu as bases da moderna tecnologia de transportadores espirais.">Our technical approach is rooted in proven engineering principles, practical field experience, and a commitment to continuous learning. This professional lineage traces back to the pioneering innovations of Gerald Roinestad, whose work laid the foundation for modern spiral conveyor technology.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="contact-section" id="contact">
+<div class="shell">
+<div class="contact-panel">
+<div class="contact-copy">
+<span class="eyebrow" data-en="Technical Support" data-es="Soporte Técnico" data-it="Supporto Tecnico" data-pt="Suporte Técnico">Technical Support</span>
+<h2 data-en="Let's discuss your equipment challenge." data-es="Hablemos de su desafío de equipos." data-it="Parliamo della tua sfida tecnica." data-pt="Vamos conversar sobre o desafio do seu equipamento.">Let's discuss your equipment challenge.</h2>
+<p data-en="Contact BELTPRO for installation support, troubleshooting, field inspections, belt tension analysis, oven tracking, training or engineering assistance." data-es="Contacte a BELTPRO para instalación, diagnóstico, inspecciones, análisis de tensión, guiado, capacitación o asistencia de ingeniería." data-it="Contatta BELTPRO per installazione, diagnosi, ispezioni, analisi della tensione, tracking, formazione o assistenza tecnica." data-pt="Entre em contato com a BELTPRO para suporte de instalação, diagnóstico, inspeções, análise de tensão, tracking de fornos, treinamento ou assistência de engenharia.">Contact BELTPRO for installation support, troubleshooting, field inspections, belt tension analysis, oven tracking, training or engineering assistance.</p>
+<a class="btn btn-primary" data-en="Request Technical Assistance →" data-es="Solicitar Asistencia Técnica →" data-it="Richiedi Assistenza Tecnica →" data-pt="Solicitar Assistência Técnica →" href="mailto:msc.barakat@outlook.com">Request Technical Assistance →</a>
+</div>
+<div class="contact-details">
+<h3>ME Ricardo Pio Barakat</h3>
+<div class="contact-row"><strong data-en="Phone / WhatsApp" data-es="Teléfono / WhatsApp" data-it="Telefono / WhatsApp" data-pt="Telefone / WhatsApp">Phone / WhatsApp</strong><a href="https://wa.me/5514998005395">+55 14 99800-5395</a></div>
+<div class="contact-row"><strong data-en="Engineering Email" data-es="Correo de Ingeniería" data-it="Email Ingegneria" data-pt="E-mail de Engenharia">Engineering Email</strong><a href="mailto:engenharia@beltpro.com.br">engenharia@beltpro.com.br</a></div>
+<div class="contact-row"><strong data-en="Direct Email" data-es="Correo Directo" data-it="Email Diretto" data-pt="E-mail Direto">Direct Email</strong><a href="mailto:msc.barakat@outlook.com">msc.barakat@outlook.com</a></div>
+<div class="contact-row"><strong data-en="Website" data-es="Sitio Web" data-it="Sito Web" data-pt="Site">Website</strong><a href="https://www.beltpro.com.br">www.beltpro.com.br</a></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer>
+<div class="shell">
+<div class="footer-grid">
+<div class="footer-brand"><img alt="BELTPRO Logo" src="logo.png"/><p data-en="Engineering services for spiral conveyor systems and industrial baking ovens throughout the Americas." data-es="Servicios de ingeniería para transportadores espirales y hornos industriales en las Américas." data-it="Servizi di ingegneria per trasportatori a spirale e forni industriali nelle Americhe." data-pt="Serviços de engenharia para transportadores espirais e fornos industriais em toda a América.">Engineering services for spiral conveyor systems and industrial baking ovens throughout the Americas.</p></div>
+<div><h4 data-en="Services" data-es="Servicios" data-it="Servizi" data-pt="Serviços">Services</h4><a data-en="Spiral Systems" data-es="Sistemas Espirales" data-it="Sistemi a Spirale" data-pt="Sistemas Espirais" href="#services">Spiral Systems</a><a data-en="Industrial Ovens" data-es="Hornos Industriales" data-it="Forni Industriali" data-pt="Fornos Industriais" href="#services">Industrial Ovens</a><a data-en="Inspections" data-es="Inspecciones" data-it="Ispezioni" data-pt="Inspeções" href="#services">Inspections</a></div>
+<div><h4 data-en="Resources" data-es="Recursos" data-it="Risorse" data-pt="Recursos">Resources</h4><a data-en="Engineering Calculators" data-es="Calculadoras de Ingeniería" data-it="Calcolatori di Ingegneria" data-pt="Calculadoras de Engenharia" href="#calculators">Engineering Calculators</a><a data-en="Field Experience" data-es="Experiencia de Campo" data-it="Esperienza sul Campo" data-pt="Experiência de Campo" href="field-experience.html">Field Experience</a><a data-en="Professional Lineage" data-es="Linaje Profesional" data-it="Lineaggio Professionale" data-pt="Linhagem Profissional" href="#lineage">Professional Lineage</a></div>
+<div><h4 data-en="Contact" data-es="Contacto" data-it="Contatti" data-pt="Contato">Contact</h4><a href="tel:+5514998005395">+55 14 99800-5395</a><a href="mailto:engenharia@beltpro.com.br">engenharia@beltpro.com.br</a><a href="mailto:msc.barakat@outlook.com">msc.barakat@outlook.com</a></div>
+</div>
+<div class="footer-bottom">© <span id="currentYear"></span> BELTPRO · <span data-en="Serving Industry Since 2014" data-es="Al Servicio de la Industria Desde 2014" data-it="Al Servizio dell'Industria Dal 2014" data-pt="Atendendo a Indústria Desde 2014">Serving Industry Since 2014</span></div>
+</div>
+</footer>
+<div aria-labelledby="disclaimerTitle" aria-modal="true" class="modal-backdrop" id="disclaimerModal" role="dialog">
+<div class="modal">
+<div class="modal-head">
+<h2 data-en="Engineering Disclaimer" data-es="Aviso de Ingeniería" data-it="Avvertenza di Ingegneria" data-pt="Aviso de Engenharia" id="disclaimerTitle">Engineering Disclaimer</h2>
+<p data-en="Please review before accessing the calculators." data-es="Revise antes de acceder a las calculadoras." data-it="Leggere prima di accedere ai calcolatori." data-pt="Leia antes de acessar as calculadoras.">Please review before accessing the calculators.</p>
+</div>
+<div class="modal-body">
+<p data-en="The engineering calculators provided by BELTPRO are intended for preliminary engineering estimates and reference purposes only." data-es="Las calculadoras de BELTPRO están destinadas únicamente a estimaciones preliminares y fines de referencia." data-it="I calcolatori BELTPRO sono destinati esclusivamente a stime preliminari e scopi di riferimento." data-pt="As calculadoras de engenharia fornecidas pela BELTPRO destinam-se apenas a estimativas preliminares e fins de referência.">The engineering calculators provided by BELTPRO are intended for preliminary engineering estimates and reference purposes only.</p>
+<p data-en="BELTPRO makes no warranty regarding the accuracy, completeness, or suitability of these calculations for any specific application." data-es="BELTPRO no ofrece garantía sobre la precisión, integridad o idoneidad de estos cálculos para una aplicación específica." data-it="BELTPRO non fornisce alcuna garanzia circa l'accuratezza, la completezza o l'idoneità dei calcoli per una specifica applicazione." data-pt="A BELTPRO não oferece garantia quanto à precisão, integridade ou adequação desses cálculos para qualquer aplicação específica.">BELTPRO makes no warranty regarding the accuracy, completeness, or suitability of these calculations for any specific application.</p>
+<p data-en="The user assumes full responsibility for verifying all calculated values before using them for design, equipment modification, procurement, operation, maintenance, or safety-related decisions." data-es="El usuario asume toda la responsabilidad de verificar los valores antes de utilizarlos para diseño, modificación, compra, operación, mantenimiento o decisiones de seguridad." data-it="L'utente si assume la piena responsabilità di verificare tutti i valori prima di utilizzarli per progettazione, modifiche, acquisti, funzionamento, manutenzione o sicurezza." data-pt="O usuário assume total responsabilidade por verificar todos os valores calculados antes de utilizá-los em projeto, modificação de equipamento, aquisição, operação, manutenção ou decisões relacionadas à segurança.">The user assumes full responsibility for verifying all calculated values before using them for design, equipment modification, procurement, operation, maintenance, or safety-related decisions.</p>
+<p data-en="Always verify results against equipment specifications, manufacturer recommendations, and accepted engineering practices before implementation." data-es="Verifique siempre los resultados con las especificaciones del equipo, las recomendaciones del fabricante y las prácticas de ingeniería aceptadas." data-it="Verificare sempre i risultati rispetto alle specifiche dell'attrezzatura, alle raccomandazioni del produttore e alle pratiche ingegneristiche accettate." data-pt="Sempre verifique os resultados em relação às especificações do equipamento, recomendações do fabricante e práticas de engenharia reconhecidas antes da implementação.">Always verify results against equipment specifications, manufacturer recommendations, and accepted engineering practices before implementation.</p>
+</div>
+<div class="modal-actions">
+<button class="modal-cancel" data-en="Cancel" data-es="Cancelar" data-it="Annulla" data-pt="Cancelar" id="cancelDisclaimer" type="button">Cancel</button>
+<button class="modal-accept" data-en="I Understand" data-es="Entiendo" data-it="Ho Capito" data-pt="Eu Entendo" id="acceptDisclaimer" type="button">I Understand</button>
+</div>
+</div>
+</div>
+<script>
+    const disclaimerModal = document.getElementById('disclaimerModal');
+    const calculatorsDropdown = document.getElementById('calculatorsDropdown');
+    const calculatorsTrigger = document.getElementById('calculatorsTrigger');
+    const heroCalculatorsButton = document.getElementById('heroCalculatorsButton');
+    const acceptDisclaimer = document.getElementById('acceptDisclaimer');
+    const cancelDisclaimer = document.getElementById('cancelDisclaimer');
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const navLinks = document.getElementById('navLinks');
+    let pendingCalculatorHref = null;
+
+    function setLanguage(lang) {
+      document.querySelectorAll('[data-' + lang + ']').forEach(function (el) {
+        el.innerHTML = el.getAttribute('data-' + lang);
+      });
+      document.documentElement.setAttribute('lang', lang);
+      try { localStorage.setItem('beltpro_lang', lang); } catch (e) {}
+      document.querySelectorAll('.language-bar button').forEach(function (btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+    }
+
+    function openDisclaimer(href) {
+      pendingCalculatorHref = href || null;
+      disclaimerModal.classList.add('show');
+      document.body.classList.add('modal-open');
+      acceptDisclaimer.focus();
+    }
+
+    function closeDisclaimer() {
+      disclaimerModal.classList.remove('show');
+      document.body.classList.remove('modal-open');
+      pendingCalculatorHref = null;
+    }
+
+    calculatorsTrigger.addEventListener('click', function (event) {
+      event.preventDefault();
+      calculatorsDropdown.classList.remove('open');
+      openDisclaimer(null);
+    });
+
+    heroCalculatorsButton.addEventListener('click', function () {
+      openDisclaimer(null);
+    });
+
+    document.querySelectorAll('.protected-calculator-link').forEach(function (link) {
+      link.addEventListener('click', function (event) {
         event.preventDefault();
-        event.stopPropagation();
-        calcDropdown.classList.remove('calcs-open');
-        modal.classList.add('show');
+        openDisclaimer(link.getAttribute('href'));
+      });
     });
 
-    cancelButton.addEventListener('click', function (event) {
-        event.stopPropagation();
-        modal.classList.remove('show');
+    acceptDisclaimer.addEventListener('click', function () {
+      disclaimerModal.classList.remove('show');
+      document.body.classList.remove('modal-open');
+
+      if (pendingCalculatorHref) {
+        const href = pendingCalculatorHref;
+        pendingCalculatorHref = null;
+        window.location.href = href;
+        return;
+      }
+
+      calculatorsDropdown.classList.add('open');
+      calculatorsTrigger.focus();
     });
 
-    acceptButton.addEventListener('click', function (event) {
-        event.stopPropagation();
-        modal.classList.remove('show');
-        calcDropdown.classList.add('calcs-open');
+    cancelDisclaimer.addEventListener('click', closeDisclaimer);
+
+    disclaimerModal.addEventListener('click', function (event) {
+      if (event.target === disclaimerModal) closeDisclaimer();
     });
 
-    // Close the disclaimer when the dark background is clicked.
-    modal.addEventListener('click', function (event) {
-        if (event.target === modal) {
-            modal.classList.remove('show');
+    mobileMenuButton.addEventListener('click', function () {
+      const isOpen = navLinks.classList.toggle('show');
+      mobileMenuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    document.querySelectorAll('.dropdown:not(.calculators-dropdown) > .dropdown-trigger').forEach(function (trigger) {
+      trigger.addEventListener('click', function () {
+        if (window.innerWidth <= 1050) {
+          trigger.parentElement.classList.toggle('open');
         }
+      });
     });
 
-    // Close the calculator list when the user clicks elsewhere.
     document.addEventListener('click', function (event) {
-        if (!calcDropdown.contains(event.target) && !modal.contains(event.target)) {
-            calcDropdown.classList.remove('calcs-open');
-        }
+      if (!calculatorsDropdown.contains(event.target) && !disclaimerModal.contains(event.target)) {
+        calculatorsDropdown.classList.remove('open');
+      }
     });
 
-    // Escape closes both the disclaimer and the calculator list.
     document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-            modal.classList.remove('show');
-            calcDropdown.classList.remove('calcs-open');
-        }
+      if (event.key === 'Escape') {
+        if (disclaimerModal.classList.contains('show')) closeDisclaimer();
+        calculatorsDropdown.classList.remove('open');
+      }
     });
-});
 
-</script>
-
+    document.addEventListener('DOMContentLoaded', function () {
+      let saved = 'en';
+      try { saved = localStorage.getItem('beltpro_lang') || 'en'; } catch (e) {}
+      setLanguage(saved);
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+    });
+  </script>
 </body>
-
 </html>
