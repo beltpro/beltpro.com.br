@@ -4,390 +4,471 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CB5 Air Pressure Calculator | BeltPro</title>
-  <link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/png" href="favicon.png">
 <style>
-  :root {
-    --navy: #1a3660;
-    --navy-dark: #142c50;
-    --accent-blue: #2d7dd2;
-    --accent-green: #2ecc71;
-    --border: #d7dee6;
-    --bg: #f7f9fb;
-    --text: #2c3e50;
-  }
-
-  * { box-sizing: border-box; }
-
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    margin: 0;
-    padding: 0;
-  }
-
-  .page-header {
-    text-align: center;
-    padding: 30px 20px 10px;
-  }
-
-  .page-header h1 {
-    color: var(--navy);
-    font-size: 28px;
-    margin-bottom: 4px;
-  }
-
-  .page-header p {
-    color: #5a6b7a;
-    margin-top: 0;
-  }
-
-  .container {
-    max-width: 780px;
-    margin: 20px auto 60px;
-    background: #ffffff;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    padding: 30px 40px;
-  }
-
-  .section-title {
-    color: var(--navy);
-    border-bottom: 3px solid var(--accent-blue);
-    padding-bottom: 8px;
-    margin: 28px 0 20px;
-    font-size: 18px;
-  }
-
-  .section-title:first-of-type {
-    margin-top: 0;
-  }
-
-  form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px 24px;
-  }
-
-  .field {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .field.full-width {
-    grid-column: 1 / -1;
-  }
-
-  .field.checkbox-field {
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-    margin-top: 22px;
-  }
-
-  .field.checkbox-field input {
-    width: 18px;
-    height: 18px;
-  }
-
-  label {
-    font-size: 13px;
-    font-weight: bold;
-    color: var(--navy);
-    margin-bottom: 6px;
-  }
-
-  input, select {
-    padding: 9px 10px;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    font-size: 14px;
-    color: var(--text);
-  }
-
-  input:focus, select:focus {
-    outline: none;
-    border-color: var(--accent-blue);
-    box-shadow: 0 0 0 2px rgba(45,125,210,0.15);
-  }
-
-  .actions {
-    grid-column: 1 / -1;
-    margin-top: 20px;
-    text-align: center;
-  }
-
-  button {
-    background: var(--navy);
-    color: #fff;
-    border: none;
-    padding: 12px 40px;
-    font-size: 15px;
-    font-weight: bold;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-  }
-
-  button:hover {
-    background: var(--navy-dark);
-  }
-
-  button:disabled {
-    background: #9aa7b5;
-    cursor: not-allowed;
-  }
-
-  #results {
-    grid-column: 1 / -1;
-    margin-top: 24px;
-    display: none;
-  }
-
-  #results.show {
-    display: block;
-  }
-
-  .results-box {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-left: 5px solid var(--accent-green);
-    border-radius: 6px;
-    padding: 20px 24px;
-    margin-bottom: 16px;
-  }
-
-  .results-box h3 {
-    margin-top: 0;
-    color: var(--navy);
-    font-size: 15px;
-  }
-
-  .result-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 15px;
-  }
-
-  .result-row:last-child {
-    border-bottom: none;
-  }
-
-  .result-label {
-    color: #5a6b7a;
-  }
-
-  .result-value {
-    font-weight: bold;
-    color: var(--navy);
-  }
-
-  .error-box {
-    grid-column: 1 / -1;
-    background: #fdecea;
-    border: 1px solid #f5c6cb;
-    color: #a33;
-    padding: 12px 16px;
-    border-radius: 6px;
-    margin-top: 16px;
-    display: none;
-  }
-
-  .error-box.show {
-    display: block;
-  }
-
-  @media (max-width: 640px) {
-    form { grid-template-columns: 1fr; }
-    .container { padding: 24px 20px; }
-  }
+:root {
+  --navy:#1a3660;
+  --navy-dark:#142c50;
+  --blue:#2d7dd2;
+  --green:#2ecc71;
+  --border:#d7dee6;
+  --bg:#f7f9fb;
+  --text:#2c3e50;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+.page-header {
+  text-align:center;
+  padding:30px 20px 10px;
+}
+.page-header h1 {
+  margin:0 0 6px;
+  color:var(--navy);
+  font-size:28px;
+}
+.page-header p {
+  max-width:760px;
+  margin:auto;
+  color:#5a6b7a;
+  line-height:1.5;
+}
+.container {
+  max-width:900px;
+  margin:20px auto 60px;
+  padding:0 16px;
+}
+.calculator-card {
+  margin-bottom:24px;
+  padding:28px 34px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:8px;
+  box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+.calculator-card h2 {
+  margin:0 0 8px;
+  padding-bottom:8px;
+  color:var(--navy);
+  font-size:20px;
+  border-bottom:3px solid var(--blue);
+}
+.description {
+  margin:0 0 22px;
+  color:#5a6b7a;
+  font-size:13px;
+  line-height:1.5;
+}
+.calc-form {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px 24px;
+}
+.field {
+  display:flex;
+  flex-direction:column;
+}
+.full-width { grid-column:1 / -1; }
+.checkbox-field {
+  flex-direction:row;
+  align-items:center;
+  gap:8px;
+}
+.checkbox-field input { width:18px; height:18px; }
+label {
+  margin-bottom:6px;
+  color:var(--navy);
+  font-size:13px;
+  font-weight:bold;
+}
+input {
+  padding:9px 10px;
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:4px;
+  font-size:14px;
+}
+input:focus {
+  outline:none;
+  border-color:var(--blue);
+  box-shadow:0 0 0 2px rgba(45,125,210,.15);
+}
+.actions {
+  grid-column:1 / -1;
+  margin-top:8px;
+  text-align:center;
+}
+button {
+  min-width:230px;
+  padding:12px 28px;
+  color:#fff;
+  background:var(--navy);
+  border:none;
+  border-radius:4px;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:hover { background:var(--navy-dark); }
+button:disabled { background:#9aa7b5; cursor:not-allowed; }
+.result-box,
+.error-box {
+  grid-column:1 / -1;
+  display:none;
+  margin-top:18px;
+  padding:18px 22px;
+  border-radius:6px;
+}
+.result-box.show,
+.error-box.show { display:block; }
+.result-box {
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-left:5px solid var(--green);
+}
+.error-box {
+  color:#a33;
+  background:#fdecea;
+  border:1px solid #f5c6cb;
+}
+.result-box h3 {
+  margin:0 0 8px;
+  color:var(--navy);
+  font-size:16px;
+}
+.result-row {
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  padding:8px 0;
+  border-bottom:1px solid var(--border);
+}
+.result-row:last-child { border-bottom:none; }
+.result-label { color:#5a6b7a; }
+.result-value { color:var(--navy); font-weight:bold; text-align:right; }
+.note {
+  margin-top:12px;
+  color:#73808d;
+  font-size:12px;
+  line-height:1.5;
+}
+@media (max-width:640px) {
+  .calc-form { grid-template-columns:1fr; }
+  .calculator-card { padding:24px 20px; }
+  .result-row { flex-direction:column; gap:3px; }
+  .result-value { text-align:left; }
+  button { width:100%; min-width:0; }
+}
 </style>
 </head>
 <body>
 
 <div class="page-header">
-  <h1>CB5 Air Pressure Calculator</h1>
-  <p>Enter your system parameters below to estimate air pressure settings and belt sag.</p>
+  <h1>CB5 Air Pressure & Belt Sag Calculator</h1>
+  <p>Select only the calculation you need. Each section works independently and displays only the related results.</p>
 </div>
 
 <div class="container">
 
-  <form id="calc-form">
+  <!-- CALCULATOR 1 -->
+  <section class="calculator-card">
+    <h2>1. Calculate Air Pressure for Belt Width and Cylinder Data</h2>
+    <p class="description">Use this calculation to determine the recommended CB5 air pressure from the belt width and air-cylinder arrangement.</p>
 
-    <div class="section-title">Cylinder & Belt Setup</div>
-
-    <div class="field">
-      <label for="belt_width">Belt Width (in)</label>
-      <input type="number" step="any" id="belt_width" value="54" required>
-    </div>
-    <div class="field">
-      <label for="num_cylinders">Number of Air Cylinders</label>
-      <input type="number" step="any" id="num_cylinders" value="2" required>
-    </div>
-    <div class="field">
-      <label for="cylinder_diameter">Air Cylinder Diameter (in)</label>
-      <input type="number" step="any" id="cylinder_diameter" value="6" required>
-    </div>
-    <div class="field">
-      <label for="piston_diameter">Piston Diameter (in)</label>
-      <input type="number" step="any" id="piston_diameter" value="1.5" required>
-    </div>
-    <div class="field checkbox-field full-width">
-      <input type="checkbox" id="woven_belt">
-      <label for="woven_belt" style="margin-bottom:0;">Woven Belt (doubles required tension)</label>
-    </div>
-
-    <div class="section-title">Sag at Set Air Pressure</div>
-
-    <div class="field">
-      <label for="air_pressure_setting">Air Pressure Setting (psi)</label>
-      <input type="number" step="any" id="air_pressure_setting" value="65.4" required>
-    </div>
-    <div class="field">
-      <label for="span_sag">Span Between Supports (in)</label>
-      <input type="number" step="any" id="span_sag" value="54" required>
-    </div>
-    <div class="field full-width">
-      <label for="product_weight">Product Weight Per Linear Foot (lb/ft)</label>
-      <input type="number" step="any" id="product_weight" value="0" required>
-    </div>
-
-    <div class="section-title">Air Pressure Required for a Target Sag</div>
-
-    <div class="field">
-      <label for="deflection_required">Deflection Required (in)</label>
-      <input type="number" step="any" id="deflection_required" value="0.0625" required>
-    </div>
-    <div class="field">
-      <label for="span_required">Span Between Supports (in)</label>
-      <input type="number" step="any" id="span_required" value="50" required>
-    </div>
-
-    <div class="actions">
-      <button type="submit" id="calc-btn">Calculate</button>
-    </div>
-
-    <div class="error-box" id="error-box"></div>
-
-    <div id="results">
-
-      <div class="results-box">
-        <h3>Air Pressure Setting</h3>
-        <div class="result-row">
-          <span class="result-label">Area Per Cylinder</span>
-          <span class="result-value" id="res-area-per-cyl">—</span>
-        </div>
-        <div class="result-row">
-          <span class="result-label">Total Cylinder Area</span>
-          <span class="result-value" id="res-total-area">—</span>
-        </div>
-        <div class="result-row">
-          <span class="result-label">Total Required Take-Up Tension</span>
-          <span class="result-value" id="res-required-tension">—</span>
-        </div>
-        <div class="result-row">
-          <span class="result-label">Calculated Air Pressure Setting</span>
-          <span class="result-value" id="res-calc-pressure">—</span>
-        </div>
+    <form class="calc-form" id="pressure-form">
+      <div class="field">
+        <label for="p_belt_width">Belt Width (in)</label>
+        <input type="number" step="any" min="0.001" id="p_belt_width" value="54" required>
       </div>
-
-      <div class="results-box">
-        <h3>Sag at Set Air Pressure</h3>
-        <div class="result-row">
-          <span class="result-label">Belt Weight Per Linear Foot</span>
-          <span class="result-value" id="res-belt-weight">—</span>
-        </div>
-        <div class="result-row">
-          <span class="result-label">Deflection Between Supports</span>
-          <span class="result-value" id="res-deflection">—</span>
-        </div>
+      <div class="field">
+        <label for="p_num_cylinders">Number of Air Cylinders</label>
+        <input type="number" step="1" min="1" id="p_num_cylinders" value="2" required>
       </div>
-
-      <div class="results-box">
-        <h3>Air Pressure Required for Target Sag</h3>
-        <div class="result-row">
-          <span class="result-label">Required Tension At Drive</span>
-          <span class="result-value" id="res-required-tension-drive">—</span>
-        </div>
-        <div class="result-row">
-          <span class="result-label">Required Air Pressure</span>
-          <span class="result-value" id="res-required-pressure">—</span>
-        </div>
+      <div class="field">
+        <label for="p_cylinder_diameter">Air Cylinder Diameter (in)</label>
+        <input type="number" step="any" min="0.001" id="p_cylinder_diameter" value="6" required>
       </div>
+      <div class="field">
+        <label for="p_piston_diameter">Piston Rod Diameter (in)</label>
+        <input type="number" step="any" min="0" id="p_piston_diameter" value="1.5" required>
+      </div>
+      <div class="field checkbox-field full-width">
+        <input type="checkbox" id="p_woven_belt">
+        <label for="p_woven_belt" style="margin-bottom:0;">Woven Belt (doubles required tension)</label>
+      </div>
+      <div class="actions">
+        <button type="submit" id="pressure-btn">Calculate Air Pressure</button>
+      </div>
+      <div class="error-box" id="pressure-error"></div>
+      <div class="result-box" id="pressure-result">
+        <h3>Air Pressure Result</h3>
+        <div class="result-row"><span class="result-label">Area Per Cylinder</span><span class="result-value" id="p_area">—</span></div>
+        <div class="result-row"><span class="result-label">Total Cylinder Area</span><span class="result-value" id="p_total_area">—</span></div>
+        <div class="result-row"><span class="result-label">Total Required Take-Up Tension</span><span class="result-value" id="p_tension">—</span></div>
+        <div class="result-row"><span class="result-label">Calculated Air Pressure</span><span class="result-value" id="p_pressure">—</span></div>
+      </div>
+    </form>
+  </section>
 
-    </div>
-  </form>
+  <!-- CALCULATOR 2 -->
+  <section class="calculator-card">
+    <h2>2. Calculate Belt Sag at a Given Air Pressure</h2>
+    <p class="description">Use this calculation to estimate belt deflection between supports at an existing CB5 air-pressure setting.</p>
+
+    <form class="calc-form" id="sag-form">
+      <div class="field">
+        <label for="s_belt_width">Belt Width (in)</label>
+        <input type="number" step="any" min="0.001" id="s_belt_width" value="54" required>
+      </div>
+      <div class="field">
+        <label for="s_num_cylinders">Number of Air Cylinders</label>
+        <input type="number" step="1" min="1" id="s_num_cylinders" value="2" required>
+      </div>
+      <div class="field">
+        <label for="s_cylinder_diameter">Air Cylinder Diameter (in)</label>
+        <input type="number" step="any" min="0.001" id="s_cylinder_diameter" value="6" required>
+      </div>
+      <div class="field">
+        <label for="s_piston_diameter">Piston Rod Diameter (in)</label>
+        <input type="number" step="any" min="0" id="s_piston_diameter" value="1.5" required>
+      </div>
+      <div class="field">
+        <label for="s_air_pressure">Air Pressure Setting (psi)</label>
+        <input type="number" step="any" min="0" id="s_air_pressure" value="65.4" required>
+      </div>
+      <div class="field">
+        <label for="s_span">Span Between Supports (in)</label>
+        <input type="number" step="any" min="0.001" id="s_span" value="54" required>
+      </div>
+      <div class="field full-width">
+        <label for="s_product_weight">Product Weight Per Linear Foot (lb/ft)</label>
+        <input type="number" step="any" min="0" id="s_product_weight" value="0" required>
+      </div>
+      <div class="field checkbox-field full-width">
+        <input type="checkbox" id="s_woven_belt">
+        <label for="s_woven_belt" style="margin-bottom:0;">Woven Belt</label>
+      </div>
+      <div class="actions">
+        <button type="submit" id="sag-btn">Calculate Belt Sag</button>
+      </div>
+      <div class="error-box" id="sag-error"></div>
+      <div class="result-box" id="sag-result">
+        <h3>Belt Sag Result</h3>
+        <div class="result-row"><span class="result-label">Belt Weight Per Linear Foot</span><span class="result-value" id="s_belt_weight">—</span></div>
+        <div class="result-row"><span class="result-label">Deflection Between Supports</span><span class="result-value" id="s_deflection">—</span></div>
+      </div>
+    </form>
+  </section>
+
+  <!-- CALCULATOR 3 -->
+  <section class="calculator-card">
+    <h2>3. Calculate Air Pressure for a Target Sag</h2>
+    <p class="description">Use this calculation when the desired belt sag is known and the required CB5 air pressure must be determined.</p>
+
+    <form class="calc-form" id="target-form">
+      <div class="field">
+        <label for="t_belt_width">Belt Width (in)</label>
+        <input type="number" step="any" min="0.001" id="t_belt_width" value="54" required>
+      </div>
+      <div class="field">
+        <label for="t_num_cylinders">Number of Air Cylinders</label>
+        <input type="number" step="1" min="1" id="t_num_cylinders" value="2" required>
+      </div>
+      <div class="field">
+        <label for="t_cylinder_diameter">Air Cylinder Diameter (in)</label>
+        <input type="number" step="any" min="0.001" id="t_cylinder_diameter" value="6" required>
+      </div>
+      <div class="field">
+        <label for="t_piston_diameter">Piston Rod Diameter (in)</label>
+        <input type="number" step="any" min="0" id="t_piston_diameter" value="1.5" required>
+      </div>
+      <div class="field">
+        <label for="t_deflection">Target Sag / Deflection (in)</label>
+        <input type="number" step="any" min="0.000001" id="t_deflection" value="0.0625" required>
+      </div>
+      <div class="field">
+        <label for="t_span">Span Between Supports (in)</label>
+        <input type="number" step="any" min="0.001" id="t_span" value="50" required>
+      </div>
+      <div class="field full-width">
+        <label for="t_product_weight">Product Weight Per Linear Foot (lb/ft)</label>
+        <input type="number" step="any" min="0" id="t_product_weight" value="0" required>
+      </div>
+      <div class="field checkbox-field full-width">
+        <input type="checkbox" id="t_woven_belt">
+        <label for="t_woven_belt" style="margin-bottom:0;">Woven Belt</label>
+      </div>
+      <div class="actions">
+        <button type="submit" id="target-btn">Calculate Required Air Pressure</button>
+      </div>
+      <div class="error-box" id="target-error"></div>
+      <div class="result-box" id="target-result">
+        <h3>Required Air Pressure Result</h3>
+        <div class="result-row"><span class="result-label">Required Tension at Drive</span><span class="result-value" id="t_tension">—</span></div>
+        <div class="result-row"><span class="result-label">Required Air Pressure</span><span class="result-value" id="t_pressure">—</span></div>
+      </div>
+    </form>
+  </section>
+
+  <p class="note"><strong>Engineering notice:</strong> Confirm the final pressure setting against the machine manufacturer's limits, cylinder condition, belt type, loading and actual operating behavior.</p>
 </div>
 
 <script>
-  const API_URL = "https://spiral-tension-api.onrender.com/air-pressure";
+const API_URL = "https://spiral-tension-api.onrender.com/air-pressure";
 
-  const form = document.getElementById("calc-form");
-  const btn = document.getElementById("calc-btn");
-  const resultsBox = document.getElementById("results");
-  const errorBox = document.getElementById("error-box");
+function numberValue(id) {
+  return document.getElementById(id).value;
+}
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+function hideMessage(resultId, errorId) {
+  document.getElementById(resultId).classList.remove("show");
+  const error = document.getElementById(errorId);
+  error.classList.remove("show");
+  error.textContent = "";
+}
 
-    errorBox.classList.remove("show");
-    errorBox.textContent = "";
-    resultsBox.classList.remove("show");
+function showError(errorId, message) {
+  const box = document.getElementById(errorId);
+  box.textContent = message;
+  box.classList.add("show");
+}
 
-    const payload = {
-      belt_width: document.getElementById("belt_width").value,
-      num_cylinders: document.getElementById("num_cylinders").value,
-      cylinder_diameter: document.getElementById("cylinder_diameter").value,
-      piston_diameter: document.getElementById("piston_diameter").value,
-      woven_belt: document.getElementById("woven_belt").checked,
-      air_pressure_setting: document.getElementById("air_pressure_setting").value,
-      span_sag: document.getElementById("span_sag").value,
-      product_weight: document.getElementById("product_weight").value,
-      deflection_required: document.getElementById("deflection_required").value,
-      span_required: document.getElementById("span_required").value,
-    };
-
-    btn.disabled = true;
-    btn.textContent = "Calculating...";
-
-    try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Something went wrong. Please check your inputs.");
-      }
-
-      document.getElementById("res-area-per-cyl").textContent = data.area_per_cylinder + " in²";
-      document.getElementById("res-total-area").textContent = data.total_cylinder_area + " in²";
-      document.getElementById("res-required-tension").textContent = data.total_required_tension + " lb";
-      document.getElementById("res-calc-pressure").textContent = data.calculated_air_pressure + " psi";
-
-      document.getElementById("res-belt-weight").textContent = data.belt_weight_per_ft + " lb/ft";
-      document.getElementById("res-deflection").textContent = data.deflection + " in";
-
-      document.getElementById("res-required-tension-drive").textContent = data.required_tension_drive + " lb";
-      document.getElementById("res-required-pressure").textContent = data.required_air_pressure + " psi";
-
-      resultsBox.classList.add("show");
-    } catch (err) {
-      errorBox.textContent = err.message || "Unable to reach the calculation service. Please try again shortly.";
-      errorBox.classList.add("show");
-    } finally {
-      btn.disabled = false;
-      btn.textContent = "Calculate";
-    }
+async function requestCalculation(payload) {
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
   });
-</script>
 
+  let data;
+  try {
+    data = await response.json();
+  } catch (_) {
+    throw new Error("The calculation server returned an invalid response.");
+  }
+
+  if (!response.ok) {
+    throw new Error(data.error || "The calculation could not be completed.");
+  }
+
+  return data;
+}
+
+function setBusy(button, busy, normalText) {
+  button.disabled = busy;
+  button.textContent = busy ? "Calculating..." : normalText;
+}
+
+/*
+  The current API endpoint calculates all three spreadsheet sections in one request.
+  Each independent form below sends valid values for the complete endpoint, but the
+  page displays only the result requested by the user.
+*/
+
+document.getElementById("pressure-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  hideMessage("pressure-result", "pressure-error");
+
+  const button = document.getElementById("pressure-btn");
+  const normalText = "Calculate Air Pressure";
+  setBusy(button, true, normalText);
+
+  const payload = {
+    belt_width: numberValue("p_belt_width"),
+    num_cylinders: numberValue("p_num_cylinders"),
+    cylinder_diameter: numberValue("p_cylinder_diameter"),
+    piston_diameter: numberValue("p_piston_diameter"),
+    woven_belt: document.getElementById("p_woven_belt").checked,
+    air_pressure_setting: 1,
+    span_sag: 1,
+    product_weight: 0,
+    deflection_required: 1,
+    span_required: 1
+  };
+
+  try {
+    const data = await requestCalculation(payload);
+    document.getElementById("p_area").textContent = data.area_per_cylinder + " in²";
+    document.getElementById("p_total_area").textContent = data.total_cylinder_area + " in²";
+    document.getElementById("p_tension").textContent = data.total_required_tension + " lb";
+    document.getElementById("p_pressure").textContent = data.calculated_air_pressure + " psi";
+    document.getElementById("pressure-result").classList.add("show");
+  } catch (error) {
+    showError("pressure-error", error.message || "Unable to reach the calculation service.");
+  } finally {
+    setBusy(button, false, normalText);
+  }
+});
+
+document.getElementById("sag-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  hideMessage("sag-result", "sag-error");
+
+  const button = document.getElementById("sag-btn");
+  const normalText = "Calculate Belt Sag";
+  setBusy(button, true, normalText);
+
+  const payload = {
+    belt_width: numberValue("s_belt_width"),
+    num_cylinders: numberValue("s_num_cylinders"),
+    cylinder_diameter: numberValue("s_cylinder_diameter"),
+    piston_diameter: numberValue("s_piston_diameter"),
+    woven_belt: document.getElementById("s_woven_belt").checked,
+    air_pressure_setting: numberValue("s_air_pressure"),
+    span_sag: numberValue("s_span"),
+    product_weight: numberValue("s_product_weight"),
+    deflection_required: 1,
+    span_required: 1
+  };
+
+  try {
+    const data = await requestCalculation(payload);
+    document.getElementById("s_belt_weight").textContent = data.belt_weight_per_ft + " lb/ft";
+    document.getElementById("s_deflection").textContent = data.deflection + " in";
+    document.getElementById("sag-result").classList.add("show");
+  } catch (error) {
+    showError("sag-error", error.message || "Unable to reach the calculation service.");
+  } finally {
+    setBusy(button, false, normalText);
+  }
+});
+
+document.getElementById("target-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  hideMessage("target-result", "target-error");
+
+  const button = document.getElementById("target-btn");
+  const normalText = "Calculate Required Air Pressure";
+  setBusy(button, true, normalText);
+
+  const payload = {
+    belt_width: numberValue("t_belt_width"),
+    num_cylinders: numberValue("t_num_cylinders"),
+    cylinder_diameter: numberValue("t_cylinder_diameter"),
+    piston_diameter: numberValue("t_piston_diameter"),
+    woven_belt: document.getElementById("t_woven_belt").checked,
+    air_pressure_setting: 1,
+    span_sag: 1,
+    product_weight: numberValue("t_product_weight"),
+    deflection_required: numberValue("t_deflection"),
+    span_required: numberValue("t_span")
+  };
+
+  try {
+    const data = await requestCalculation(payload);
+    document.getElementById("t_tension").textContent = data.required_tension_drive + " lb";
+    document.getElementById("t_pressure").textContent = data.required_air_pressure + " psi";
+    document.getElementById("target-result").classList.add("show");
+  } catch (error) {
+    showError("target-error", error.message || "Unable to reach the calculation service.");
+  } finally {
+    setBusy(button, false, normalText);
+  }
+});
+</script>
 </body>
 </html>
-
