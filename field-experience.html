@@ -6,965 +6,1483 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>BELTPRO | Field Experience</title>
+    <meta name="description"
+          content="BELTPRO field experience in spiral conveyor installation, belt tension measurement, precision alignment, industrial baking ovens and equipment inspection throughout the Americas.">
+
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
+        :root {
+            --navy: #0b1f33;
+            --navy-soft: #102a43;
+            --blue: #0f4c81;
+            --blue-dark: #0b3a61;
+            --cyan: #38bdf8;
+            --orange: #f59e0b;
+            --green: #22c55e;
+            --text: #1f2937;
+            --muted: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #dbe5ee;
+            --shadow: 0 18px 45px rgba(15, 23, 42, 0.10);
+            --radius: 18px;
+            --max-width: 1180px;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-    body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f8fafc;
-    color: #1f2937;
-    line-height: 1.7;
-}
-
-        .language-bar {
-            background: #111827;
-            border-bottom: 2px solid #38bdf8;
-            padding: 12px 25px;
-            text-align: right;
+        html {
+            scroll-behavior: smooth;
         }
 
-        .language-bar button {
-            background: #1e293b;
-            color: #e2e8f0;
-            border: 1px solid #334155;
-            padding: 8px 14px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 15px;
-            margin-left: 8px;
-            transition: .3s;
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.65;
         }
 
-        .language-bar button:hover {
-            background: #334155;
-        }
-
-        .language-bar button.active {
-            background: #38bdf8;
-            color: #000;
-            border-color: #38bdf8;
-        }
-
-header {
-    background: linear-gradient(135deg, #ffffff, #f1f5f9);
-    text-align: center;
-    padding: 40px 20px;
-    border-bottom: 3px solid #38bdf8;
-}
-
-header img {
-    height: 180px;
-    width: auto;
-    margin-bottom: 20px;
-}
-
-header h1 {
-    font-size: 48px;
-    color: #0f4c81;
-    letter-spacing: 2px;
-}
-
-header h3 {
-    margin-top: 10px;
-    font-weight: normal;
-    color: #475569;
-}
-
-.since {
-    margin-top: 15px;
-    color: #22c55e;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: auto;
-            padding: 40px 0;
-        }
-
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 25px;
-            box-shadow: 0 0 18px rgba(0,0,0,.35);
-        }
-
-        h2 {
-            color: #0f4c81;
-            margin-bottom: 20px;
-        }
-
-        ul {
-            padding-left: 20px;
-        }
-
-        li {
-            margin-bottom: 10px;
-        }
-
-        .highlight {
-            color: #d97706;
-            font-weight: bold;
-        }
-
-        .contact p {
-            margin-bottom: 15px;
+        img {
+            max-width: 100%;
         }
 
         a {
-            color: #0056b3;
-            text-decoration: none;
+            color: inherit;
         }
 
-        a:hover {
-            color: #7dd3fc;
+        /* =========================================================
+           LANGUAGE BAR
+        ========================================================= */
+
+        .language-bar {
+            background: #071625;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 8px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .language-bar button {
+            border: 0;
+            background: transparent;
+            color: #cbd5e1;
+            padding: 7px 9px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            transition: 0.2s ease;
+        }
+
+        .language-bar button:hover,
+        .language-bar button.active {
+            color: #ffffff;
+            background: rgba(56, 189, 248, 0.16);
+        }
+
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
+
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+            background: rgba(11, 31, 51, 0.97);
+            box-shadow: 0 8px 25px rgba(2, 8, 23, 0.20);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-inner {
+            width: min(94%, var(--max-width));
+            margin: auto;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .nav-logo img {
+            display: block;
+            width: auto;
+            height: 48px;
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 44px;
+            height: 42px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 9px;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.06);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 5px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link,
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            min-height: 70px;
+            padding: 0 10px;
+            border: 0;
+            background: transparent;
+            color: #f8fafc;
+            text-decoration: none;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover,
+        .dropdown-toggle:hover,
+        .nav-link.active {
+            color: var(--cyan);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% - 5px);
+            left: 0;
+            min-width: 290px;
+            max-height: 68vh;
+            overflow-y: auto;
+            list-style: none;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 20px 45px rgba(2, 8, 23, 0.20);
+            padding: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: 0.2s ease;
+        }
+
+        .nav-item:hover > .dropdown-menu,
+        .nav-item:focus-within > .dropdown-menu,
+        .nav-item.open > .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: var(--navy-soft);
+            text-decoration: none;
+            font-size: 13px;
+            line-height: 1.35;
+        }
+
+        .dropdown-menu a:hover {
+            color: var(--blue);
+            background: #eef7fc;
+        }
+
+        /* Keep right-side menus inside the viewport */
+        .nav-item:nth-last-child(-n+4) .dropdown-menu {
+            right: 0;
+            left: auto;
+        }
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 570px;
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+            background:
+                linear-gradient(90deg, rgba(5, 20, 35, 0.94) 0%, rgba(7, 31, 53, 0.82) 48%, rgba(7, 31, 53, 0.45) 100%),
+                url("beltbackground.jpg") center / cover no-repeat;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: auto 0 0;
+            height: 120px;
+            background: linear-gradient(to bottom, transparent, rgba(5, 20, 35, 0.35));
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 80px 0 100px;
+        }
+
+        .hero-content {
+            max-width: 760px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 22px;
+            color: #bae6fd;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1.7px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 34px;
+            height: 2px;
+            background: var(--cyan);
+        }
+
+        .hero h1 {
+            max-width: 760px;
+            margin-bottom: 22px;
+            font-size: clamp(42px, 6vw, 72px);
+            line-height: 1.02;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            max-width: 720px;
+            color: #dbeafe;
+            font-size: clamp(17px, 2vw, 21px);
+            line-height: 1.6;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 34px;
         }
 
         .button {
-            display: inline-block;
-            margin-top: 20px;
-            background: #0f4c81;
-            color: white;
-            padding: 12px 22px;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: .3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 48px;
+            padding: 12px 20px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-weight: 800;
+            transition: 0.2s ease;
         }
 
-        .button:hover {
-            background: #0b3a61;
+        .button-primary {
+            color: #071625;
+            background: var(--cyan);
         }
 
+        .button-primary:hover {
+            background: #7dd3fc;
+            transform: translateY(-2px);
+        }
 
-        footer {
+        .button-secondary {
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.42);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .button-secondary:hover {
+            background: rgba(255, 255, 255, 0.16);
+            transform: translateY(-2px);
+        }
+
+        /* =========================================================
+           HIGHLIGHT STRIP
+        ========================================================= */
+
+        .highlight-strip {
+            position: relative;
+            z-index: 5;
+            width: min(92%, var(--max-width));
+            margin: -52px auto 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .highlight-item {
+            min-height: 112px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .highlight-item + .highlight-item {
+            border-left: 1px solid var(--border);
+        }
+
+        .highlight-icon {
+            flex: 0 0 46px;
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            color: var(--blue);
+            background: #eaf6fd;
+            font-size: 22px;
+            font-weight: 900;
+        }
+
+        .highlight-item strong {
+            display: block;
+            color: var(--navy);
+            font-size: 15px;
+        }
+
+        .highlight-item span {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* =========================================================
+           SECTIONS
+        ========================================================= */
+
+        .section {
+            padding: 92px 0;
+        }
+
+        .section-inner {
+            width: min(92%, var(--max-width));
+            margin: auto;
+        }
+
+        .section-heading {
+            max-width: 760px;
+            margin-bottom: 38px;
+        }
+
+        .section-label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--blue);
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            margin-bottom: 14px;
+            color: var(--navy);
+            font-size: clamp(31px, 4vw, 46px);
+            line-height: 1.15;
+            letter-spacing: -1px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            font-size: 17px;
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 26px;
+        }
+
+        .experience-card {
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07);
+            transition: 0.25s ease;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .experience-image {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: #dbe5ee;
+        }
+
+        .experience-image img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .experience-card:hover .experience-image img {
+            transform: scale(1.035);
+        }
+
+        .experience-number {
+            position: absolute;
+            left: 20px;
+            bottom: 18px;
+            min-width: 47px;
+            height: 47px;
+            display: grid;
+            place-items: center;
+            border-radius: 11px;
+            color: #071625;
+            background: var(--cyan);
+            box-shadow: 0 8px 20px rgba(2, 8, 23, 0.24);
+            font-weight: 900;
+        }
+
+        .experience-content {
+            padding: 27px 28px 30px;
+        }
+
+        .experience-content h3 {
+            margin-bottom: 15px;
+            color: var(--navy);
+            font-size: 23px;
+            line-height: 1.25;
+        }
+
+        .experience-content ul {
+            list-style: none;
+            display: grid;
+            gap: 9px;
+        }
+
+        .experience-content li {
+            position: relative;
+            padding-left: 23px;
+            color: #475569;
+        }
+
+        .experience-content li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--blue);
+            font-weight: 900;
+        }
+
+        /* =========================================================
+           CTA
+        ========================================================= */
+
+        .cta-section {
+            padding: 0 0 92px;
+        }
+
+        .cta {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 34px;
+            color: #ffffff;
+            background:
+                radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.22), transparent 34%),
+                linear-gradient(135deg, var(--navy), #0f4c81);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .cta h2 {
+            margin-bottom: 10px;
+            font-size: clamp(28px, 4vw, 42px);
+            line-height: 1.15;
+        }
+
+        .cta p {
+            max-width: 700px;
+            color: #dbeafe;
+        }
+
+        .cta .button {
+            flex-shrink: 0;
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        .site-footer {
+            color: #cbd5e1;
+            background: #071625;
+        }
+
+        .footer-inner {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 58px 0 42px;
+            display: grid;
+            grid-template-columns: 1.5fr 0.8fr 0.8fr 1fr;
+            gap: 38px;
+        }
+
+        .footer-brand img {
+            width: auto;
+            height: 72px;
+            margin-bottom: 18px;
+        }
+
+        .footer-brand p {
+            max-width: 340px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 17px;
+            color: #ffffff;
+            font-size: 15px;
+        }
+
+        .footer-column a,
+        .footer-column span {
+            display: block;
+            margin-bottom: 10px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .footer-column a:hover {
+            color: var(--cyan);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.09);
+        }
+
+        .footer-bottom-inner {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 20px 0;
+            color: #64748b;
+            font-size: 13px;
             text-align: center;
-            padding: 30px;
-            background: #0f4c81;
-            color: white;
-            border-top: 2px solid #1f2937;
         }
 
-        .navbar{
-    position: sticky;
-    top:0;
-    z-index:1000;
-    background:#0f4c81;
-    padding:15px;
-    display:flex;
-    justify-content:center;
-    gap:30px;
-    flex-wrap:wrap;
-}
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
 
-.navbar a{
-    color:white;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-.navbar a:hover{
-    color:#38bdf8;
-}
-        .dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: white;
-    min-width: 280px;
-    border-radius: 8px;
-    box-shadow: 0 8px 20px rgba(0,0,0,.2);
-    overflow: hidden;
-    z-index: 1000;
-}
-
-.dropdown-content a {
-    display: block;
-    color: #0f4c81;
-    padding: 12px 16px;
-    text-decoration: none;
-    font-weight: normal;
-    white-space: nowrap;
-}
-
-.dropdown-content a:hover {
-    background: #f1f5f9;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-        .banner-image{
-    width:100%;
-    height:auto;
-    display:block;
-}
-
-
-        @media(max-width:700px){
-
-            header h1{
-                font-size:36px;
+        @media (max-width: 1080px) {
+            .menu-toggle {
+                display: grid;
+                place-items: center;
             }
 
-            header img{
-                max-height:80px;
+            .nav-inner {
+                min-height: 66px;
             }
 
-            .card{
-                padding:20px;
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                max-height: calc(100vh - 110px);
+                overflow-y: auto;
+                display: none;
+                padding: 10px 4%;
+                background: #0b1f33;
+                border-top: 1px solid rgba(255, 255, 255, 0.10);
             }
 
-            .language-bar{
-                text-align:center;
+            .nav-menu.open {
+                display: block;
             }
 
-            .language-bar button{
-                margin:5px;
+            .nav-link,
+            .dropdown-toggle {
+                width: 100%;
+                min-height: 46px;
+                justify-content: space-between;
+                padding: 10px 4px;
+                text-align: left;
+            }
+
+            .dropdown-menu {
+                position: static;
+                display: none;
+                min-width: 0;
+                max-height: none;
+                margin: 0 0 8px;
+                padding: 6px;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                border: 0;
+                background: rgba(255, 255, 255, 0.96);
+            }
+
+            .nav-item:hover > .dropdown-menu,
+            .nav-item:focus-within > .dropdown-menu {
+                display: none;
+            }
+
+            .nav-item.open > .dropdown-menu {
+                display: block;
+            }
+
+            .nav-item:nth-last-child(-n+4) .dropdown-menu {
+                right: auto;
+                left: auto;
             }
         }
 
+        @media (max-width: 820px) {
+            .language-bar {
+                justify-content: center;
+                padding-inline: 10px;
+                flex-wrap: wrap;
+            }
+
+            .language-bar button {
+                font-size: 12px;
+            }
+
+            .hero {
+                min-height: 520px;
+                background-position: 62% center;
+            }
+
+            .hero-inner {
+                padding: 65px 0 92px;
+            }
+
+            .highlight-strip {
+                grid-template-columns: 1fr;
+                margin-top: -38px;
+            }
+
+            .highlight-item + .highlight-item {
+                border-top: 1px solid var(--border);
+                border-left: 0;
+            }
+
+            .experience-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta {
+                padding: 36px 28px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .footer-inner {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 520px) {
+            .nav-logo img {
+                height: 42px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .section {
+                padding: 72px 0;
+            }
+
+            .experience-content {
+                padding: 23px 22px 26px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
-
 </head>
 
 <body>
 
-<div class="language-bar">
-
-    <button type="button" data-lang="en" onclick="setLanguage('en')" aria-label="Switch to English">🇺🇸 English</button>
-
-    <button type="button" data-lang="es" onclick="setLanguage('es')" aria-label="Cambiar a Español">🇪🇸 Español</button>
-
-    <button type="button" data-lang="pt" onclick="setLanguage('pt')" aria-label="Mudar para Português">🇧🇷 Português</button>
-
-    <button type="button" data-lang="it" onclick="setLanguage('it')" aria-label="Passa all'Italiano">🇮🇹 Italiano</button>
-
-</div>
-
-<header id="home">
-
-    <!-- Replace logo.png with your logo file -->
-    <img src="logo.png" alt="BELTPRO Logo">
-
-
-
-    <h1>FIELD EXPERIENCE</h1>
-
-<h3>
-Real installations, inspections and engineering services performed throughout the Americas.
-</h3>
-
-<div class="since">
-Since 2014
-</div>
-
-
-
-<nav class="navbar">
-
-
-    <a href="index.html">Home</a>
-<div class="dropdown">
-
-    <a href="#services"
-       data-en="Services ▼"
-       data-es="Servicios ▼"
-       data-pt="Serviços ▼"
-       data-it="Servizi ▼">
-        Services ▼
-    </a>
-
-    <div class="dropdown-content">
-
-        <a href="#services"
-           data-en="Belt Tension Measurement"
-           data-es="Medição da Tensão da Correia"
-           data-pt="Medição da Tensão da esteira"
-           data-it="Misurazione della Tensione del Nastro">
-            Belt Tension Measurement
-        </a>
-
-        <a href="#services"
-           data-en="Belt Tension Analysis & Calculations"
-           data-es="Análisis y Cálculos de Tensión"
-           data-pt="Análise e Cálculos de Tensão"
-           data-it="Analisi e Calcoli della Tensione">
-            Belt Tension Analysis & Calculations
-        </a>
-
-        <a href="#services"
-           data-en="Spiral Conveyor Installation"
-           data-es="Instalación de Transportadores Espirales"
-           data-pt="Instalação de Transportadores Espirais"
-           data-it="Installazione di Trasportatori a Spirale">
-            Spiral Conveyor Installation
-        </a>
-
-        <a href="#services"
-           data-en="Spiral Conveyor Troubleshooting"
-           data-es="Diagnóstico de Transportadores Espirales"
-           data-pt="Diagnóstico de Transportadores Espirais"
-           data-it="Risoluzione Problemi Trasportatori a Spirale">
-            Spiral Conveyor Troubleshooting
-        </a>
-
-        <a href="#services"
-           data-en="Overdrive Adjustment & Optimization"
-           data-es="Ajuste y Optimización del Overdrive"
-           data-pt="Ajuste e Otimização de escorregamento"
-           data-it="Regolazione e Ottimizzazione Overdrive">
-            Overdrive Adjustment & Optimization
-        </a>
-
-        <a href="#services"
-           data-en="Stacker Drive Parts Inspection"
-           data-es="Inspección de Componentes del Accionamiento"
-           data-pt="Inspeção de Componentes do Acionamento"
-           data-it="Ispezione Componenti del Sistema di Azionamento">
-            Stacker Drive Parts Inspection
-        </a>
-
-        <a href="#services"
-           data-en="Oven Precision Leveling & Alignment"
-           data-es="Nivelación y Alineación de Hornos"
-           data-pt="Nivelamento e Alinhamento de Fornos"
-           data-it="Livellamento e Allineamento Forni">
-            Oven Precision Leveling & Alignment
-        </a>
-
-        <a href="#services"
-           data-en="Baking Oven Troubleshooting"
-           data-es="Diagnóstico de Hornos"
-           data-pt="Diagnóstico de Fornos"
-           data-it="Risoluzione Problemi Forni">
-            Baking Oven Troubleshooting
-        </a>
-
-        <a href="#services"
-           data-en="Equipment Inspection & Performance Assessment"
-           data-es="Inspección y Evaluación del Rendimiento"
-           data-pt="Inspeção e Avaliação de Desempenho"
-           data-it="Ispezione e Valutazione delle Prestazioni">
-            Equipment Inspection & Performance Assessment
-        </a>
-
-        <a href="#services"
-           data-en="Preventive Maintenance Programs"
-           data-es="Programas de Mantenimiento Preventivo"
-           data-pt="Programas de Manutenção Preventiva"
-           data-it="Programmi di Manutenzione Preventiva">
-            Preventive Maintenance Programs
-        </a>
-
-        <a href="#services"
-           data-en="Equipment Retrofits & Upgrades"
-           data-es="Modernización de Equipos"
-           data-pt="Retrofit e Modernização de Equipamentos"
-           data-it="Retrofit e Aggiornamenti delle Attrezzature">
-            Equipment Retrofits & Upgrades
-        </a>
-
-        <a href="#services"
-           data-en="Commissioning & Start-Up Support"
-           data-es="Puesta en Marcha y Comisionamiento"
-           data-pt="Comissionamento e Start-Up"
-           data-it="Commissioning e Avviamento">
-            Commissioning & Start-Up Support
-        </a>
-
-        <a href="#services"
-           data-en="Technical Training – Theory of Operation"
-           data-es="Capacitación Técnica – Teoría de Operación"
-           data-pt="Treinamento Técnico – Teoria de Operação"
-           data-it="Formazione Tecnica – Teoria di Funzionamento">
-            Technical Training – Theory of Operation
-        </a>
-
-        <a href="#services"
-           data-en="Engineering Consulting"
-           data-es="Consultoría de Ingeniería"
-           data-pt="Consultoria de Engenharia"
-           data-it="Consulenza di Ingegneria">
-            Engineering Consulting
-        </a>
-
-        <a href="#services"
-           data-en="Cold & Hot Band Tracking"
-           data-es="Guiado de Bandas Frías y Calientes"
-           data-pt="Alinhamento frio e quente de esteiras"
-           data-it="Allineamento Nastri Caldi e Freddi">
-            Cold & Hot Band Tracking
-        </a>
-
+    <!-- LANGUAGE SELECTION -->
+    <div class="language-bar" aria-label="Language selection">
+        <button type="button" data-lang="en" onclick="setLanguage('en')">English</button>
+        <button type="button" data-lang="es" onclick="setLanguage('es')">Español</button>
+        <button type="button" data-lang="pt" onclick="setLanguage('pt')">Português</button>
+        <button type="button" data-lang="it" onclick="setLanguage('it')">Italiano</button>
     </div>
 
-</div>
+    <!-- MAIN NAVIGATION -->
+    <nav class="site-nav" aria-label="Main navigation">
+        <div class="nav-inner">
 
-
-    <div class="dropdown">
-
-        <a href="#industries"
-           data-en="Industries ▼"
-           data-es="Industrias ▼"
-           data-pt="Indústrias ▼"
-           data-it="Settori ▼">
-            Industries ▼
-        </a>
-
-
-        <div class="dropdown-content">
-
-            <a href="#industries"
-               data-en="Bakeries"
-               data-es="Panaderías"
-               data-pt="Panificadoras"
-               data-it="Panifici">
-                Bakeries
+            <a class="nav-logo" href="index.html" aria-label="BELTPRO home">
+                <img src="logo.png" alt="BELTPRO Logo">
             </a>
 
-            <a href="#industries"
-               data-en="Breweries"
-               data-es="Cervecerías"
-               data-pt="Cervejarias"
-               data-it="Birrifici">
-                Breweries
-            </a>
+            <button class="menu-toggle"
+                    type="button"
+                    aria-label="Open menu"
+                    aria-expanded="false"
+                    onclick="toggleMobileMenu()">
+                ☰
+            </button>
 
-            <a href="#industries"
-               data-en="Meat &amp; Poultry Processing"
-               data-es="Procesamiento de Carne y Aves"
-               data-pt="Processamento de Carnes e Aves"
-               data-it="Lavorazione di Carne e Pollame">
-                Meat &amp; Poultry Processing
-            </a>
+            <ul class="nav-menu" id="navMenu">
 
-            <a href="#industries"
-               data-en="Seafood Processing"
-               data-es="Procesamiento de Productos del Mar"
-               data-pt="Processamento de Frutos do Mar"
-               data-it="Lavorazione dei Prodotti Ittici">
-                Seafood Processing
-            </a>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html"
+                       data-en="Home"
+                       data-es="Inicio"
+                       data-pt="Início"
+                       data-it="Home">Home</a>
+                </li>
 
-            <a href="#industries"
-               data-en="Ice Cream &amp; Frozen Desserts"
-               data-es="Helados y Postres Congelados"
-               data-pt="Sorvetes e Sobremesas Congeladas"
-               data-it="Gelati e Dessert Surgelati">
-                Ice Cream &amp; Frozen Desserts
-            </a>
+                <li class="nav-item">
+                    <button class="dropdown-toggle" type="button" onclick="toggleDropdown(event)"
+                            data-en="Services ▼"
+                            data-es="Servicios ▼"
+                            data-pt="Serviços ▼"
+                            data-it="Servizi ▼">Services ▼</button>
 
-            <a href="#industries"
-               data-en="Chocolate &amp; Confectionery"
-               data-es="Chocolate y Confitería"
-               data-pt="Chocolate e Confeitaria"
-               data-it="Cioccolato e Confetteria">
-                Chocolate &amp; Confectionery
-            </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html#services"
+                               data-en="Belt Tension Measurement"
+                               data-es="Medición de Tensión de Banda"
+                               data-pt="Medição de Tensão de Esteira"
+                               data-it="Misurazione della Tensione del Nastro">Belt Tension Measurement</a></li>
 
-            <a href="#industries"
-               data-en="Snack Food Manufacturing"
-               data-es="Fabricación de Snacks"
-               data-pt="Fabricação de Snacks"
-               data-it="Produzione di Snack">
-                Snack Food Manufacturing
-            </a>
+                        <li><a href="index.html#services"
+                               data-en="Belt Tension Analysis &amp; Calculations"
+                               data-es="Análisis y Cálculos de Tensión"
+                               data-pt="Análise e Cálculos de Tensão"
+                               data-it="Analisi e Calcoli della Tensione">Belt Tension Analysis &amp; Calculations</a></li>
 
-            <a href="#industries"
-               data-en="Glass Manufacturing"
-               data-es="Fabricación de Vidrio"
-               data-pt="Fabricação de Vidro"
-               data-it="Produzione del Vetro">
-                Glass Manufacturing
+                        <li><a href="index.html#services"
+                               data-en="Spiral Conveyor Installation"
+                               data-es="Instalación de Transportadores Espirales"
+                               data-pt="Instalação de Transportadores Espirais"
+                               data-it="Installazione di Trasportatori a Spirale">Spiral Conveyor Installation</a></li>
+
+                        <li><a href="index.html#services"
+                               data-en="Spiral Conveyor Troubleshooting"
+                               data-es="Diagnóstico de Transportadores Espirales"
+                               data-pt="Diagnóstico de Transportadores Espirais"
+                               data-it="Risoluzione Problemi Trasportatori a Spirale">Spiral Conveyor Troubleshooting</a></li>
+
+                        <li><a href="index.html#services"
+                               data-en="Overdrive Adjustment &amp; Optimization"
+                               data-es="Ajuste y Optimización del Overdrive"
+                               data-pt="Ajuste e Otimização de Overdrive"
+                               data-it="Regolazione e Ottimizzazione Overdrive">Overdrive Adjustment &amp; Optimization</a></li>
+
+                        <li><a href="index.html#services"
+                               data-en="Stacker Drive Parts Inspection"
+                               data-es="Inspección de Componentes del Accionamiento"
+                               data-pt="Inspeção de Componentes do Acionamento"
+                               data-it="Ispezione Componenti del Sistema di Azionamento">Stacker Drive Parts Inspection</a></li>
+
+                        <li><a href="index.html#services"
+                               data-en="Oven Precision Leveling &amp; Alignment"
+                               data-es="Nivelación y Alineación de Hornos"
+                               data-pt="Nivelamento e Alinhamento de Fornos"
+                               data-it="Livellamento e Allineamento Forni">Oven Precision Leveling &amp; Alignment</a></li>
+
+                        <li><a href="index.html#services"
+                               data-en="Baking Oven Troubleshooting"
+                               data-es="Diagnóstico de Hornos"
+                               data-pt="Diagnóstico de Fornos"
+                               data-it="Risoluzione Problemi Forni">Baking Oven Troubleshooting</a></li>
+
+                        <li><a href="index.html#services"
+                               data-en="Equipment Inspection &amp; Performance Assessment"
+                               data-es="Inspección y Evaluación del Rendimiento"
+                               data-pt="Inspeção e Avaliação de Desempenho"
+                               data-it="Ispezione e Valutazione delle Prestazioni">Equipment Inspection &amp; Performance Assessment</a></li>
+
+                        <li><a href="index.html#services"
+                               data-en="Preventive Maintenance Programs"
+                               data-es="Programas de Mantenimiento Preventivo"
+                               data-pt="Programas de Manutenção Preventiva"
+                               data-it="Programmi di Manutenzione Preventiva">Preventive Maintenance Programs</a></li>
+
+                        <li><a href="index.html#services"
+                               data-en="Equipment Retrofits &amp; Upgrades"
+                               data-es="Modernización de Equipos"
+                               data-pt="Retrofit e Modernização de Equipamentos"
+                               data-it="Retrofit e Aggiornamenti delle Attrezzature">Equipment Retrofits &amp; Upgrades</a></li>
+
+                        <li><a href="index.html#services"
+                               data-en="Commissioning &amp; Start-Up Support"
+                               data-es="Puesta en Marcha y Comisionamiento"
+                               data-pt="Comissionamento e Start-Up"
+                               data-it="Commissioning e Avviamento">Commissioning &amp; Start-Up Support</a></li>
+
+                        <li><a href="index.html#services"
+                               data-en="Technical Training – Theory of Operation"
+                               data-es="Capacitación Técnica – Teoría de Operación"
+                               data-pt="Treinamento Técnico – Teoria de Operação"
+                               data-it="Formazione Tecnica – Teoria di Funzionamento">Technical Training – Theory of Operation</a></li>
+
+                        <li><a href="index.html#services"
+                               data-en="Engineering Consulting"
+                               data-es="Consultoría de Ingeniería"
+                               data-pt="Consultoria de Engenharia"
+                               data-it="Consulenza di Ingegneria">Engineering Consulting</a></li>
+
+                        <li><a href="index.html#services"
+                               data-en="Cold &amp; Hot Band Tracking"
+                               data-es="Guiado de Bandas Frías y Calientes"
+                               data-pt="Tracking Frio e Quente de Esteiras"
+                               data-it="Allineamento Nastri Caldi e Freddi">Cold &amp; Hot Band Tracking</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <button class="dropdown-toggle" type="button" onclick="toggleDropdown(event)"
+                            data-en="Industries ▼"
+                            data-es="Industrias ▼"
+                            data-pt="Indústrias ▼"
+                            data-it="Settori ▼">Industries ▼</button>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html#industries" data-en="Bakeries" data-es="Panaderías" data-pt="Panificadoras" data-it="Panifici">Bakeries</a></li>
+                        <li><a href="index.html#industries" data-en="Breweries" data-es="Cervecerías" data-pt="Cervejarias" data-it="Birrifici">Breweries</a></li>
+                        <li><a href="index.html#industries" data-en="Meat &amp; Poultry Processing" data-es="Procesamiento de Carne y Aves" data-pt="Processamento de Carnes e Aves" data-it="Lavorazione di Carne e Pollame">Meat &amp; Poultry Processing</a></li>
+                        <li><a href="index.html#industries" data-en="Seafood Processing" data-es="Procesamiento de Productos del Mar" data-pt="Processamento de Frutos do Mar" data-it="Lavorazione dei Prodotti Ittici">Seafood Processing</a></li>
+                        <li><a href="index.html#industries" data-en="Ice Cream &amp; Frozen Desserts" data-es="Helados y Postres Congelados" data-pt="Sorvetes e Sobremesas Congeladas" data-it="Gelati e Dessert Surgelati">Ice Cream &amp; Frozen Desserts</a></li>
+                        <li><a href="index.html#industries" data-en="Chocolate &amp; Confectionery" data-es="Chocolate y Confitería" data-pt="Chocolate e Confeitaria" data-it="Cioccolato e Confetteria">Chocolate &amp; Confectionery</a></li>
+                        <li><a href="index.html#industries" data-en="Snack Food Manufacturing" data-es="Fabricación de Snacks" data-pt="Fabricação de Snacks" data-it="Produzione di Snack">Snack Food Manufacturing</a></li>
+                        <li><a href="index.html#industries" data-en="Glass Manufacturing" data-es="Fabricación de Vidrio" data-pt="Fabricação de Vidro" data-it="Produzione del Vetro">Glass Manufacturing</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <button class="dropdown-toggle" type="button" onclick="toggleDropdown(event)"
+                            data-en="Global Projects ▼"
+                            data-es="Proyectos Globales ▼"
+                            data-pt="Projetos Globais ▼"
+                            data-it="Progetti Globali ▼">Global Projects ▼</button>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html#projects">PepsiCo – Mexico</a></li>
+                        <li><a href="index.html#projects">Cargill – Costa Rica</a></li>
+                        <li><a href="index.html#projects">Santa Priscila – Ecuador</a></li>
+                        <li><a href="index.html#projects">Gonnella – USA</a></li>
+                        <li><a href="index.html#projects">Bermudez – Trinidad &amp; Tobago</a></li>
+                        <li><a href="index.html#projects">Noel – Colombia</a></li>
+                        <li><a href="index.html#projects">Carozzi – Chile</a></li>
+                        <li><a href="index.html#projects">Mondelez – Argentina</a></li>
+                        <li><a href="index.html#projects">Mondelez – Peru</a></li>
+                        <li><a href="index.html#projects">Carabobo – Venezuela</a></li>
+                        <li><a href="index.html#projects">MBRF – Brazil</a></li>
+                        <li><a href="index.html#projects">JBS / Seara – Brazil</a></li>
+                        <li><a href="index.html#projects">Froneri – Brazil</a></li>
+                        <li><a href="index.html#projects">Capricche – Brazil</a></li>
+                        <li><a href="index.html#projects">Cooperativa Aurora – Brazil</a></li>
+                        <li><a href="index.html#projects">Forno de Minas – Brazil</a></li>
+                        <li><a href="index.html#projects">Bimbo – Brazil</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <button class="dropdown-toggle" type="button" onclick="toggleDropdown(event)"
+                            data-en="Technical Articles ▼"
+                            data-es="Artículos Técnicos ▼"
+                            data-pt="Artigos Técnicos ▼"
+                            data-it="Articoli Tecnici ▼">Technical Articles ▼</button>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html#articles"
+                               data-en="Calculating System Turn Ratio"
+                               data-es="Cálculo de la Relación de Giro"
+                               data-pt="Cálculo da Relação de Giro"
+                               data-it="Calcolo del Rapporto di Curvatura">Calculating System Turn Ratio</a></li>
+
+                        <li><a href="index.html#articles"
+                               data-en="Overdrive Adjustment"
+                               data-es="Ajuste de Overdrive"
+                               data-pt="Ajuste de Overdrive"
+                               data-it="Regolazione Overdrive">Overdrive Adjustment</a></li>
+
+                        <li><a href="index.html#articles"
+                               data-en="Spiral Theory"
+                               data-es="Teoría de Espirales"
+                               data-pt="Teoria das Espirais"
+                               data-it="Teoria delle Spirali">Spiral Theory</a></li>
+
+                        <li><a href="index.html#articles"
+                               data-en="Controls and Trackers"
+                               data-es="Controles y Guiadores"
+                               data-pt="Controles e Alinhadores"
+                               data-it="Controlli e Guide">Controls and Trackers</a></li>
+
+                        <li><a href="index.html#articles"
+                               data-en="Belt Specification"
+                               data-es="Especificación de Bandas"
+                               data-pt="Especificação de Esteiras"
+                               data-it="Specifiche del Nastro">Belt Specification</a></li>
+
+                        <li><a href="index.html#articles"
+                               data-en="Baking Band Installation Instructions"
+                               data-es="Instrucciones de Instalación de Bandas para Hornos"
+                               data-pt="Instruções para Instalação de Esteiras em Fornos"
+                               data-it="Istruzioni per l'Installazione dei Nastri da Forno">Baking Band Installation Instructions</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <button class="dropdown-toggle" type="button" onclick="toggleDropdown(event)"
+                            data-en="Calculators ▼"
+                            data-es="Calculadoras ▼"
+                            data-pt="Calculadoras ▼"
+                            data-it="Calcolatori ▼">Calculators ▼</button>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="spiral-tension-calculator.html">Spiral System Tension Estimation</a></li>
+                        <li><a href="spiral-belting-cycles-calculator.html">Spiral Belting Cycles Calculator</a></li>
+                        <li><a href="max-allowable-tension-calculator.html">Maximum Allowable Tension</a></li>
+                        <li><a href="belt-weight-calculator.html">Belt Weight Calculator</a></li>
+                        <li><a href="belt-sprocket-conversion-calculator.html">Belt Sprocket Conversion Calculator</a></li>
+                        <li><a href="belt-turn-ratio-calculator.html">Belt Turn Ratio Calculator</a></li>
+                        <li><a href="stacker-outfeed-drive-ratio-calculator.html">Stacker Outfeed Drive Ratio Calculator</a></li>
+                        <li><a href="curve-conveyor-radius-angle-calculator.html">Curve Conveyor Radius &amp; Angle Calculator</a></li>
+                        <li><a href="side-drive-spiral-torque-calculator.html">Side Drive Spiral Torque Calculator</a></li>
+                        <li><a href="spiral-drive-motor-sizing-calculator.html">Spiral Drive Motor Sizing Calculator</a></li>
+                        <li><a href="oven-band-force-calculator.html">Oven Band Force Calculator</a></li>
+                        <li><a href="cb5-air-pressure-calculator.html">CB5 Air Pressure Calculator</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html#lineage"
+                       data-en="Professional Lineage"
+                       data-es="Linaje Profesional"
+                       data-pt="Linhagem Profissional"
+                       data-it="Lineaggio Professionale">Professional Lineage</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="field-experience.html"
+                       data-en="Field Experience"
+                       data-es="Experiencia de Campo"
+                       data-pt="Experiência de Campo"
+                       data-it="Esperienza sul Campo">Field Experience</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html#about"
+                       data-en="About"
+                       data-es="Acerca de"
+                       data-pt="Sobre"
+                       data-it="Chi Siamo">About</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html#contact"
+                       data-en="Contact"
+                       data-es="Contacto"
+                       data-pt="Contato"
+                       data-it="Contatto">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-inner">
+            <div class="hero-content">
+
+                <span class="eyebrow"
+                      data-en="Serving industry since 2014"
+                      data-es="Atendiendo a la industria desde 2014"
+                      data-pt="Atendendo a indústria desde 2014"
+                      data-it="Al servizio dell'industria dal 2014">
+                    Serving industry since 2014
+                </span>
+
+                <h1 data-en="Field experience that supports reliable performance."
+                    data-es="Experiencia de campo que respalda un rendimiento confiable."
+                    data-pt="Experiência de campo que sustenta um desempenho confiável."
+                    data-it="Esperienza sul campo al servizio di prestazioni affidabili.">
+                    Field experience that supports reliable performance.
+                </h1>
+
+                <p data-en="Real installations, inspections, measurements and engineering services for spiral conveyor systems and industrial baking ovens throughout the Americas."
+                   data-es="Instalaciones, inspecciones, mediciones y servicios de ingeniería reales para transportadores espirales y hornos industriales en toda América."
+                   data-pt="Instalações, inspeções, medições e serviços de engenharia realizados em transportadores espirais e fornos industriais em todas as Américas."
+                   data-it="Installazioni, ispezioni, misurazioni e servizi di ingegneria reali per trasportatori a spirale e forni industriali in tutte le Americhe.">
+                    Real installations, inspections, measurements and engineering services for spiral conveyor systems and industrial baking ovens throughout the Americas.
+                </p>
+
+                <div class="hero-actions">
+                    <a class="button button-primary" href="#experience"
+                       data-en="Explore Field Work ↓"
+                       data-es="Ver Trabajos de Campo ↓"
+                       data-pt="Ver Trabalhos de Campo ↓"
+                       data-it="Esplora i Lavori sul Campo ↓">
+                        Explore Field Work ↓
+                    </a>
+
+                    <a class="button button-secondary" href="index.html#contact"
+                       data-en="Request Technical Assistance →"
+                       data-es="Solicitar Asistencia Técnica →"
+                       data-pt="Solicitar Assistência Técnica →"
+                       data-it="Richiedi Assistenza Tecnica →">
+                        Request Technical Assistance →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HIGHLIGHTS -->
+    <section class="highlight-strip" aria-label="BELTPRO experience highlights">
+
+        <div class="highlight-item">
+            <div class="highlight-icon">◎</div>
+            <div>
+                <strong data-en="Across the Americas"
+                        data-es="En toda América"
+                        data-pt="Em todas as Américas"
+                        data-it="In tutte le Americhe">Across the Americas</strong>
+                <span data-en="International field support"
+                      data-es="Soporte técnico internacional"
+                      data-pt="Suporte técnico internacional"
+                      data-it="Supporto tecnico internazionale">International field support</span>
+            </div>
+        </div>
+
+        <div class="highlight-item">
+            <div class="highlight-icon">⚙</div>
+            <div>
+                <strong data-en="Practical Engineering"
+                        data-es="Ingeniería Práctica"
+                        data-pt="Engenharia Prática"
+                        data-it="Ingegneria Pratica">Practical Engineering</strong>
+                <span data-en="Measurements, analysis and recommendations"
+                      data-es="Mediciones, análisis y recomendaciones"
+                      data-pt="Medições, análises e recomendações"
+                      data-it="Misurazioni, analisi e raccomandazioni">Measurements, analysis and recommendations</span>
+            </div>
+        </div>
+
+        <div class="highlight-item">
+            <div class="highlight-icon">✓</div>
+            <div>
+                <strong data-en="Since 2014"
+                        data-es="Desde 2014"
+                        data-pt="Desde 2014"
+                        data-it="Dal 2014">Since 2014</strong>
+                <span data-en="Hands-on industrial experience"
+                      data-es="Experiencia industrial práctica"
+                      data-pt="Experiência industrial prática"
+                      data-it="Esperienza industriale pratica">Hands-on industrial experience</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FIELD EXPERIENCE -->
+    <main class="section" id="experience">
+        <div class="section-inner">
+
+            <div class="section-heading">
+                <span class="section-label"
+                      data-en="Field Experience"
+                      data-es="Experiencia de Campo"
+                      data-pt="Experiência de Campo"
+                      data-it="Esperienza sul Campo">Field Experience</span>
+
+                <h2 data-en="Practical work on critical conveyor and oven systems."
+                    data-es="Trabajo práctico en sistemas críticos de transporte y hornos."
+                    data-pt="Trabalho prático em sistemas críticos de transportadores e fornos."
+                    data-it="Lavoro pratico su sistemi critici di trasporto e forni.">
+                    Practical work on critical conveyor and oven systems.
+                </h2>
+
+                <p data-en="Since 2014, BELTPRO has provided installation, maintenance, troubleshooting, inspection and engineering services for spiral systems and industrial baking ovens throughout the Americas."
+                   data-es="Desde 2014, BELTPRO presta servicios de instalación, mantenimiento, diagnóstico, inspección e ingeniería para sistemas espirales y hornos industriales en toda América."
+                   data-pt="Desde 2014, a BELTPRO presta serviços de instalação, manutenção, diagnóstico, inspeção e engenharia para sistemas espirais e fornos industriais em todas as Américas."
+                   data-it="Dal 2014, BELTPRO fornisce servizi di installazione, manutenzione, diagnostica, ispezione e ingegneria per sistemi a spirale e forni industriali in tutte le Americhe.">
+                    Since 2014, BELTPRO has provided installation, maintenance, troubleshooting, inspection and engineering services for spiral systems and industrial baking ovens throughout the Americas.
+                </p>
+            </div>
+
+            <div class="experience-grid">
+
+                <article class="experience-card">
+                    <div class="experience-image">
+                        <img src="images/spiral-installation/cover.jpg"
+                             alt="Spiral conveyor installation field work"
+                             loading="lazy">
+                        <span class="experience-number">01</span>
+                    </div>
+                    <div class="experience-content">
+                        <h3 data-en="Spiral Conveyor Installation"
+                            data-es="Instalación de Transportadores Espirales"
+                            data-pt="Instalação de Transportadores Espirais"
+                            data-it="Installazione di Trasportatori a Spirale">
+                            Spiral Conveyor Installation
+                        </h3>
+                        <ul>
+                            <li data-en="Cage retrofit" data-es="Retrofit de jaula" data-pt="Retrofit da gaiola" data-it="Retrofit della gabbia">Cage retrofit</li>
+                            <li data-en="Drum tooth installation" data-es="Instalación de dientes del tambor" data-pt="Instalação de dentes do tambor" data-it="Installazione denti del tamburo">Drum tooth installation</li>
+                            <li data-en="Belt installation" data-es="Instalación de banda" data-pt="Instalação de esteira" data-it="Installazione del nastro">Belt installation</li>
+                            <li data-en="Precision spiral leveling" data-es="Nivelación de precisión" data-pt="Nivelamento de precisão da espiral" data-it="Livellamento di precisione della spirale">Precision spiral leveling</li>
+                            <li data-en="Bearing replacement" data-es="Reemplazo de rodamientos" data-pt="Substituição de rolamentos" data-it="Sostituzione dei cuscinetti">Bearing replacement</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="experience-card">
+                    <div class="experience-image">
+                        <img src="images/tension-measurement/cover.jpg"
+                             alt="Spiral belt tension measurement"
+                             loading="lazy">
+                        <span class="experience-number">02</span>
+                    </div>
+                    <div class="experience-content">
+                        <h3 data-en="Belt Tension Measurement"
+                            data-es="Medición de Tensión de Banda"
+                            data-pt="Medição de Tensão de Esteira"
+                            data-it="Misurazione della Tensione del Nastro">
+                            Belt Tension Measurement
+                        </h3>
+                        <ul>
+                            <li data-en="Link elongation measurement" data-es="Medición de elongación de eslabones" data-pt="Medição de alongamento dos elos" data-it="Misurazione dell'allungamento delle maglie">Link elongation measurement</li>
+                            <li data-en="Belt tension measurement" data-es="Medición de tensión de banda" data-pt="Medição de tensão da esteira" data-it="Misurazione della tensione del nastro">Belt tension measurement</li>
+                            <li data-en="Engineering calculations" data-es="Cálculos de ingeniería" data-pt="Cálculos de engenharia" data-it="Calcoli di ingegneria">Engineering calculations</li>
+                            <li data-en="Technical reports" data-es="Informes técnicos" data-pt="Relatórios técnicos" data-it="Relazioni tecniche">Technical reports</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="experience-card">
+                    <div class="experience-image">
+                        <img src="images/levelling/cover.jpg"
+                             alt="Precision leveling and alignment"
+                             loading="lazy">
+                        <span class="experience-number">03</span>
+                    </div>
+                    <div class="experience-content">
+                        <h3 data-en="Precision Leveling &amp; Alignment"
+                            data-es="Nivelación y Alineación de Precisión"
+                            data-pt="Nivelamento e Alinhamento de Precisão"
+                            data-it="Livellamento e Allineamento di Precisione">
+                            Precision Leveling &amp; Alignment
+                        </h3>
+                        <ul>
+                            <li data-en="Optical transit measurements" data-es="Mediciones con tránsito óptico" data-pt="Medições com teodolito óptico" data-it="Misurazioni con transito ottico">Optical transit measurements</li>
+                            <li data-en="Plumb bob verification" data-es="Verificación con plomada" data-pt="Verificação com fio de prumo" data-it="Verifica con filo a piombo">Plumb bob verification</li>
+                            <li data-en="Stacker tolerance verification" data-es="Verificación de tolerancias del stacker" data-pt="Verificação das tolerâncias do stacker" data-it="Verifica delle tolleranze dello stacker">Stacker tolerance verification</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="experience-card">
+                    <div class="experience-image">
+                        <img src="images/oven-installation/cover.jpg"
+                             alt="Industrial baking oven installation"
+                             loading="lazy">
+                        <span class="experience-number">04</span>
+                    </div>
+                    <div class="experience-content">
+                        <h3 data-en="Industrial Baking Oven Work"
+                            data-es="Trabajos en Hornos Industriales"
+                            data-pt="Trabalhos em Fornos Industriais"
+                            data-it="Lavori su Forni Industriali">
+                            Industrial Baking Oven Work
+                        </h3>
+                        <ul>
+                            <li data-en="Baking band installation" data-es="Instalación de banda de horno" data-pt="Instalação de esteira de forno" data-it="Installazione del nastro da forno">Baking band installation</li>
+                            <li data-en="Cold and hot tracking" data-es="Guiado en frío y en caliente" data-pt="Tracking a frio e a quente" data-it="Allineamento a freddo e a caldo">Cold and hot tracking</li>
+                            <li data-en="Oven leveling and alignment" data-es="Nivelación y alineación del horno" data-pt="Nivelamento e alinhamento do forno" data-it="Livellamento e allineamento del forno">Oven leveling and alignment</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="experience-card">
+                    <div class="experience-image">
+                        <img src="images/inspection/cover.jpg"
+                             alt="Industrial equipment inspection"
+                             loading="lazy">
+                        <span class="experience-number">05</span>
+                    </div>
+                    <div class="experience-content">
+                        <h3 data-en="Equipment Inspection"
+                            data-es="Inspección de Equipos"
+                            data-pt="Inspeção de Equipamentos"
+                            data-it="Ispezione delle Attrezzature">
+                            Equipment Inspection
+                        </h3>
+                        <ul>
+                            <li data-en="Worn component identification" data-es="Identificación de componentes desgastados" data-pt="Identificação de componentes desgastados" data-it="Identificazione dei componenti usurati">Worn component identification</li>
+                            <li data-en="Belt damage assessment" data-es="Evaluación de daños en la banda" data-pt="Avaliação de danos na esteira" data-it="Valutazione dei danni al nastro">Belt damage assessment</li>
+                            <li data-en="Inspection and recommendation reports" data-es="Informes de inspección y recomendaciones" data-pt="Relatórios de inspeção e recomendações" data-it="Relazioni di ispezione e raccomandazioni">Inspection and recommendation reports</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="experience-card">
+                    <div class="experience-image">
+                        <img src="beltbackground.jpg"
+                             alt="BELTPRO engineering support"
+                             loading="lazy">
+                        <span class="experience-number">06</span>
+                    </div>
+                    <div class="experience-content">
+                        <h3 data-en="Troubleshooting &amp; Optimization"
+                            data-es="Diagnóstico y Optimización"
+                            data-pt="Diagnóstico e Otimização"
+                            data-it="Diagnostica e Ottimizzazione">
+                            Troubleshooting &amp; Optimization
+                        </h3>
+                        <ul>
+                            <li data-en="Operating condition assessment" data-es="Evaluación de condiciones operativas" data-pt="Avaliação das condições operacionais" data-it="Valutazione delle condizioni operative">Operating condition assessment</li>
+                            <li data-en="Drive and overdrive adjustment" data-es="Ajuste de accionamiento y overdrive" data-pt="Ajuste de acionamento e overdrive" data-it="Regolazione dell'azionamento e dell'overdrive">Drive and overdrive adjustment</li>
+                            <li data-en="Performance improvement recommendations" data-es="Recomendaciones para mejorar el rendimiento" data-pt="Recomendações para melhoria de desempenho" data-it="Raccomandazioni per il miglioramento delle prestazioni">Performance improvement recommendations</li>
+                        </ul>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- CALL TO ACTION -->
+    <section class="cta-section">
+        <div class="cta">
+            <div>
+                <h2 data-en="Let's discuss your equipment challenge."
+                    data-es="Hablemos sobre el desafío de su equipo."
+                    data-pt="Vamos conversar sobre o desafio do seu equipamento."
+                    data-it="Parliamo della sfida del vostro impianto.">
+                    Let's discuss your equipment challenge.
+                </h2>
+
+                <p data-en="Contact BELTPRO for field inspections, installation support, belt tension analysis, oven tracking, troubleshooting, training or engineering assistance."
+                   data-es="Contacte a BELTPRO para inspecciones, soporte de instalación, análisis de tensión, guiado de hornos, diagnóstico, capacitación o asistencia de ingeniería."
+                   data-pt="Entre em contato com a BELTPRO para inspeções, suporte de instalação, análise de tensão, tracking de fornos, diagnóstico, treinamento ou assistência de engenharia."
+                   data-it="Contattate BELTPRO per ispezioni, supporto all'installazione, analisi della tensione, allineamento dei forni, diagnostica, formazione o assistenza tecnica.">
+                    Contact BELTPRO for field inspections, installation support, belt tension analysis, oven tracking, troubleshooting, training or engineering assistance.
+                </p>
+            </div>
+
+            <a class="button button-primary" href="index.html#contact"
+               data-en="Request Technical Assistance →"
+               data-es="Solicitar Asistencia Técnica →"
+               data-pt="Solicitar Assistência Técnica →"
+               data-it="Richiedi Assistenza Tecnica →">
+                Request Technical Assistance →
             </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+                <img src="logo.png" alt="BELTPRO Logo">
+                <p data-en="Engineering services for spiral conveyor systems and industrial baking ovens throughout the Americas."
+                   data-es="Servicios de ingeniería para transportadores espirales y hornos industriales en toda América."
+                   data-pt="Serviços de engenharia para transportadores espirais e fornos industriais em todas as Américas."
+                   data-it="Servizi di ingegneria per trasportatori a spirale e forni industriali in tutte le Americhe.">
+                    Engineering services for spiral conveyor systems and industrial baking ovens throughout the Americas.
+                </p>
+            </div>
+
+            <div class="footer-column">
+                <h3 data-en="Services" data-es="Servicios" data-pt="Serviços" data-it="Servizi">Services</h3>
+                <a href="index.html#services" data-en="Spiral Systems" data-es="Sistemas Espirales" data-pt="Sistemas Espirais" data-it="Sistemi a Spirale">Spiral Systems</a>
+                <a href="index.html#services" data-en="Industrial Ovens" data-es="Hornos Industriales" data-pt="Fornos Industriais" data-it="Forni Industriali">Industrial Ovens</a>
+                <a href="index.html#services" data-en="Inspections" data-es="Inspecciones" data-pt="Inspeções" data-it="Ispezioni">Inspections</a>
+            </div>
+
+            <div class="footer-column">
+                <h3 data-en="Resources" data-es="Recursos" data-pt="Recursos" data-it="Risorse">Resources</h3>
+                <a href="index.html#calculators" data-en="Engineering Calculators" data-es="Calculadoras de Ingeniería" data-pt="Calculadoras de Engenharia" data-it="Calcolatori di Ingegneria">Engineering Calculators</a>
+                <a href="field-experience.html" data-en="Field Experience" data-es="Experiencia de Campo" data-pt="Experiência de Campo" data-it="Esperienza sul Campo">Field Experience</a>
+                <a href="index.html#lineage" data-en="Professional Lineage" data-es="Linaje Profesional" data-pt="Linhagem Profissional" data-it="Lineaggio Professionale">Professional Lineage</a>
+            </div>
+
+            <div class="footer-column">
+                <h3 data-en="Contact" data-es="Contacto" data-pt="Contato" data-it="Contatto">Contact</h3>
+                <a href="https://wa.me/5514998005395" target="_blank" rel="noopener">+55 14 99800-5395</a>
+                <a href="mailto:engenharia@beltpro.com.br">engenharia@beltpro.com.br</a>
+                <a href="mailto:msc.barakat@outlook.com">msc.barakat@outlook.com</a>
+                <a href="https://www.beltpro.com.br">www.beltpro.com.br</a>
+            </div>
 
         </div>
 
-         </div>
-
-
-    <div class="dropdown">
-
-    <a href="#projects"
-       data-en="Global Projects ▼"
-       data-es="Proyectos globales ▼"
-       data-pt="Projetos globais ▼"
-       data-it="Progetti Globali ▼">
-        Projects ▼
-    </a>
-
-    <div class="dropdown-content">
-
-        <a href="#projects"
-           data-en="PepsiCo – Mexico"
-           data-es="PepsiCo – México"
-           data-pt="PepsiCo – México"
-           data-it="PepsiCo – Messico">
-            PepsiCo – Mexico
-        </a>
-
-        <a href="#projects"
-           data-en="Cargill – Costa Rica"
-           data-es="Cargill – Costa Rica"
-           data-pt="Cargill – Costa Rica"
-           data-it="Cargill – Costa Rica">
-            Cargill – Costa Rica
-        </a>
-
-        <a href="#projects"
-           data-en="Santa Priscila – Ecuador"
-           data-es="Santa Priscila – Ecuador"
-           data-pt="Santa Priscila – Equador"
-           data-it="Santa Priscila – Ecuador">
-            Santa Priscila – Ecuador
-        </a>
-
-        <a href="#projects"
-           data-en="Gonnella – USA"
-           data-es="Gonnella – EE.UU."
-           data-pt="Gonnella – EUA"
-           data-it="Gonnella – USA">
-            Gonnella – USA
-        </a>
-
-        <a href="#projects"
-           data-en="Bermudez – Trinidad & Tobago"
-           data-es="Bermudez – Trinidad y Tobago"
-           data-pt="Bermudez – Trinidad e Tobago"
-           data-it="Bermudez – Trinidad e Tobago">
-            Bermudez – Trinidad & Tobago
-        </a>
-
-        <a href="#projects"
-           data-en="Noel – Colombia"
-           data-es="Noel – Colombia"
-           data-pt="Noel – Colômbia"
-           data-it="Noel – Colombia">
-            Noel – Colombia
-        </a>
-
-        <a href="#projects"
-           data-en="Carozzi – Chile"
-           data-es="Carozzi – Chile"
-           data-pt="Carozzi – Chile"
-           data-it="Carozzi – Cile">
-            Carozzi – Chile
-        </a>
-
-        <a href="#projects"
-           data-en="Mondelez – Argentina"
-           data-es="Mondelez – Argentina"
-           data-pt="Mondelez – Argentina"
-           data-it="Mondelez – Argentina">
-            Mondelez – Argentina
-        </a>
-
-        <a href="#projects"
-           data-en="Mondelez – Peru"
-           data-es="Mondelez – Perú"
-           data-pt="Mondelez – Peru"
-           data-it="Mondelez – Perù">
-            Mondelez – Peru
-        </a>
-
-        <a href="#projects"
-           data-en="Carabobo – Venezuela"
-           data-es="Carabobo – Venezuela"
-           data-pt="Carabobo – Venezuela"
-           data-it="Carabobo – Venezuela">
-            Carabobo – Venezuela
-        </a>
-
-        <a href="#projects"
-           data-en="MBRF – Brazil"
-           data-es="MBRF – Brasil"
-           data-pt="MBRF – Brasil"
-           data-it="MBRF – Brasile">
-            MBRF – Brazil
-        </a>
-
-        <a href="#projects"
-           data-en="JBS / Seara – Brazil"
-           data-es="JBS / Seara – Brasil"
-           data-pt="JBS / Seara – Brasil"
-           data-it="JBS / Seara – Brasile">
-            JBS / Seara – Brazil
-        </a>
-
-        <a href="#projects"
-           data-en="Froneri – Brazil"
-           data-es="Froneri – Brasil"
-           data-pt="Froneri – Brasil"
-           data-it="Froneri – Brasile">
-            Froneri – Brazil
-        </a>
-
-        <a href="#projects"
-           data-en="Capricche – Brazil"
-           data-es="Capricche – Brasil"
-           data-pt="Capricche – Brasil"
-           data-it="Capricche – Brasile">
-            Capricche – Brazil
-        </a>
-
-            <a href="#projects"
-           data-en="Cooperativa Aurora – Brazil"
-           data-es="Cooperativa Aurora – Brasil"
-           data-pt="Cooperativa Aurora – Brasil"
-           data-it="Cooperativa Aurora – Brasile">
-            Capricche – Brazil
-        </a>
-
-        <a href="#projects"
-           data-en="Forno de Minas – Brazil"
-           data-es="Forno de Minas – Brasil"
-           data-pt="Forno de Minas – Brasil"
-           data-it="Forno de Minas – Brasile">
-            Capricche – Brazil
-        </a>
-
-        <a href="#projects"
-           data-en="Bimbo – Brazil"
-           data-es="Bimbo – Brasil"
-           data-pt="Bimbo – Brasil"
-           data-it="Bimbo – Brasile">
-            Bimbo – Brazil
-        </a>
-
-    </div>
-    </div>
-
-    <div class="dropdown">
- 
-  
-    <div class="dropdown-content">
-
-        <a href="#articles"
-           data-en="Calculating System Turn Ratio"
-           data-es="Cálculo de la Relación de Giro"
-           data-pt="Cálculo da Relação de Giro"
-           data-it="Calcolo del Rapporto di Curvatura">
-            Calculating System Turn Ratio
-        </a>
-
-        <a href="#articles"
-           data-en="New Spiral Belt Tension Estimation"
-           data-es="Nueva Estimación de Tensión de Banda"
-           data-pt="Nova Estimativa de Tensão da Esteira"
-           data-it="Nuova Stima della Tensione del Nastro">
-            New Spiral Belt Tension Estimation
-        </a>
-
-        <a href="#articles"
-           data-en="Overdrive Adjustment"
-           data-es="Ajuste de Overdrive"
-           data-pt="Ajuste de Overdrive"
-           data-it="Regolazione Overdrive">
-            Overdrive Adjustment
-        </a>
-
-       
-        <a href="#articles"
-           data-en="Spiral Theory"
-           data-es="Teoría de Espirales"
-           data-pt="Teoria das Espirais"
-           data-it="Teoria delle Spirali">
-            Spiral Theory
-        </a>
-
-        <a href="#articles"
-           data-en="Controls and Trackers"
-           data-es="Controles y Guiadores"
-           data-pt="Controles e alinhadores"
-           data-it="Controlli e Guide">
-            Controls and Trackers
-        </a>
-
-        <a href="#articles"
-           data-en="Belt Specification"
-           data-es="Especificación de Bandas"
-           data-pt="Especificação de Esteiras"
-           data-it="Specifiche del Nastro">
-            Belt Specification
-        </a>
-
-        <a href="#articles"
-           data-en="Baking Band Installation Instructions"
-           data-es="Instrucciones de Instalación de Bandas para Hornos"
-           data-pt="Instruções para Instalação de esteiras em Fornos"
-           data-it="Istruzioni per l'Installazione dei Nastri da Forno">
-            Baking Band Installation Instructions
-        </a>
-
-    </div>
-
-</div>
-
-    <div class="dropdown">
-
-    <a href="#calculators"
-       data-en="Calculators ▼"
-       data-es="Calculadoras ▼"
-       data-pt="Calculadoras ▼"
-       data-it="Calcolatori ▼">
-        Calculators ▼
-    </a>
-
-    <div class="dropdown-content">
-
-        <a href="/spiral-tension-calculator.html"
-           data-en="New Spiral system Tension Estimation"
-           data-es="Estimación de Tensión de espirales nuevos"
-           data-pt="Estimativa de tensão de espirais novos"
-           data-it="Stima della Tensione del nuovo Nastro">
-            New Spiral system Tension Estimation
-        </a>
-
-        <a href="/spiral-belting-cycles-calculator.html"
-   data-en="Spiral Belting Cycles Calculator"
-   data-es="Calculadora de Ciclos de la Banda"
-   data-pt="Calculadora de Ciclos da Esteira"
-   data-it="Calcolatore Cicli del Nastro">
-    Spiral Belting Cycles Calculator
-</a>
-        <a href="/max-allowable-tension-calculator.html"
-   data-en="Maximum Allowable Tension"
-   data-es="Tensión Máxima Admisible"
-   data-pt="Tensão Máxima Admissível"
-   data-it="Tensione Massima Ammissibile">
-    Maximum Allowable Tension
-</a>
-          <a href="belt-weight-calculator.html">
-     Belt Weight Calculator
-</a>
-        <a href="belt-sprocket-conversion-calculator.html">
-Belt Sprocket Conversion Calculator
-</a>
-           <a href="belt-turn-ratio-calculator.html">
-Belt Turn Ratio Calculator
- </a>
-          <a href="stacker-outfeed-drive-ratio-calculator.html">
-    Stacker Outfeed Drive Ratio Calculator
-</a>
-        <a href="curve-conveyor-radius-angle-calculator.html">
-    Curve Conveyor Radius &amp; Angle Calculator
-</a>
-           <a href="oven-band-force-calculator.html">
-    Oven band force calculator
-</a>
-         <a href="/cb5-air-pressure-calculator.html"
-   data-en="CB5 Air Pressure Calculator"
-   data-es="Calculadora de Presión de Aire CB5"
-   data-pt="Calculadora de Pressão de Ar CB5"
-   data-it="Calcolatore Pressione Aria CB5">
-    CB5 Air Pressure Calculator
-</a>
-
-    </div>
-
-</div>
-
-<a href="index.html#lineage"
-   data-en="Professional Lineage"
-   data-es="Linaje Profesional"
-   data-pt="Linhagem Profissional"
-   data-it="Lineaggio Professionale">
-    Professional Heritage
-</a>
-
-    <a href="field-experience.html"
-   data-en="Field Experience"
-   data-es="Experiencia de Campo"
-   data-pt="Experiência de Campo"
-   data-it="Esperienza sul Campo">
-    Field Experience
-</a>
-
-    <a href="index.html#about">
-    About
-</a>
-
-<a href="index.html#contact">
-    Contact
-</a>
-
-
-</nav>
-    <img src="beltbackground.jpg" alt="BELTPRO Conveyor Belt" class="banner-image">
-
-    <div class="container">
-
-    <div class="card">
-
-        <h2>Field Experience</h2>
-
-        <p>
-            Since 2014 BELTPRO has provided installation, maintenance,
-            troubleshooting and engineering services for spiral freezer
-            systems and industrial baking ovens throughout the Americas.
-        </p>
-
-        <br>
-
-        <p>
-            Select one of the categories below to view photographs of
-            actual field work.
-        </p>
-
-    </div>
-
-    <div class="card">
-
-        <h2>Spiral Conveyor Installation</h2>
-
-        <img src="images/spiral-installation/cover.jpg"
-             alt="Spiral Conveyor Installation"
-             style="max-width:100%; height:auto; display:block; border-radius:10px;">
-
-        <ul>
-            <li>Cage retrofit</li>
-            <li>Drum teeth installation</li>
-            <li>Belt installation</li>
-            <li>Precision spiral leveling</li>
-            <li>Bearing replacement</li>
-                    </ul>
-
-    </div>
-
-
-    <div class="card">
-
-        <h2>Belt Tension Measurement</h2>
-
-      <img src="images/tension-measurement/cover.jpg"
-     alt="Belt Tension Measurement"
-     style="max-width:100%; height:auto; display:block; border-radius:10px;">
-
-
-        <ul>
-            <li>Measuring links elongation</li>
-            <li>Tension measurement</li>
-            <li>Tension calculation</li>
-            <li>Tension reports</li>
-        </ul>
-
-    </div>
-
-    <div class="card">
-
-        <h2>Precision Levelling & Alignment</h2>
-
-        <img src="images/levelling/cover.jpg"
-             alt="Levelling and Alignment"
-             style="max-width:100%; height:auto; display:block; border-radius:10px;">
-
-        <ul>
-            <li>Optical transit</li>
-            <li>Plumb bob verification</li>
-            <li>Stacker tolerances</li>
-            
-        </ul>
-
-    </div>
-
-    <div class="card">
-
-        <h2>Baking Oven Installation</h2>
-
-        <img src="images/oven-installation/cover.jpg"
-             alt="Baking Oven Installation"
-             style="max-width:100%; height:auto; display:block; border-radius:10px;">
-
-        <ul>
-            <li>Baking band installation</li>
-            </ul>
-
-    </div>
-
-    <div class="card">
-
-        <h2>Equipment Inspection</h2>
-
-        <img src="images/inspection/cover.jpg"
-             alt="Equipment Inspection"
-             style="max-width:100%; height:auto; display:block; border-radius:10px;">
-
-        <ul>
-            <li>Worn components</li>
-            <li>Belt damage</li>
-            <li>Inspection reports</li>
-        </ul>
-
-    </div>
-
-</div>
-
-
-<footer
-    data-en="<strong>BELTPRO</strong><br>Spiral Conveyor &amp; Industrial Oven Specialists<br><br>Since 2014<br><br>Ricardo Pio Barakat<br>Phone / WhatsApp: +55 14 99800-5395<br>"
-    data-es="<strong>BELTPRO</strong><br>Especialistas en Transportadores en Espiral y Hornos Industriales<br><br>Desde 2014<br><br>Ricardo Pio Barakat<br>Teléfono / WhatsApp: +55 14 99800-5395<br>"
-    data-pt="<strong>BELTPRO</strong><br>Especialistas em Transportadores Espirais e Fornos Industriais<br><br>Desde 2014<br><br>Ricardo Pio Barakat<br>Telefone / WhatsApp: +55 14 99800-5395<br>"
-    data-it="<strong>BELTPRO</strong><br>Specialisti in Trasportatori a Spirale e Forni Industriali<br><br>Dal 2014<br><br>Ricardo Pio Barakat<br>Telefono / WhatsApp: +55 14 99800-5395<br>">
-    <strong>BELTPRO</strong><br>
-    Spiral Conveyor &amp; Industrial Oven Specialists<br><br>
-    Since 2014<br><br>
-    ME Ricardo Pio Barakat<br>
-    Phone / WhatsApp: +55 14 99800-5395<br>
-    engenharia@beltpro.com.br
-    msc.barakat@outlook.com
-</footer>
-
-<script>
-
-    function setLanguage(lang){
-
-        // Swap the text of every element that has a translation for this language
-        document.querySelectorAll('[data-' + lang + ']').forEach(function(el){
-            el.innerHTML = el.getAttribute('data-' + lang);
+        <div class="footer-bottom">
+            <div class="footer-bottom-inner">
+                © <span id="currentYear"></span> BELTPRO ·
+                <span data-en="Serving Industry Since 2014"
+                      data-es="Atendiendo a la Industria Desde 2014"
+                      data-pt="Atendendo a Indústria Desde 2014"
+                      data-it="Al Servizio dell'Industria Dal 2014">
+                    Serving Industry Since 2014
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-' + lang + ']').forEach(function (element) {
+                element.innerHTML = element.getAttribute('data-' + lang);
+            });
+
+            document.documentElement.setAttribute('lang', lang);
+
+            try {
+                localStorage.setItem('beltpro_lang', lang);
+            } catch (error) {
+                console.warn('Language preference could not be saved.', error);
+            }
+
+            document.querySelectorAll('.language-bar button').forEach(function (button) {
+                button.classList.toggle('active', button.getAttribute('data-lang') === lang);
+            });
+        }
+
+        function toggleMobileMenu() {
+            var menu = document.getElementById('navMenu');
+            var toggle = document.querySelector('.menu-toggle');
+            var isOpen = menu.classList.toggle('open');
+
+            toggle.setAttribute('aria-expanded', String(isOpen));
+            toggle.textContent = isOpen ? '×' : '☰';
+
+            if (!isOpen) {
+                closeAllDropdowns();
+            }
+        }
+
+        function toggleDropdown(event) {
+            if (window.innerWidth <= 1080) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                var currentItem = event.currentTarget.closest('.nav-item');
+
+                document.querySelectorAll('.nav-item.open').forEach(function (item) {
+                    if (item !== currentItem) {
+                        item.classList.remove('open');
+                    }
+                });
+
+                currentItem.classList.toggle('open');
+            }
+        }
+
+        function closeAllDropdowns() {
+            document.querySelectorAll('.nav-item.open').forEach(function (item) {
+                item.classList.remove('open');
+            });
+        }
+
+        document.addEventListener('click', function (event) {
+            if (!event.target.closest('.site-nav')) {
+                closeAllDropdowns();
+            }
         });
 
-        // Update <html lang="..."> for accessibility and SEO
-        document.documentElement.setAttribute('lang', lang);
+        document.querySelectorAll('.nav-menu a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                if (window.innerWidth <= 1080) {
+                    var menu = document.getElementById('navMenu');
+                    var toggle = document.querySelector('.menu-toggle');
 
-        // Remember the choice for the next visit
-        try { localStorage.setItem('beltpro_lang', lang); } catch(e){}
-
-        // Highlight the active flag button
-        document.querySelectorAll('.language-bar button').forEach(function(btn){
-            btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+                    menu.classList.remove('open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                    toggle.textContent = '☰';
+                    closeAllDropdowns();
+                }
+            });
         });
-    }
 
-  // Restore saved language when the page loads
-document.addEventListener('DOMContentLoaded', function () {
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 1080) {
+                document.getElementById('navMenu').classList.remove('open');
+                document.querySelector('.menu-toggle').setAttribute('aria-expanded', 'false');
+                document.querySelector('.menu-toggle').textContent = '☰';
+                closeAllDropdowns();
+            }
+        });
 
-    var saved = 'en';
+        document.addEventListener('DOMContentLoaded', function () {
+            var savedLanguage = 'en';
 
-    try {
-        saved = localStorage.getItem('beltpro_lang') || 'en';
-    } catch(e){}
+            try {
+                savedLanguage = localStorage.getItem('beltpro_lang') || 'en';
+            } catch (error) {
+                console.warn('Language preference could not be loaded.', error);
+            }
 
-    setLanguage(saved);
-
-});
-</script>
+            setLanguage(savedLanguage);
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
 
 </body>
-
 </html>
