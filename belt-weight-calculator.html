@@ -641,11 +641,11 @@
 
             <div class="result-box">
                 <div class="result-label"
-                     data-en="Estimated total box weight"
+                     data-en="Estimated total packing tare weight"
                      data-pt="Peso total estimado das caixas"
                      data-es="Peso total estimado de las cajas"
                      data-it="Peso totale stimato delle casse">
-                    Estimated total box weight
+                    Estimated total packing tare weight
                 </div>
                 <div id="boxWeight" class="result-value">—</div>
             </div>
@@ -916,13 +916,24 @@
                     `${Math.round(box.width_in * IN_TO_MM)} × ` +
                     `${Math.round(box.height_in * IN_TO_MM)} mm`;
 
-                html +=
-                    `${box.quantity} ${boxWord[language] || boxWord.en}: ` +
-                    `${dimensionsIn} (${dimensionsMm}), ` +
-                    `${formatNumber(box.tare_each_lb, 1)} lb ` +
-                    `(${formatNumber(
-                        Math.ceil(box.tare_each_lb / 2.204622476), 0
-                    )} kg) ${eachWord[language] || eachWord.en}.`;
+               const netLb = box.net_belt_weight_each_lb;
+const tareLb = box.tare_each_lb;
+const grossLb = box.gross_weight_each_lb;
+
+const netKg = box.net_belt_weight_each_kg;
+const tareKg = tareLb / 2.204622476;
+const grossKg = box.gross_weight_each_kg;
+
+html +=
+    `${box.quantity} ${boxWord[language] || boxWord.en}: ` +
+    `${dimensionsIn} (${dimensionsMm}), ` +
+    `belt ${formatNumber(netLb, 1)} lb ` +
+    `(${formatNumber(netKg, 0)} kg), ` +
+    `crate ${formatNumber(tareLb, 1)} lb ` +
+    `(${formatNumber(tareKg, 0)} kg), ` +
+    `gross ${formatNumber(grossLb, 1)} lb ` +
+    `(${formatNumber(grossKg, 0)} kg) ` +
+    `${eachWord[language] || eachWord.en}.`;
 
                 if (index < boxTypes.length - 1) html += "<br>";
             });
