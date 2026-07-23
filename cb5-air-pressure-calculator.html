@@ -364,9 +364,7 @@ function setBusy(button, busy, normalText) {
 }
 
 /*
-  The current API endpoint calculates all three spreadsheet sections in one request.
-  Each independent form below sends valid values for the complete endpoint, but the
-  page displays only the result requested by the user.
+  Each form sends only the fields required for its selected calculation.
 */
 
 document.getElementById("pressure-form").addEventListener("submit", async (event) => {
@@ -378,16 +376,12 @@ document.getElementById("pressure-form").addEventListener("submit", async (event
   setBusy(button, true, normalText);
 
   const payload = {
+    action: "calculate_pressure",
     belt_width: numberValue("p_belt_width"),
     num_cylinders: numberValue("p_num_cylinders"),
     cylinder_diameter: numberValue("p_cylinder_diameter"),
     piston_diameter: numberValue("p_piston_diameter"),
-    woven_belt: document.getElementById("p_woven_belt").checked,
-    air_pressure_setting: 1,
-    span_sag: 1,
-    product_weight: 0,
-    deflection_required: 1,
-    span_required: 1
+    woven_belt: document.getElementById("p_woven_belt").checked
   };
 
   try {
@@ -413,16 +407,14 @@ document.getElementById("sag-form").addEventListener("submit", async (event) => 
   setBusy(button, true, normalText);
 
   const payload = {
+    action: "calculate_sag",
     belt_width: numberValue("s_belt_width"),
     num_cylinders: numberValue("s_num_cylinders"),
     cylinder_diameter: numberValue("s_cylinder_diameter"),
     piston_diameter: numberValue("s_piston_diameter"),
-    woven_belt: document.getElementById("s_woven_belt").checked,
     air_pressure_setting: numberValue("s_air_pressure"),
     span_sag: numberValue("s_span"),
-    product_weight: numberValue("s_product_weight"),
-    deflection_required: 1,
-    span_required: 1
+    product_weight: numberValue("s_product_weight")
   };
 
   try {
@@ -446,13 +438,11 @@ document.getElementById("target-form").addEventListener("submit", async (event) 
   setBusy(button, true, normalText);
 
   const payload = {
+    action: "calculate_pressure_for_sag",
     belt_width: numberValue("t_belt_width"),
     num_cylinders: numberValue("t_num_cylinders"),
     cylinder_diameter: numberValue("t_cylinder_diameter"),
     piston_diameter: numberValue("t_piston_diameter"),
-    woven_belt: document.getElementById("t_woven_belt").checked,
-    air_pressure_setting: 1,
-    span_sag: 1,
     product_weight: numberValue("t_product_weight"),
     deflection_required: numberValue("t_deflection"),
     span_required: numberValue("t_span")
