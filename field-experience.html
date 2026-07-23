@@ -614,6 +614,127 @@
             text-align: center;
         }
 
+
+        /* =========================================================
+           ENGINEERING DISCLAIMER MODAL
+        ========================================================= */
+
+        .disclaimer-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 22px;
+            background: rgba(2, 8, 23, 0.76);
+            backdrop-filter: blur(5px);
+        }
+
+        .disclaimer-modal.show {
+            display: flex;
+        }
+
+        .disclaimer-dialog {
+            width: min(100%, 640px);
+            max-height: calc(100vh - 44px);
+            overflow-y: auto;
+            padding: 34px;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: 0 28px 80px rgba(2, 8, 23, 0.38);
+        }
+
+        .disclaimer-label {
+            display: inline-block;
+            margin-bottom: 10px;
+            color: var(--blue);
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+        }
+
+        .disclaimer-dialog h2 {
+            margin-bottom: 8px;
+            color: var(--navy);
+            font-size: 30px;
+            line-height: 1.2;
+        }
+
+        .disclaimer-intro {
+            margin-bottom: 22px;
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        .disclaimer-dialog p {
+            margin-bottom: 15px;
+            color: #475569;
+        }
+
+        .disclaimer-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .disclaimer-button {
+            min-height: 44px;
+            padding: 10px 18px;
+            border-radius: 9px;
+            border: 1px solid var(--border);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .disclaimer-cancel {
+            color: var(--navy);
+            background: #ffffff;
+        }
+
+        .disclaimer-cancel:hover {
+            background: #f1f5f9;
+        }
+
+        .disclaimer-accept {
+            color: #071625;
+            background: var(--cyan);
+            border-color: var(--cyan);
+        }
+
+        .disclaimer-accept:hover {
+            background: #7dd3fc;
+            border-color: #7dd3fc;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        @media (max-width: 520px) {
+            .disclaimer-dialog {
+                padding: 26px 22px;
+            }
+
+            .disclaimer-dialog h2 {
+                font-size: 25px;
+            }
+
+            .disclaimer-actions {
+                flex-direction: column-reverse;
+            }
+
+            .disclaimer-button {
+                width: 100%;
+            }
+        }
+
         /* =========================================================
            RESPONSIVE
         ========================================================= */
@@ -995,18 +1116,18 @@
                             data-it="Calcolatori ▼">Calculators ▼</button>
 
                     <ul class="dropdown-menu">
-                        <li><a href="spiral-tension-calculator.html">Spiral System Tension Estimation</a></li>
-                        <li><a href="spiral-belting-cycles-calculator.html">Spiral Belting Cycles Calculator</a></li>
-                        <li><a href="max-allowable-tension-calculator.html">Maximum Allowable Tension</a></li>
-                        <li><a href="belt-weight-calculator.html">Belt Weight Calculator</a></li>
-                        <li><a href="belt-sprocket-conversion-calculator.html">Belt Sprocket Conversion Calculator</a></li>
-                        <li><a href="belt-turn-ratio-calculator.html">Belt Turn Ratio Calculator</a></li>
-                        <li><a href="stacker-outfeed-drive-ratio-calculator.html">Stacker Outfeed Drive Ratio Calculator</a></li>
-                        <li><a href="curve-conveyor-radius-angle-calculator.html">Curve Conveyor Radius &amp; Angle Calculator</a></li>
-                        <li><a href="side-drive-spiral-torque-calculator.html">Side Drive Spiral Torque Calculator</a></li>
-                        <li><a href="spiral-drive-motor-sizing-calculator.html">Spiral Drive Motor Sizing Calculator</a></li>
-                        <li><a href="oven-band-force-calculator.html">Oven Band Force Calculator</a></li>
-                        <li><a href="cb5-air-pressure-calculator.html">CB5 Air Pressure Calculator</a></li>
+                        <li><a class="calculator-link" href="spiral-tension-calculator.html">Spiral System Tension Estimation</a></li>
+                        <li><a class="calculator-link" href="spiral-belting-cycles-calculator.html">Spiral Belting Cycles Calculator</a></li>
+                        <li><a class="calculator-link" href="max-allowable-tension-calculator.html">Maximum Allowable Tension</a></li>
+                        <li><a class="calculator-link" href="belt-weight-calculator.html">Belt Weight Calculator</a></li>
+                        <li><a class="calculator-link" href="belt-sprocket-conversion-calculator.html">Belt Sprocket Conversion Calculator</a></li>
+                        <li><a class="calculator-link" href="belt-turn-ratio-calculator.html">Belt Turn Ratio Calculator</a></li>
+                        <li><a class="calculator-link" href="stacker-outfeed-drive-ratio-calculator.html">Stacker Outfeed Drive Ratio Calculator</a></li>
+                        <li><a class="calculator-link" href="curve-conveyor-radius-angle-calculator.html">Curve Conveyor Radius &amp; Angle Calculator</a></li>
+                        <li><a class="calculator-link" href="side-drive-spiral-torque-calculator.html">Side Drive Spiral Torque Calculator</a></li>
+                        <li><a class="calculator-link" href="spiral-drive-motor-sizing-calculator.html">Spiral Drive Motor Sizing Calculator</a></li>
+                        <li><a class="calculator-link" href="oven-band-force-calculator.html">Oven Band Force Calculator</a></li>
+                        <li><a class="calculator-link" href="cb5-air-pressure-calculator.html">CB5 Air Pressure Calculator</a></li>
                     </ul>
                 </li>
 
@@ -1335,6 +1456,94 @@
         </div>
     </section>
 
+
+    <!-- ENGINEERING DISCLAIMER -->
+    <div class="disclaimer-modal"
+         id="engineeringDisclaimer"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="disclaimerTitle"
+         aria-hidden="true">
+
+        <div class="disclaimer-dialog">
+
+            <span class="disclaimer-label"
+                  data-en="Important Notice"
+                  data-es="Aviso Importante"
+                  data-pt="Aviso Importante"
+                  data-it="Avviso Importante">
+                Important Notice
+            </span>
+
+            <h2 id="disclaimerTitle"
+                data-en="Engineering Disclaimer"
+                data-es="Aviso de Ingeniería"
+                data-pt="Aviso de Engenharia"
+                data-it="Avvertenza di Ingegneria">
+                Engineering Disclaimer
+            </h2>
+
+            <p class="disclaimer-intro"
+               data-en="Please review before accessing the calculators."
+               data-es="Revise este aviso antes de acceder a las calculadoras."
+               data-pt="Leia este aviso antes de acessar as calculadoras."
+               data-it="Leggere prima di accedere ai calcolatori.">
+                Please review before accessing the calculators.
+            </p>
+
+            <p data-en="The engineering calculators provided by BELTPRO are intended for preliminary engineering estimates and reference purposes only."
+               data-es="Las calculadoras de ingeniería proporcionadas por BELTPRO están destinadas únicamente a estimaciones preliminares y fines de referencia."
+               data-pt="As calculadoras de engenharia fornecidas pela BELTPRO destinam-se somente a estimativas preliminares de engenharia e fins de referência."
+               data-it="I calcolatori di ingegneria forniti da BELTPRO sono destinati esclusivamente a stime preliminari e scopi di riferimento.">
+                The engineering calculators provided by BELTPRO are intended for preliminary engineering estimates and reference purposes only.
+            </p>
+
+            <p data-en="BELTPRO makes no warranty regarding the accuracy, completeness, or suitability of these calculations for any specific application."
+               data-es="BELTPRO no ofrece garantía respecto de la precisión, integridad o idoneidad de estos cálculos para una aplicación específica."
+               data-pt="A BELTPRO não oferece garantia quanto à precisão, integridade ou adequação desses cálculos para qualquer aplicação específica."
+               data-it="BELTPRO non fornisce alcuna garanzia in merito all'accuratezza, completezza o idoneità di questi calcoli per una specifica applicazione.">
+                BELTPRO makes no warranty regarding the accuracy, completeness, or suitability of these calculations for any specific application.
+            </p>
+
+            <p data-en="The user assumes full responsibility for verifying all calculated values before using them for design, equipment modification, procurement, operation, maintenance, or safety-related decisions."
+               data-es="El usuario asume plena responsabilidad por verificar todos los valores calculados antes de utilizarlos para diseño, modificación de equipos, compras, operación, mantenimiento o decisiones relacionadas con la seguridad."
+               data-pt="O usuário assume total responsabilidade pela verificação de todos os valores calculados antes de utilizá-los em projetos, modificações de equipamentos, compras, operação, manutenção ou decisões relacionadas à segurança."
+               data-it="L'utente si assume la piena responsabilità della verifica di tutti i valori calcolati prima di utilizzarli per progettazione, modifica delle apparecchiature, acquisti, funzionamento, manutenzione o decisioni relative alla sicurezza.">
+                The user assumes full responsibility for verifying all calculated values before using them for design, equipment modification, procurement, operation, maintenance, or safety-related decisions.
+            </p>
+
+            <p data-en="Always verify results against equipment specifications, manufacturer recommendations, and accepted engineering practices before implementation."
+               data-es="Verifique siempre los resultados con las especificaciones del equipo, las recomendaciones del fabricante y las prácticas de ingeniería aceptadas antes de implementarlos."
+               data-pt="Sempre verifique os resultados com as especificações do equipamento, recomendações do fabricante e práticas de engenharia aceitas antes da implementação."
+               data-it="Verificare sempre i risultati rispetto alle specifiche dell'apparecchiatura, alle raccomandazioni del produttore e alle pratiche di ingegneria riconosciute prima dell'implementazione.">
+                Always verify results against equipment specifications, manufacturer recommendations, and accepted engineering practices before implementation.
+            </p>
+
+            <div class="disclaimer-actions">
+                <button class="disclaimer-button disclaimer-cancel"
+                        type="button"
+                        onclick="closeEngineeringDisclaimer()"
+                        data-en="Cancel"
+                        data-es="Cancelar"
+                        data-pt="Cancelar"
+                        data-it="Annulla">
+                    Cancel
+                </button>
+
+                <button class="disclaimer-button disclaimer-accept"
+                        id="acceptDisclaimerButton"
+                        type="button"
+                        onclick="acceptEngineeringDisclaimer()"
+                        data-en="I Understand"
+                        data-es="Entiendo"
+                        data-pt="Eu Entendo"
+                        data-it="Ho Capito">
+                    I Understand
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer class="site-footer">
         <div class="footer-inner">
@@ -1470,6 +1679,63 @@
             }
         });
 
+
+        var pendingCalculatorUrl = '';
+
+        function openEngineeringDisclaimer(url) {
+            pendingCalculatorUrl = url;
+
+            var modal = document.getElementById('engineeringDisclaimer');
+            modal.classList.add('show');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+
+            window.setTimeout(function () {
+                document.getElementById('acceptDisclaimerButton').focus();
+            }, 50);
+        }
+
+        function closeEngineeringDisclaimer() {
+            var modal = document.getElementById('engineeringDisclaimer');
+            modal.classList.remove('show');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+            pendingCalculatorUrl = '';
+        }
+
+        function acceptEngineeringDisclaimer() {
+            var destination = pendingCalculatorUrl;
+            closeEngineeringDisclaimer();
+
+            if (destination) {
+                window.location.href = destination;
+            }
+        }
+
+        function activateCalculatorDisclaimer() {
+            document.querySelectorAll('.calculator-link').forEach(function (link) {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    openEngineeringDisclaimer(link.href);
+                });
+            });
+
+            var modal = document.getElementById('engineeringDisclaimer');
+
+            modal.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    closeEngineeringDisclaimer();
+                }
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && modal.classList.contains('show')) {
+                    closeEngineeringDisclaimer();
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             var savedLanguage = 'en';
 
@@ -1480,6 +1746,7 @@
             }
 
             setLanguage(savedLanguage);
+            activateCalculatorDisclaimer();
             document.getElementById('currentYear').textContent = new Date().getFullYear();
         });
     </script>
