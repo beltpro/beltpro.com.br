@@ -679,7 +679,8 @@ form.addEventListener("submit", async function(event) {
   try {
     const payload = {action: "calculate", ...collectBaseInputs()};
     const result = await callCalculator(payload);
-    lastRequest = payload;
+    const { action, ...baseInputs } = payload;
+lastRequest = baseInputs;
 
     document.getElementById("originalTravel").textContent =
       `${formatNumber(result.original_travel, 4)} ${result.display_unit}/rev`;
@@ -833,13 +834,13 @@ document.getElementById("correctionButton")
 
     try {
       const result = await callCalculator({
-        action: "correction",
-        ...lastRequest,
-        selected_teeth:
-          Number(document.getElementById("selectedTeeth").value),
-        method: method,
-        method_inputs: methodInputs
-      });
+  ...lastRequest,
+  action: "correction",
+  selected_teeth:
+    Number(document.getElementById("selectedTeeth").value),
+  method: method,
+  method_inputs: methodInputs
+});
 
       let output = `
         <strong>Required shaft speed correction factor:</strong>
