@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BELTPRO | Engineering Calculator Access</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8fafc;
+            color: #1f2937;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .language-bar {
+            background: #111827;
+            border-bottom: 2px solid #38bdf8;
+            padding: 12px 25px;
+            text-align: right;
+        }
+
+        .language-bar button {
+            background: #1e293b;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+            margin-left: 8px;
+        }
+
+        .language-bar button.active {
+            background: #38bdf8;
+            border-color: #38bdf8;
+            color: #000;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ffffff, #f1f5f9);
+            text-align: center;
+            padding: 28px 20px 24px;
+            border-bottom: 3px solid #38bdf8;
+        }
+
+        .main-logo {
+            width: auto;
+            max-width: 340px;
+            height: 120px;
+            object-fit: contain;
+        }
+
+        header h1 {
+            color: #0f4c81;
+            font-size: 30px;
+            margin-top: 8px;
+        }
+
+        main {
+            flex: 1;
+            width: 92%;
+            max-width: 760px;
+            margin: 36px auto;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 8px 28px rgba(15, 76, 129, 0.16);
+            border: 1px solid #e2e8f0;
+        }
+
+        .intro {
+            margin-bottom: 22px;
+            line-height: 1.65;
+        }
+
+        label.field-label {
+            display: block;
+            color: #0f4c81;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #94a3b8;
+            border-radius: 7px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input[type="password"]:focus {
+            border-color: #0f4c81;
+            box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.12);
+        }
+
+        .disclaimer {
+            margin-top: 24px;
+            padding: 20px;
+            background: #f8fafc;
+            border-left: 4px solid #d97706;
+            border-radius: 6px;
+            max-height: 280px;
+            overflow-y: auto;
+            line-height: 1.55;
+            font-size: 14px;
+        }
+
+        .disclaimer h2 {
+            color: #0f4c81;
+            font-size: 19px;
+            margin-bottom: 12px;
+        }
+
+        .disclaimer p { margin-bottom: 12px; }
+
+        .accept-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 18px;
+            line-height: 1.45;
+            font-weight: bold;
+        }
+
+        .accept-row input {
+            margin-top: 4px;
+            width: 18px;
+            height: 18px;
+            flex: 0 0 auto;
+        }
+
+        .submit-button {
+            width: 100%;
+            margin-top: 22px;
+            border: 0;
+            border-radius: 8px;
+            padding: 14px 18px;
+            background: #0f4c81;
+            color: #fff;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-button:hover:not(:disabled) { background: #0b3a61; }
+        .submit-button:disabled { opacity: .55; cursor: not-allowed; }
+
+        .message {
+            display: none;
+            margin-top: 16px;
+            padding: 12px 14px;
+            border-radius: 6px;
+            line-height: 1.4;
+        }
+
+        .message.error {
+            display: block;
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .message.success {
+            display: block;
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #0f4c81;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 22px;
+            background: #0f4c81;
+            color: #fff;
+        }
+
+        @media (max-width: 700px) {
+            .language-bar { text-align: center; padding: 10px; }
+            .language-bar button { margin: 4px; }
+            .main-logo { height: 90px; max-width: 260px; }
+            header h1 { font-size: 24px; }
+            .card { padding: 22px 18px; }
+        }
+    </style>
+</head>
+
+<body>
+<div class="language-bar">
+    <button type="button" data-lang="en" onclick="setLanguage('en')">🇺🇸 English</button>
+    <button type="button" data-lang="es" onclick="setLanguage('es')">🇪🇸 Español</button>
+    <button type="button" data-lang="pt" onclick="setLanguage('pt')">🇧🇷 Português</button>
+    <button type="button" data-lang="it" onclick="setLanguage('it')">🇮🇹 Italiano</button>
+</div>
+
+<header>
+    <img src="logo.png" class="main-logo" alt="BELTPRO Logo">
+    <h1
+        data-en="Engineering Calculator Access"
+        data-es="Acceso a las Calculadoras de Ingeniería"
+        data-pt="Acesso às Calculadoras de Engenharia"
+        data-it="Accesso ai Calcolatori di Ingegneria">
+        Engineering Calculator Access
+    </h1>
+</header>
+
+<main>
+    <section class="card">
+        <p class="intro"
+           data-en="Enter the access code supplied by BELTPRO. Authorization remains valid on this browser for up to 30 days."
+           data-es="Ingrese el código de acceso proporcionado por BELTPRO. La autorización permanecerá válida en este navegador por hasta 30 días."
+           data-pt="Digite o código de acesso fornecido pela BELTPRO. A autorização permanecerá válida neste navegador por até 30 dias."
+           data-it="Inserire il codice di accesso fornito da BELTPRO. L'autorizzazione rimarrà valida su questo browser fino a 30 giorni.">
+            Enter the access code supplied by BELTPRO. Authorization remains valid on this browser for up to 30 days.
+        </p>
+
+        <form id="accessForm" novalidate>
+            <label class="field-label" for="accessCode"
+                   data-en="Access code"
+                   data-es="Código de acceso"
+                   data-pt="Código de acesso"
+                   data-it="Codice di accesso">Access code</label>
+
+            <input id="accessCode" name="accessCode" type="password" autocomplete="current-password" required>
+
+            <div class="disclaimer">
+                <h2
+                    data-en="Engineering Disclaimer and Terms of Use"
+                    data-es="Descargo de Responsabilidad de Ingeniería y Condiciones de Uso"
+                    data-pt="Aviso de Responsabilidade de Engenharia e Termos de Uso"
+                    data-it="Esclusione di Responsabilità Ingegneristica e Condizioni d'Uso">
+                    Engineering Disclaimer and Terms of Use
+                </h2>
+
+                <p
+                    data-en="BELTPRO engineering calculators are provided solely as preliminary estimation, reference, and professional support tools. Results depend on the data entered by the user and on generalized engineering models."
+                    data-es="Las calculadoras de ingeniería de BELTPRO se proporcionan únicamente como herramientas de estimación preliminar, referencia y apoyo profesional. Los resultados dependen de los datos ingresados por el usuario y de modelos de ingeniería generalizados."
+                    data-pt="As calculadoras de engenharia da BELTPRO são fornecidas exclusivamente como ferramentas de estimativa preliminar, referência e apoio profissional. Os resultados dependem dos dados inseridos pelo usuário e de modelos de engenharia generalizados."
+                    data-it="I calcolatori di ingegneria BELTPRO sono forniti esclusivamente come strumenti di stima preliminare, riferimento e supporto professionale. I risultati dipendono dai dati inseriti dall'utente e da modelli ingegneristici generalizzati.">
+                    BELTPRO engineering calculators are provided solely as preliminary estimation, reference, and professional support tools. Results depend on the data entered by the user and on generalized engineering models.
+                </p>
+
+                <p
+                    data-en="They do not replace project-specific engineering analysis, manufacturer specifications, design verification, testing, applicable standards, safety assessment, or the professional judgment of a qualified engineer."
+                    data-es="No sustituyen el análisis de ingeniería específico del proyecto, las especificaciones del fabricante, la verificación del diseño, las pruebas, las normas aplicables, la evaluación de seguridad ni el criterio profesional de un ingeniero calificado."
+                    data-pt="Elas não substituem análises de engenharia específicas do projeto, especificações do fabricante, verificação de projeto, testes, normas aplicáveis, avaliação de segurança ou o julgamento profissional de um engenheiro qualificado."
+                    data-it="Non sostituiscono l'analisi ingegneristica specifica del progetto, le specifiche del produttore, la verifica del progetto, i test, le norme applicabili, la valutazione della sicurezza o il giudizio professionale di un ingegnere qualificato.">
+                    They do not replace project-specific engineering analysis, manufacturer specifications, design verification, testing, applicable standards, safety assessment, or the professional judgment of a qualified engineer.
+                </p>
+
+                <p
+                    data-en="Each equipment manufacturer, OEM, engineering company, contractor, project engineer, and end user remains solely responsible for the final design, calculations, material selection, equipment specifications, safety, regulatory compliance, validation, approval, installation, and operation of its project."
+                    data-es="Cada fabricante de equipos, OEM, empresa de ingeniería, contratista, ingeniero de proyecto y usuario final es el único responsable del diseño final, los cálculos, la selección de materiales, las especificaciones del equipo, la seguridad, el cumplimiento normativo, la validación, la aprobación, la instalación y la operación de su proyecto."
+                    data-pt="Cada fabricante de equipamentos, OEM, empresa de engenharia, contratado, engenheiro responsável e usuário final permanece exclusivamente responsável pelo projeto final, cálculos, seleção de materiais, especificações dos equipamentos, segurança, conformidade normativa, validação, aprovação, instalação e operação de seu projeto."
+                    data-it="Ogni produttore di apparecchiature, OEM, società di ingegneria, appaltatore, ingegnere di progetto e utente finale rimane l'unico responsabile del progetto finale, dei calcoli, della selezione dei materiali, delle specifiche delle apparecchiature, della sicurezza, della conformità normativa, della convalida, dell'approvazione, dell'installazione e del funzionamento del proprio progetto.">
+                    Each equipment manufacturer, OEM, engineering company, contractor, project engineer, and end user remains solely responsible for the final design, calculations, material selection, equipment specifications, safety, regulatory compliance, validation, approval, installation, and operation of its project.
+                </p>
+
+                <p
+                    data-en="To the fullest extent permitted by applicable law, BELTPRO disclaims responsibility for errors, omissions, unsuitable project assumptions, design decisions, equipment performance, equipment failure, production loss, property damage, personal injury, or any direct, indirect, incidental, or consequential loss arising from use of or reliance on these calculators."
+                    data-es="En la máxima medida permitida por la legislación aplicable, BELTPRO no asume responsabilidad por errores, omisiones, supuestos inadecuados del proyecto, decisiones de diseño, desempeño o falla del equipo, pérdidas de producción, daños materiales, lesiones personales ni pérdidas directas, indirectas, incidentales o consecuentes derivadas del uso o de la confianza depositada en estas calculadoras."
+                    data-pt="Na máxima extensão permitida pela legislação aplicável, a BELTPRO não se responsabiliza por erros, omissões, premissas inadequadas de projeto, decisões de dimensionamento, desempenho ou falha de equipamentos, perdas de produção, danos materiais, lesões pessoais ou quaisquer perdas diretas, indiretas, incidentais ou consequenciais decorrentes do uso ou da confiança depositada nestas calculadoras."
+                    data-it="Nella misura massima consentita dalla legge applicabile, BELTPRO declina ogni responsabilità per errori, omissioni, ipotesi progettuali inadeguate, decisioni di progettazione, prestazioni o guasti delle apparecchiature, perdite di produzione, danni materiali, lesioni personali o qualsiasi perdita diretta, indiretta, incidentale o consequenziale derivante dall'uso o dall'affidamento su questi calcolatori.">
+                    To the fullest extent permitted by applicable law, BELTPRO disclaims responsibility for errors, omissions, unsuitable project assumptions, design decisions, equipment performance, equipment failure, production loss, property damage, personal injury, or any direct, indirect, incidental, or consequential loss arising from use of or reliance on these calculators.
+                </p>
+
+                <p
+                    data-en="Access is granted only to BELTPRO customers and authorized users. The access code, calculator content, methods, and results may not be redistributed, reproduced, reverse engineered, or incorporated into commercial software without BELTPRO's prior written authorization."
+                    data-es="El acceso se concede únicamente a clientes de BELTPRO y usuarios autorizados. El código de acceso, el contenido, los métodos y los resultados de las calculadoras no pueden redistribuirse, reproducirse, someterse a ingeniería inversa ni incorporarse a software comercial sin la autorización previa y por escrito de BELTPRO."
+                    data-pt="O acesso é concedido apenas a clientes da BELTPRO e usuários autorizados. O código de acesso, o conteúdo, os métodos e os resultados das calculadoras não podem ser redistribuídos, reproduzidos, submetidos a engenharia reversa ou incorporados a software comercial sem autorização prévia e por escrito da BELTPRO."
+                    data-it="L'accesso è concesso esclusivamente ai clienti BELTPRO e agli utenti autorizzati. Il codice di accesso, i contenuti, i metodi e i risultati dei calcolatori non possono essere ridistribuiti, riprodotti, sottoposti a reverse engineering o incorporati in software commerciale senza la previa autorizzazione scritta di BELTPRO.">
+                    Access is granted only to BELTPRO customers and authorized users. The access code, calculator content, methods, and results may not be redistributed, reproduced, reverse engineered, or incorporated into commercial software without BELTPRO's prior written authorization.
+                </p>
+            </div>
+
+            <label class="accept-row" for="acceptDisclaimer">
+                <input id="acceptDisclaimer" type="checkbox">
+                <span
+                    data-en="I have read, understood, and accept the Engineering Disclaimer and Terms of Use."
+                    data-es="He leído, comprendido y acepto el Descargo de Responsabilidad de Ingeniería y las Condiciones de Uso."
+                    data-pt="Li, compreendi e aceito o Aviso de Responsabilidade de Engenharia e os Termos de Uso."
+                    data-it="Ho letto, compreso e accetto l'Esclusione di Responsabilità Ingegneristica e le Condizioni d'Uso.">
+                    I have read, understood, and accept the Engineering Disclaimer and Terms of Use.
+                </span>
+            </label>
+
+            <button id="submitButton" class="submit-button" type="submit" disabled
+                    data-en="Access Calculators"
+                    data-es="Acceder a las Calculadoras"
+                    data-pt="Acessar Calculadoras"
+                    data-it="Accedi ai Calcolatori">
+                Access Calculators
+            </button>
+
+            <div id="message" class="message" role="alert" aria-live="polite"></div>
+        </form>
+
+        <a class="back-link" href="index.html"
+           data-en="← Return to BELTPRO"
+           data-es="← Volver a BELTPRO"
+           data-pt="← Voltar para a BELTPRO"
+           data-it="← Torna a BELTPRO">← Return to BELTPRO</a>
+    </section>
+</main>
+
+<footer>
+    <strong>BELTPRO</strong><br>
+    Spiral Conveyor Systems • Industrial Baking Ovens • Engineering Services
+</footer>
+
+<script>
+    'use strict';
+
+    const API_BASE_URL = 'https://spiral-tension-api.onrender.com';
+    const TOKEN_STORAGE_KEY = 'beltpro_calculator_token';
+    const TOKEN_EXPIRY_KEY = 'beltpro_calculator_token_expires_at';
+
+    const translations = {
+        en: {
+            missing: 'Enter the access code and accept the disclaimer.',
+            checking: 'Checking access…',
+            success: 'Access granted. Redirecting…',
+            invalid: 'Invalid access code.',
+            unavailable: 'The access service is temporarily unavailable. Please try again.'
+        },
+        es: {
+            missing: 'Ingrese el código de acceso y acepte el descargo de responsabilidad.',
+            checking: 'Verificando acceso…',
+            success: 'Acceso autorizado. Redirigiendo…',
+            invalid: 'Código de acceso no válido.',
+            unavailable: 'El servicio de acceso no está disponible temporalmente. Inténtelo de nuevo.'
+        },
+        pt: {
+            missing: 'Digite o código de acesso e aceite o aviso de responsabilidade.',
+            checking: 'Verificando acesso…',
+            success: 'Acesso autorizado. Redirecionando…',
+            invalid: 'Código de acesso inválido.',
+            unavailable: 'O serviço de acesso está temporariamente indisponível. Tente novamente.'
+        },
+        it: {
+            missing: 'Inserire il codice di accesso e accettare l’esclusione di responsabilità.',
+            checking: 'Verifica dell’accesso…',
+            success: 'Accesso autorizzato. Reindirizzamento…',
+            invalid: 'Codice di accesso non valido.',
+            unavailable: 'Il servizio di accesso è temporaneamente non disponibile. Riprova.'
+        }
+    };
+
+    let currentLanguage = 'en';
+
+    function setLanguage(lang) {
+        currentLanguage = translations[lang] ? lang : 'en';
+
+        document.querySelectorAll('[data-' + currentLanguage + ']').forEach(function (element) {
+            element.innerHTML = element.getAttribute('data-' + currentLanguage);
+        });
+
+        document.documentElement.setAttribute('lang', currentLanguage);
+
+        document.querySelectorAll('.language-bar button').forEach(function (button) {
+            button.classList.toggle('active', button.getAttribute('data-lang') === currentLanguage);
+        });
+
+        try { localStorage.setItem('beltpro_lang', currentLanguage); } catch (error) {}
+    }
+
+    function showMessage(text, type) {
+        const message = document.getElementById('message');
+        message.textContent = text;
+        message.className = 'message ' + type;
+    }
+
+    function getSafeReturnUrl() {
+        const params = new URLSearchParams(window.location.search);
+        const requested = params.get('return');
+
+        if (!requested) return 'index.html#calculators';
+
+        try {
+            const target = new URL(requested, window.location.origin);
+            if (target.origin === window.location.origin) {
+                return target.pathname + target.search + target.hash;
+            }
+        } catch (error) {}
+
+        return 'index.html#calculators';
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        let savedLanguage = 'en';
+        try { savedLanguage = localStorage.getItem('beltpro_lang') || 'en'; } catch (error) {}
+        setLanguage(savedLanguage);
+
+        const checkbox = document.getElementById('acceptDisclaimer');
+        const button = document.getElementById('submitButton');
+        const form = document.getElementById('accessForm');
+        const codeInput = document.getElementById('accessCode');
+
+        checkbox.addEventListener('change', function () {
+            button.disabled = !checkbox.checked;
+        });
+
+        form.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const accessCode = codeInput.value.trim();
+            if (!accessCode || !checkbox.checked) {
+                showMessage(translations[currentLanguage].missing, 'error');
+                return;
+            }
+
+            button.disabled = true;
+            showMessage(translations[currentLanguage].checking, 'success');
+
+            try {
+                const response = await fetch(API_BASE_URL + '/calculator-login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        access_code: accessCode,
+                        disclaimer_accepted: true
+                    })
+                });
+
+                let result = {};
+                try { result = await response.json(); } catch (error) {}
+
+                if (!response.ok || !result.token) {
+                    const fallback = response.status === 401
+                        ? translations[currentLanguage].invalid
+                        : (result.error || translations[currentLanguage].unavailable);
+                    showMessage(fallback, 'error');
+                    button.disabled = !checkbox.checked;
+                    return;
+                }
+
+                try {
+                    localStorage.setItem(TOKEN_STORAGE_KEY, result.token);
+                    const expiresIn = Number(result.expires_in_seconds) || (30 * 24 * 60 * 60);
+                    localStorage.setItem(TOKEN_EXPIRY_KEY, String(Date.now() + expiresIn * 1000));
+                } catch (error) {
+                    showMessage(translations[currentLanguage].unavailable, 'error');
+                    button.disabled = !checkbox.checked;
+                    return;
+                }
+
+                showMessage(translations[currentLanguage].success, 'success');
+                window.setTimeout(function () {
+                    window.location.href = getSafeReturnUrl();
+                }, 600);
+
+            } catch (error) {
+                showMessage(translations[currentLanguage].unavailable, 'error');
+                button.disabled = !checkbox.checked;
+            }
+        });
+    });
+</script>
+</body>
+</html>
