@@ -225,7 +225,7 @@ header h3 {
     background: #f1f5f9;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown:not(.calculator-dropdown):hover .dropdown-content {
     display: block;
 }
         .banner-image{
@@ -264,7 +264,18 @@ header h3 {
             }
         }
 
-    </style>
+    
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:5000;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal-box{background:#fff;max-width:700px;width:90%;padding:24px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.modal-box h2{margin-top:0}
+.modal-actions{text-align:right;margin-top:20px}
+.modal-actions button{padding:10px 18px;border:none;border-radius:6px;cursor:pointer}
+#acceptDisclaimer{background:#0f4c81;color:#fff}
+#cancelDisclaimer{margin-right:10px}
+.calcs-open .dropdown-content{display:block!important;}
+
+</style>
 
 </head>
 
@@ -753,10 +764,9 @@ header h3 {
 
 </div>
 
-    <div class="dropdown">
+    <div class="dropdown calculator-dropdown">
 
-    <a href="#calculators"
-       data-en="Calculators ▼"
+    <a href="#" id="calculatorsMenu" data-en="Calculators ▼"
        data-es="Calculadoras ▼"
        data-pt="Calculadoras ▼"
        data-it="Calcolatori ▼">
@@ -1252,6 +1262,19 @@ Belt Turn Ratio Calculator
 </a>
 </footer>
 
+
+<div id="disclaimerModal" class="modal-overlay">
+<div class="modal-box">
+<h2>Engineering Disclaimer</h2>
+<p>The engineering calculators provided by BELTPRO are intended for engineering estimation purposes only.</p>
+<p><strong>BELTPRO makes no warranty regarding the accuracy, completeness, or suitability of these calculations for any specific application.</strong></p>
+<p>The user assumes full responsibility for verifying all calculated values before using them for design, equipment modification, procurement, operation, maintenance, or safety-related decisions.</p>
+<p>Always verify results against equipment specifications, manufacturer recommendations, and accepted engineering practices before implementation.</p>
+<div class="modal-actions">
+<button id="cancelDisclaimer">Cancel</button>
+<button id="acceptDisclaimer">I Understand</button>
+</div></div></div>
+
 <script>
 
     function setLanguage(lang){
@@ -1285,6 +1308,57 @@ document.addEventListener('DOMContentLoaded', function () {
 
     setLanguage(saved);
 
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const menu = document.getElementById('calculatorsMenu');
+    const modal = document.getElementById('disclaimerModal');
+    const calcDropdown = menu.closest('.calculator-dropdown');
+    const cancelButton = document.getElementById('cancelDisclaimer');
+    const acceptButton = document.getElementById('acceptDisclaimer');
+
+    // The calculator list never opens by hovering.
+    // Clicking the menu first displays the engineering disclaimer.
+    menu.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        calcDropdown.classList.remove('calcs-open');
+        modal.classList.add('show');
+    });
+
+    cancelButton.addEventListener('click', function (event) {
+        event.stopPropagation();
+        modal.classList.remove('show');
+    });
+
+    acceptButton.addEventListener('click', function (event) {
+        event.stopPropagation();
+        modal.classList.remove('show');
+        calcDropdown.classList.add('calcs-open');
+    });
+
+    // Close the disclaimer when the dark background is clicked.
+    modal.addEventListener('click', function (event) {
+        if (event.target === modal) {
+            modal.classList.remove('show');
+        }
+    });
+
+    // Close the calculator list when the user clicks elsewhere.
+    document.addEventListener('click', function (event) {
+        if (!calcDropdown.contains(event.target) && !modal.contains(event.target)) {
+            calcDropdown.classList.remove('calcs-open');
+        }
+    });
+
+    // Escape closes both the disclaimer and the calculator list.
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            modal.classList.remove('show');
+            calcDropdown.classList.remove('calcs-open');
+        }
+    });
 });
 
 </script>
