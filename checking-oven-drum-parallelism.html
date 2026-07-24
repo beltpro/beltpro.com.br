@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BELTPRO | The Importance of Checking Oven Drum Parallelism</title>
+    <meta name="description"
+          content="Technical explanation of spiral conveyor belt tension, metal belt fatigue, allowable tension limits, field measurement and system adjustment.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        :root {
+            --navy: #0b1f33;
+            --blue: #0f4c81;
+            --cyan: #38bdf8;
+            --orange: #f59e0b;
+            --text: #1f2937;
+            --muted: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #dbe5ee;
+            --shadow: 0 18px 45px rgba(15, 23, 42, 0.10);
+            --radius: 18px;
+            --max-width: 1050px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.72;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .language-bar {
+            background: #071625;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 8px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .language-bar button {
+            border: 0;
+            background: transparent;
+            color: #cbd5e1;
+            padding: 7px 9px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .language-bar button:hover,
+        .language-bar button.active {
+            color: #ffffff;
+            background: rgba(56, 189, 248, 0.16);
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 31, 51, 0.97);
+            box-shadow: 0 8px 25px rgba(2, 8, 23, 0.20);
+            backdrop-filter: blur(12px);
+        }
+
+        .header-inner {
+            width: min(94%, 1180px);
+            min-height: 72px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-link img {
+            height: 48px;
+            width: auto;
+            display: block;
+        }
+
+        .back-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 10px 14px;
+            border: 1px solid rgba(255,255,255,.20);
+            border-radius: 9px;
+        }
+
+        .back-link:hover {
+            color: var(--cyan);
+            background: rgba(255,255,255,.07);
+        }
+
+        .hero {
+            color: #ffffff;
+            background:
+                linear-gradient(90deg, rgba(5, 20, 35, 0.96), rgba(7, 31, 53, 0.80)),
+                url("beltbackground.jpg") center / cover no-repeat;
+        }
+
+        .hero-inner {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 76px 0 84px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            color: #bae6fd;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 34px;
+            height: 2px;
+            background: var(--cyan);
+        }
+
+        .hero h1 {
+            max-width: 900px;
+            margin-bottom: 20px;
+            font-size: clamp(42px, 6vw, 68px);
+            line-height: 1.04;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            color: #dbeafe;
+            font-size: clamp(17px, 2vw, 21px);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 12px 18px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 900;
+            transition: transform .2s ease, background .2s ease;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .action-primary {
+            background: var(--orange);
+            color: #1f2937;
+        }
+
+        .action-primary:hover {
+            background: #fbbf24;
+        }
+
+        .action-secondary {
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,.28);
+            background: rgba(255,255,255,.08);
+        }
+
+        .article-shell {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 64px 0 86px;
+        }
+
+        .article-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: clamp(28px, 5vw, 58px);
+        }
+
+        .article-card h2 {
+            margin: 42px 0 16px;
+            color: var(--navy);
+            font-size: clamp(28px, 4vw, 39px);
+            line-height: 1.2;
+            letter-spacing: -0.7px;
+        }
+
+        .article-card h2:first-child {
+            margin-top: 0;
+        }
+
+        .article-card h3 {
+            margin: 28px 0 10px;
+            color: var(--blue);
+            font-size: 23px;
+        }
+
+        .article-card p {
+            margin-bottom: 18px;
+            color: #475569;
+            font-size: 17px;
+        }
+
+        .article-card ul,
+        .article-card ol {
+            margin: 0 0 20px 24px;
+            color: #475569;
+        }
+
+        .article-card li {
+            margin-bottom: 8px;
+        }
+
+        .formula-box {
+            margin: 26px 0;
+            padding: 24px;
+            border-left: 5px solid var(--cyan);
+            border-radius: 12px;
+            background: #eef8fd;
+        }
+
+        .formula-box strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--navy);
+            font-size: 18px;
+        }
+
+        .example-box {
+            margin: 26px 0;
+            padding: 24px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+        }
+
+        .example-box strong {
+            display: block;
+            margin-bottom: 10px;
+            color: #92400e;
+        }
+
+        .consequence-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 17px;
+            margin: 26px 0;
+        }
+
+        .consequence-card {
+            padding: 21px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+        }
+
+        .consequence-card strong {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--navy);
+        }
+
+        .website-note {
+            margin-top: 42px;
+            padding: 26px;
+            border-radius: 13px;
+            border: 1px solid #bfe5f5;
+            background: #eef9fd;
+        }
+
+        .website-note h2 {
+            margin-top: 0;
+            font-size: 27px;
+        }
+
+        .website-note .note-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .website-note a {
+            display: inline-flex;
+            padding: 11px 16px;
+            border-radius: 8px;
+            background: var(--blue);
+            color: #ffffff;
+            font-weight: 900;
+            text-decoration: none;
+        }
+
+        .website-note a:hover {
+            background: var(--navy);
+        }
+
+        .schedule-box {
+            margin-top: 42px;
+            padding: 30px;
+            border-radius: 14px;
+            background: var(--navy);
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .schedule-box h2 {
+            margin-top: 0;
+            color: #ffffff;
+        }
+
+        .schedule-box p {
+            color: #dbeafe;
+        }
+
+        .schedule-box a {
+            display: inline-flex;
+            margin-top: 10px;
+            padding: 13px 20px;
+            border-radius: 9px;
+            background: var(--orange);
+            color: #1f2937;
+            font-weight: 900;
+            text-decoration: none;
+        }
+
+        .schedule-box a:hover {
+            background: #fbbf24;
+        }
+
+        .disclaimer {
+            margin-top: 34px;
+            padding: 22px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+            color: #6b4d21;
+        }
+
+        .disclaimer strong {
+            display: block;
+            margin-bottom: 7px;
+            color: #92400e;
+        }
+
+        .site-footer {
+            background: #071625;
+            color: #cbd5e1;
+        }
+
+        .footer-inner {
+            width: min(92%, 1180px);
+            margin: auto;
+            padding: 34px 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .footer-inner strong {
+            color: #ffffff;
+        }
+
+        .footer-inner span {
+            color: #94a3b8;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        @media (max-width: 760px) {
+            .header-inner {
+                min-height: 64px;
+            }
+
+            .logo-link img {
+                height: 41px;
+            }
+
+            .back-link {
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+
+            .hero-inner {
+                padding: 58px 0 64px;
+            }
+
+            .consequence-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-inner span {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="language-bar" aria-label="Language selection">
+        <button type="button" data-lang="en" onclick="setLanguage('en')">English</button>
+        <button type="button" data-lang="es" onclick="setLanguage('es')">Español</button>
+        <button type="button" data-lang="pt" onclick="setLanguage('pt')">Português</button>
+        <button type="button" data-lang="it" onclick="setLanguage('it')">Italiano</button>
+    </div>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="logo-link" href="index.html" aria-label="BELTPRO home">
+                <img src="logo.png" alt="BELTPRO Logo">
+            </a>
+
+            <a class="back-link"
+               href="index.html#articles"
+               data-en="← Back to Technical Articles"
+               data-es="← Volver a Artículos Técnicos"
+               data-pt="← Voltar aos Artigos Técnicos"
+               data-it="← Torna agli Articoli Tecnici">
+                ← Back to Technical Articles
+            </a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="eyebrow"
+                  data-en="Technical Article"
+                  data-es="Artículo Técnico"
+                  data-pt="Artigo Técnico"
+                  data-it="Articolo Tecnico">
+                Technical Article
+            </span>
+
+            <h1 data-en="The Importance of Checking Oven Drum Parallelism"
+                data-es="La Importancia de Verificar el Paralelismo de los Tambores del Horno"
+                data-pt="A Importância de Verificar o Paralelismo dos Tambores do Forno"
+                data-it="L'Importanza di Verificare il Parallelismo dei Tamburi del Forno">
+                The Importance of Checking Oven Drum Parallelism
+            </h1>
+
+            <p data-en="How small alignment and level errors can create unequal band tension, tracking problems, uneven baking and premature metal conveyor band failure."
+               data-es="Cómo pequeños errores de alineación y nivel pueden generar tensión desigual, problemas de guiado, cocción irregular y fallas prematuras de la banda metálica."
+               data-pt="Como pequenos erros de alinhamento e nivelamento podem gerar tensão desigual, problemas de tracking, assamento irregular e falha prematura da esteira metálica."
+               data-it="Come piccoli errori di allineamento e livello possono creare tensione non uniforme, problemi di tracking, cottura irregolare e cedimenti prematuri del nastro metallico.">
+                How small alignment and level errors can create unequal band tension, tracking problems, uneven baking and premature metal conveyor band failure.
+            </p>
+
+            <div class="hero-actions">
+                <a class="action-button action-primary"
+                   href="index.html#contact"
+                   data-en="Schedule an Oven Topography Inspection"
+                   data-es="Programar una Inspección Topográfica del Horno"
+                   data-pt="Agendar uma Topografia do Forno"
+                   data-it="Programma un Controllo Topografico del Forno">
+                    Schedule an Oven Topography Inspection
+                </a>
+
+                <a class="action-button action-secondary"
+                   href="index.html#contact"
+                   data-en="Request Technical Assistance"
+                   data-es="Solicitar Asistencia Técnica"
+                   data-pt="Solicitar Assistência Técnica"
+                   data-it="Richiedi Assistenza Tecnica">
+                    Request Technical Assistance
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <main class="article-shell">
+        <article class="article-card">
+
+            <h2 data-en="Small Drum Errors Can Create Large Band Problems"
+                data-es="Pequeños Errores en los Tambores Pueden Crear Grandes Problemas"
+                data-pt="Pequenos Erros nos Tambores Podem Criar Grandes Problemas"
+                data-it="Piccoli Errori dei Tamburi Possono Creare Grandi Problemi">
+                Small Drum Errors Can Create Large Band Problems
+            </h2>
+
+            <p data-en="Industrial oven bands operate under continuous longitudinal tension while being exposed to elevated temperatures. Because the band is wide, even a small difference in the position of one drum bearing relative to the other can create unequal tension across the band width."
+               data-es="Las bandas de hornos industriales operan bajo tensión longitudinal continua y están expuestas a temperaturas elevadas. Debido a que la banda es ancha, incluso una pequeña diferencia en la posición de un rodamiento del tambor respecto al otro puede crear tensión desigual a lo ancho de la banda."
+               data-pt="As esteiras de fornos industriais operam sob tensão longitudinal contínua e ficam expostas a temperaturas elevadas. Como a esteira é larga, mesmo uma pequena diferença na posição de um mancal do tambor em relação ao outro pode criar tensão desigual ao longo da largura."
+               data-it="I nastri dei forni industriali lavorano sotto tensione longitudinale continua e sono esposti a temperature elevate. Poiché il nastro è largo, anche una piccola differenza nella posizione di un supporto del tamburo rispetto all'altro può creare tensione non uniforme lungo la larghezza.">
+                Industrial oven bands operate under continuous longitudinal tension while being exposed to elevated temperatures. Because the band is wide, even a small difference in the position of one drum bearing relative to the other can create unequal tension across the band width.
+            </p>
+
+            <div class="formula-box">
+                <strong data-en="Practical alignment warning"
+                        data-es="Advertencia práctica de alineación"
+                        data-pt="Alerta prático de alinhamento"
+                        data-it="Avvertenza pratica di allineamento">
+                    Practical alignment warning
+                </strong>
+
+                <p data-en="A drum that is out of parallel by approximately 2 mm may already begin to produce a measurable difference in tension from one side of the oven band to the other. The wider and more highly tensioned the band, the more important this difference becomes."
+                   data-es="Un tambor fuera de paralelismo aproximadamente 2 mm puede comenzar a producir una diferencia medible de tensión entre un lado y el otro de la banda. Cuanto más ancha y tensionada sea la banda, más importante será esta diferencia."
+                   data-pt="Um tambor fora de paralelismo em aproximadamente 2 mm já pode começar a produzir uma diferença mensurável de tensão entre um lado e o outro da esteira. Quanto mais larga e tensionada for a esteira, mais importante se torna essa diferença."
+                   data-it="Un tamburo fuori parallelismo di circa 2 mm può già iniziare a produrre una differenza misurabile di tensione tra un lato e l'altro del nastro. Quanto più largo e teso è il nastro, tanto più importante diventa questa differenza.">
+                    A drum that is out of parallel by approximately 2 mm may already begin to produce a measurable difference in tension from one side of the oven band to the other. The wider and more highly tensioned the band, the more important this difference becomes.
+                </p>
+            </div>
+
+            <h2 data-en="Why Unequal Tension Damages Metal Bands"
+                data-es="Por Qué la Tensión Desigual Daña las Bandas Metálicas"
+                data-pt="Por Que a Tensão Desigual Danifica Esteiras Metálicas"
+                data-it="Perché la Tensione Non Uniforme Danneggia i Nastri Metallici">
+                Why Unequal Tension Damages Metal Bands
+            </h2>
+
+            <p data-en="When one side of the drum is slightly advanced, that side of the band follows a longer effective path. It therefore carries more tension, while the opposite side carries less. The band is forced to continuously correct this difference as it travels around the drums and through the heated oven chamber."
+               data-es="Cuando un lado del tambor está ligeramente adelantado, ese lado de la banda sigue una trayectoria efectiva más larga. Por lo tanto, soporta mayor tensión, mientras que el lado opuesto soporta menos. La banda se ve obligada a corregir continuamente esta diferencia al pasar por los tambores y por la cámara caliente del horno."
+               data-pt="Quando um lado do tambor está ligeiramente adiantado, esse lado da esteira percorre um caminho efetivo mais longo. Portanto, ele suporta maior tensão, enquanto o lado oposto suporta menos. A esteira é forçada a corrigir continuamente essa diferença ao passar pelos tambores e pela câmara aquecida do forno."
+               data-it="Quando un lato del tamburo è leggermente avanzato, quel lato del nastro segue un percorso effettivo più lungo. Di conseguenza sopporta una tensione maggiore, mentre il lato opposto ne sopporta meno. Il nastro è costretto a correggere continuamente questa differenza passando sui tamburi e attraverso la camera calda del forno.">
+                When one side of the drum is slightly advanced, that side of the band follows a longer effective path. It therefore carries more tension, while the opposite side carries less. The band is forced to continuously correct this difference as it travels around the drums and through the heated oven chamber.
+            </p>
+
+            <p data-en="Temperature makes this condition more severe. Thermal expansion changes the band dimensions during heating and cooling, and any existing mechanical misalignment can concentrate cyclic stress along one edge. Over time, this can produce edge cracking, distortion, uneven pitch, damaged joints and premature fatigue failure."
+               data-es="La temperatura hace que esta condición sea más severa. La expansión térmica cambia las dimensiones de la banda durante el calentamiento y el enfriamiento, y cualquier desalineación mecánica existente puede concentrar esfuerzos cíclicos en un borde. Con el tiempo, esto puede causar grietas, deformación, paso desigual, uniones dañadas y falla prematura por fatiga."
+               data-pt="A temperatura torna essa condição mais severa. A expansão térmica altera as dimensões da esteira durante o aquecimento e o resfriamento, e qualquer desalinhamento mecânico existente pode concentrar esforços cíclicos em uma das bordas. Com o tempo, isso pode causar trincas, deformação, passo irregular, emendas danificadas e falha prematura por fadiga."
+               data-it="La temperatura rende questa condizione più severa. La dilatazione termica modifica le dimensioni del nastro durante il riscaldamento e il raffreddamento, e qualsiasi disallineamento meccanico può concentrare sollecitazioni cicliche su un bordo. Nel tempo ciò può causare cricche, deformazioni, passo irregolare, giunti danneggiati e cedimento prematuro per fatica.">
+                Temperature makes this condition more severe. Thermal expansion changes the band dimensions during heating and cooling, and any existing mechanical misalignment can concentrate cyclic stress along one edge. Over time, this can produce edge cracking, distortion, uneven pitch, damaged joints and premature fatigue failure.
+            </p>
+
+            <h2 data-en="Drum Level Is Just as Important as Parallelism"
+                data-es="El Nivel de los Tambores Es Tan Importante Como el Paralelismo"
+                data-pt="O Nivelamento dos Tambores É Tão Importante Quanto o Paralelismo"
+                data-it="Il Livello dei Tamburi È Importante Quanto il Parallelismo">
+                Drum Level Is Just as Important as Parallelism
+            </h2>
+
+            <p data-en="Parallel drums are not enough if they are not correctly levelled. A drum that is tilted can shift the band laterally, change the contact pattern and create unequal loading on bearings, support rolls and tracking devices."
+               data-es="No es suficiente que los tambores sean paralelos si no están correctamente nivelados. Un tambor inclinado puede desplazar la banda lateralmente, cambiar el patrón de contacto y crear cargas desiguales en rodamientos, rodillos de apoyo y dispositivos de guiado."
+               data-pt="Não basta que os tambores estejam paralelos se não estiverem corretamente nivelados. Um tambor inclinado pode deslocar a esteira lateralmente, alterar o padrão de contato e criar cargas desiguais nos mancais, roletes de apoio e dispositivos de tracking."
+               data-it="Non è sufficiente che i tamburi siano paralleli se non sono correttamente livellati. Un tamburo inclinato può spostare lateralmente il nastro, modificare il contatto e creare carichi non uniformi su cuscinetti, rulli di supporto e dispositivi di tracking.">
+                Parallel drums are not enough if they are not correctly levelled. A drum that is tilted can shift the band laterally, change the contact pattern and create unequal loading on bearings, support rolls and tracking devices.
+            </p>
+
+            <p data-en="A complete oven topography therefore checks both horizontal level and the geometric relationship between the head drum, tail drum, support rolls and oven centerline. Measuring only one drum or relying only on a conventional spirit level may not reveal accumulated geometric errors over the full oven length."
+               data-es="Por eso, una topografía completa del horno verifica tanto el nivel horizontal como la relación geométrica entre el tambor de entrada, el tambor de salida, los rodillos de apoyo y la línea central del horno. Medir solo un tambor o utilizar únicamente un nivel convencional puede no revelar errores geométricos acumulados a lo largo del horno."
+               data-pt="Por isso, uma topografia completa do forno verifica tanto o nível horizontal quanto a relação geométrica entre o tambor de entrada, o tambor de saída, os roletes de apoio e a linha de centro do forno. Medir apenas um tambor ou utilizar somente um nível convencional pode não revelar erros geométricos acumulados ao longo de todo o forno."
+               data-it="Per questo una topografia completa del forno verifica sia il livello orizzontale sia la relazione geometrica tra tamburo di ingresso, tamburo di uscita, rulli di supporto e linea centrale del forno. Misurare un solo tamburo o usare soltanto una livella convenzionale può non rivelare errori geometrici accumulati lungo il forno.">
+                A complete oven topography therefore checks both horizontal level and the geometric relationship between the head drum, tail drum, support rolls and oven centerline. Measuring only one drum or relying only on a conventional spirit level may not reveal accumulated geometric errors over the full oven length.
+            </p>
+
+            <h2 data-en="Band Centering Supports Uniform Baking"
+                data-es="El Centrado de la Banda Favorece una Cocción Uniforme"
+                data-pt="A Centralização da Esteira Favorece um Assamento Uniforme"
+                data-it="Il Centraggio del Nastro Favorisce una Cottura Uniforme">
+                Band Centering Supports Uniform Baking
+            </h2>
+
+            <p data-en="The oven band should normally travel near the designed centerline of the baking chamber. When the band consistently favors one side, product position relative to heat zones, airflow, burners and exhaust conditions can change."
+               data-es="La banda debe desplazarse normalmente cerca de la línea central de diseño de la cámara de cocción. Cuando la banda favorece constantemente un lado, puede cambiar la posición del producto respecto a las zonas de calor, el flujo de aire, los quemadores y las condiciones de extracción."
+               data-pt="A esteira deve normalmente se deslocar próxima à linha de centro projetada da câmara de assamento. Quando ela favorece constantemente um dos lados, a posição do produto em relação às zonas de calor, fluxo de ar, queimadores e condições de exaustão pode mudar."
+               data-it="Il nastro dovrebbe normalmente viaggiare vicino alla linea centrale prevista della camera di cottura. Quando favorisce costantemente un lato, può cambiare la posizione del prodotto rispetto alle zone di calore, al flusso d'aria, ai bruciatori e alle condizioni di scarico.">
+                The oven band should normally travel near the designed centerline of the baking chamber. When the band consistently favors one side, product position relative to heat zones, airflow, burners and exhaust conditions can change.
+            </p>
+
+            <p data-en="Correct centering helps maintain consistent baking conditions across the product width. It also preserves clearance from the oven structure, side seals, guides and tracking controls."
+               data-es="El centrado correcto ayuda a mantener condiciones de cocción consistentes en todo el ancho del producto. También preserva la separación respecto a la estructura del horno, sellos laterales, guías y controles de guiado."
+               data-pt="A centralização correta ajuda a manter condições consistentes de assamento em toda a largura do produto. Ela também preserva a folga em relação à estrutura do forno, vedações laterais, guias e controles de tracking."
+               data-it="Il corretto centraggio aiuta a mantenere condizioni di cottura uniformi su tutta la larghezza del prodotto. Preserva inoltre la distanza dalla struttura del forno, dalle tenute laterali, dalle guide e dai controlli di tracking.">
+                Correct centering helps maintain consistent baking conditions across the product width. It also preserves clearance from the oven structure, side seals, guides and tracking controls.
+            </p>
+
+            <h2 data-en="Tracking Controls Should Correct, Not Fight, the Oven Geometry"
+                data-es="Los Controles de Guiado Deben Corregir, No Luchar Contra la Geometría"
+                data-pt="Os Controles de Tracking Devem Corrigir, Não Lutar Contra a Geometria"
+                data-it="I Controlli di Tracking Devono Correggere, Non Contrastare la Geometria">
+                Tracking Controls Should Correct, Not Fight, the Oven Geometry
+            </h2>
+
+            <p data-en="Tracking systems are intended to make small corrections. They should not be required to continuously force the band back against a geometric error created by non-parallel drums, tilted bearings or misaligned support rolls."
+               data-es="Los sistemas de guiado están destinados a realizar pequeñas correcciones. No deben verse obligados a forzar continuamente la banda contra un error geométrico creado por tambores no paralelos, rodamientos inclinados o rodillos desalineados."
+               data-pt="Os sistemas de tracking são destinados a realizar pequenas correções. Eles não devem ser obrigados a forçar continuamente a esteira contra um erro geométrico criado por tambores fora de paralelo, mancais inclinados ou roletes desalinhados."
+               data-it="I sistemi di tracking sono destinati a effettuare piccole correzioni. Non dovrebbero essere costretti a riportare continuamente il nastro contro un errore geometrico causato da tamburi non paralleli, supporti inclinati o rulli disallineati.">
+                Tracking systems are intended to make small corrections. They should not be required to continuously force the band back against a geometric error created by non-parallel drums, tilted bearings or misaligned support rolls.
+            </p>
+
+            <p data-en="When the band continually runs toward one side, it may rub against controls, guides or structural components. The resulting friction can damage the band edge, overheat components, create metal debris and accelerate wear of the tracking system itself."
+               data-es="Cuando la banda corre continuamente hacia un lado, puede rozar contra controles, guías o componentes estructurales. La fricción resultante puede dañar el borde, sobrecalentar componentes, generar residuos metálicos y acelerar el desgaste del propio sistema de guiado."
+               data-pt="Quando a esteira corre continuamente para um dos lados, ela pode raspar contra controles, guias ou componentes estruturais. O atrito resultante pode danificar a borda, superaquecer componentes, gerar resíduos metálicos e acelerar o desgaste do próprio sistema de tracking."
+               data-it="Quando il nastro corre continuamente verso un lato, può sfregare contro controlli, guide o componenti strutturali. L'attrito risultante può danneggiare il bordo, surriscaldare i componenti, generare detriti metallici e accelerare l'usura del sistema di tracking.">
+                When the band continually runs toward one side, it may rub against controls, guides or structural components. The resulting friction can damage the band edge, overheat components, create metal debris and accelerate wear of the tracking system itself.
+            </p>
+
+            <div class="consequence-grid">
+                <div class="consequence-card">
+                    <strong data-en="Unequal band tension" data-es="Tensión desigual" data-pt="Tensão desigual" data-it="Tensione non uniforme">Unequal band tension</strong>
+                    <p data-en="One edge is repeatedly overloaded while the other edge carries less tension." data-es="Un borde queda sobrecargado mientras el otro soporta menor tensión." data-pt="Uma borda fica repetidamente sobrecarregada enquanto a outra suporta menos tensão." data-it="Un bordo viene sovraccaricato mentre l'altro sopporta meno tensione.">One edge is repeatedly overloaded while the other edge carries less tension.</p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Tracking instability" data-es="Inestabilidad de guiado" data-pt="Instabilidade de tracking" data-it="Instabilità di tracking">Tracking instability</strong>
+                    <p data-en="The band favors one side and requires excessive corrective action." data-es="La banda favorece un lado y requiere correcciones excesivas." data-pt="A esteira favorece um lado e exige correções excessivas." data-it="Il nastro favorisce un lato e richiede correzioni eccessive.">The band favors one side and requires excessive corrective action.</p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Band edge damage" data-es="Daño en los bordes" data-pt="Danos nas bordas" data-it="Danni ai bordi">Band edge damage</strong>
+                    <p data-en="Contact with guides, controls or oven structure can deform and wear the band." data-es="El contacto con guías, controles o la estructura puede deformar y desgastar la banda." data-pt="O contato com guias, controles ou a estrutura pode deformar e desgastar a esteira." data-it="Il contatto con guide, controlli o struttura può deformare e usurare il nastro.">Contact with guides, controls or oven structure can deform and wear the band.</p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Reduced band life" data-es="Menor vida útil" data-pt="Redução da vida útil" data-it="Durata ridotta">Reduced band life</strong>
+                    <p data-en="Repeated thermal and mechanical stress accelerates fatigue and premature failure." data-es="El esfuerzo térmico y mecánico repetido acelera la fatiga y la falla prematura." data-pt="O esforço térmico e mecânico repetido acelera a fadiga e a falha prematura." data-it="Le sollecitazioni termiche e meccaniche ripetute accelerano la fatica e il cedimento prematuro.">Repeated thermal and mechanical stress accelerates fatigue and premature failure.</p>
+                </div>
+            </div>
+
+            <h2 data-en="BELTPRO Oven Topography and Alignment Method"
+                data-es="Método BELTPRO de Topografía y Alineación de Hornos"
+                data-pt="Método BELTPRO de Topografia e Alinhamento de Fornos"
+                data-it="Metodo BELTPRO di Topografia e Allineamento dei Forni">
+                BELTPRO Oven Topography and Alignment Method
+            </h2>
+
+            <p data-en="BELTPRO evaluates oven geometry using optical transit measurements, plumb bobs and precision reference points. These tools allow the head and tail drums, bearing centers, support rolls and oven centerline to be compared within a single geometric reference."
+               data-es="BELTPRO evalúa la geometría del horno mediante mediciones con tránsito óptico, plomadas y puntos de referencia de precisión. Estas herramientas permiten comparar tambores, centros de rodamientos, rodillos de apoyo y la línea central del horno dentro de una única referencia geométrica."
+               data-pt="A BELTPRO avalia a geometria do forno utilizando medições com trânsito óptico, prumos e pontos de referência de precisão. Essas ferramentas permitem comparar os tambores, centros dos mancais, roletes de apoio e a linha de centro do forno dentro de uma única referência geométrica."
+               data-it="BELTPRO valuta la geometria del forno mediante misure con transito ottico, fili a piombo e punti di riferimento di precisione. Questi strumenti consentono di confrontare tamburi, centri dei cuscinetti, rulli di supporto e linea centrale del forno all'interno di un unico riferimento geometrico.">
+                BELTPRO evaluates oven geometry using optical transit measurements, plumb bobs and precision reference points. These tools allow the head and tail drums, bearing centers, support rolls and oven centerline to be compared within a single geometric reference.
+            </p>
+
+            <ol>
+                <li data-en="Establish a reliable longitudinal oven centerline and elevation reference." data-es="Establecer una línea central longitudinal y una referencia de elevación confiables." data-pt="Estabelecer uma linha de centro longitudinal e uma referência de elevação confiáveis." data-it="Stabilire una linea centrale longitudinale e un riferimento di quota affidabili.">Establish a reliable longitudinal oven centerline and elevation reference.</li>
+                <li data-en="Measure both ends of each drum to determine parallelism, level and offset." data-es="Medir ambos extremos de cada tambor para determinar paralelismo, nivel y desplazamiento." data-pt="Medir ambas as extremidades de cada tambor para determinar paralelismo, nível e deslocamento." data-it="Misurare entrambe le estremità di ogni tamburo per determinare parallelismo, livello e offset.">Measure both ends of each drum to determine parallelism, level and offset.</li>
+                <li data-en="Check bearing centers, support rolls and the band path for accumulated alignment error." data-es="Verificar centros de rodamientos, rodillos de apoyo y trayectoria de la banda." data-pt="Verificar centros dos mancais, roletes de apoio e o caminho da esteira." data-it="Controllare centri dei cuscinetti, rulli di supporto e percorso del nastro.">Check bearing centers, support rolls and the band path for accumulated alignment error.</li>
+                <li data-en="Adjust drum bearings gradually while monitoring the complete geometry and band tracking response." data-es="Ajustar gradualmente los rodamientos mientras se controla la geometría completa y la respuesta de guiado." data-pt="Ajustar gradualmente os mancais enquanto se monitora a geometria completa e a resposta de tracking." data-it="Regolare gradualmente i supporti monitorando la geometria completa e la risposta del tracking.">Adjust drum bearings gradually while monitoring the complete geometry and band tracking response.</li>
+                <li data-en="Mark the final bearing positions to create a permanent reference for inspections and future maintenance." data-es="Marcar las posiciones finales de los rodamientos para crear una referencia permanente." data-pt="Marcar as posições finais dos mancais para criar uma referência permanente para futuras inspeções e manutenções." data-it="Marcare le posizioni finali dei supporti per creare un riferimento permanente per ispezioni e manutenzioni future.">Mark the final bearing positions to create a permanent reference for inspections and future maintenance.</li>
+            </ol>
+
+            <section class="website-note">
+                <h2 data-en="Why Final Position Marks Matter"
+                    data-es="Por Qué Son Importantes las Marcas de Posición"
+                    data-pt="Por Que as Marcas de Posição São Importantes"
+                    data-it="Perché Sono Importanti i Riferimenti di Posizione">
+                    Why Final Position Marks Matter
+                </h2>
+
+                <p data-en="After alignment, clearly marking the bearing housings and adjustment positions makes future inspections faster and more reliable. Maintenance teams can identify unintended movement, compare current geometry with the accepted reference and avoid losing a proven alignment during bearing replacement or service."
+                   data-es="Después de la alineación, marcar claramente los soportes y las posiciones de ajuste facilita futuras inspecciones. El equipo de mantenimiento puede identificar movimientos no deseados, comparar la geometría actual con la referencia aceptada y evitar perder una alineación comprobada durante el reemplazo o servicio de rodamientos."
+                   data-pt="Após o alinhamento, marcar claramente os mancais e as posições de ajuste torna as futuras inspeções mais rápidas e confiáveis. A manutenção pode identificar movimentos indesejados, comparar a geometria atual com a referência aceita e evitar perder um alinhamento comprovado durante a substituição ou manutenção dos mancais."
+                   data-it="Dopo l'allineamento, marcare chiaramente i supporti e le posizioni di regolazione rende più rapide e affidabili le ispezioni future. La manutenzione può identificare movimenti indesiderati, confrontare la geometria attuale con il riferimento accettato ed evitare di perdere un allineamento comprovato durante la sostituzione o il servizio dei cuscinetti.">
+                    After alignment, clearly marking the bearing housings and adjustment positions makes future inspections faster and more reliable. Maintenance teams can identify unintended movement, compare current geometry with the accepted reference and avoid losing a proven alignment during bearing replacement or service.
+                </p>
+
+                <div class="note-actions">
+                    <a href="index.html#contact"
+                       data-en="Request an Oven Alignment Inspection"
+                       data-es="Solicitar una Inspección de Alineación"
+                       data-pt="Solicitar uma Inspeção de Alinhamento"
+                       data-it="Richiedi un'Ispezione di Allineamento">
+                        Request an Oven Alignment Inspection
+                    </a>
+                </div>
+            </section>
+
+            <h2 data-en="When Should Drum Alignment Be Checked?"
+                data-es="¿Cuándo Debe Verificarse la Alineación?"
+                data-pt="Quando o Alinhamento dos Tambores Deve Ser Verificado?"
+                data-it="Quando Deve Essere Controllato l'Allineamento?">
+                When Should Drum Alignment Be Checked?
+            </h2>
+
+            <ul>
+                <li data-en="After installing a new oven band" data-es="Después de instalar una banda nueva" data-pt="Após instalar uma nova esteira" data-it="Dopo l'installazione di un nuovo nastro">After installing a new oven band</li>
+                <li data-en="After replacing drum bearings, shafts or support rolls" data-es="Después de reemplazar rodamientos, ejes o rodillos" data-pt="Após substituir mancais, eixos ou roletes" data-it="Dopo la sostituzione di cuscinetti, alberi o rulli">After replacing drum bearings, shafts or support rolls</li>
+                <li data-en="When the band continually favors one side" data-es="Cuando la banda favorece continuamente un lado" data-pt="Quando a esteira favorece continuamente um dos lados" data-it="Quando il nastro favorisce continuamente un lato">When the band continually favors one side</li>
+                <li data-en="When tracking controls remain continuously active" data-es="Cuando los controles de guiado permanecen activos continuamente" data-pt="Quando os controles de tracking permanecem continuamente ativos" data-it="Quando i controlli di tracking rimangono continuamente attivi">When tracking controls remain continuously active</li>
+                <li data-en="When one band edge shows unusual wear, cracking or deformation" data-es="Cuando un borde presenta desgaste, grietas o deformación anormal" data-pt="Quando uma borda apresenta desgaste, trincas ou deformação anormal" data-it="Quando un bordo presenta usura, cricche o deformazioni anomale">When one band edge shows unusual wear, cracking or deformation</li>
+                <li data-en="After structural work, oven relocation or a major maintenance shutdown" data-es="Después de trabajos estructurales, traslado del horno o una gran parada" data-pt="Após trabalhos estruturais, mudança do forno ou grande parada de manutenção" data-it="Dopo lavori strutturali, spostamento del forno o una grande fermata">After structural work, oven relocation or a major maintenance shutdown</li>
+                <li data-en="When product baking becomes noticeably different from one side to the other" data-es="Cuando la cocción del producto difiere notablemente entre los lados" data-pt="Quando o assamento do produto apresenta diferença perceptível entre os lados" data-it="Quando la cottura del prodotto differisce sensibilmente tra i lati">When product baking becomes noticeably different from one side to the other</li>
+            </ul>
+
+            <h2 data-en="Conclusion"
+                data-es="Conclusión"
+                data-pt="Conclusão"
+                data-it="Conclusione">
+                Conclusion
+            </h2>
+
+            <p data-en="Drum parallelism and level are fundamental conditions for stable oven band operation. Small geometric errors may create unequal tension across the width, force the band toward one side and overload tracking components."
+               data-es="El paralelismo y el nivel de los tambores son condiciones fundamentales para una operación estable. Pequeños errores geométricos pueden crear tensión desigual, desplazar la banda hacia un lado y sobrecargar los componentes de guiado."
+               data-pt="O paralelismo e o nivelamento dos tambores são condições fundamentais para a operação estável da esteira. Pequenos erros geométricos podem criar tensão desigual, deslocar a esteira para um dos lados e sobrecarregar os componentes de tracking."
+               data-it="Il parallelismo e il livello dei tamburi sono condizioni fondamentali per un funzionamento stabile. Piccoli errori geometrici possono creare tensione non uniforme, spostare il nastro verso un lato e sovraccaricare i componenti di tracking.">
+                Drum parallelism and level are fundamental conditions for stable oven band operation. Small geometric errors may create unequal tension across the width, force the band toward one side and overload tracking components.
+            </p>
+
+            <p data-en="Precise oven topography, controlled bearing adjustment and permanent position references help protect band life, maintain central tracking and support consistent baking performance."
+               data-es="La topografía precisa, el ajuste controlado de rodamientos y las referencias permanentes ayudan a proteger la vida útil, mantener el centrado y favorecer una cocción uniforme."
+               data-pt="A topografia precisa do forno, o ajuste controlado dos mancais e as referências permanentes de posição ajudam a proteger a vida útil da esteira, manter o tracking centralizado e favorecer um assamento consistente."
+               data-it="La topografia precisa del forno, la regolazione controllata dei supporti e i riferimenti permanenti aiutano a proteggere la durata del nastro, mantenere il tracking centrale e favorire una cottura uniforme.">
+                Precise oven topography, controlled bearing adjustment and permanent position references help protect band life, maintain central tracking and support consistent baking performance.
+            </p>
+
+            <div class="engineering-disclaimer">
+                <strong data-en="Engineering Disclaimer"
+                        data-es="Aviso de Ingeniería"
+                        data-pt="Aviso de Engenharia"
+                        data-it="Avviso di Ingegneria">
+                    Engineering Disclaimer
+                </strong>
+
+                <p data-en="The 2 mm value discussed in this article is a practical warning level, not a universal acceptance tolerance. Required tolerances depend on oven length, drum diameter, band width, band construction, operating tension, temperature and equipment design. Final alignment decisions should be based on equipment drawings, manufacturer requirements and direct field measurements."
+                   data-es="El valor de 2 mm mencionado es un nivel práctico de advertencia, no una tolerancia universal. Las tolerancias dependen de la longitud del horno, diámetro del tambor, ancho y construcción de la banda, tensión, temperatura y diseño. Las decisiones finales deben basarse en planos, requisitos del fabricante y mediciones de campo."
+                   data-pt="O valor de 2 mm mencionado neste artigo é um nível prático de alerta, e não uma tolerância universal de aceitação. As tolerâncias necessárias dependem do comprimento do forno, diâmetro dos tambores, largura e construção da esteira, tensão de operação, temperatura e projeto do equipamento. As decisões finais de alinhamento devem se basear nos desenhos, requisitos do fabricante e medições diretas em campo."
+                   data-it="Il valore di 2 mm discusso è un livello pratico di avvertimento, non una tolleranza universale. Le tolleranze dipendono dalla lunghezza del forno, diametro del tamburo, larghezza e costruzione del nastro, tensione, temperatura e progetto. Le decisioni finali devono basarsi su disegni, requisiti del costruttore e misure dirette sul campo.">
+                    The 2 mm value discussed in this article is a practical warning level, not a universal acceptance tolerance. Required tolerances depend on oven length, drum diameter, band width, band construction, operating tension, temperature and equipment design. Final alignment decisions should be based on equipment drawings, manufacturer requirements and direct field measurements.
+                </p>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <strong>BELTPRO</strong>
+            <span data-en="Spiral Conveyor Systems • Industrial Baking Ovens • Engineering Services — Serving Industry Since 2014"
+                  data-es="Sistemas Transportadores Espirales • Hornos Industriales • Servicios de Ingeniería — Al Servicio de la Industria Desde 2014"
+                  data-pt="Sistemas Transportadores Espirais • Fornos Industriais • Serviços de Engenharia — Atendendo a Indústria Desde 2014"
+                  data-it="Sistemi Trasportatori a Spirale • Forni Industriali • Servizi di Ingegneria — Al Servizio dell'Industria Dal 2014">
+                Spiral Conveyor Systems • Industrial Baking Ovens • Engineering Services — Serving Industry Since 2014
+            </span>
+        </div>
+    </footer>
+
+    <script>
+        function setLanguage(lang) {
+            const supported = ['en', 'es', 'pt', 'it'];
+            const selected = supported.includes(lang) ? lang : 'en';
+
+            document.documentElement.lang = selected;
+
+            document.querySelectorAll('[data-en]').forEach(function (element) {
+                const translation = element.getAttribute('data-' + selected);
+                if (translation !== null) {
+                    element.textContent = translation;
+                }
+            });
+
+            document.querySelectorAll('[data-lang]').forEach(function (button) {
+                button.classList.toggle('active', button.getAttribute('data-lang') === selected);
+            });
+
+            try {
+                localStorage.setItem('beltpro_lang', selected);
+            } catch (error) {}
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let savedLanguage = 'en';
+
+            try {
+                savedLanguage = localStorage.getItem('beltpro_lang') || 'en';
+            } catch (error) {}
+
+            setLanguage(savedLanguage);
+        });
+    </script>
+
+</body>
+</html>
