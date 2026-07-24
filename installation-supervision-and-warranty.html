@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BELTPRO | Installation Supervision and Warranty</title>
+    <meta name="description"
+          content="Technical explanation of spiral conveyor belt tension, metal belt fatigue, allowable tension limits, field measurement and system adjustment.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        :root {
+            --navy: #0b1f33;
+            --blue: #0f4c81;
+            --cyan: #38bdf8;
+            --orange: #f59e0b;
+            --text: #1f2937;
+            --muted: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #dbe5ee;
+            --shadow: 0 18px 45px rgba(15, 23, 42, 0.10);
+            --radius: 18px;
+            --max-width: 1050px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.72;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .language-bar {
+            background: #071625;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 8px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .language-bar button {
+            border: 0;
+            background: transparent;
+            color: #cbd5e1;
+            padding: 7px 9px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .language-bar button:hover,
+        .language-bar button.active {
+            color: #ffffff;
+            background: rgba(56, 189, 248, 0.16);
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 31, 51, 0.97);
+            box-shadow: 0 8px 25px rgba(2, 8, 23, 0.20);
+            backdrop-filter: blur(12px);
+        }
+
+        .header-inner {
+            width: min(94%, 1180px);
+            min-height: 72px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-link img {
+            height: 48px;
+            width: auto;
+            display: block;
+        }
+
+        .back-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 10px 14px;
+            border: 1px solid rgba(255,255,255,.20);
+            border-radius: 9px;
+        }
+
+        .back-link:hover {
+            color: var(--cyan);
+            background: rgba(255,255,255,.07);
+        }
+
+        .hero {
+            color: #ffffff;
+            background:
+                linear-gradient(90deg, rgba(5, 20, 35, 0.96), rgba(7, 31, 53, 0.80)),
+                url("beltbackground.jpg") center / cover no-repeat;
+        }
+
+        .hero-inner {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 76px 0 84px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            color: #bae6fd;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 34px;
+            height: 2px;
+            background: var(--cyan);
+        }
+
+        .hero h1 {
+            max-width: 900px;
+            margin-bottom: 20px;
+            font-size: clamp(42px, 6vw, 68px);
+            line-height: 1.04;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            color: #dbeafe;
+            font-size: clamp(17px, 2vw, 21px);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 12px 18px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 900;
+            transition: transform .2s ease, background .2s ease;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .action-primary {
+            background: var(--orange);
+            color: #1f2937;
+        }
+
+        .action-primary:hover {
+            background: #fbbf24;
+        }
+
+        .action-secondary {
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,.28);
+            background: rgba(255,255,255,.08);
+        }
+
+        .article-shell {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 64px 0 86px;
+        }
+
+        .article-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: clamp(28px, 5vw, 58px);
+        }
+
+        .article-card h2 {
+            margin: 42px 0 16px;
+            color: var(--navy);
+            font-size: clamp(28px, 4vw, 39px);
+            line-height: 1.2;
+            letter-spacing: -0.7px;
+        }
+
+        .article-card h2:first-child {
+            margin-top: 0;
+        }
+
+        .article-card h3 {
+            margin: 28px 0 10px;
+            color: var(--blue);
+            font-size: 23px;
+        }
+
+        .article-card p {
+            margin-bottom: 18px;
+            color: #475569;
+            font-size: 17px;
+        }
+
+        .article-card ul,
+        .article-card ol {
+            margin: 0 0 20px 24px;
+            color: #475569;
+        }
+
+        .article-card li {
+            margin-bottom: 8px;
+        }
+
+        .formula-box {
+            margin: 26px 0;
+            padding: 24px;
+            border-left: 5px solid var(--cyan);
+            border-radius: 12px;
+            background: #eef8fd;
+        }
+
+        .formula-box strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--navy);
+            font-size: 18px;
+        }
+
+        .example-box {
+            margin: 26px 0;
+            padding: 24px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+        }
+
+        .example-box strong {
+            display: block;
+            margin-bottom: 10px;
+            color: #92400e;
+        }
+
+        .consequence-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 17px;
+            margin: 26px 0;
+        }
+
+        .consequence-card {
+            padding: 21px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+        }
+
+        .consequence-card strong {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--navy);
+        }
+
+        .website-note {
+            margin-top: 42px;
+            padding: 26px;
+            border-radius: 13px;
+            border: 1px solid #bfe5f5;
+            background: #eef9fd;
+        }
+
+        .website-note h2 {
+            margin-top: 0;
+            font-size: 27px;
+        }
+
+        .website-note .note-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .website-note a {
+            display: inline-flex;
+            padding: 11px 16px;
+            border-radius: 8px;
+            background: var(--blue);
+            color: #ffffff;
+            font-weight: 900;
+            text-decoration: none;
+        }
+
+        .website-note a:hover {
+            background: var(--navy);
+        }
+
+        .schedule-box {
+            margin-top: 42px;
+            padding: 30px;
+            border-radius: 14px;
+            background: var(--navy);
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .schedule-box h2 {
+            margin-top: 0;
+            color: #ffffff;
+        }
+
+        .schedule-box p {
+            color: #dbeafe;
+        }
+
+        .schedule-box a {
+            display: inline-flex;
+            margin-top: 10px;
+            padding: 13px 20px;
+            border-radius: 9px;
+            background: var(--orange);
+            color: #1f2937;
+            font-weight: 900;
+            text-decoration: none;
+        }
+
+        .schedule-box a:hover {
+            background: #fbbf24;
+        }
+
+        .disclaimer {
+            margin-top: 34px;
+            padding: 22px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+            color: #6b4d21;
+        }
+
+        .disclaimer strong {
+            display: block;
+            margin-bottom: 7px;
+            color: #92400e;
+        }
+
+        .site-footer {
+            background: #071625;
+            color: #cbd5e1;
+        }
+
+        .footer-inner {
+            width: min(92%, 1180px);
+            margin: auto;
+            padding: 34px 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .footer-inner strong {
+            color: #ffffff;
+        }
+
+        .footer-inner span {
+            color: #94a3b8;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        @media (max-width: 760px) {
+            .header-inner {
+                min-height: 64px;
+            }
+
+            .logo-link img {
+                height: 41px;
+            }
+
+            .back-link {
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+
+            .hero-inner {
+                padding: 58px 0 64px;
+            }
+
+            .consequence-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-inner span {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="language-bar" aria-label="Language selection">
+        <button type="button" data-lang="en" onclick="setLanguage('en')">English</button>
+        <button type="button" data-lang="es" onclick="setLanguage('es')">Español</button>
+        <button type="button" data-lang="pt" onclick="setLanguage('pt')">Português</button>
+        <button type="button" data-lang="it" onclick="setLanguage('it')">Italiano</button>
+    </div>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="logo-link" href="index.html" aria-label="BELTPRO home">
+                <img src="logo.png" alt="BELTPRO Logo">
+            </a>
+
+            <a class="back-link"
+               href="index.html#articles"
+               data-en="← Back to Technical Articles"
+               data-es="← Volver a Artículos Técnicos"
+               data-pt="← Voltar aos Artigos Técnicos"
+               data-it="← Torna agli Articoli Tecnici">
+                ← Back to Technical Articles
+            </a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="eyebrow"
+                  data-en="Technical Article"
+                  data-es="Artículo Técnico"
+                  data-pt="Artigo Técnico"
+                  data-it="Articolo Tecnico">
+                Technical Article
+            </span>
+
+            <h1 data-en="Installation Supervision and Warranty"
+                data-es="Supervisión de Instalación y Garantía"
+                data-pt="Supervisão de Instalação e Garantia"
+                data-it="Supervisione dell'Installazione e Garanzia">
+                Installation Supervision and Warranty
+            </h1>
+
+            <p data-en="Why proper installation is just as important as the quality of the belt itself."
+               data-es="Por qué una instalación correcta es tan importante como la calidad de la propia banda."
+               data-pt="Por que uma instalação correta é tão importante quanto a qualidade da própria esteira."
+               data-it="Perché una corretta installazione è importante quanto la qualità del nastro stesso.">
+                Why proper installation is just as important as the quality of the belt itself.
+            </p>
+
+            <div class="hero-actions">
+                <a class="action-button action-primary"
+                   href="index.html#contact"
+                   data-en="Request Installation Supervision"
+                   data-es="Solicitar Supervisión de Instalación"
+                   data-pt="Solicitar Supervisão de Instalação"
+                   data-it="Richiedi Supervisione dell'Installazione">
+                    Request Installation Supervision
+                </a>
+
+                <a class="action-button action-secondary"
+                   href="index.html#contact"
+                   data-en="Request Technical Assistance"
+                   data-es="Solicitar Asistencia Técnica"
+                   data-pt="Solicitar Assistência Técnica"
+                   data-it="Richiedi Assistenza Tecnica">
+                    Request Technical Assistance
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <main class="article-shell">
+        <article class="article-card">
+
+            <h2>Why Installation Quality Matters</h2>
+
+            <p>Purchasing a premium conveyor belt is only the first step toward achieving long service life and reliable operation. Even the highest-quality spiral conveyor belt or baking oven band can experience premature failure if installed incorrectly.</p>
+
+            <p>Most belt manufacturers provide detailed installation procedures based on years of engineering experience. Following these procedures during installation is essential for maximizing equipment reliability, supporting compliance with warranty conditions and achieving the expected service life.</p>
+
+            <p>Professional installation supervision helps ensure that every critical step is performed correctly before production begins and that the equipment starts operating within established mechanical, thermal and safety parameters.</p>
+
+            <h2>Spiral Conveyor Belts</h2>
+
+            <p>Spiral conveyor belts operate under complex loading conditions involving continuous tension, bending, fatigue, product loading and friction. Small installation errors often become larger problems after thousands of operating hours.</p>
+
+            <p>Professional installation supervision should verify the following areas.</p>
+
+            <h3>Belt Assembly</h3>
+            <ul>
+                <li>Correct belt orientation and direction of travel</li>
+                <li>Proper welding of links</li>
+                <li>Accurate alignment of the welded joint</li>
+                <li>Verification of overall belt dimensions</li>
+                <li>Inspection of weld quality</li>
+                <li>Proper edge condition</li>
+                <li>Correct rod, link and reinforcing-component installation</li>
+                <li>Confirmation that the splice does not introduce a tight or distorted section</li>
+            </ul>
+
+            <h3>Drive System</h3>
+            <ul>
+                <li>Correct sprocket positioning</li>
+                <li>Equal sprocket spacing</li>
+                <li>Proper sprocket timing</li>
+                <li>Verification of sprocket engagement</li>
+                <li>Correct side-drive or drum-drive interface</li>
+                <li>Inspection of chain alignment</li>
+                <li>Verification of shaft alignment, bearing condition and drive rotation</li>
+                <li>Confirmation that sprockets engage the intended belt components without forcing or interference</li>
+            </ul>
+
+            <h3>Cage Geometry</h3>
+            <ul>
+                <li>Drum concentricity</li>
+                <li>Correct cage diameter</li>
+                <li>Proper interface between cage bars and belt</li>
+                <li>Uniform cage-bar spacing</li>
+                <li>Correct spiral elevation</li>
+                <li>Correct level and plumb condition of the spiral structure</li>
+                <li>Verification that the belt follows a smooth path through the complete spiral</li>
+                <li>Inspection for local obstructions, protrusions or abrupt transitions</li>
+            </ul>
+
+            <h3>Belt Clearances</h3>
+
+            <p>One of the most frequently overlooked installation details is providing sufficient clearance for the belt to naturally swing outward at the spiral outfeed.</p>
+
+            <p>Insufficient clearance can cause:</p>
+            <ul>
+                <li>Belt edge damage</li>
+                <li>Excessive wear of plastic components</li>
+                <li>Tracking instability</li>
+                <li>Abnormal tension</li>
+                <li>Premature fatigue</li>
+                <li>Contact with guards, supports or discharge components</li>
+            </ul>
+
+            <p>Clearances should be verified throughout the entire belt path before production begins, including infeed, outfeed, transfer points, take-up area and the outermost belt swing positions.</p>
+
+            <h3>Take-Up and Initial Tension</h3>
+
+            <p>The take-up system must apply enough force to maintain stable belt control without creating unnecessary tension. The take-up weight, travel and freedom of movement should be checked against the belt manufacturer's recommendations.</p>
+
+            <ul>
+                <li>Correct take-up weight</li>
+                <li>Unrestricted take-up movement</li>
+                <li>Adequate remaining take-up travel</li>
+                <li>Correct cable, pulley and counterweight arrangement</li>
+                <li>Protection against binding or uneven loading</li>
+                <li>Verification that initial belt tension is not excessive</li>
+            </ul>
+
+            <h3>Initial Operating Parameters</h3>
+
+            <p>Installation supervision should also establish and document:</p>
+            <ul>
+                <li>Initial overdrive or belt-to-cage speed relationship</li>
+                <li>Chain tension</li>
+                <li>Cage rotation speed</li>
+                <li>Drive synchronization</li>
+                <li>Belt tracking</li>
+                <li>Safety-device operation</li>
+                <li>Lubrication points</li>
+                <li>Sensor functionality</li>
+                <li>Motor current and gearbox operating condition</li>
+                <li>Baseline operating tension and temperature</li>
+                <li>Acceptable start-up, shutdown and loading sequence</li>
+            </ul>
+
+            <h2>Industrial Baking Oven Bands</h2>
+
+            <p>Industrial baking oven bands require equally careful installation. Unlike spiral systems, baking bands must also maintain dimensional stability while operating at elevated temperatures.</p>
+
+            <p>Improper installation often leads to chronic tracking problems or damage that becomes increasingly difficult to correct. In severe cases, deformation, edge damage or an incorrectly formed splice may create irreversible damage.</p>
+
+            <h3>Band Preparation</h3>
+
+            <p>Installation supervision verifies:</p>
+            <ul>
+                <li>Correct belt width</li>
+                <li>Proper belt orientation and direction of travel</li>
+                <li>Correct number of crimps for the specific band construction</li>
+                <li>Correct joining method and roll sequence</li>
+                <li>Proper splice alignment</li>
+                <li>Dimensional verification</li>
+                <li>Correct edge condition at the joint</li>
+                <li>Absence of local waves, tight sections or diagonal distortion</li>
+            </ul>
+
+            <p>A poorly aligned splice is one of the most common causes of permanent tracking problems because every revolution repeats the same steering influence.</p>
+
+            <h3>Drum Geometry</h3>
+
+            <p>Both head and tail drums should be inspected for:</p>
+            <ul>
+                <li>Parallelism</li>
+                <li>Level</li>
+                <li>Surface condition</li>
+                <li>Bearing alignment</li>
+                <li>Shaft condition</li>
+                <li>Concentricity</li>
+                <li>Correct lagging, coating or surface texture where applicable</li>
+                <li>Absence of buildup, sharp defects or localized high spots</li>
+            </ul>
+
+            <p>Even small alignment errors may create unequal tension across the band width. Under operating tension and elevated temperature, this condition may lead to severe or irreversible band damage.</p>
+
+            <h3>Tracking System</h3>
+
+            <p>Tracking devices should never be used to compensate for incorrect oven geometry.</p>
+
+            <p>Installation supervision verifies:</p>
+            <ul>
+                <li>Tracker location</li>
+                <li>Control clearance</li>
+                <li>Guide clearance</li>
+                <li>Control sensitivity</li>
+                <li>Actuator operation</li>
+                <li>Free rotation of rollers</li>
+                <li>Correct response direction of automatic tracking controls</li>
+                <li>Equal and controlled contact with the band edges</li>
+                <li>Protection against continuous rubbing or overcorrection</li>
+            </ul>
+
+            <p>Correct positioning minimizes unnecessary contact with the band edges and allows the tracking system to make small corrections with maximum efficiency.</p>
+
+            <h3>Applied Band Tension</h3>
+
+            <p>Each oven-band construction requires an appropriate operating tension. Too little tension can cause slipping, poor control and unstable tracking, while excessive tension increases bearing loads, drum loads, power consumption and fatigue.</p>
+
+            <ul>
+                <li>Verify the specified tension for the band construction</li>
+                <li>Apply tension evenly across the band width</li>
+                <li>Confirm the tensioning mechanism moves freely</li>
+                <li>Check available adjustment travel</li>
+                <li>Record the final settings for future maintenance reference</li>
+            </ul>
+
+            <h3>Burn-In Procedure</h3>
+
+            <p>The first heating cycle is one of the most critical phases of installation.</p>
+
+            <p>The burn-in process should include:</p>
+            <ul>
+                <li>Gradual temperature increase</li>
+                <li>Progressive tension adjustment</li>
+                <li>Continuous tracking observation</li>
+                <li>Thermal expansion monitoring</li>
+                <li>Verification of band stability</li>
+                <li>Monitoring of splice behavior through repeated revolutions</li>
+                <li>Inspection of edge clearances at operating temperature</li>
+                <li>Controlled cool-down and post-run inspection</li>
+            </ul>
+
+            <p>Proper burn-in allows the band to stabilize before full production begins and provides an opportunity to identify developing problems before product is introduced.</p>
+
+            <h3>Thermal Performance</h3>
+
+            <p>A complete installation should also verify:</p>
+            <ul>
+                <li>Uniform temperature across the band width using a thermal camera</li>
+                <li>Burner performance</li>
+                <li>Airflow balance</li>
+                <li>Exhaust operation</li>
+                <li>Product path alignment</li>
+                <li>Condition of insulation, seals and access doors</li>
+                <li>Temperature consistency from one oven zone to another</li>
+            </ul>
+
+            <p>Temperature differences across the oven may affect product quality, thermal expansion and band tracking. A band exposed to significantly different temperatures from one side to the other may develop unequal expansion and a persistent steering tendency.</p>
+
+            <h3>Safety and Alarm Systems</h3>
+
+            <p>Before releasing the equipment for production, supervision should verify:</p>
+            <ul>
+                <li>Emergency stops</li>
+                <li>Belt alarm sensors</li>
+                <li>Broken-band detection</li>
+                <li>High-temperature alarms</li>
+                <li>Drive interlocks</li>
+                <li>Safety switches</li>
+                <li>Tracking-limit alarms</li>
+                <li>Loss-of-motion or zero-speed detection</li>
+                <li>Correct shutdown response during an abnormal condition</li>
+            </ul>
+
+            <h2>Commissioning Records and Warranty Support</h2>
+
+            <p>A supervised installation should create a clear commissioning record. This documentation helps demonstrate that the installation followed the manufacturer's procedures and provides a reliable reference for future inspections.</p>
+
+            <ul>
+                <li>Final alignment and level measurements</li>
+                <li>Take-up weight or applied tension</li>
+                <li>Drive and overdrive settings</li>
+                <li>Tracking-control positions and clearances</li>
+                <li>Operating temperatures and motor currents</li>
+                <li>Photographs of critical installation details</li>
+                <li>Sensor and safety-device test results</li>
+                <li>Initial belt-condition and splice-inspection records</li>
+            </ul>
+
+            <div class="formula-box">
+                <strong>Important warranty consideration</strong>
+                <p>Installation supervision can help demonstrate compliance with the belt manufacturer's procedures and warranty conditions. Final warranty coverage, however, remains subject to the manufacturer's written terms, operating limits, maintenance requirements and inspection findings.</p>
+            </div>
+
+            <h2>Staff Training</h2>
+
+            <p>Installation supervision should conclude with operator and maintenance training.</p>
+
+            <p>Personnel should understand:</p>
+            <ul>
+                <li>Correct start-up procedure</li>
+                <li>Proper shutdown sequence</li>
+                <li>Daily inspections</li>
+                <li>Belt tracking adjustments</li>
+                <li>Acceptable operating limits</li>
+                <li>Preventive maintenance</li>
+                <li>Warning signs of abnormal operation</li>
+                <li>Actions to take after a safety or tracking alarm</li>
+                <li>Which adjustments may be performed internally and which require specialist support</li>
+            </ul>
+
+            <p>Well-trained operators often identify developing problems before equipment damage occurs. Training also reduces the risk of unnecessary adjustments that can move the system away from its correct commissioned condition.</p>
+
+            <h2>Benefits of Professional Installation Supervision</h2>
+
+            <div class="consequence-grid">
+                <div class="consequence-card">
+                    <strong>Maximum belt life</strong>
+                    <p>Correct assembly, tension, alignment and commissioning reduce avoidable fatigue and wear.</p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong>Warranty compliance</strong>
+                    <p>Documented procedures help support compliance with manufacturer installation requirements.</p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong>Faster commissioning</strong>
+                    <p>Problems are identified and corrected before they become production failures.</p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong>Reduced downtime</strong>
+                    <p>Stable initial settings lower the risk of unexpected stops, product loss and emergency repairs.</p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong>Improved product quality</strong>
+                    <p>Stable tracking, correct centering and uniform temperature support repeatable production.</p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong>Lower maintenance cost</strong>
+                    <p>Correct operating parameters reduce unnecessary component replacement and repeated adjustment.</p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong>Safer operation</strong>
+                    <p>Verified sensors, alarms, interlocks and staff training improve operational safety.</p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong>Long-term repeatability</strong>
+                    <p>Recorded baseline settings provide reliable references for future inspections and maintenance.</p>
+                </div>
+            </div>
+
+            <h2>Conclusion</h2>
+
+            <p>A conveyor belt is one of the most valuable components of a spiral conveyor or industrial baking oven. Its long-term performance depends not only on its design and manufacturing quality, but also on how it is installed, aligned, tensioned and commissioned.</p>
+
+            <p>Professional installation supervision transforms a belt installation into a controlled engineering process, ensuring that the equipment begins its service life under the correct mechanical, thermal and operating conditions. The result is improved reliability, fewer unexpected failures, reduced product loss and years of stable operation.</p>
+
+            <section class="website-note">
+                <h2>Protect the Installation from the First Day</h2>
+                <p>BELTPRO provides field installation supervision, alignment verification, commissioning support and operator training for spiral conveyor belts and industrial baking oven bands throughout the Americas.</p>
+
+                <div class="note-actions">
+                    <a href="index.html#contact">Request Installation Supervision</a>
+                </div>
+            </section>
+
+            <div class="engineering-disclaimer">
+                <strong>Engineering Disclaimer</strong>
+                <p>This article provides general technical guidance. Installation procedures, acceptance criteria, operating limits and warranty conditions vary according to the belt manufacturer, equipment design and application. The manufacturer's current drawings, manuals and written instructions should always take precedence.</p>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <strong>BELTPRO</strong>
+            <span data-en="Spiral Conveyor Systems • Industrial Baking Ovens • Engineering Services — Serving Industry Since 2014"
+                  data-es="Sistemas Transportadores Espirales • Hornos Industriales • Servicios de Ingeniería — Al Servicio de la Industria Desde 2014"
+                  data-pt="Sistemas Transportadores Espirais • Fornos Industriais • Serviços de Engenharia — Atendendo a Indústria Desde 2014"
+                  data-it="Sistemi Trasportatori a Spirale • Forni Industriali • Servizi di Ingegneria — Al Servizio dell'Industria Dal 2014">
+                Spiral Conveyor Systems • Industrial Baking Ovens • Engineering Services — Serving Industry Since 2014
+            </span>
+        </div>
+    </footer>
+
+    <script>
+        function setLanguage(lang) {
+            const supported = ['en', 'es', 'pt', 'it'];
+            const selected = supported.includes(lang) ? lang : 'en';
+
+            document.documentElement.lang = selected;
+
+            document.querySelectorAll('[data-en]').forEach(function (element) {
+                const translation = element.getAttribute('data-' + selected);
+                if (translation !== null) {
+                    element.textContent = translation;
+                }
+            });
+
+            document.querySelectorAll('[data-lang]').forEach(function (button) {
+                button.classList.toggle('active', button.getAttribute('data-lang') === selected);
+            });
+
+            try {
+                localStorage.setItem('beltpro_lang', selected);
+            } catch (error) {}
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let savedLanguage = 'en';
+
+            try {
+                savedLanguage = localStorage.getItem('beltpro_lang') || 'en';
+            } catch (error) {}
+
+            setLanguage(savedLanguage);
+        });
+    </script>
+
+</body>
+</html>
