@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BELTPRO | Understanding System Turn Ratio</title>
+    <meta name="description"
+          content="Technical explanation of spiral conveyor system turn ratio, belt turn ratio, common minimum turn ratios and consequences of incorrect belt selection.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        :root {
+            --navy: #0b1f33;
+            --blue: #0f4c81;
+            --cyan: #38bdf8;
+            --orange: #f59e0b;
+            --text: #1f2937;
+            --muted: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #dbe5ee;
+            --shadow: 0 18px 45px rgba(15, 23, 42, 0.10);
+            --radius: 18px;
+            --max-width: 1050px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.72;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .language-bar {
+            background: #071625;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 8px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .language-bar button {
+            border: 0;
+            background: transparent;
+            color: #cbd5e1;
+            padding: 7px 9px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .language-bar button:hover,
+        .language-bar button.active {
+            color: #ffffff;
+            background: rgba(56, 189, 248, 0.16);
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 31, 51, 0.97);
+            box-shadow: 0 8px 25px rgba(2, 8, 23, 0.20);
+            backdrop-filter: blur(12px);
+        }
+
+        .header-inner {
+            width: min(94%, 1180px);
+            min-height: 72px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-link img {
+            height: 48px;
+            width: auto;
+            display: block;
+        }
+
+        .back-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 10px 14px;
+            border: 1px solid rgba(255,255,255,.20);
+            border-radius: 9px;
+        }
+
+        .back-link:hover {
+            color: var(--cyan);
+            background: rgba(255,255,255,.07);
+        }
+
+        .hero {
+            color: #ffffff;
+            background:
+                linear-gradient(90deg, rgba(5, 20, 35, 0.96), rgba(7, 31, 53, 0.80)),
+                url("beltbackground.jpg") center / cover no-repeat;
+        }
+
+        .hero-inner {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 76px 0 84px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            color: #bae6fd;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 34px;
+            height: 2px;
+            background: var(--cyan);
+        }
+
+        .hero h1 {
+            max-width: 850px;
+            margin-bottom: 20px;
+            font-size: clamp(42px, 6vw, 68px);
+            line-height: 1.04;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            color: #dbeafe;
+            font-size: clamp(17px, 2vw, 21px);
+        }
+
+        .article-shell {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 64px 0 86px;
+        }
+
+        .article-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: clamp(28px, 5vw, 58px);
+        }
+
+        .article-card h2 {
+            margin: 42px 0 16px;
+            color: var(--navy);
+            font-size: clamp(28px, 4vw, 39px);
+            line-height: 1.2;
+            letter-spacing: -0.7px;
+        }
+
+        .article-card h2:first-child {
+            margin-top: 0;
+        }
+
+        .article-card h3 {
+            margin: 28px 0 10px;
+            color: var(--blue);
+            font-size: 23px;
+        }
+
+        .article-card p {
+            margin-bottom: 18px;
+            color: #475569;
+            font-size: 17px;
+        }
+
+        .article-card ul,
+        .article-card ol {
+            margin: 0 0 20px 24px;
+            color: #475569;
+        }
+
+        .article-card li {
+            margin-bottom: 8px;
+        }
+
+        .formula-box {
+            margin: 26px 0;
+            padding: 24px;
+            border-left: 5px solid var(--cyan);
+            border-radius: 12px;
+            background: #eef8fd;
+        }
+
+        .formula-box strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--navy);
+            font-size: 18px;
+        }
+
+        .formula {
+            color: var(--blue);
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .example-box {
+            margin: 26px 0;
+            padding: 24px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+        }
+
+        .example-box strong {
+            display: block;
+            margin-bottom: 10px;
+            color: #92400e;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin: 26px 0;
+        }
+
+        .comparison-card {
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: #fbfdff;
+        }
+
+        .comparison-card h3 {
+            margin-top: 0;
+        }
+
+        .rule-box {
+            margin: 30px 0;
+            padding: 24px;
+            border-radius: 12px;
+            background: var(--navy);
+            color: #ffffff;
+            text-align: center;
+            font-size: clamp(18px, 3vw, 25px);
+            font-weight: 900;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin: 26px 0;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 620px;
+            background: #ffffff;
+        }
+
+        th,
+        td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: var(--navy);
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        tr:last-child td {
+            border-bottom: 0;
+        }
+
+        td:first-child {
+            color: var(--blue);
+            font-weight: 900;
+        }
+
+        .consequence-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 17px;
+            margin: 26px 0;
+        }
+
+        .consequence-card {
+            padding: 21px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+        }
+
+        .consequence-card strong {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--navy);
+        }
+
+        .website-note {
+            margin-top: 42px;
+            padding: 26px;
+            border-radius: 13px;
+            border: 1px solid #bfe5f5;
+            background: #eef9fd;
+        }
+
+        .website-note h2 {
+            margin-top: 0;
+            font-size: 27px;
+        }
+
+        .disclaimer {
+            margin-top: 34px;
+            padding: 22px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+            color: #6b4d21;
+        }
+
+        .disclaimer strong {
+            display: block;
+            margin-bottom: 7px;
+            color: #92400e;
+        }
+
+        .site-footer {
+            background: #071625;
+            color: #cbd5e1;
+        }
+
+        .footer-inner {
+            width: min(92%, 1180px);
+            margin: auto;
+            padding: 34px 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .footer-inner strong {
+            color: #ffffff;
+        }
+
+        .footer-inner span {
+            color: #94a3b8;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        @media (max-width: 760px) {
+            .header-inner {
+                min-height: 64px;
+            }
+
+            .logo-link img {
+                height: 41px;
+            }
+
+            .back-link {
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+
+            .hero-inner {
+                padding: 58px 0 64px;
+            }
+
+            .comparison,
+            .consequence-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-inner span {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="language-bar" aria-label="Language selection">
+        <button type="button" data-lang="en" onclick="setLanguage('en')">English</button>
+        <button type="button" data-lang="es" onclick="setLanguage('es')">Español</button>
+        <button type="button" data-lang="pt" onclick="setLanguage('pt')">Português</button>
+        <button type="button" data-lang="it" onclick="setLanguage('it')">Italiano</button>
+    </div>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="logo-link" href="index.html" aria-label="BELTPRO home">
+                <img src="logo.png" alt="BELTPRO Logo">
+            </a>
+
+            <a class="back-link"
+               href="index.html#articles"
+               data-en="← Back to Technical Articles"
+               data-es="← Volver a Artículos Técnicos"
+               data-pt="← Voltar aos Artigos Técnicos"
+               data-it="← Torna agli Articoli Tecnici">
+                ← Back to Technical Articles
+            </a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="eyebrow"
+                  data-en="Technical Article"
+                  data-es="Artículo Técnico"
+                  data-pt="Artigo Técnico"
+                  data-it="Articolo Tecnico">
+                Technical Article
+            </span>
+
+            <h1 data-en="Understanding System Turn Ratio"
+                data-es="Comprendiendo el Turn Ratio del Sistema"
+                data-pt="Entendendo o Turn Ratio do Sistema"
+                data-it="Comprendere il Turn Ratio del Sistema">
+                Understanding System Turn Ratio
+            </h1>
+
+            <p data-en="A practical engineering explanation of spiral geometry, belt compatibility and the importance of selecting the correct minimum turn ratio."
+               data-es="Una explicación práctica de ingeniería sobre geometría de espirales, compatibilidad de bandas y la importancia de seleccionar el turn ratio mínimo correcto."
+               data-pt="Uma explicação prática de engenharia sobre geometria de espirais, compatibilidade de esteiras e a importância de selecionar o turn ratio mínimo correto."
+               data-it="Una spiegazione pratica di ingegneria sulla geometria delle spirali, la compatibilità del nastro e l'importanza di selezionare il corretto turn ratio minimo.">
+                A practical engineering explanation of spiral geometry, belt compatibility and the importance of selecting the correct minimum turn ratio.
+            </p>
+        </div>
+    </section>
+
+    <main class="article-shell">
+        <article class="article-card">
+
+            <h2 data-en="What Is System Turn Ratio?"
+                data-es="¿Qué es el Turn Ratio del Sistema?"
+                data-pt="O que é o Turn Ratio do Sistema?"
+                data-it="Che cos'è il Turn Ratio del Sistema?">
+                What Is System Turn Ratio?
+            </h2>
+
+            <p data-en="The System Turn Ratio is the geometric relationship between the spiral system radius and the conveyor belt width. It defines how tightly the belt must turn around the spiral."
+               data-es="El Turn Ratio del Sistema es la relación geométrica entre el radio del sistema espiral y el ancho de la banda transportadora. Define qué tan cerrada debe ser la curva de la banda alrededor de la espiral."
+               data-pt="O Turn Ratio do Sistema é a relação geométrica entre o raio do sistema espiral e a largura da esteira transportadora. Ele define quão fechada deve ser a curva realizada pela esteira ao redor do espiral."
+               data-it="Il Turn Ratio del Sistema è il rapporto geometrico tra il raggio del sistema a spirale e la larghezza del nastro trasportatore. Definisce quanto stretta deve essere la curva del nastro intorno alla spirale.">
+                The System Turn Ratio is the geometric relationship between the spiral system radius and the conveyor belt width. It defines how tightly the belt must turn around the spiral.
+            </p>
+
+            <div class="formula-box">
+                <strong data-en="System Turn Ratio formula"
+                        data-es="Fórmula del Turn Ratio del Sistema"
+                        data-pt="Fórmula do Turn Ratio do Sistema"
+                        data-it="Formula del Turn Ratio del Sistema">
+                    System Turn Ratio formula
+                </strong>
+
+                <div class="formula">
+                    System Turn Ratio = System Radius ÷ Belt Width
+                </div>
+            </div>
+
+            <p data-en="The System Radius is one-half of the drum diameter. Because the radius and belt width are expressed in the same unit, the resulting turn ratio is dimensionless."
+               data-es="El Radio del Sistema es la mitad del diámetro del tambor. Como el radio y el ancho de la banda se expresan en la misma unidad, el turn ratio resultante es adimensional."
+               data-pt="O Raio do Sistema corresponde à metade do diâmetro do tambor. Como o raio e a largura da esteira são expressos na mesma unidade, o turn ratio resultante é adimensional."
+               data-it="Il Raggio del Sistema corrisponde alla metà del diametro del tamburo. Poiché il raggio e la larghezza del nastro sono espressi nella stessa unità, il turn ratio risultante è adimensionale.">
+                The System Radius is one-half of the drum diameter. Because the radius and belt width are expressed in the same unit, the resulting turn ratio is dimensionless.
+            </p>
+
+            <div class="example-box">
+                <strong data-en="Example"
+                        data-es="Ejemplo"
+                        data-pt="Exemplo"
+                        data-it="Esempio">Example</strong>
+
+                <p data-en="For a spiral with a 2200 mm drum diameter and a 1000 mm wide belt, the system radius is 1100 mm and the System Turn Ratio is 1.10."
+                   data-es="Para una espiral con un tambor de 2200 mm de diámetro y una banda de 1000 mm de ancho, el radio del sistema es 1100 mm y el Turn Ratio del Sistema es 1,10."
+                   data-pt="Para um espiral com tambor de 2200 mm de diâmetro e uma esteira com 1000 mm de largura, o raio do sistema é 1100 mm e o Turn Ratio do Sistema é 1,10."
+                   data-it="Per una spirale con un tamburo di 2200 mm di diametro e un nastro largo 1000 mm, il raggio del sistema è 1100 mm e il Turn Ratio del Sistema è 1,10.">
+                    For a spiral with a 2200 mm drum diameter and a 1000 mm wide belt, the system radius is 1100 mm and the System Turn Ratio is 1.10.
+                </p>
+            </div>
+
+            <h2 data-en="Why Turn Ratio Matters"
+                data-es="Por Qué Importa el Turn Ratio"
+                data-pt="Por que o Turn Ratio é Importante"
+                data-it="Perché il Turn Ratio è Importante">
+                Why Turn Ratio Matters
+            </h2>
+
+            <p data-en="Every spiral conveyor belt has a minimum allowable turn ratio defined by its construction. A belt designed for a certain minimum turn ratio cannot operate correctly on a spiral whose System Turn Ratio is lower."
+               data-es="Cada banda transportadora espiral tiene un turn ratio mínimo permitido definido por su construcción. Una banda diseñada para un determinado turn ratio mínimo no puede funcionar correctamente en una espiral cuyo Turn Ratio del Sistema sea menor."
+               data-pt="Toda esteira transportadora espiral possui um turn ratio mínimo admissível definido por sua construção. Uma esteira projetada para determinado turn ratio mínimo não pode funcionar corretamente em um espiral cujo Turn Ratio do Sistema seja menor."
+               data-it="Ogni nastro trasportatore a spirale possiede un turn ratio minimo ammesso definito dalla sua costruzione. Un nastro progettato per un determinato turn ratio minimo non può funzionare correttamente su una spirale con un Turn Ratio del Sistema inferiore.">
+                Every spiral conveyor belt has a minimum allowable turn ratio defined by its construction. A belt designed for a certain minimum turn ratio cannot operate correctly on a spiral whose System Turn Ratio is lower.
+            </p>
+
+            <p data-en="When the system radius is too small for the selected belt, the inside edge is forced to compress beyond its intended geometry. This may prevent the belt from collapsing correctly and may create excessive internal forces, instability and permanent deformation."
+               data-es="Cuando el radio del sistema es demasiado pequeño para la banda seleccionada, el borde interior es obligado a comprimirse más allá de su geometría prevista. Esto puede impedir que la banda se comprima correctamente y puede generar fuerzas internas excesivas, inestabilidad y deformación permanente."
+               data-pt="Quando o raio do sistema é pequeno demais para a esteira selecionada, a borda interna é forçada a comprimir além da geometria prevista. Isso pode impedir a correta compressão da esteira e gerar forças internas excessivas, instabilidade e deformação permanente."
+               data-it="Quando il raggio del sistema è troppo piccolo per il nastro selezionato, il bordo interno viene costretto a comprimersi oltre la geometria prevista. Ciò può impedire la corretta compressione del nastro e generare forze interne eccessive, instabilità e deformazione permanente.">
+                When the system radius is too small for the selected belt, the inside edge is forced to compress beyond its intended geometry. This may prevent the belt from collapsing correctly and may create excessive internal forces, instability and permanent deformation.
+            </p>
+
+            <div class="rule-box">
+                Belt Minimum Turn Ratio ≤ System Turn Ratio
+            </div>
+
+            <h2 data-en="Difference Between System Turn Ratio and Belt Turn Ratio"
+                data-es="Diferencia Entre Turn Ratio del Sistema y Turn Ratio de la Banda"
+                data-pt="Diferença Entre Turn Ratio do Sistema e Turn Ratio da Esteira"
+                data-it="Differenza Tra Turn Ratio del Sistema e Turn Ratio del Nastro">
+                Difference Between System Turn Ratio and Belt Turn Ratio
+            </h2>
+
+            <div class="comparison">
+                <section class="comparison-card">
+                    <h3 data-en="System Turn Ratio"
+                        data-es="Turn Ratio del Sistema"
+                        data-pt="Turn Ratio do Sistema"
+                        data-it="Turn Ratio del Sistema">
+                        System Turn Ratio
+                    </h3>
+
+                    <p data-en="A property of the spiral conveyor system. It is determined by the drum diameter and belt width."
+                       data-es="Una propiedad del sistema transportador espiral. Está determinada por el diámetro del tambor y el ancho de la banda."
+                       data-pt="Uma propriedade do sistema transportador espiral. É determinado pelo diâmetro do tambor e pela largura da esteira."
+                       data-it="Una proprietà del sistema trasportatore a spirale. È determinato dal diametro del tamburo e dalla larghezza del nastro.">
+                        A property of the spiral conveyor system. It is determined by the drum diameter and belt width.
+                    </p>
+                </section>
+
+                <section class="comparison-card">
+                    <h3 data-en="Belt Turn Ratio"
+                        data-es="Turn Ratio de la Banda"
+                        data-pt="Turn Ratio da Esteira"
+                        data-it="Turn Ratio del Nastro">
+                        Belt Turn Ratio
+                    </h3>
+
+                    <p data-en="A property of the belt design. It represents the minimum turn ratio the belt can negotiate while maintaining its intended geometry."
+                       data-es="Una propiedad del diseño de la banda. Representa el turn ratio mínimo que la banda puede recorrer manteniendo su geometría prevista."
+                       data-pt="Uma propriedade do projeto da esteira. Representa o turn ratio mínimo que a esteira consegue percorrer mantendo sua geometria prevista."
+                       data-it="Una proprietà del progetto del nastro. Rappresenta il turn ratio minimo che il nastro può percorrere mantenendo la geometria prevista.">
+                        A property of the belt design. It represents the minimum turn ratio the belt can negotiate while maintaining its intended geometry.
+                    </p>
+                </section>
+            </div>
+
+            <p data-en="The belt turn ratio is mainly determined by the relationship between the expanded pitch and the compressed pitch of the belt."
+               data-es="El turn ratio de la banda está determinado principalmente por la relación entre el paso expandido y el paso comprimido de la banda."
+               data-pt="O turn ratio da esteira é determinado principalmente pela relação entre o passo expandido e o passo comprimido da esteira."
+               data-it="Il turn ratio del nastro è determinato principalmente dal rapporto tra il passo espanso e il passo compresso del nastro.">
+                The belt turn ratio is mainly determined by the relationship between the expanded pitch and the compressed pitch of the belt.
+            </p>
+
+            <ul>
+                <li data-en="Expanded pitch"
+                    data-es="Paso expandido"
+                    data-pt="Passo expandido"
+                    data-it="Passo espanso">Expanded pitch</li>
+
+                <li data-en="Compressed pitch"
+                    data-es="Paso comprimido"
+                    data-pt="Passo comprimido"
+                    data-it="Passo compresso">Compressed pitch</li>
+            </ul>
+
+            <h2 data-en="Common Minimum Turn Ratios"
+                data-es="Turn Ratios Mínimos Más Comunes"
+                data-pt="Turn Ratios Mínimos Mais Comuns"
+                data-it="Turn Ratio Minimi Più Comuni">
+                Common Minimum Turn Ratios
+            </h2>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-en="Minimum Turn Ratio"
+                                data-es="Turn Ratio Mínimo"
+                                data-pt="Turn Ratio Mínimo"
+                                data-it="Turn Ratio Minimo">Minimum Turn Ratio</th>
+
+                            <th data-en="Common Belt Classification"
+                                data-es="Clasificación Común de la Banda"
+                                data-pt="Classificação Comum da Esteira"
+                                data-it="Classificazione Comune del Nastro">Common Belt Classification</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>2.2</td>
+                            <td data-en="Standard radius spiral belts"
+                                data-es="Bandas espirales de radio estándar"
+                                data-pt="Esteiras espirais de raio padrão"
+                                data-it="Nastri a spirale a raggio standard">Standard radius spiral belts</td>
+                        </tr>
+
+                        <tr>
+                            <td>2.0</td>
+                            <td data-en="Standard and medium-radius spiral belts"
+                                data-es="Bandas espirales de radio estándar e intermedio"
+                                data-pt="Esteiras espirais de raio padrão e intermediário"
+                                data-it="Nastri a spirale a raggio standard e intermedio">Standard and medium-radius spiral belts</td>
+                        </tr>
+
+                        <tr>
+                            <td>1.7</td>
+                            <td data-en="Compact-radius spiral belts"
+                                data-es="Bandas espirales de radio compacto"
+                                data-pt="Esteiras espirais de raio compacto"
+                                data-it="Nastri a spirale a raggio compatto">Compact-radius spiral belts</td>
+                        </tr>
+
+                        <tr>
+                            <td>1.6</td>
+                            <td data-en="Reduced Radius belts"
+                                data-es="Bandas de Radio Reducido"
+                                data-pt="Esteiras de Raio Reduzido"
+                                data-it="Nastri a Raggio Ridotto">Reduced Radius belts</td>
+                        </tr>
+
+                        <tr>
+                            <td>1.0</td>
+                            <td data-en="Small Radius belts"
+                                data-es="Bandas de Radio Pequeño"
+                                data-pt="Esteiras Small Radius"
+                                data-it="Nastri Small Radius">Small Radius belts</td>
+                        </tr>
+
+                        <tr>
+                            <td>0.8</td>
+                            <td data-en="Super Small Radius belts"
+                                data-es="Bandas Super Small Radius"
+                                data-pt="Esteiras Super Small Radius"
+                                data-it="Nastri Super Small Radius">Super Small Radius belts</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p data-en="As the minimum turn ratio decreases, the belt must accommodate a tighter curve. This requires a belt geometry specifically designed to achieve greater inside-edge compression."
+               data-es="A medida que disminuye el turn ratio mínimo, la banda debe adaptarse a una curva más cerrada. Esto requiere una geometría de banda específicamente diseñada para lograr una mayor compresión del borde interior."
+               data-pt="À medida que o turn ratio mínimo diminui, a esteira precisa acomodar uma curva mais fechada. Isso exige uma geometria de esteira especificamente projetada para obter maior compressão da borda interna."
+               data-it="Con la diminuzione del turn ratio minimo, il nastro deve adattarsi a una curva più stretta. Ciò richiede una geometria del nastro specificamente progettata per ottenere una maggiore compressione del bordo interno.">
+                As the minimum turn ratio decreases, the belt must accommodate a tighter curve. This requires a belt geometry specifically designed to achieve greater inside-edge compression.
+            </p>
+
+            <h2 data-en="Consequences of Using an Incorrect Turn Ratio"
+                data-es="Consecuencias de Utilizar un Turn Ratio Incorrecto"
+                data-pt="Consequências do Uso de um Turn Ratio Incorreto"
+                data-it="Conseguenze dell'Uso di un Turn Ratio Errato">
+                Consequences of Using an Incorrect Turn Ratio
+            </h2>
+
+            <div class="consequence-grid">
+                <div class="consequence-card">
+                    <strong data-en="Improper belt compression"
+                            data-es="Compresión incorrecta de la banda"
+                            data-pt="Compressão incorreta da esteira"
+                            data-it="Compressione errata del nastro">Improper belt compression</strong>
+
+                    <p data-en="The inside edge may not collapse correctly around the drum."
+                       data-es="El borde interior puede no comprimirse correctamente alrededor del tambor."
+                       data-pt="A borda interna pode não comprimir corretamente ao redor do tambor."
+                       data-it="Il bordo interno potrebbe non comprimersi correttamente intorno al tamburo.">
+                        The inside edge may not collapse correctly around the drum.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Link deformation"
+                            data-es="Deformación de los eslabones"
+                            data-pt="Deformação dos elos"
+                            data-it="Deformazione delle maglie">Link deformation</strong>
+
+                    <p data-en="Links may be forced beyond their intended compressed position."
+                       data-es="Los eslabones pueden ser forzados más allá de su posición comprimida prevista."
+                       data-pt="Os elos podem ser forçados além da posição comprimida prevista."
+                       data-it="Le maglie possono essere forzate oltre la posizione compressa prevista.">
+                        Links may be forced beyond their intended compressed position.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Belt instability"
+                            data-es="Inestabilidad de la banda"
+                            data-pt="Instabilidade da esteira"
+                            data-it="Instabilità del nastro">Belt instability</strong>
+
+                    <p data-en="Incorrect geometry may contribute to poor tracking and unstable belt movement."
+                       data-es="Una geometría incorrecta puede contribuir a un guiado deficiente y a un movimiento inestable de la banda."
+                       data-pt="Uma geometria incorreta pode contribuir para tracking inadequado e movimento instável da esteira."
+                       data-it="Una geometria errata può contribuire a un tracking insufficiente e a un movimento instabile del nastro.">
+                        Incorrect geometry may contribute to poor tracking and unstable belt movement.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Accelerated fatigue"
+                            data-es="Fatiga acelerada"
+                            data-pt="Fadiga acelerada"
+                            data-it="Fatica accelerata">Accelerated fatigue</strong>
+
+                    <p data-en="Repeated operation under excessive geometric restriction may reduce belt service life."
+                       data-es="La operación repetida bajo una restricción geométrica excesiva puede reducir la vida útil de la banda."
+                       data-pt="A operação repetida sob restrição geométrica excessiva pode reduzir a vida útil da esteira."
+                       data-it="Il funzionamento ripetuto con una restrizione geometrica eccessiva può ridurre la vita utile del nastro.">
+                        Repeated operation under excessive geometric restriction may reduce belt service life.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Rod and connection damage"
+                            data-es="Daños en varillas y conexiones"
+                            data-pt="Danos em varetas e conexões"
+                            data-it="Danni a barre e collegamenti">Rod and connection damage</strong>
+
+                    <p data-en="Excessive internal forces may increase wear or deformation at the belt connections."
+                       data-es="Las fuerzas internas excesivas pueden aumentar el desgaste o la deformación en las conexiones de la banda."
+                       data-pt="Forças internas excessivas podem aumentar o desgaste ou a deformação nas conexões da esteira."
+                       data-it="Forze interne eccessive possono aumentare l'usura o la deformazione nei collegamenti del nastro.">
+                        Excessive internal forces may increase wear or deformation at the belt connections.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Reduced service life"
+                            data-es="Reducción de la vida útil"
+                            data-pt="Redução da vida útil"
+                            data-it="Riduzione della vita utile">Reduced service life</strong>
+
+                    <p data-en="Even when the belt continues to run, incorrect turn-ratio compatibility may shorten its expected operating life."
+                       data-es="Incluso cuando la banda continúa funcionando, una compatibilidad incorrecta del turn ratio puede reducir su vida útil esperada."
+                       data-pt="Mesmo quando a esteira continua operando, a incompatibilidade de turn ratio pode reduzir sua vida útil esperada."
+                       data-it="Anche quando il nastro continua a funzionare, un'errata compatibilità del turn ratio può ridurne la vita utile prevista.">
+                        Even when the belt continues to run, incorrect turn-ratio compatibility may shorten its expected operating life.
+                    </p>
+                </div>
+            </div>
+
+            <h2 data-en="Engineering Recommendation"
+                data-es="Recomendación de Ingeniería"
+                data-pt="Recomendação de Engenharia"
+                data-it="Raccomandazione di Ingegneria">
+                Engineering Recommendation
+            </h2>
+
+            <ol>
+                <li data-en="Determine the System Turn Ratio from the spiral geometry."
+                    data-es="Determine el Turn Ratio del Sistema a partir de la geometría de la espiral."
+                    data-pt="Determine o Turn Ratio do Sistema a partir da geometria do espiral."
+                    data-it="Determinare il Turn Ratio del Sistema dalla geometria della spirale.">
+                    Determine the System Turn Ratio from the spiral geometry.
+                </li>
+
+                <li data-en="Confirm the minimum allowable turn ratio of the proposed belt."
+                    data-es="Confirme el turn ratio mínimo permitido de la banda propuesta."
+                    data-pt="Confirme o turn ratio mínimo admissível da esteira proposta."
+                    data-it="Confermare il turn ratio minimo ammesso del nastro proposto.">
+                    Confirm the minimum allowable turn ratio of the proposed belt.
+                </li>
+
+                <li data-en="Only use a belt whose minimum turn ratio is equal to or lower than the System Turn Ratio."
+                    data-es="Utilice solamente una banda cuyo turn ratio mínimo sea igual o menor que el Turn Ratio del Sistema."
+                    data-pt="Utilize somente uma esteira cujo turn ratio mínimo seja igual ou menor que o Turn Ratio do Sistema."
+                    data-it="Utilizzare solo un nastro il cui turn ratio minimo sia uguale o inferiore al Turn Ratio del Sistema.">
+                    Only use a belt whose minimum turn ratio is equal to or lower than the System Turn Ratio.
+                </li>
+
+                <li data-en="Also evaluate product support, belt weight, open area, fatigue performance, sanitation and operating conditions."
+                    data-es="Evalúe también el soporte del producto, peso de la banda, área abierta, comportamiento a fatiga, higiene y condiciones de operación."
+                    data-pt="Avalie também suporte do produto, peso da esteira, área aberta, desempenho à fadiga, higienização e condições operacionais."
+                    data-it="Valutare anche supporto del prodotto, peso del nastro, area aperta, prestazioni a fatica, sanificazione e condizioni operative.">
+                    Also evaluate product support, belt weight, open area, fatigue performance, sanitation and operating conditions.
+                </li>
+            </ol>
+
+            <section class="website-note">
+                <h2 data-en="BELTPRO Engineering Calculators"
+                    data-es="Calculadoras de Ingeniería BELTPRO"
+                    data-pt="Calculadoras de Engenharia BELTPRO"
+                    data-it="Calcolatori di Ingegneria BELTPRO">
+                    BELTPRO Engineering Calculators
+                </h2>
+
+                <p data-en="The BELTPRO website includes dedicated calculators for System Turn Ratio and Belt Turn Ratio. These tools can assist with preliminary geometry verification and belt compatibility checks."
+                   data-es="El sitio web de BELTPRO incluye calculadoras específicas para el Turn Ratio del Sistema y el Turn Ratio de la Banda. Estas herramientas pueden ayudar en la verificación preliminar de la geometría y la compatibilidad de la banda."
+                   data-pt="O website da BELTPRO possui calculadoras específicas para Turn Ratio do Sistema e Turn Ratio da Esteira. Essas ferramentas podem auxiliar na verificação preliminar da geometria e da compatibilidade da esteira."
+                   data-it="Il sito BELTPRO include calcolatori specifici per il Turn Ratio del Sistema e il Turn Ratio del Nastro. Questi strumenti possono aiutare nella verifica preliminare della geometria e della compatibilità del nastro.">
+                    The BELTPRO website includes dedicated calculators for System Turn Ratio and Belt Turn Ratio. These tools can assist with preliminary geometry verification and belt compatibility checks.
+                </p>
+            </section>
+
+            <div class="disclaimer">
+                <strong data-en="Engineering Disclaimer"
+                        data-es="Aviso de Ingeniería"
+                        data-pt="Aviso de Engenharia"
+                        data-it="Avvertenza di Ingegneria">
+                    Engineering Disclaimer
+                </strong>
+
+                <p data-en="This article is intended for general technical guidance and preliminary engineering reference only. Belt selection must be verified against the actual system geometry, operating conditions and the belt manufacturer's specifications."
+                   data-es="Este artículo está destinado únicamente a orientación técnica general y referencia preliminar de ingeniería. La selección de la banda debe verificarse según la geometría real del sistema, las condiciones de operación y las especificaciones del fabricante."
+                   data-pt="Este artigo destina-se somente a orientação técnica geral e referência preliminar de engenharia. A seleção da esteira deve ser verificada com base na geometria real do sistema, nas condições operacionais e nas especificações do fabricante."
+                   data-it="Questo articolo è destinato esclusivamente a orientamento tecnico generale e riferimento preliminare di ingegneria. La selezione del nastro deve essere verificata in base alla geometria reale del sistema, alle condizioni operative e alle specifiche del produttore.">
+                    This article is intended for general technical guidance and preliminary engineering reference only. Belt selection must be verified against the actual system geometry, operating conditions and the belt manufacturer's specifications.
+                </p>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <strong>BELTPRO</strong>
+            <span>
+                © <span id="currentYear"></span> BELTPRO ·
+                <span data-en="Serving Industry Since 2014"
+                      data-es="Atendiendo a la Industria Desde 2014"
+                      data-pt="Atendendo a Indústria Desde 2014"
+                      data-it="Al Servizio dell'Industria Dal 2014">
+                    Serving Industry Since 2014
+                </span>
+            </span>
+        </div>
+    </footer>
+
+    <script>
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-' + lang + ']').forEach(function (element) {
+                element.innerHTML = element.getAttribute('data-' + lang);
+            });
+
+            document.documentElement.setAttribute('lang', lang);
+
+            try {
+                localStorage.setItem('beltpro_lang', lang);
+            } catch (error) {
+                console.warn('Language preference could not be saved.', error);
+            }
+
+            document.querySelectorAll('.language-bar button').forEach(function (button) {
+                button.classList.toggle('active', button.getAttribute('data-lang') === lang);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var savedLanguage = 'en';
+
+            try {
+                savedLanguage = localStorage.getItem('beltpro_lang') || 'en';
+            } catch (error) {
+                console.warn('Language preference could not be loaded.', error);
+            }
+
+            setLanguage(savedLanguage);
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+
+</body>
+</html>
