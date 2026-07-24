@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BELTPRO | The Importance of Measuring Spiral Belt Tension</title>
+    <meta name="description"
+          content="Technical explanation of spiral conveyor belt tension, metal belt fatigue, allowable tension limits, field measurement and system adjustment.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        :root {
+            --navy: #0b1f33;
+            --blue: #0f4c81;
+            --cyan: #38bdf8;
+            --orange: #f59e0b;
+            --text: #1f2937;
+            --muted: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #dbe5ee;
+            --shadow: 0 18px 45px rgba(15, 23, 42, 0.10);
+            --radius: 18px;
+            --max-width: 1050px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.72;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .language-bar {
+            background: #071625;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 8px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .language-bar button {
+            border: 0;
+            background: transparent;
+            color: #cbd5e1;
+            padding: 7px 9px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .language-bar button:hover,
+        .language-bar button.active {
+            color: #ffffff;
+            background: rgba(56, 189, 248, 0.16);
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 31, 51, 0.97);
+            box-shadow: 0 8px 25px rgba(2, 8, 23, 0.20);
+            backdrop-filter: blur(12px);
+        }
+
+        .header-inner {
+            width: min(94%, 1180px);
+            min-height: 72px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-link img {
+            height: 48px;
+            width: auto;
+            display: block;
+        }
+
+        .back-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 10px 14px;
+            border: 1px solid rgba(255,255,255,.20);
+            border-radius: 9px;
+        }
+
+        .back-link:hover {
+            color: var(--cyan);
+            background: rgba(255,255,255,.07);
+        }
+
+        .hero {
+            color: #ffffff;
+            background:
+                linear-gradient(90deg, rgba(5, 20, 35, 0.96), rgba(7, 31, 53, 0.80)),
+                url("beltbackground.jpg") center / cover no-repeat;
+        }
+
+        .hero-inner {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 76px 0 84px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            color: #bae6fd;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 34px;
+            height: 2px;
+            background: var(--cyan);
+        }
+
+        .hero h1 {
+            max-width: 900px;
+            margin-bottom: 20px;
+            font-size: clamp(42px, 6vw, 68px);
+            line-height: 1.04;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            color: #dbeafe;
+            font-size: clamp(17px, 2vw, 21px);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 12px 18px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 900;
+            transition: transform .2s ease, background .2s ease;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .action-primary {
+            background: var(--orange);
+            color: #1f2937;
+        }
+
+        .action-primary:hover {
+            background: #fbbf24;
+        }
+
+        .action-secondary {
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,.28);
+            background: rgba(255,255,255,.08);
+        }
+
+        .article-shell {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 64px 0 86px;
+        }
+
+        .article-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: clamp(28px, 5vw, 58px);
+        }
+
+        .article-card h2 {
+            margin: 42px 0 16px;
+            color: var(--navy);
+            font-size: clamp(28px, 4vw, 39px);
+            line-height: 1.2;
+            letter-spacing: -0.7px;
+        }
+
+        .article-card h2:first-child {
+            margin-top: 0;
+        }
+
+        .article-card h3 {
+            margin: 28px 0 10px;
+            color: var(--blue);
+            font-size: 23px;
+        }
+
+        .article-card p {
+            margin-bottom: 18px;
+            color: #475569;
+            font-size: 17px;
+        }
+
+        .article-card ul,
+        .article-card ol {
+            margin: 0 0 20px 24px;
+            color: #475569;
+        }
+
+        .article-card li {
+            margin-bottom: 8px;
+        }
+
+        .formula-box {
+            margin: 26px 0;
+            padding: 24px;
+            border-left: 5px solid var(--cyan);
+            border-radius: 12px;
+            background: #eef8fd;
+        }
+
+        .formula-box strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--navy);
+            font-size: 18px;
+        }
+
+        .example-box {
+            margin: 26px 0;
+            padding: 24px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+        }
+
+        .example-box strong {
+            display: block;
+            margin-bottom: 10px;
+            color: #92400e;
+        }
+
+        .consequence-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 17px;
+            margin: 26px 0;
+        }
+
+        .consequence-card {
+            padding: 21px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+        }
+
+        .consequence-card strong {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--navy);
+        }
+
+        .website-note {
+            margin-top: 42px;
+            padding: 26px;
+            border-radius: 13px;
+            border: 1px solid #bfe5f5;
+            background: #eef9fd;
+        }
+
+        .website-note h2 {
+            margin-top: 0;
+            font-size: 27px;
+        }
+
+        .website-note .note-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .website-note a {
+            display: inline-flex;
+            padding: 11px 16px;
+            border-radius: 8px;
+            background: var(--blue);
+            color: #ffffff;
+            font-weight: 900;
+            text-decoration: none;
+        }
+
+        .website-note a:hover {
+            background: var(--navy);
+        }
+
+        .schedule-box {
+            margin-top: 42px;
+            padding: 30px;
+            border-radius: 14px;
+            background: var(--navy);
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .schedule-box h2 {
+            margin-top: 0;
+            color: #ffffff;
+        }
+
+        .schedule-box p {
+            color: #dbeafe;
+        }
+
+        .schedule-box a {
+            display: inline-flex;
+            margin-top: 10px;
+            padding: 13px 20px;
+            border-radius: 9px;
+            background: var(--orange);
+            color: #1f2937;
+            font-weight: 900;
+            text-decoration: none;
+        }
+
+        .schedule-box a:hover {
+            background: #fbbf24;
+        }
+
+        .disclaimer {
+            margin-top: 34px;
+            padding: 22px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+            color: #6b4d21;
+        }
+
+        .disclaimer strong {
+            display: block;
+            margin-bottom: 7px;
+            color: #92400e;
+        }
+
+        .site-footer {
+            background: #071625;
+            color: #cbd5e1;
+        }
+
+        .footer-inner {
+            width: min(92%, 1180px);
+            margin: auto;
+            padding: 34px 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .footer-inner strong {
+            color: #ffffff;
+        }
+
+        .footer-inner span {
+            color: #94a3b8;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        @media (max-width: 760px) {
+            .header-inner {
+                min-height: 64px;
+            }
+
+            .logo-link img {
+                height: 41px;
+            }
+
+            .back-link {
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+
+            .hero-inner {
+                padding: 58px 0 64px;
+            }
+
+            .consequence-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-inner span {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="language-bar" aria-label="Language selection">
+        <button type="button" data-lang="en" onclick="setLanguage('en')">English</button>
+        <button type="button" data-lang="es" onclick="setLanguage('es')">Español</button>
+        <button type="button" data-lang="pt" onclick="setLanguage('pt')">Português</button>
+        <button type="button" data-lang="it" onclick="setLanguage('it')">Italiano</button>
+    </div>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="logo-link" href="index.html" aria-label="BELTPRO home">
+                <img src="logo.png" alt="BELTPRO Logo">
+            </a>
+
+            <a class="back-link"
+               href="index.html#articles"
+               data-en="← Back to Technical Articles"
+               data-es="← Volver a Artículos Técnicos"
+               data-pt="← Voltar aos Artigos Técnicos"
+               data-it="← Torna agli Articoli Tecnici">
+                ← Back to Technical Articles
+            </a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="eyebrow"
+                  data-en="Technical Article"
+                  data-es="Artículo Técnico"
+                  data-pt="Artigo Técnico"
+                  data-it="Articolo Tecnico">
+                Technical Article
+            </span>
+
+            <h1 data-en="The Importance of Measuring Spiral Belt Tension"
+                data-es="La Importancia de Medir la Tensión de la Banda Espiral"
+                data-pt="A Importância de Medir a Tensão da Esteira Espiral"
+                data-it="L'Importanza di Misurare la Tensione del Nastro a Spirale">
+                The Importance of Measuring Spiral Belt Tension
+            </h1>
+
+            <p data-en="Why direct tension measurement is essential for protecting belt life, maintaining stable operation and preventing costly spiral conveyor damage."
+               data-es="Por qué la medición directa de la tensión es esencial para proteger la vida útil de la banda, mantener una operación estable y prevenir daños costosos en el transportador espiral."
+               data-pt="Por que a medição direta da tensão é essencial para proteger a vida útil da esteira, manter uma operação estável e evitar danos de alto custo no transportador espiral."
+               data-it="Perché la misurazione diretta della tensione è essenziale per proteggere la durata del nastro, mantenere un funzionamento stabile e prevenire costosi danni al trasportatore a spirale.">
+                Why direct tension measurement is essential for protecting belt life, maintaining stable operation and preventing costly spiral conveyor damage.
+            </p>
+
+            <div class="hero-actions">
+                <a class="action-button action-primary"
+                   href="index.html#contact"
+                   data-en="Schedule a Belt Tension Measurement"
+                   data-es="Programar una Medición de Tensión"
+                   data-pt="Agendar uma Medição de Tensão"
+                   data-it="Programma una Misurazione della Tensione">
+                    Schedule a Belt Tension Measurement
+                </a>
+
+                <a class="action-button action-secondary"
+                   href="index.html#calculators"
+                   data-en="View Engineering Calculators"
+                   data-es="Ver Calculadoras de Ingeniería"
+                   data-pt="Ver Calculadoras de Engenharia"
+                   data-it="Visualizza i Calcolatori di Ingegneria">
+                    View Engineering Calculators
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <main class="article-shell">
+        <article class="article-card">
+
+            <h2 data-en="Metal Belts Fail Due to Fatigue"
+                data-es="Las Bandas Metálicas Fallan por Fatiga"
+                data-pt="Esteiras Metálicas Falham por Fadiga"
+                data-it="I Nastri Metallici Cedono per Fatica">
+                Metal Belts Fail Due to Fatigue
+            </h2>
+
+            <p data-en="Metal conveyor belts are designed to operate under controlled mechanical conditions. Their service life depends not only on the belt material and construction, but also on the tension generated by the spiral conveyor system."
+               data-es="Las bandas transportadoras metálicas están diseñadas para operar bajo condiciones mecánicas controladas. Su vida útil depende no solo del material y la construcción de la banda, sino también de la tensión generada por el sistema espiral."
+               data-pt="As esteiras transportadoras metálicas são projetadas para operar sob condições mecânicas controladas. Sua vida útil depende não apenas do material e da construção da esteira, mas também da tensão gerada pelo sistema espiral."
+               data-it="I nastri trasportatori metallici sono progettati per funzionare in condizioni meccaniche controllate. La loro durata dipende non solo dal materiale e dalla costruzione del nastro, ma anche dalla tensione generata dal sistema a spirale.">
+                Metal conveyor belts are designed to operate under controlled mechanical conditions. Their service life depends not only on the belt material and construction, but also on the tension generated by the spiral conveyor system.
+            </p>
+
+            <p data-en="Metal belts normally fail because of fatigue caused by repeated loading cycles. During every complete revolution of the spiral conveyor, the belt links, rods and edge components are subjected to changing mechanical forces."
+               data-es="Las bandas metálicas normalmente fallan debido a la fatiga causada por ciclos repetidos de carga. Durante cada revolución completa del transportador espiral, los eslabones, varillas y componentes de los bordes están sometidos a fuerzas mecánicas variables."
+               data-pt="As esteiras metálicas normalmente falham devido à fadiga causada por ciclos repetidos de carregamento. Durante cada volta completa do transportador espiral, os elos, varetas e componentes das bordas são submetidos a forças mecânicas variáveis."
+               data-it="I nastri metallici normalmente cedono a causa della fatica provocata da cicli di carico ripetuti. Durante ogni giro completo del trasportatore a spirale, le maglie, le barre e i componenti dei bordi sono sottoposti a forze meccaniche variabili.">
+                Metal belts normally fail because of fatigue caused by repeated loading cycles. During every complete revolution of the spiral conveyor, the belt links, rods and edge components are subjected to changing mechanical forces.
+            </p>
+
+            <p data-en="Over time, these repeated stresses can initiate cracks and eventually cause belt failure. The number of cycles a belt can withstand depends strongly on the tension under which it operates."
+               data-es="Con el tiempo, estas tensiones repetidas pueden iniciar grietas y finalmente causar la falla de la banda. El número de ciclos que una banda puede soportar depende en gran medida de la tensión bajo la cual opera."
+               data-pt="Com o tempo, essas tensões repetidas podem iniciar trincas e, por fim, causar a falha da esteira. O número de ciclos que uma esteira pode suportar depende fortemente da tensão sob a qual ela opera."
+               data-it="Nel tempo, queste sollecitazioni ripetute possono generare cricche e infine causare il cedimento del nastro. Il numero di cicli che un nastro può sopportare dipende fortemente dalla tensione alla quale opera.">
+                Over time, these repeated stresses can initiate cracks and eventually cause belt failure. The number of cycles a belt can withstand depends strongly on the tension under which it operates.
+            </p>
+
+            <div class="formula-box">
+                <strong data-en="Belt life principle"
+                        data-es="Principio de vida útil de la banda"
+                        data-pt="Princípio de vida útil da esteira"
+                        data-it="Principio di durata del nastro">
+                    Belt life principle
+                </strong>
+
+                <p data-en="A belt operating within its designed tension limits can provide a long and predictable service life. A belt operating under excessive tension may fail much earlier than expected."
+                   data-es="Una banda que opera dentro de sus límites de tensión de diseño puede ofrecer una vida útil larga y predecible. Una banda que opera con tensión excesiva puede fallar mucho antes de lo esperado."
+                   data-pt="Uma esteira operando dentro dos limites de tensão de projeto pode oferecer uma vida útil longa e previsível. Uma esteira operando com tensão excessiva pode falhar muito antes do esperado."
+                   data-it="Un nastro che opera entro i limiti di tensione di progetto può garantire una durata lunga e prevedibile. Un nastro che opera con tensione eccessiva può cedere molto prima del previsto.">
+                    A belt operating within its designed tension limits can provide a long and predictable service life. A belt operating under excessive tension may fail much earlier than expected.
+                </p>
+            </div>
+
+            <section class="website-note">
+                <h2 data-en="Estimate Belt Operating Cycles"
+                    data-es="Estime los Ciclos de Operación de la Banda"
+                    data-pt="Estime os Ciclos de Operação da Esteira"
+                    data-it="Stima i Cicli Operativi del Nastro">
+                    Estimate Belt Operating Cycles
+                </h2>
+
+                <p data-en="To estimate how many years a belt may take to reach 100,000 cycles under your specific operating conditions, use the BELTPRO Cycles Calculator."
+                   data-es="Para estimar cuántos años puede tardar una banda en alcanzar 100.000 ciclos bajo sus condiciones específicas de operación, utilice la Calculadora de Ciclos BELTPRO."
+                   data-pt="Para estimar quantos anos uma esteira pode levar para atingir 100.000 ciclos nas suas condições específicas de operação, utilize a Calculadora de Ciclos BELTPRO."
+                   data-it="Per stimare quanti anni può impiegare un nastro per raggiungere 100.000 cicli nelle specifiche condizioni operative, utilizza il Calcolatore di Cicli BELTPRO.">
+                    To estimate how many years a belt may take to reach 100,000 cycles under your specific operating conditions, use the BELTPRO Cycles Calculator.
+                </p>
+
+                <div class="note-actions">
+                    <a href="index.html#calculators"
+                       data-en="Open the Cycles Calculator"
+                       data-es="Abrir la Calculadora de Ciclos"
+                       data-pt="Abrir a Calculadora de Ciclos"
+                       data-it="Apri il Calcolatore di Cicli">
+                        Open the Cycles Calculator
+                    </a>
+                </div>
+            </section>
+
+            <h2 data-en="Excessive Tension Reduces Belt Life"
+                data-es="La Tensión Excesiva Reduce la Vida Útil"
+                data-pt="A Tensão Excessiva Reduz a Vida Útil"
+                data-it="La Tensione Eccessiva Riduce la Durata">
+                Excessive Tension Reduces Belt Life
+            </h2>
+
+            <p data-en="When a metal belt operates above its maximum allowable tension, the stress applied to its components increases significantly."
+               data-es="Cuando una banda metálica opera por encima de su tensión máxima permitida, el esfuerzo aplicado a sus componentes aumenta significativamente."
+               data-pt="Quando uma esteira metálica opera acima da tensão máxima admissível, o esforço aplicado aos seus componentes aumenta significativamente."
+               data-it="Quando un nastro metallico opera oltre la tensione massima consentita, la sollecitazione applicata ai suoi componenti aumenta significativamente.">
+                When a metal belt operates above its maximum allowable tension, the stress applied to its components increases significantly.
+            </p>
+
+            <p data-en="This does not produce a proportional reduction in belt life. In practice, belt life can decrease exponentially as operating tension rises above the recommended limit, potentially causing thousands of dollars in losses."
+               data-es="Esto no produce una reducción proporcional de la vida útil. En la práctica, la vida útil puede disminuir exponencialmente a medida que la tensión de operación supera el límite recomendado, causando potencialmente pérdidas de miles de dólares."
+               data-pt="Isso não produz uma redução proporcional da vida útil. Na prática, a vida útil pode diminuir exponencialmente à medida que a tensão de operação ultrapassa o limite recomendado, podendo causar prejuízos de milhares de dólares."
+               data-it="Ciò non produce una riduzione proporzionale della durata. In pratica, la durata può diminuire esponenzialmente quando la tensione operativa supera il limite raccomandato, causando potenzialmente perdite di migliaia di dollari.">
+                This does not produce a proportional reduction in belt life. In practice, belt life can decrease exponentially as operating tension rises above the recommended limit, potentially causing thousands of dollars in losses.
+            </p>
+
+            <p data-en="Even a moderate increase in tension may therefore result in a substantial reduction in useful belt life."
+               data-es="Por lo tanto, incluso un aumento moderado de la tensión puede causar una reducción considerable de la vida útil."
+               data-pt="Portanto, mesmo um aumento moderado da tensão pode resultar em uma redução significativa da vida útil."
+               data-it="Pertanto, anche un aumento moderato della tensione può comportare una riduzione sostanziale della durata utile del nastro.">
+                Even a moderate increase in tension may therefore result in a substantial reduction in useful belt life.
+            </p>
+
+            <h3 data-en="Common causes of excessive belt tension"
+                data-es="Causas comunes de tensión excesiva"
+                data-pt="Causas comuns de tensão excessiva"
+                data-it="Cause comuni di tensione eccessiva">
+                Common causes of excessive belt tension
+            </h3>
+
+            <ul>
+                <li data-en="Incorrect overdrive or belt-to-drum speed relationship" data-es="Overdrive incorrecto o relación incorrecta entre la velocidad de la banda y del tambor" data-pt="Overdrive incorreto ou relação incorreta entre as velocidades da esteira e do tambor" data-it="Overdrive errato o rapporto errato tra velocità del nastro e del tamburo">Incorrect overdrive or belt-to-drum speed relationship</li>
+                <li data-en="Excessive friction between the belt and support rails" data-es="Fricción excesiva entre la banda y los rieles de soporte" data-pt="Atrito excessivo entre a esteira e os trilhos de apoio" data-it="Attrito eccessivo tra il nastro e le guide di supporto">Excessive friction between the belt and support rails</li>
+                <li data-en="Poorly adjusted take-up or tensioning systems" data-es="Sistemas de compensación o tensionamiento mal ajustados" data-pt="Sistemas de esticamento ou tensionamento mal ajustados" data-it="Sistemi di recupero o tensionamento regolati in modo errato">Poorly adjusted take-up or tensioning systems</li>
+                <li data-en="Misaligned conveyor components" data-es="Componentes del transportador desalineados" data-pt="Componentes do transportador desalinhados" data-it="Componenti del trasportatore disallineati">Misaligned conveyor components</li>
+                <li data-en="Damaged or contaminated wear strips" data-es="Guías de desgaste dañadas o contaminadas" data-pt="Guias de desgaste danificadas ou contaminadas" data-it="Guide di usura danneggiate o contaminate">Damaged or contaminated wear strips</li>
+                <li data-en="Incorrect belt loading" data-es="Carga incorrecta de la banda" data-pt="Carregamento incorreto da esteira" data-it="Carico errato del nastro">Incorrect belt loading</li>
+                <li data-en="Mechanical restrictions inside the spiral" data-es="Restricciones mecánicas dentro de la espiral" data-pt="Restrições mecânicas dentro do espiral" data-it="Restrizioni meccaniche all'interno della spirale">Mechanical restrictions inside the spiral</li>
+                <li data-en="Improper drive or sprocket adjustment" data-es="Ajuste incorrecto del accionamiento o de las ruedas dentadas" data-pt="Ajuste incorreto do acionamento ou das engrenagens" data-it="Regolazione errata dell'azionamento o dei pignoni">Improper drive or sprocket adjustment</li>
+                <li data-en="Seized shafts" data-es="Ejes trabados" data-pt="Eixos travados" data-it="Alberi bloccati">Seized shafts</li>
+            </ul>
+
+            <div class="example-box">
+                <strong data-en="Important"
+                        data-es="Importante"
+                        data-pt="Importante"
+                        data-it="Importante">Important</strong>
+
+                <p data-en="Belt tension should be measured under actual operating conditions rather than estimated only from motor current, drive torque or visual inspection."
+                   data-es="La tensión de la banda debe medirse bajo condiciones reales de operación en lugar de estimarse únicamente a partir de la corriente del motor, el torque del accionamiento o la inspección visual."
+                   data-pt="A tensão da esteira deve ser medida nas condições reais de operação, em vez de ser estimada apenas pela corrente do motor, torque do acionamento ou inspeção visual."
+                   data-it="La tensione del nastro deve essere misurata nelle reali condizioni operative invece di essere stimata unicamente dalla corrente del motore, dalla coppia dell'azionamento o dall'ispezione visiva.">
+                    Belt tension should be measured under actual operating conditions rather than estimated only from motor current, drive torque or visual inspection.
+                </p>
+            </div>
+
+            <h2 data-en="Maximum Allowable Belt Tension"
+                data-es="Tensión Máxima Permitida de la Banda"
+                data-pt="Tensão Máxima Admissível da Esteira"
+                data-it="Tensione Massima Consentita del Nastro">
+                Maximum Allowable Belt Tension
+            </h2>
+
+            <p data-en="Different belt types, pitches, edge constructions and applications have different allowable tension limits."
+               data-es="Los diferentes tipos de banda, pasos, construcciones de borde y aplicaciones tienen distintos límites de tensión permitida."
+               data-pt="Diferentes tipos de esteira, passos, construções de borda e aplicações possuem diferentes limites de tensão admissível."
+               data-it="Tipi di nastro, passi, costruzioni dei bordi e applicazioni differenti hanno diversi limiti di tensione consentita.">
+                Different belt types, pitches, edge constructions and applications have different allowable tension limits.
+            </p>
+
+            <p data-en="The BELTPRO website provides a Maximum Allowable Tension Calculator that allows users to select the belt type and pitch and obtain a preliminary maximum allowable tension value."
+               data-es="El sitio web de BELTPRO ofrece una Calculadora de Tensión Máxima Permitida que permite seleccionar el tipo y el paso de la banda y obtener un valor preliminar de tensión máxima permitida."
+               data-pt="O website da BELTPRO oferece uma Calculadora de Tensão Máxima Admissível que permite selecionar o tipo e o passo da esteira e obter um valor preliminar de tensão máxima admissível."
+               data-it="Il sito BELTPRO offre un Calcolatore della Tensione Massima Consentita che permette di selezionare il tipo e il passo del nastro e ottenere un valore preliminare della tensione massima consentita.">
+                The BELTPRO website provides a Maximum Allowable Tension Calculator that allows users to select the belt type and pitch and obtain a preliminary maximum allowable tension value.
+            </p>
+
+            <p data-en="This calculator can help maintenance and engineering teams compare measured belt tension with the recommended operating limit."
+               data-es="Esta calculadora puede ayudar a los equipos de mantenimiento e ingeniería a comparar la tensión medida con el límite de operación recomendado."
+               data-pt="Essa calculadora pode ajudar as equipes de manutenção e engenharia a comparar a tensão medida com o limite de operação recomendado."
+               data-it="Questo calcolatore può aiutare i team di manutenzione e ingegneria a confrontare la tensione misurata con il limite operativo raccomandato.">
+                This calculator can help maintenance and engineering teams compare measured belt tension with the recommended operating limit.
+            </p>
+
+            <section class="website-note">
+                <h2 data-en="BELTPRO Maximum Allowable Tension Calculator"
+                    data-es="Calculadora BELTPRO de Tensión Máxima Permitida"
+                    data-pt="Calculadora BELTPRO de Tensão Máxima Admissível"
+                    data-it="Calcolatore BELTPRO della Tensione Massima Consentita">
+                    BELTPRO Maximum Allowable Tension Calculator
+                </h2>
+
+                <p data-en="The calculator is intended as an engineering reference. Actual allowable tension may also depend on belt condition, system geometry, operating temperature, product loading and the belt manufacturer's recommendations."
+                   data-es="La calculadora está destinada a servir como referencia de ingeniería. La tensión permitida real también puede depender del estado de la banda, la geometría del sistema, la temperatura de operación, la carga del producto y las recomendaciones del fabricante."
+                   data-pt="A calculadora destina-se a servir como referência de engenharia. A tensão admissível real também pode depender da condição da esteira, geometria do sistema, temperatura de operação, carga de produto e recomendações do fabricante."
+                   data-it="Il calcolatore è destinato a essere un riferimento ingegneristico. La tensione effettivamente consentita può dipendere anche dalle condizioni del nastro, dalla geometria del sistema, dalla temperatura operativa, dal carico del prodotto e dalle raccomandazioni del produttore.">
+                    The calculator is intended as an engineering reference. Actual allowable tension may also depend on belt condition, system geometry, operating temperature, product loading and the belt manufacturer's recommendations.
+                </p>
+
+                <div class="note-actions">
+                    <a href="index.html#calculators"
+                       data-en="Open the Maximum Tension Calculator"
+                       data-es="Abrir la Calculadora de Tensión Máxima"
+                       data-pt="Abrir a Calculadora de Tensão Máxima"
+                       data-it="Apri il Calcolatore della Tensione Massima">
+                        Open the Maximum Tension Calculator
+                    </a>
+                </div>
+            </section>
+
+            <h2 data-en="Belt Tension Measurement"
+                data-es="Medición de la Tensión de la Banda"
+                data-pt="Medição da Tensão da Esteira"
+                data-it="Misurazione della Tensione del Nastro">
+                Belt Tension Measurement
+            </h2>
+
+            <p data-en="BELTPRO can perform direct belt tension measurements using a tension gauge on operating metal or plastic spiral conveyor systems."
+               data-es="BELTPRO puede realizar mediciones directas de tensión mediante un medidor de tensión en sistemas espirales con bandas metálicas o plásticas en operación."
+               data-pt="A BELTPRO pode realizar medições diretas de tensão utilizando um medidor de tensão em sistemas espirais com esteiras metálicas ou plásticas em operação."
+               data-it="BELTPRO può eseguire misurazioni dirette della tensione mediante un misuratore su sistemi a spirale con nastri metallici o plastici in funzione.">
+                BELTPRO can perform direct belt tension measurements using a tension gauge on operating metal or plastic spiral conveyor systems.
+            </p>
+
+            <p data-en="The objective is to determine whether the belt is operating within its designed limits and to identify where excessive tension is being generated."
+               data-es="El objetivo es determinar si la banda opera dentro de sus límites de diseño e identificar dónde se genera la tensión excesiva."
+               data-pt="O objetivo é determinar se a esteira está operando dentro dos limites de projeto e identificar onde a tensão excessiva está sendo gerada."
+               data-it="L'obiettivo è determinare se il nastro opera entro i limiti di progetto e identificare dove viene generata la tensione eccessiva.">
+                The objective is to determine whether the belt is operating within its designed limits and to identify where excessive tension is being generated.
+            </p>
+
+            <h3 data-en="A complete evaluation may include"
+                data-es="Una evaluación completa puede incluir"
+                data-pt="Uma avaliação completa pode incluir"
+                data-it="Una valutazione completa può includere">
+                A complete evaluation may include
+            </h3>
+
+            <ul>
+                <li data-en="Belt tension measurement" data-es="Medición de tensión de la banda" data-pt="Medição de tensão da esteira" data-it="Misurazione della tensione del nastro">Belt tension measurement</li>
+                <li data-en="Overdrive measurement" data-es="Medición del overdrive" data-pt="Medição do overdrive" data-it="Misurazione dell'overdrive">Overdrive measurement</li>
+                <li data-en="Belt and drum speed verification" data-es="Verificación de las velocidades de la banda y del tambor" data-pt="Verificação das velocidades da esteira e do tambor" data-it="Verifica delle velocità del nastro e del tamburo">Belt and drum speed verification</li>
+                <li data-en="Inspection of support rails and wear strips" data-es="Inspección de rieles de soporte y guías de desgaste" data-pt="Inspeção dos trilhos de apoio e guias de desgaste" data-it="Ispezione delle guide di supporto e di usura">Inspection of support rails and wear strips</li>
+                <li data-en="Drive and sprocket inspection" data-es="Inspección del accionamiento y de las ruedas dentadas" data-pt="Inspeção do acionamento e das engrenagens" data-it="Ispezione dell'azionamento e dei pignoni">Drive and sprocket inspection</li>
+                <li data-en="Take-up system inspection" data-es="Inspección del sistema de compensación" data-pt="Inspeção do sistema de esticamento" data-it="Ispezione del sistema di recupero">Take-up system inspection</li>
+                <li data-en="Belt loading review" data-es="Revisión de la carga de la banda" data-pt="Avaliação do carregamento da esteira" data-it="Verifica del carico del nastro">Belt loading review</li>
+                <li data-en="Alignment checks" data-es="Verificaciones de alineación" data-pt="Verificações de alinhamento" data-it="Controlli di allineamento">Alignment checks</li>
+                <li data-en="Review of system operating parameters" data-es="Revisión de los parámetros operativos del sistema" data-pt="Revisão dos parâmetros operacionais do sistema" data-it="Verifica dei parametri operativi del sistema">Review of system operating parameters</li>
+            </ul>
+
+            <p data-en="Measured data provides a much more reliable basis for adjustment than assumptions or visual observations alone."
+               data-es="Los datos medidos proporcionan una base mucho más confiable para los ajustes que las suposiciones o las observaciones visuales por sí solas."
+               data-pt="Os dados medidos fornecem uma base muito mais confiável para os ajustes do que apenas suposições ou observações visuais."
+               data-it="I dati misurati forniscono una base molto più affidabile per le regolazioni rispetto alle sole supposizioni o osservazioni visive.">
+                Measured data provides a much more reliable basis for adjustment than assumptions or visual observations alone.
+            </p>
+
+            <h2 data-en="System Adjustment"
+                data-es="Ajuste del Sistema"
+                data-pt="Ajuste do Sistema"
+                data-it="Regolazione del Sistema">
+                System Adjustment
+            </h2>
+
+            <p data-en="After measuring the belt tension, BELTPRO can help adjust the operating parameters that influence belt performance."
+               data-es="Después de medir la tensión de la banda, BELTPRO puede ayudar a ajustar los parámetros operativos que influyen en su desempeño."
+               data-pt="Após medir a tensão da esteira, a BELTPRO pode ajudar a ajustar os parâmetros operacionais que influenciam seu desempenho."
+               data-it="Dopo aver misurato la tensione del nastro, BELTPRO può aiutare a regolare i parametri operativi che ne influenzano le prestazioni.">
+                After measuring the belt tension, BELTPRO can help adjust the operating parameters that influence belt performance.
+            </p>
+
+            <ul>
+                <li data-en="Correcting overdrive" data-es="Corrección del overdrive" data-pt="Correção do overdrive" data-it="Correzione dell'overdrive">Correcting overdrive</li>
+                <li data-en="Adjusting take-up weight or position" data-es="Ajuste del peso o de la posición del sistema de compensación" data-pt="Ajuste do peso ou da posição do sistema de esticamento" data-it="Regolazione del peso o della posizione del sistema di recupero">Adjusting take-up weight or position</li>
+                <li data-en="Reducing unnecessary friction" data-es="Reducción de la fricción innecesaria" data-pt="Redução do atrito desnecessário" data-it="Riduzione dell'attrito non necessario">Reducing unnecessary friction</li>
+                <li data-en="Correcting rail or wear-strip problems" data-es="Corrección de problemas en rieles o guías de desgaste" data-pt="Correção de problemas nos trilhos ou guias de desgaste" data-it="Correzione di problemi alle guide di supporto o di usura">Correcting rail or wear-strip problems</li>
+                <li data-en="Improving drive synchronization" data-es="Mejora de la sincronización del accionamiento" data-pt="Melhoria da sincronização do acionamento" data-it="Miglioramento della sincronizzazione dell'azionamento">Improving drive synchronization</li>
+                <li data-en="Correcting sprocket engagement" data-es="Corrección del engrane de las ruedas dentadas" data-pt="Correção do engrenamento das engrenagens" data-it="Correzione dell'ingranamento dei pignoni">Correcting sprocket engagement</li>
+                <li data-en="Adjusting product loading" data-es="Ajuste de la carga de producto" data-pt="Ajuste do carregamento de produto" data-it="Regolazione del carico del prodotto">Adjusting product loading</li>
+                <li data-en="Improving system alignment" data-es="Mejora de la alineación del sistema" data-pt="Melhoria do alinhamento do sistema" data-it="Miglioramento dell'allineamento del sistema">Improving system alignment</li>
+                <li data-en="Eliminating mechanical restrictions" data-es="Eliminación de restricciones mecánicas" data-pt="Eliminação de restrições mecânicas" data-it="Eliminazione delle restrizioni meccaniche">Eliminating mechanical restrictions</li>
+            </ul>
+
+            <p data-en="The purpose of these adjustments is not simply to reduce tension as much as possible. The objective is to establish stable operating tension within the belt's designed range while maintaining smooth and stable operation."
+               data-es="El propósito de estos ajustes no es simplemente reducir la tensión tanto como sea posible. El objetivo es establecer una tensión operativa estable dentro del rango de diseño de la banda y mantener una operación uniforme y estable."
+               data-pt="O objetivo desses ajustes não é simplesmente reduzir a tensão ao máximo. O objetivo é estabelecer uma tensão operacional estável dentro da faixa de projeto da esteira, mantendo uma operação suave e estável."
+               data-it="Lo scopo di queste regolazioni non è semplicemente ridurre la tensione il più possibile. L'obiettivo è stabilire una tensione operativa stabile entro l'intervallo di progetto del nastro, mantenendo un funzionamento regolare e stabile.">
+                The purpose of these adjustments is not simply to reduce tension as much as possible. The objective is to establish stable operating tension within the belt's designed range while maintaining smooth and stable operation.
+            </p>
+
+            <h2 data-en="Preventing Belt and System Problems"
+                data-es="Prevención de Problemas en la Banda y el Sistema"
+                data-pt="Prevenção de Problemas na Esteira e no Sistema"
+                data-it="Prevenzione dei Problemi del Nastro e del Sistema">
+                Preventing Belt and System Problems
+            </h2>
+
+            <p data-en="Correct belt tension measurement and adjustment can help prevent:"
+               data-es="La medición y el ajuste correctos de la tensión pueden ayudar a prevenir:"
+               data-pt="A medição e o ajuste corretos da tensão podem ajudar a evitar:"
+               data-it="La corretta misurazione e regolazione della tensione possono aiutare a prevenire:">
+                Correct belt tension measurement and adjustment can help prevent:
+            </p>
+
+            <div class="consequence-grid">
+                <div class="consequence-card"><strong data-en="Belt flip-up" data-es="Levantamiento o vuelco de la banda" data-pt="Flip-up da esteira" data-it="Sollevamento o ribaltamento del nastro">Belt flip-up</strong><p data-en="Unstable belt movement can rapidly develop into major belt and equipment damage." data-es="El movimiento inestable de la banda puede convertirse rápidamente en daños importantes a la banda y al equipo." data-pt="O movimento instável da esteira pode evoluir rapidamente para danos graves à esteira e ao equipamento." data-it="Il movimento instabile del nastro può rapidamente causare gravi danni al nastro e all'impianto.">Unstable belt movement can rapidly develop into major belt and equipment damage.</p></div>
+                <div class="consequence-card"><strong data-en="Belt lifting and unstable tracking" data-es="Levantamiento y guiado inestable" data-pt="Levantamento e tracking instável" data-it="Sollevamento e tracking instabile">Belt lifting and unstable tracking</strong><p data-en="The belt may lift from the support rails or move unpredictably through the spiral." data-es="La banda puede levantarse de los rieles de soporte o moverse de forma impredecible dentro de la espiral." data-pt="A esteira pode levantar dos trilhos de apoio ou mover-se de forma imprevisível dentro do espiral." data-it="Il nastro può sollevarsi dalle guide di supporto o muoversi in modo imprevedibile nella spirale.">The belt may lift from the support rails or move unpredictably through the spiral.</p></div>
+                <div class="consequence-card"><strong data-en="Broken rods, links and edge damage" data-es="Rotura de varillas, eslabones y daños en los bordes" data-pt="Quebra de varetas, elos e danos nas bordas" data-it="Rottura di barre, maglie e danni ai bordi">Broken rods, links and edge damage</strong><p data-en="Excessive stress and unstable operation can damage critical belt components." data-es="La tensión excesiva y la operación inestable pueden dañar componentes críticos de la banda." data-pt="A tensão excessiva e a operação instável podem danificar componentes críticos da esteira." data-it="Sollecitazioni eccessive e funzionamento instabile possono danneggiare componenti critici del nastro.">Excessive stress and unstable operation can damage critical belt components.</p></div>
+                <div class="consequence-card"><strong data-en="Production loss and downtime" data-es="Pérdida de producción y tiempo de inactividad" data-pt="Perda de produção e parada não programada" data-it="Perdita di produzione e fermo impianto">Production loss and downtime</strong><p data-en="A belt problem can interrupt production and require extensive corrective maintenance." data-es="Un problema en la banda puede interrumpir la producción y exigir un mantenimiento correctivo extenso." data-pt="Um problema na esteira pode interromper a produção e exigir manutenção corretiva extensa." data-it="Un problema al nastro può interrompere la produzione e richiedere interventi correttivi estesi.">A belt problem can interrupt production and require extensive corrective maintenance.</p></div>
+                <div class="consequence-card"><strong data-en="Sprocket engagement problems" data-es="Problemas de engrane de las ruedas dentadas" data-pt="Problemas de engrenamento" data-it="Problemi di ingranamento dei pignoni">Sprocket engagement problems</strong><p data-en="Incorrect tension and alignment can interfere with consistent sprocket engagement." data-es="La tensión y la alineación incorrectas pueden interferir con un engrane uniforme." data-pt="A tensão e o alinhamento incorretos podem interferir no engrenamento uniforme." data-it="Tensione e allineamento errati possono interferire con l'ingranamento regolare.">Incorrect tension and alignment can interfere with consistent sprocket engagement.</p></div>
+                <div class="consequence-card"><strong data-en="Damage to the spiral conveyor system" data-es="Daños al sistema transportador espiral" data-pt="Danos ao sistema transportador espiral" data-it="Danni al sistema trasportatore a spirale">Damage to the spiral conveyor system</strong><p data-en="Belt distortion may damage rails, drives, sprockets and other conveyor components." data-es="La deformación de la banda puede dañar rieles, accionamientos, ruedas dentadas y otros componentes." data-pt="A deformação da esteira pode danificar trilhos, acionamentos, engrenagens e outros componentes." data-it="La deformazione del nastro può danneggiare guide, azionamenti, pignoni e altri componenti.">Belt distortion may damage rails, drives, sprockets and other conveyor components.</p></div>
+            </div>
+
+            <h2 data-en="Protecting Belt Life and Production"
+                data-es="Protección de la Vida Útil y la Producción"
+                data-pt="Proteção da Vida Útil e da Produção"
+                data-it="Protezione della Durata del Nastro e della Produzione">
+                Protecting Belt Life and Production
+            </h2>
+
+            <p data-en="A spiral conveyor belt is a critical and costly component. Replacing it usually involves not only the cost of the belt itself, but also installation labor, production interruption and the risk of secondary equipment damage."
+               data-es="Una banda transportadora espiral es un componente crítico y costoso. Su reemplazo normalmente implica no solo el costo de la banda, sino también mano de obra de instalación, interrupción de la producción y riesgo de daños secundarios."
+               data-pt="Uma esteira transportadora espiral é um componente crítico e de alto custo. Sua substituição normalmente envolve não apenas o custo da própria esteira, mas também mão de obra de instalação, interrupção da produção e risco de danos secundários."
+               data-it="Un nastro trasportatore a spirale è un componente critico e costoso. La sua sostituzione comporta normalmente non solo il costo del nastro, ma anche manodopera di installazione, interruzione della produzione e rischio di danni secondari.">
+                A spiral conveyor belt is a critical and costly component. Replacing it usually involves not only the cost of the belt itself, but also installation labor, production interruption and the risk of secondary equipment damage.
+            </p>
+
+            <p data-en="Periodic tension measurement allows operating problems to be identified before they develop into failures."
+               data-es="La medición periódica de la tensión permite identificar problemas operativos antes de que se conviertan en fallas."
+               data-pt="A medição periódica da tensão permite identificar problemas operacionais antes que evoluam para falhas."
+               data-it="La misurazione periodica della tensione permette di identificare i problemi operativi prima che si trasformino in guasti.">
+                Periodic tension measurement allows operating problems to be identified before they develop into failures.
+            </p>
+
+            <p data-en="By confirming that the belt operates within its maximum allowable tension and correcting the system parameters that generate excessive stress, BELTPRO helps customers improve performance, reliability and component life."
+               data-es="Al confirmar que la banda opera dentro de su tensión máxima permitida y corregir los parámetros que generan esfuerzos excesivos, BELTPRO ayuda a mejorar el desempeño, la confiabilidad y la vida útil de los componentes."
+               data-pt="Ao confirmar que a esteira opera dentro da tensão máxima admissível e corrigir os parâmetros que geram esforços excessivos, a BELTPRO ajuda seus clientes a melhorar o desempenho, a confiabilidade e a vida útil dos componentes."
+               data-it="Verificando che il nastro operi entro la tensione massima consentita e correggendo i parametri che generano sollecitazioni eccessive, BELTPRO aiuta i clienti a migliorare prestazioni, affidabilità e durata dei componenti.">
+                By confirming that the belt operates within its maximum allowable tension and correcting the system parameters that generate excessive stress, BELTPRO helps customers improve performance, reliability and component life.
+            </p>
+
+            <h2 data-en="Conclusion"
+                data-es="Conclusión"
+                data-pt="Conclusão"
+                data-it="Conclusione">
+                Conclusion
+            </h2>
+
+            <p data-en="Metal conveyor belts fail primarily through fatigue, and operating tension has a major influence on their useful life."
+               data-es="Las bandas transportadoras metálicas fallan principalmente por fatiga, y la tensión de operación tiene una gran influencia en su vida útil."
+               data-pt="As esteiras transportadoras metálicas falham principalmente por fadiga, e a tensão operacional tem grande influência em sua vida útil."
+               data-it="I nastri trasportatori metallici cedono principalmente per fatica, e la tensione operativa ha una grande influenza sulla loro durata.">
+                Metal conveyor belts fail primarily through fatigue, and operating tension has a major influence on their useful life.
+            </p>
+
+            <p data-en="A belt operating above its allowable tension may experience an exponential reduction in service life. Measuring the actual belt tension and correcting the system conditions responsible for excessive stress are therefore essential preventive-maintenance practices."
+               data-es="Una banda que opera por encima de su tensión permitida puede experimentar una reducción exponencial de su vida útil. Medir la tensión real y corregir las condiciones responsables de los esfuerzos excesivos son prácticas esenciales de mantenimiento preventivo."
+               data-pt="Uma esteira operando acima da tensão admissível pode apresentar uma redução exponencial da vida útil. Medir a tensão real e corrigir as condições responsáveis pelos esforços excessivos são práticas essenciais de manutenção preventiva."
+               data-it="Un nastro che opera oltre la tensione consentita può subire una riduzione esponenziale della durata. Misurare la tensione reale e correggere le condizioni responsabili delle sollecitazioni eccessive sono quindi pratiche essenziali di manutenzione preventiva.">
+                A belt operating above its allowable tension may experience an exponential reduction in service life. Measuring the actual belt tension and correcting the system conditions responsible for excessive stress are therefore essential preventive-maintenance practices.
+            </p>
+
+            <p data-en="Proper belt tension management helps prevent belt flip-up, production losses, unplanned downtime and damage to both the belt and the spiral conveyor system."
+               data-es="La gestión correcta de la tensión ayuda a prevenir el levantamiento de la banda, pérdidas de producción, paradas no planificadas y daños tanto a la banda como al sistema espiral."
+               data-pt="O gerenciamento correto da tensão ajuda a evitar flip-up da esteira, perdas de produção, paradas não programadas e danos tanto à esteira quanto ao sistema espiral."
+               data-it="La corretta gestione della tensione aiuta a prevenire il sollevamento del nastro, perdite di produzione, fermi non programmati e danni sia al nastro sia al sistema a spirale.">
+                Proper belt tension management helps prevent belt flip-up, production losses, unplanned downtime and damage to both the belt and the spiral conveyor system.
+            </p>
+
+            <section class="schedule-box">
+                <h2 data-en="Schedule a Belt Tension Measurement"
+                    data-es="Programe una Medición de Tensión"
+                    data-pt="Agende uma Medição de Tensão"
+                    data-it="Programma una Misurazione della Tensione">
+                    Schedule a Belt Tension Measurement
+                </h2>
+
+                <p data-en="Identify excessive tension before it causes premature belt failure, unstable operation, production loss or equipment damage."
+                   data-es="Identifique la tensión excesiva antes de que cause una falla prematura de la banda, operación inestable, pérdida de producción o daños al equipo."
+                   data-pt="Identifique a tensão excessiva antes que ela cause falha prematura da esteira, operação instável, perda de produção ou danos ao equipamento."
+                   data-it="Identifica la tensione eccessiva prima che causi cedimenti prematuri del nastro, funzionamento instabile, perdita di produzione o danni all'impianto.">
+                    Identify excessive tension before it causes premature belt failure, unstable operation, production loss or equipment damage.
+                </p>
+
+                <a href="index.html#contact"
+                   data-en="Request Technical Assistance"
+                   data-es="Solicitar Asistencia Técnica"
+                   data-pt="Solicitar Assistência Técnica"
+                   data-it="Richiedi Assistenza Tecnica">
+                    Request Technical Assistance
+                </a>
+            </section>
+
+            <div class="disclaimer">
+                <strong data-en="Engineering Disclaimer"
+                        data-es="Aviso de Ingeniería"
+                        data-pt="Aviso de Engenharia"
+                        data-it="Avvertenza di Ingegneria">
+                    Engineering Disclaimer
+                </strong>
+
+                <span data-en="This article and the BELTPRO calculators are intended for preliminary engineering reference only. Final operating limits should be confirmed using the belt manufacturer's specifications, actual field conditions and qualified engineering evaluation."
+                      data-es="Este artículo y las calculadoras BELTPRO están destinados únicamente a referencia preliminar de ingeniería. Los límites finales de operación deben confirmarse mediante las especificaciones del fabricante, las condiciones reales de campo y una evaluación de ingeniería calificada."
+                      data-pt="Este artigo e as calculadoras BELTPRO destinam-se apenas a referência preliminar de engenharia. Os limites finais de operação devem ser confirmados utilizando as especificações do fabricante, as condições reais de campo e uma avaliação de engenharia qualificada."
+                      data-it="Questo articolo e i calcolatori BELTPRO sono destinati esclusivamente a riferimento ingegneristico preliminare. I limiti operativi finali devono essere confermati utilizzando le specifiche del produttore, le condizioni reali sul campo e una valutazione ingegneristica qualificata.">
+                    This article and the BELTPRO calculators are intended for preliminary engineering reference only. Final operating limits should be confirmed using the belt manufacturer's specifications, actual field conditions and qualified engineering evaluation.
+                </span>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <strong>BELTPRO</strong>
+            <span data-en="Spiral Conveyor Systems • Industrial Baking Ovens • Engineering Services — Serving Industry Since 2014"
+                  data-es="Sistemas Transportadores Espirales • Hornos Industriales • Servicios de Ingeniería — Al Servicio de la Industria Desde 2014"
+                  data-pt="Sistemas Transportadores Espirais • Fornos Industriais • Serviços de Engenharia — Atendendo a Indústria Desde 2014"
+                  data-it="Sistemi Trasportatori a Spirale • Forni Industriali • Servizi di Ingegneria — Al Servizio dell'Industria Dal 2014">
+                Spiral Conveyor Systems • Industrial Baking Ovens • Engineering Services — Serving Industry Since 2014
+            </span>
+        </div>
+    </footer>
+
+    <script>
+        function setLanguage(lang) {
+            const supported = ['en', 'es', 'pt', 'it'];
+            const selected = supported.includes(lang) ? lang : 'en';
+
+            document.documentElement.lang = selected;
+
+            document.querySelectorAll('[data-en]').forEach(function (element) {
+                const translation = element.getAttribute('data-' + selected);
+                if (translation !== null) {
+                    element.textContent = translation;
+                }
+            });
+
+            document.querySelectorAll('[data-lang]').forEach(function (button) {
+                button.classList.toggle('active', button.getAttribute('data-lang') === selected);
+            });
+
+            try {
+                localStorage.setItem('beltpro_lang', selected);
+            } catch (error) {}
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let savedLanguage = 'en';
+
+            try {
+                savedLanguage = localStorage.getItem('beltpro_lang') || 'en';
+            } catch (error) {}
+
+            setLanguage(savedLanguage);
+        });
+    </script>
+
+</body>
+</html>
