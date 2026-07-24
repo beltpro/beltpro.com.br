@@ -881,6 +881,9 @@
         top: 70px;
         left: 0;
         right: 0;
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
         align-items: stretch;
         padding: 14px 20px 22px;
         background: #082f49;
@@ -1259,6 +1262,7 @@
     calculatorsTrigger.addEventListener('click', function (event) {
       event.preventDefault();
       calculatorsDropdown.classList.remove('open');
+      calculatorsTrigger.setAttribute('aria-expanded', 'false');
       openDisclaimer(null);
     });
 
@@ -1290,6 +1294,7 @@
       }
 
       calculatorsDropdown.classList.add('open');
+      calculatorsTrigger.setAttribute('aria-expanded', 'true');
 
       window.setTimeout(function () {
         calculatorsTrigger.focus();
@@ -1306,12 +1311,33 @@
       if (event.target === disclaimerModal) closeDisclaimer();
     });
 
-    mobileMenuButton.addEventListener('click', function () {
+    function closeAllDropdowns() {
+      document.querySelectorAll('.dropdown.open').forEach(function (dropdown) {
+        dropdown.classList.remove('open');
+        const trigger = dropdown.querySelector(':scope > .dropdown-trigger');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    function closeMobileNavigation() {
+      closeAllDropdowns();
+      navLinks.classList.remove('show');
+      mobileMenuButton.setAttribute('aria-expanded', 'false');
+    }
+
+    mobileMenuButton.addEventListener('click', function (event) {
+      event.stopPropagation();
       const isOpen = navLinks.classList.toggle('show');
       mobileMenuButton.setAttribute('aria-expanded', String(isOpen));
+
+      if (!isOpen) {
+        closeAllDropdowns();
+      }
     });
 
     document.querySelectorAll('.dropdown:not(.calculators-dropdown) > .dropdown-trigger').forEach(function (trigger) {
+      trigger.setAttribute('aria-expanded', 'false');
+
       trigger.addEventListener('click', function (event) {
         if (window.innerWidth <= 1050) {
           event.preventDefault();
@@ -1320,11 +1346,7 @@
           const currentDropdown = trigger.parentElement;
           const willOpen = !currentDropdown.classList.contains('open');
 
-          document.querySelectorAll('.dropdown.open').forEach(function (dropdown) {
-            if (dropdown !== currentDropdown) {
-              dropdown.classList.remove('open');
-            }
-          });
+          closeAllDropdowns();
 
           currentDropdown.classList.toggle('open', willOpen);
           trigger.setAttribute('aria-expanded', String(willOpen));
@@ -1332,21 +1354,29 @@
       });
     });
 
-    document.querySelectorAll('.dropdown-content a').forEach(function (link) {
+    calculatorsTrigger.setAttribute('aria-expanded', 'false');
+
+    document.querySelectorAll('.nav-links a').forEach(function (link) {
       link.addEventListener('click', function () {
         if (window.innerWidth <= 1050) {
-          document.querySelectorAll('.dropdown.open').forEach(function (dropdown) {
-            dropdown.classList.remove('open');
-          });
-          navLinks.classList.remove('show');
-          mobileMenuButton.setAttribute('aria-expanded', 'false');
+          closeMobileNavigation();
         }
       });
     });
 
     document.addEventListener('click', function (event) {
-      if (!calculatorsDropdown.contains(event.target) && !disclaimerModal.contains(event.target)) {
-        calculatorsDropdown.classList.remove('open');
+      if (!event.target.closest('.dropdown') && !disclaimerModal.contains(event.target)) {
+        closeAllDropdowns();
+      }
+
+      if (
+        window.innerWidth <= 1050 &&
+        navLinks.classList.contains('show') &&
+        !navLinks.contains(event.target) &&
+        !mobileMenuButton.contains(event.target) &&
+        !disclaimerModal.contains(event.target)
+      ) {
+        closeMobileNavigation();
       }
     });
 
@@ -1354,6 +1384,8 @@
       if (event.key === 'Escape') {
         if (disclaimerModal.classList.contains('show')) closeDisclaimer();
         calculatorsDropdown.classList.remove('open');
+        calculatorsTrigger.setAttribute('aria-expanded', 'false');
+        if (window.innerWidth <= 1050) closeMobileNavigation();
       }
     });
 
