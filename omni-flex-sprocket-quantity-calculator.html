@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BELTPRO | Omni-Flex Drive Sprocket Quantity Calculator</title>
+<meta name="description" content="BELTPRO calculator for estimating the recommended number of drive sprockets for Omni-Flex conveyor belts.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{--navy:#0f172a;--blue:#0f4c81;--sky:#38bdf8;--orange:#f97316;--text:#1f2937;--muted:#64748b;--bg:#f8fafc;--card:#fff;--border:#dbe5ee;--danger:#b91c1c;--danger-bg:#fef2f2}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.language-bar{background:#111827;border-bottom:2px solid var(--sky);padding:12px 20px;text-align:right}.language-bar button{background:#1e293b;color:#e2e8f0;border:1px solid #334155;padding:8px 13px;border-radius:6px;cursor:pointer;font-weight:bold;margin-left:7px}.language-bar button:hover,.language-bar button.active{background:var(--blue);color:#fff;border-color:var(--sky)}
+header{background:linear-gradient(135deg,#0f172a,#0f4c81);color:#fff;text-align:center;padding:34px 20px 38px}header img{width:210px;max-width:75%;margin-bottom:16px}header h1{font-size:clamp(27px,5vw,42px);line-height:1.15;margin-bottom:11px}header p{max-width:800px;margin:auto;color:#dbeafe;font-size:17px}
+nav{background:#0b2740;text-align:center;padding:13px 20px}nav a{color:#fff;text-decoration:none;font-weight:bold;margin:0 12px}nav a:hover{color:var(--sky)}
+main{width:min(980px,calc(100% - 30px));margin:34px auto 50px}.card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 14px 36px rgba(15,76,129,.09);padding:28px}.notes{margin-top:24px}.section-title{color:var(--navy);font-size:25px;margin-bottom:6px}.section-subtitle{color:var(--muted);margin-bottom:24px}
+.form-grid{display:grid;grid-template-columns:1fr 180px;gap:16px;align-items:end}.field label{display:block;font-weight:bold;margin-bottom:7px;color:var(--navy)}.field input,.field select{width:100%;border:1px solid #cbd5e1;border-radius:9px;padding:12px 13px;font-size:16px;background:#fff}.field input:focus,.field select:focus{outline:3px solid rgba(56,189,248,.2);border-color:var(--sky)}
+button.calculate{width:100%;border:0;border-radius:10px;padding:14px 18px;background:var(--orange);color:#fff;font-size:16px;font-weight:bold;cursor:pointer;margin-top:22px}button.calculate:hover{background:#ea580c}button.calculate:disabled{opacity:.65;cursor:wait}
+.message{display:none;margin-top:20px;border-radius:10px;padding:13px 15px;font-weight:bold}.message.error{display:block;color:var(--danger);background:var(--danger-bg);border:1px solid #fecaca}
+.results{display:none;margin-top:28px;border-top:1px solid var(--border);padding-top:25px}.results.show{display:block}.highlight{background:linear-gradient(135deg,#e0f2fe,#f0f9ff);border:1px solid #7dd3fc;border-radius:13px;padding:22px;text-align:center;margin-bottom:17px}.highlight span{display:block;color:var(--blue);font-weight:bold;margin-bottom:6px}.highlight strong{display:block;color:var(--navy);font-size:38px;line-height:1.1}
+.results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.result-box{border:1px solid var(--border);border-radius:11px;padding:16px;background:#fbfdff}.result-box span{display:block;color:var(--muted);font-size:14px;margin-bottom:5px}.result-box strong{color:var(--navy);font-size:19px}
+.notes h2{color:var(--navy);font-size:22px;margin-bottom:12px}.notes ul{padding-left:22px;color:var(--muted)}.notes li+li{margin-top:8px}
+footer{background:#0f172a;color:#cbd5e1;text-align:center;padding:24px 20px;font-size:14px}
+@media(max-width:680px){.language-bar{text-align:center}.language-bar button{margin:4px 3px}.form-grid,.results-grid{grid-template-columns:1fr}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="language-bar">
+<button type="button" data-lang-button="en" onclick="setLanguage('en')">🇺🇸 English</button>
+<button type="button" data-lang-button="es" onclick="setLanguage('es')">🇪🇸 Español</button>
+<button type="button" data-lang-button="pt" onclick="setLanguage('pt')">🇧🇷 Português</button>
+<button type="button" data-lang-button="it" onclick="setLanguage('it')">🇮🇹 Italiano</button>
+</div>
+<header>
+<img src="logo.png" alt="BELTPRO Logo">
+<h1 data-en="Omni-Flex Drive Sprocket Quantity Calculator" data-es="Calculadora de Cantidad de Piñones Motrices Omni-Flex" data-pt="Calculadora de Quantidade de Engrenagens Motrizes Omni-Flex" data-it="Calcolatore del Numero di Pignoni Motori Omni-Flex">Omni-Flex Drive Sprocket Quantity Calculator</h1>
+<p data-en="Estimate the recommended number of drive sprockets according to the Omni-Flex belt width." data-es="Estime la cantidad recomendada de piñones motrices según el ancho de la banda Omni-Flex." data-pt="Estime a quantidade recomendada de engrenagens motrizes de acordo com a largura da esteira Omni-Flex." data-it="Stima il numero consigliato di pignoni motori in base alla larghezza del nastro Omni-Flex.">Estimate the recommended number of drive sprockets according to the Omni-Flex belt width.</p>
+</header>
+<nav>
+<a href="index.html" data-en="Home" data-es="Inicio" data-pt="Início" data-it="Home">Home</a>
+<a href="index.html#calculators" data-en="Calculators" data-es="Calculadoras" data-pt="Calculadoras" data-it="Calcolatori">Calculators</a>
+</nav>
+<main>
+<section class="card">
+<h2 class="section-title" data-en="Input Data" data-es="Datos de Entrada" data-pt="Dados de Entrada" data-it="Dati di Ingresso">Input Data</h2>
+<p class="section-subtitle" data-en="Enter the overall belt width and select the corresponding unit." data-es="Ingrese el ancho total de la banda y seleccione la unidad correspondiente." data-pt="Informe a largura total da esteira e selecione a unidade correspondente." data-it="Inserire la larghezza totale del nastro e selezionare l'unità corrispondente.">Enter the overall belt width and select the corresponding unit.</p>
+<form id="sprocketForm">
+<div class="form-grid">
+<div class="field">
+<label for="beltWidth" data-en="Belt Width" data-es="Ancho de la Banda" data-pt="Largura da Esteira" data-it="Larghezza del Nastro">Belt Width</label>
+<input id="beltWidth" type="number" min="0.01" step="any" inputmode="decimal" required>
+</div>
+<div class="field">
+<label for="widthUnit" data-en="Unit" data-es="Unidad" data-pt="Unidade" data-it="Unità">Unit</label>
+<select id="widthUnit">
+<option value="in" data-en="Inches" data-es="Pulgadas" data-pt="Polegadas" data-it="Pollici">Inches</option>
+<option value="mm" data-en="Millimetres" data-es="Milímetros" data-pt="Milímetros" data-it="Millimetri">Millimetres</option>
+</select>
+</div>
+</div>
+<button id="calculateButton" class="calculate" type="submit" data-en="Calculate Sprocket Quantity" data-es="Calcular Cantidad de Piñones" data-pt="Calcular Quantidade de Engrenagens" data-it="Calcola Numero di Pignoni">Calculate Sprocket Quantity</button>
+</form>
+<div id="message" class="message"></div>
+<section id="results" class="results" aria-live="polite">
+<h2 class="section-title" data-en="Results" data-es="Resultados" data-pt="Resultados" data-it="Risultati">Results</h2>
+<div class="highlight">
+<span data-en="Recommended Number of Drive Sprockets" data-es="Número Recomendado de Piñones Motrices" data-pt="Número Recomendado de Engrenagens Motrizes" data-it="Numero Consigliato di Pignoni Motori">Recommended Number of Drive Sprockets</span>
+<strong id="recommendedSprockets">—</strong>
+</div>
+<div class="results-grid">
+<div class="result-box"><span data-en="Belt Width in Inches" data-es="Ancho de la Banda en Pulgadas" data-pt="Largura da Esteira em Polegadas" data-it="Larghezza del Nastro in Pollici">Belt Width in Inches</span><strong id="beltWidthInches">—</strong></div>
+<div class="result-box"><span data-en="Calculated Quantity Before Rounding" data-es="Cantidad Calculada Antes del Redondeo" data-pt="Quantidade Calculada Antes do Arredondamento" data-it="Quantità Calcolata Prima dell'Arrotondamento">Calculated Quantity Before Rounding</span><strong id="theoreticalQuantity">—</strong></div>
+<div class="result-box"><span data-en="Approximate Sprocket Spacing" data-es="Separación Aproximada entre Piñones" data-pt="Espaçamento Aproximado entre Engrenagens" data-it="Passo Approssimativo tra i Pignoni">Approximate Sprocket Spacing</span><strong id="sprocketSpacing">—</strong></div>
+<div class="result-box"><span data-en="Spacing Unit" data-es="Unidad de Separación" data-pt="Unidade do Espaçamento" data-it="Unità del Passo">Spacing Unit</span><strong id="spacingUnit">—</strong></div>
+</div>
+</section>
+</section>
+<section class="card notes">
+<h2 data-en="Engineering Notes" data-es="Notas de Ingeniería" data-pt="Notas de Engenharia" data-it="Note di Ingegneria">Engineering Notes</h2>
+<ul>
+<li data-en="The recommended quantity is rounded upward to the next whole sprocket." data-es="La cantidad recomendada se redondea hacia arriba al siguiente piñón entero." data-pt="A quantidade recomendada é arredondada para cima até o próximo número inteiro." data-it="La quantità consigliata viene arrotondata per eccesso al numero intero successivo.">The recommended quantity is rounded upward to the next whole sprocket.</li>
+<li data-en="Verify the final sprocket arrangement, shaft capacity, keyways, hubs and belt engagement before installation." data-es="Verifique la disposición final de los piñones, la capacidad del eje, chaveteros, cubos y el engrane con la banda antes de la instalación." data-pt="Verifique o arranjo final das engrenagens, a capacidade do eixo, rasgos de chaveta, cubos e o engate com a esteira antes da instalação." data-it="Verificare la disposizione finale dei pignoni, la capacità dell'albero, le cave per chiavetta, i mozzi e l'ingranamento con il nastro prima dell'installazione.">Verify the final sprocket arrangement, shaft capacity, keyways, hubs and belt engagement before installation.</li>
+<li data-en="This calculator provides a preliminary engineering estimate and does not replace the belt manufacturer's installation requirements." data-es="Esta calculadora proporciona una estimación preliminar de ingeniería y no reemplaza los requisitos de instalación del fabricante de la banda." data-pt="Esta calculadora fornece uma estimativa preliminar de engenharia e não substitui os requisitos de instalação do fabricante da esteira." data-it="Questo calcolatore fornisce una stima ingegneristica preliminare e non sostituisce i requisiti di installazione del produttore del nastro.">This calculator provides a preliminary engineering estimate and does not replace the belt manufacturer's installation requirements.</li>
+</ul>
+</section>
+
+<section class="card notes">
+<h2 data-en="Sprocket Positioning" data-es="Posicionamiento de los Piñones" data-pt="Posicionamento das Engrenagens" data-it="Posizionamento dei Pignoni">Sprocket Positioning</h2>
+
+<p data-en="The sprockets must be positioned according to the belt openings, as shown below."
+   data-es="Los piñones deben posicionarse de acuerdo con las aberturas de la banda, como se muestra a continuación."
+   data-pt="As engrenagens devem ser posicionadas de acordo com as aberturas da esteira, conforme mostrado abaixo."
+   data-it="I pignoni devono essere posizionati in base alle aperture del nastro, come mostrato di seguito.">
+The sprockets must be positioned according to the belt openings, as shown below.
+</p>
+
+<ul style="margin-top:14px;">
+<li data-en="Drive shaft: place the first sprocket at the third opening from each belt edge. Position the remaining drive sprockets at equally spaced odd-numbered openings."
+    data-es="Eje motriz: coloque el primer piñón en la tercera abertura desde cada borde de la banda. Posicione los demás piñones motrices en aberturas impares, distribuidos uniformemente."
+    data-pt="Eixo motriz: posicione a primeira engrenagem na terceira abertura a partir de cada borda da esteira. Distribua as demais engrenagens motrizes uniformemente nas aberturas ímpares."
+    data-it="Albero motore: posizionare il primo pignone sulla terza apertura da ciascun bordo del nastro. Distribuire uniformemente gli altri pignoni motori sulle aperture dispari.">
+Drive shaft: place the first sprocket at the third opening from each belt edge. Position the remaining drive sprockets at equally spaced odd-numbered openings.
+</li>
+
+<li data-en="Idler shaft: place the first sprocket at the second opening from each belt edge. Position the remaining idler sprockets at equally spaced even-numbered openings."
+    data-es="Eje conducido: coloque el primer piñón en la segunda abertura desde cada borde de la banda. Posicione los demás piñones locos en aberturas pares, distribuidos uniformemente."
+    data-pt="Eixo livre: posicione a primeira engrenagem na segunda abertura a partir de cada borda da esteira. Distribua as demais engrenagens livres uniformemente nas aberturas pares."
+    data-it="Albero folle: posizionare il primo pignone sulla seconda apertura da ciascun bordo del nastro. Distribuire uniformemente gli altri pignoni folli sulle aperture pari.">
+Idler shaft: place the first sprocket at the second opening from each belt edge. Position the remaining idler sprockets at equally spaced even-numbered openings.
+</li>
+
+<li data-en="Maintain symmetrical spacing across the belt width whenever possible."
+    data-es="Mantenga una distribución simétrica a lo largo del ancho de la banda siempre que sea posible."
+    data-pt="Mantenha uma distribuição simétrica ao longo da largura da esteira sempre que possível."
+    data-it="Mantenere una distribuzione simmetrica lungo la larghezza del nastro quando possibile.">
+Maintain symmetrical spacing across the belt width whenever possible.
+</li>
+</ul>
+
+<div style="margin-top:22px;text-align:center;">
+<img src="omni-flex-sprocket-positioning.png"
+     alt="Omni-Flex drive and idler sprocket positioning diagram"
+     style="width:100%;max-width:760px;border:1px solid #dbe5ee;border-radius:10px;background:#ffffff;">
+</div>
+</section>
+
+</main>
+<footer>© BELTPRO</footer>
+<script>
+const API_URL="https://spiral-tension-api.onrender.com/omni-flex-sprocket-quantity";
+let currentLanguage="en";
+const texts={
+en:{calculating:"Calculating...",calculate:"Calculate Sprocket Quantity",error:"The calculation could not be completed."},
+es:{calculating:"Calculando...",calculate:"Calcular Cantidad de Piñones",error:"No fue posible completar el cálculo."},
+pt:{calculating:"Calculando...",calculate:"Calcular Quantidade de Engrenagens",error:"Não foi possível concluir o cálculo."},
+it:{calculating:"Calcolo in corso...",calculate:"Calcola Numero di Pignoni",error:"Non è stato possibile completare il calcolo."}
+};
+function setLanguage(lang){
+currentLanguage=lang;document.documentElement.lang=lang;
+document.querySelectorAll("[data-en]").forEach(el=>{const value=el.getAttribute("data-"+lang);if(value!==null)el.innerHTML=value});
+document.querySelectorAll("[data-lang-button]").forEach(btn=>btn.classList.toggle("active",btn.getAttribute("data-lang-button")===lang));
+try{localStorage.setItem("beltpro_lang",lang)}catch(e){}
+}
+function locale(){return currentLanguage==="pt"?"pt-BR":currentLanguage==="es"?"es-ES":currentLanguage==="it"?"it-IT":"en-US"}
+function formatNumber(value,decimals){return Number(value).toLocaleString(locale(),{minimumFractionDigits:decimals,maximumFractionDigits:decimals})}
+function showError(message){const box=document.getElementById("message");box.textContent=message;box.className="message error"}
+function clearError(){const box=document.getElementById("message");box.textContent="";box.className="message"}
+document.getElementById("sprocketForm").addEventListener("submit",async event=>{
+event.preventDefault();clearError();
+const button=document.getElementById("calculateButton");button.disabled=true;button.textContent=texts[currentLanguage].calculating;
+document.getElementById("results").classList.remove("show");
+try{
+const response=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({belt_width:Number(document.getElementById("beltWidth").value),width_unit:document.getElementById("widthUnit").value})});
+const result=await response.json();
+if(!response.ok)throw new Error(result.error||texts[currentLanguage].error);
+document.getElementById("recommendedSprockets").textContent=result.recommended_sprockets;
+document.getElementById("beltWidthInches").textContent=formatNumber(result.belt_width_in,2)+" in";
+document.getElementById("theoreticalQuantity").textContent=formatNumber(result.theoretical_quantity,4);
+document.getElementById("sprocketSpacing").textContent=formatNumber(result.approximate_spacing,2);
+document.getElementById("spacingUnit").textContent=result.spacing_unit;
+document.getElementById("results").classList.add("show");
+}catch(error){showError(error.message||texts[currentLanguage].error)}
+finally{button.disabled=false;button.textContent=texts[currentLanguage].calculate}
+});
+document.addEventListener("DOMContentLoaded",()=>{let lang="en";try{lang=localStorage.getItem("beltpro_lang")||"en"}catch(e){}if(!["en","es","pt","it"].includes(lang))lang="en";setLanguage(lang)});
+</script>
+</body>
+</html>
