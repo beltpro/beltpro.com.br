@@ -126,42 +126,170 @@ Maintain symmetrical spacing across the belt width whenever possible.
 </main>
 <footer>© BELTPRO</footer>
 <script>
-const API_URL="https://spiral-tension-api.onrender.com/omni-flex-sprocket-quantity";
-let currentLanguage="en";
-const texts={
-en:{calculating:"Calculating...",calculate:"Calculate Sprocket Quantity",error:"The calculation could not be completed."},
-es:{calculating:"Calculando...",calculate:"Calcular Cantidad de Piñones",error:"No fue posible completar el cálculo."},
-pt:{calculating:"Calculando...",calculate:"Calcular Quantidade de Engrenagens",error:"Não foi possível concluir o cálculo."},
-it:{calculating:"Calcolo in corso...",calculate:"Calcola Numero di Pignoni",error:"Non è stato possibile completare il calcolo."}
-};
-function setLanguage(lang){
-currentLanguage=lang;document.documentElement.lang=lang;
-document.querySelectorAll("[data-en]").forEach(el=>{const value=el.getAttribute("data-"+lang);if(value!==null)el.innerHTML=value});
-document.querySelectorAll("[data-lang-button]").forEach(btn=>btn.classList.toggle("active",btn.getAttribute("data-lang-button")===lang));
-try{localStorage.setItem("beltpro_lang",lang)}catch(e){}
-}
-function locale(){return currentLanguage==="pt"?"pt-BR":currentLanguage==="es"?"es-ES":currentLanguage==="it"?"it-IT":"en-US"}
-function formatNumber(value,decimals){return Number(value).toLocaleString(locale(),{minimumFractionDigits:decimals,maximumFractionDigits:decimals})}
-function showError(message){const box=document.getElementById("message");box.textContent=message;box.className="message error"}
-function clearError(){const box=document.getElementById("message");box.textContent="";box.className="message"}
-document.getElementById("sprocketForm").addEventListener("submit",async event=>{
-event.preventDefault();clearError();
-const button=document.getElementById("calculateButton");button.disabled=true;button.textContent=texts[currentLanguage].calculating;
-document.getElementById("results").classList.remove("show");
-try{
-const response=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({belt_width:Number(document.getElementById("beltWidth").value),width_unit:document.getElementById("widthUnit").value})});
-const result=await response.json();
-if(!response.ok)throw new Error(result.error||texts[currentLanguage].error);
-document.getElementById("recommendedSprockets").textContent=result.recommended_sprockets;
-document.getElementById("beltWidthInches").textContent=formatNumber(result.belt_width_in,2)+" in";
-document.getElementById("theoreticalQuantity").textContent=formatNumber(result.theoretical_quantity,4);
-document.getElementById("sprocketSpacing").textContent=formatNumber(result.approximate_spacing,2);
-document.getElementById("spacingUnit").textContent=result.spacing_unit;
-document.getElementById("results").classList.add("show");
-}catch(error){showError(error.message||texts[currentLanguage].error)}
-finally{button.disabled=false;button.textContent=texts[currentLanguage].calculate}
-});
-document.addEventListener("DOMContentLoaded",()=>{let lang="en";try{lang=localStorage.getItem("beltpro_lang")||"en"}catch(e){}if(!["en","es","pt","it"].includes(lang))lang="en";setLanguage(lang)});
-</script>
+        let currentLanguage = "en";
+
+        const translations = {
+            en: {
+                calculating: "Calculating...",
+                calculate: "Calculate Sprocket Quantity",
+                invalidWidth: "Belt width must be greater than zero."
+            },
+            es: {
+                calculating: "Calculando...",
+                calculate: "Calcular Cantidad de Piñones",
+                invalidWidth: "El ancho de la banda debe ser mayor que cero."
+            },
+            pt: {
+                calculating: "Calculando...",
+                calculate: "Calcular Quantidade de Engrenagens",
+                invalidWidth: "A largura da esteira deve ser maior que zero."
+            },
+            it: {
+                calculating: "Calcolo in corso...",
+                calculate: "Calcola Numero di Pignoni",
+                invalidWidth: "La larghezza del nastro deve essere maggiore di zero."
+            }
+        };
+
+        function setLanguage(language) {
+            currentLanguage = language;
+            document.documentElement.lang = language;
+
+            document.querySelectorAll("[data-en]").forEach(element => {
+                const translatedText = element.getAttribute("data-" + language);
+
+                if (translatedText !== null) {
+                    element.innerHTML = translatedText;
+                }
+            });
+
+            document.querySelectorAll("[data-lang-button]").forEach(button => {
+                button.classList.toggle(
+                    "active",
+                    button.getAttribute("data-lang-button") === language
+                );
+            });
+
+            try {
+                localStorage.setItem("beltpro_lang", language);
+            } catch (error) {
+                // Local storage is optional.
+            }
+        }
+
+        function showError(message) {
+            const messageBox = document.getElementById("message");
+            messageBox.textContent = message;
+            messageBox.className = "message error";
+        }
+
+        function clearError() {
+            const messageBox = document.getElementById("message");
+            messageBox.textContent = "";
+            messageBox.className = "message";
+        }
+
+        function formatNumber(value, decimals) {
+            return Number(value).toLocaleString(
+                currentLanguage === "pt" ? "pt-BR" :
+                currentLanguage === "es" ? "es-ES" :
+                currentLanguage === "it" ? "it-IT" :
+                "en-US",
+                {
+                    minimumFractionDigits: decimals,
+                    maximumFractionDigits: decimals
+                }
+            );
+        }
+
+        document.getElementById("sprocketForm").addEventListener(
+            "submit",
+            function(event) {
+                event.preventDefault();
+                clearError();
+
+                const beltWidth = Number(
+                    document.getElementById("beltWidth").value
+                );
+
+                const widthUnit =
+                    document.getElementById("widthUnit").value;
+
+                if (!Number.isFinite(beltWidth) || beltWidth <= 0) {
+                    document.getElementById("results").classList.remove("show");
+                    showError(translations[currentLanguage].invalidWidth);
+                    return;
+                }
+
+                const beltWidthInches =
+                    widthUnit === "mm"
+                    ? beltWidth / 25.4
+                    : beltWidth;
+
+                const theoreticalQuantity =
+                    (beltWidthInches / 6) + 1;
+
+                const recommendedSprockets =
+                    Math.ceil(theoreticalQuantity);
+
+                const approximateSpacingIn =
+                    beltWidthInches / (recommendedSprockets - 1);
+
+                const approximateSpacing =
+                    widthUnit === "mm"
+                    ? approximateSpacingIn * 25.4
+                    : approximateSpacingIn;
+
+                document.getElementById(
+                    "recommendedSprockets"
+                ).textContent = recommendedSprockets;
+
+                document.getElementById(
+                    "beltWidthInches"
+                ).textContent = formatNumber(
+                    beltWidthInches,
+                    2
+                ) + " in";
+
+                document.getElementById(
+                    "theoreticalQuantity"
+                ).textContent = formatNumber(
+                    theoreticalQuantity,
+                    4
+                );
+
+                document.getElementById(
+                    "sprocketSpacing"
+                ).textContent = formatNumber(
+                    approximateSpacing,
+                    2
+                );
+
+                document.getElementById(
+                    "spacingUnit"
+                ).textContent =
+                    widthUnit === "mm" ? "mm" : "in";
+
+                document.getElementById("results").classList.add("show");
+            }
+        );
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let savedLanguage = "en";
+
+            try {
+                savedLanguage =
+                    localStorage.getItem("beltpro_lang") || "en";
+            } catch (error) {
+                savedLanguage = "en";
+            }
+
+            if (!["en", "es", "pt", "it"].includes(savedLanguage)) {
+                savedLanguage = "en";
+            }
+
+            setLanguage(savedLanguage);
+        });
+    </script>
 </body>
 </html>
