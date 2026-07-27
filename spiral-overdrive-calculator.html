@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BELTPRO | Spiral Overdrive Calculator</title>
+    <meta name="description"
+          content="Calculate spiral conveyor overdrive in tiers using a distance measured at the inside or outside edge of the belt.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        :root {
+            --navy: #0f172a;
+            --blue: #0f4c81;
+            --light-blue: #38bdf8;
+            --orange: #f97316;
+            --text: #1f2937;
+            --muted: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #dbe5ee;
+            --success: #166534;
+            --success-bg: #ecfdf5;
+            --warning: #92400e;
+            --warning-bg: #fffbeb;
+            --danger: #b91c1c;
+            --danger-bg: #fef2f2;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.55;
+        }
+
+        .language-bar {
+            background: #111827;
+            border-bottom: 2px solid var(--light-blue);
+            padding: 10px 20px;
+            text-align: right;
+        }
+
+        .language-bar button {
+            border: 1px solid #475569;
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 6px;
+            padding: 7px 11px;
+            margin-left: 6px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .language-bar button:hover,
+        .language-bar button.active {
+            background: var(--blue);
+            border-color: var(--light-blue);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            text-align: center;
+            padding: 34px 20px 38px;
+        }
+
+        header img {
+            width: min(250px, 72vw);
+            height: auto;
+            margin-bottom: 16px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: clamp(1.8rem, 4vw, 2.7rem);
+        }
+
+        header p {
+            margin: 10px auto 0;
+            max-width: 820px;
+            color: #dbeafe;
+            font-size: 1.05rem;
+        }
+
+        .trust {
+            color: var(--orange);
+            font-weight: 800;
+            margin-top: 8px;
+        }
+
+        main {
+            width: min(900px, calc(100% - 30px));
+            margin: 30px auto 50px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+            overflow: hidden;
+        }
+
+        .card-heading {
+            padding: 18px 22px;
+            background: #eef6fb;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-heading h2 {
+            margin: 0;
+            color: var(--navy);
+            font-size: 1.28rem;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            font-weight: 800;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            min-height: 46px;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background: white;
+            color: var(--text);
+            font: inherit;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--light-blue);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
+        }
+
+        .input-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .unit {
+            width: 82px;
+            flex: 0 0 82px;
+            background: #f1f5f9;
+            color: #475569;
+            text-align: center;
+            font-weight: 800;
+            pointer-events: none;
+        }
+
+        .hint {
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .primary,
+        .secondary {
+            min-height: 48px;
+            border: 0;
+            border-radius: 8px;
+            padding: 11px 18px;
+            font: inherit;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .primary {
+            flex: 1;
+            background: var(--blue);
+            color: white;
+        }
+
+        .primary:hover {
+            background: #0b3b65;
+        }
+
+        .secondary {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        .error {
+            display: none;
+            margin-top: 18px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            background: var(--danger-bg);
+            color: var(--danger);
+            border: 1px solid #fecaca;
+            font-weight: 700;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .result-box {
+            display: none;
+            margin-top: 24px;
+            padding: 24px;
+            border-radius: 12px;
+            background: var(--success-bg);
+            border: 2px solid #86efac;
+            text-align: center;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-label {
+            display: block;
+            color: #475569;
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .result-value {
+            display: block;
+            margin-top: 7px;
+            color: var(--success);
+            font-size: clamp(1.9rem, 5vw, 2.8rem);
+            font-weight: 900;
+        }
+
+        .note {
+            margin-top: 22px;
+            padding: 14px 16px;
+            border-radius: 9px;
+            background: var(--warning-bg);
+            border-left: 5px solid #f59e0b;
+            color: var(--warning);
+            font-weight: 700;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        footer {
+            background: var(--navy);
+            color: #cbd5e1;
+            text-align: center;
+            padding: 24px 18px;
+            font-size: 0.92rem;
+        }
+
+        footer a {
+            color: var(--light-blue);
+            text-decoration: none;
+        }
+
+        @media (max-width: 620px) {
+            .field-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .language-bar {
+                text-align: center;
+                padding-inline: 8px;
+            }
+
+            .language-bar button {
+                margin: 3px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="language-bar">
+        <button type="button" data-lang-button="en" onclick="setLanguage('en')">EN</button>
+        <button type="button" data-lang-button="es" onclick="setLanguage('es')">ES</button>
+        <button type="button" data-lang-button="pt" onclick="setLanguage('pt')">PT</button>
+        <button type="button" data-lang-button="it" onclick="setLanguage('it')">IT</button>
+    </div>
+
+    <header>
+        <img src="logo.png" alt="BELTPRO Logo">
+        <h1 data-i18n="title">Spiral Overdrive Calculator</h1>
+        <p data-i18n="subtitle">
+            Calculate spiral overdrive in tiers using a distance measured at the inside or outside edge of the belt.
+        </p>
+        <div class="trust">Trust the Pros.</div>
+    </header>
+
+    <main>
+        <section class="card">
+            <div class="card-heading">
+                <h2 data-i18n="inputData">Input Data</h2>
+            </div>
+
+            <div class="card-body">
+                <div class="field-grid">
+                    <div class="field full">
+                        <label for="unitSystem" data-i18n="unitSystem">Unit System</label>
+                        <select id="unitSystem">
+                            <option value="metric" data-i18n="metric">Metric</option>
+                            <option value="imperial" data-i18n="imperial">Imperial</option>
+                        </select>
+                    </div>
+
+                    <div class="field full">
+                        <label for="measurementMethod" data-i18n="measurementMethod">Measurement Method</label>
+                        <select id="measurementMethod">
+                            <option value="inside" data-i18n="insideEdge">Distance Measured at Inside Edge</option>
+                            <option value="outside" data-i18n="outsideEdge">Distance Measured at Outside Edge</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="tierPitch" data-i18n="tierPitch">Tier Pitch</label>
+                        <div class="input-row">
+                            <input id="tierPitch" type="number" min="0" step="any" inputmode="decimal">
+                            <input class="unit dimension-unit" value="mm" readonly tabindex="-1">
+                        </div>
+                    </div>
+
+                    <div class="field" id="insideRadiusGroup">
+                        <label for="insideRadius" data-i18n="insideRadius">Inside Radius (IR)</label>
+                        <div class="input-row">
+                            <input id="insideRadius" type="number" min="0" step="any" inputmode="decimal">
+                            <input class="unit dimension-unit" value="mm" readonly tabindex="-1">
+                        </div>
+                    </div>
+
+                    <div class="field full" id="insideDistanceGroup">
+                        <label for="insideDistance" data-i18n="insideDistance">Distance Measured at Inside Edge</label>
+                        <div class="input-row">
+                            <input id="insideDistance" type="number" min="0" step="any" inputmode="decimal">
+                            <input class="unit dimension-unit" value="mm" readonly tabindex="-1">
+                        </div>
+                    </div>
+
+                    <div class="field hidden" id="beltWidthGroup">
+                        <label for="beltWidth" data-i18n="beltWidth">Belt Width (BW)</label>
+                        <div class="input-row">
+                            <input id="beltWidth" type="number" min="0" step="any" inputmode="decimal">
+                            <input class="unit dimension-unit" value="mm" readonly tabindex="-1">
+                        </div>
+                    </div>
+
+                    <div class="field hidden" id="outsideDistanceGroup">
+                        <label for="outsideDistance" data-i18n="outsideDistance">Distance Measured at Outside Edge</label>
+                        <div class="input-row">
+                            <input id="outsideDistance" type="number" min="0" step="any" inputmode="decimal">
+                            <input class="unit dimension-unit" value="mm" readonly tabindex="-1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="primary" type="button" onclick="calculateOverdrive()" data-i18n="calculate">
+                        Calculate Overdrive
+                    </button>
+                    <button class="secondary" type="button" onclick="resetCalculator()" data-i18n="reset">
+                        Reset
+                    </button>
+                </div>
+
+                <div id="errorBox" class="error"></div>
+
+                <div id="resultBox" class="result-box">
+                    <span class="result-label" data-i18n="overdrive">Overdrive</span>
+                    <span id="resultValue" class="result-value">—</span>
+                </div>
+
+                <div class="note" data-i18n="note">
+                    Overdrive is the difference in distance travelled by the drum and the inside edge of the belt after one spiral tier revolution.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div>© <span id="year"></span> BELTPRO — <span data-i18n="footerText">Engineering Calculators</span></div>
+        <div><a href="index.html" data-i18n="backHome">Return to BELTPRO Home</a></div>
+    </footer>
+
+    <script>
+        const translations = {
+            en: {
+                title: "Spiral Overdrive Calculator",
+                subtitle: "Calculate spiral overdrive in tiers using a distance measured at the inside or outside edge of the belt.",
+                inputData: "Input Data",
+                unitSystem: "Unit System",
+                metric: "Metric",
+                imperial: "Imperial",
+                measurementMethod: "Measurement Method",
+                insideEdge: "Distance Measured at Inside Edge",
+                outsideEdge: "Distance Measured at Outside Edge",
+                tierPitch: "Tier Pitch",
+                insideRadius: "Inside Radius (IR)",
+                beltWidth: "Belt Width (BW)",
+                insideDistance: "Distance Measured at Inside Edge",
+                outsideDistance: "Distance Measured at Outside Edge",
+                calculate: "Calculate Overdrive",
+                reset: "Reset",
+                overdrive: "Overdrive",
+                note: "Overdrive is the difference in distance travelled by the drum and the inside edge of the belt after one spiral tier revolution.",
+                footerText: "Engineering Calculators",
+                backHome: "Return to BELTPRO Home",
+                invalidTierPitch: "Enter a valid tier pitch greater than zero.",
+                invalidInsideDistance: "Enter a valid inside-edge distance greater than or equal to zero.",
+                invalidOutsideData: "Enter valid values greater than zero for inside radius, belt width and outside-edge distance."
+            },
+            es: {
+                title: "Calculadora de Overdrive del Espiral",
+                subtitle: "Calcule el overdrive del espiral en niveles utilizando una distancia medida en el borde interior o exterior de la banda.",
+                inputData: "Datos de Entrada",
+                unitSystem: "Sistema de Unidades",
+                metric: "Métrico",
+                imperial: "Imperial",
+                measurementMethod: "Método de Medición",
+                insideEdge: "Distancia Medida en el Borde Interior",
+                outsideEdge: "Distancia Medida en el Borde Exterior",
+                tierPitch: "Paso entre Niveles",
+                insideRadius: "Radio Interior (IR)",
+                beltWidth: "Ancho de la Banda (BW)",
+                insideDistance: "Distancia Medida en el Borde Interior",
+                outsideDistance: "Distancia Medida en el Borde Exterior",
+                calculate: "Calcular Overdrive",
+                reset: "Restablecer",
+                overdrive: "Overdrive",
+                note: "El overdrive es la diferencia entre la distancia recorrida por el tambor y el borde interior de la banda después de una revolución de un nivel del espiral.",
+                footerText: "Calculadoras de Ingeniería",
+                backHome: "Volver a BELTPRO",
+                invalidTierPitch: "Ingrese un paso entre niveles válido mayor que cero.",
+                invalidInsideDistance: "Ingrese una distancia válida en el borde interior mayor o igual a cero.",
+                invalidOutsideData: "Ingrese valores válidos mayores que cero para el radio interior, el ancho de la banda y la distancia en el borde exterior."
+            },
+            pt: {
+                title: "Calculadora de Overdrive do Espiral",
+                subtitle: "Calcule o overdrive do espiral em níveis usando uma distância medida na borda interna ou externa da esteira.",
+                inputData: "Dados de Entrada",
+                unitSystem: "Sistema de Unidades",
+                metric: "Métrico",
+                imperial: "Imperial",
+                measurementMethod: "Método de Medição",
+                insideEdge: "Distância Medida na Borda Interna",
+                outsideEdge: "Distância Medida na Borda Externa",
+                tierPitch: "Passo entre Níveis",
+                insideRadius: "Raio Interno (IR)",
+                beltWidth: "Largura da Esteira (BW)",
+                insideDistance: "Distância Medida na Borda Interna",
+                outsideDistance: "Distância Medida na Borda Externa",
+                calculate: "Calcular Overdrive",
+                reset: "Limpar",
+                overdrive: "Overdrive",
+                note: "Overdrive é a diferença entre a distância percorrida pelo tambor e pela borda interna da esteira após uma revolução de um nível do espiral.",
+                footerText: "Calculadoras de Engenharia",
+                backHome: "Voltar para a BELTPRO",
+                invalidTierPitch: "Informe um passo entre níveis válido maior que zero.",
+                invalidInsideDistance: "Informe uma distância válida na borda interna maior ou igual a zero.",
+                invalidOutsideData: "Informe valores válidos maiores que zero para o raio interno, a largura da esteira e a distância na borda externa."
+            },
+            it: {
+                title: "Calcolatore Overdrive della Spirale",
+                subtitle: "Calcola l'overdrive della spirale in livelli utilizzando una distanza misurata sul bordo interno o esterno del nastro.",
+                inputData: "Dati di Ingresso",
+                unitSystem: "Sistema di Unità",
+                metric: "Metrico",
+                imperial: "Imperiale",
+                measurementMethod: "Metodo di Misurazione",
+                insideEdge: "Distanza Misurata sul Bordo Interno",
+                outsideEdge: "Distanza Misurata sul Bordo Esterno",
+                tierPitch: "Passo tra i Livelli",
+                insideRadius: "Raggio Interno (IR)",
+                beltWidth: "Larghezza del Nastro (BW)",
+                insideDistance: "Distanza Misurata sul Bordo Interno",
+                outsideDistance: "Distanza Misurata sul Bordo Esterno",
+                calculate: "Calcola Overdrive",
+                reset: "Reimposta",
+                overdrive: "Overdrive",
+                note: "L'overdrive è la differenza tra la distanza percorsa dal tamburo e dal bordo interno del nastro dopo una rivoluzione di un livello della spirale.",
+                footerText: "Calcolatori di Ingegneria",
+                backHome: "Torna a BELTPRO",
+                invalidTierPitch: "Inserire un passo tra i livelli valido maggiore di zero.",
+                invalidInsideDistance: "Inserire una distanza valida sul bordo interno maggiore o uguale a zero.",
+                invalidOutsideData: "Inserire valori validi maggiori di zero per il raggio interno, la larghezza del nastro e la distanza sul bordo esterno."
+            }
+        };
+
+        let currentLanguage = "en";
+
+        function setLanguage(lang) {
+            currentLanguage = translations[lang] ? lang : "en";
+            document.documentElement.lang = currentLanguage;
+
+            document.querySelectorAll("[data-i18n]").forEach(element => {
+                const key = element.dataset.i18n;
+                if (translations[currentLanguage][key] !== undefined) {
+                    element.textContent = translations[currentLanguage][key];
+                }
+            });
+
+            document.querySelectorAll("[data-lang-button]").forEach(button => {
+                button.classList.toggle("active", button.dataset.langButton === currentLanguage);
+            });
+
+            try {
+                localStorage.setItem("beltpro_lang", currentLanguage);
+            } catch (error) {
+                // Continue without local storage.
+            }
+
+            clearOutput();
+        }
+
+        function updateMethodFields() {
+            const method = document.getElementById("measurementMethod").value;
+            const outside = method === "outside";
+
+            document.getElementById("insideDistanceGroup").classList.toggle("hidden", outside);
+            document.getElementById("beltWidthGroup").classList.toggle("hidden", !outside);
+            document.getElementById("outsideDistanceGroup").classList.toggle("hidden", !outside);
+            document.getElementById("insideRadiusGroup").classList.toggle("hidden", !outside);
+
+            clearOutput();
+        }
+
+        function updateUnitLabels() {
+            const unit = document.getElementById("unitSystem").value === "metric" ? "mm" : "in";
+
+            document.querySelectorAll(".dimension-unit").forEach(input => {
+                input.value = unit;
+            });
+
+            clearOutput();
+        }
+
+        function getNumber(id) {
+            return Number.parseFloat(document.getElementById(id).value);
+        }
+
+        function showError(message) {
+            const errorBox = document.getElementById("errorBox");
+            errorBox.textContent = message;
+            errorBox.classList.add("show");
+        }
+
+        function clearOutput() {
+            document.getElementById("errorBox").classList.remove("show");
+            document.getElementById("errorBox").textContent = "";
+            document.getElementById("resultBox").classList.remove("show");
+        }
+
+        function formatNumber(value) {
+            const locale = currentLanguage === "en" ? "en-GB" : currentLanguage;
+            return new Intl.NumberFormat(locale, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(value);
+        }
+
+        function calculateOverdrive() {
+            clearOutput();
+
+            const method = document.getElementById("measurementMethod").value;
+            const tierPitch = getNumber("tierPitch");
+
+            if (!Number.isFinite(tierPitch) || tierPitch <= 0) {
+                showError(translations[currentLanguage].invalidTierPitch);
+                return;
+            }
+
+            let overdrive;
+
+            if (method === "inside") {
+                const insideDistance = getNumber("insideDistance");
+
+                if (!Number.isFinite(insideDistance) || insideDistance < 0) {
+                    showError(translations[currentLanguage].invalidInsideDistance);
+                    return;
+                }
+
+                overdrive = insideDistance / tierPitch;
+            } else {
+                const insideRadius = getNumber("insideRadius");
+                const beltWidth = getNumber("beltWidth");
+                const outsideDistance = getNumber("outsideDistance");
+
+                if (!Number.isFinite(insideRadius) || insideRadius <= 0 ||
+                    !Number.isFinite(beltWidth) || beltWidth <= 0 ||
+                    !Number.isFinite(outsideDistance) || outsideDistance < 0) {
+                    showError(translations[currentLanguage].invalidOutsideData);
+                    return;
+                }
+
+                const outsideRadius = insideRadius + beltWidth;
+
+                overdrive =
+                    (outsideDistance / tierPitch) *
+                    (insideRadius / outsideRadius);
+            }
+
+            if (!Number.isFinite(overdrive) || overdrive < 0) {
+                showError(translations[currentLanguage].invalidOutsideData);
+                return;
+            }
+
+            document.getElementById("resultValue").textContent =
+                `${formatNumber(overdrive)} tiers`;
+
+            document.getElementById("resultBox").classList.add("show");
+        }
+
+        function resetCalculator() {
+            [
+                "tierPitch",
+                "insideRadius",
+                "beltWidth",
+                "insideDistance",
+                "outsideDistance"
+            ].forEach(id => {
+                document.getElementById(id).value = "";
+            });
+
+            document.getElementById("measurementMethod").value = "inside";
+            updateMethodFields();
+            clearOutput();
+        }
+
+        document.getElementById("measurementMethod").addEventListener("change", updateMethodFields);
+        document.getElementById("unitSystem").addEventListener("change", updateUnitLabels);
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        document.addEventListener("DOMContentLoaded", () => {
+            let savedLanguage = "en";
+
+            try {
+                savedLanguage = localStorage.getItem("beltpro_lang") || "en";
+            } catch (error) {
+                savedLanguage = "en";
+            }
+
+            setLanguage(savedLanguage);
+            updateMethodFields();
+            updateUnitLabels();
+        });
+    </script>
+</body>
+</html>
