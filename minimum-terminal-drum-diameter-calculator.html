@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BELTPRO | Minimum Terminal Drum Diameter Calculator</title>
+    <meta name="description" content="BELTPRO calculator for estimating the minimum terminal drum diameter for Balanced Weave and Compound Balanced Weave conveyor belts.">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        :root{--navy:#0f172a;--blue:#0f4c81;--light-blue:#38bdf8;--text:#1f2937;--muted:#64748b;--background:#f8fafc;--card:#fff;--border:#dbe5ee;--success:#166534;--success-bg:#ecfdf5;--danger:#b91c1c;--danger-bg:#fef2f2}
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:Arial,Helvetica,sans-serif;background:var(--background);color:var(--text);line-height:1.6}
+        .language-bar{background:#111827;border-bottom:2px solid var(--light-blue);padding:10px 20px;text-align:right}
+        .language-bar button{background:#1e293b;color:#e2e8f0;border:1px solid #334155;padding:7px 12px;border-radius:6px;cursor:pointer;font-weight:700;font-size:14px;margin-left:6px}
+        .language-bar button:hover,.language-bar button.active{background:var(--blue);color:#fff;border-color:var(--light-blue)}
+        header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;text-align:center;padding:34px 20px 30px}
+        header img{max-width:210px;width:70%;height:auto;margin-bottom:14px}
+        header h1{font-size:clamp(1.75rem,4vw,2.6rem);line-height:1.2;margin-bottom:10px}
+        header p{max-width:820px;margin:0 auto;color:#dbeafe;font-size:1rem}
+        .home-link{display:inline-block;margin-top:18px;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.55);padding:8px 16px;border-radius:7px;font-weight:700}
+        .home-link:hover{background:rgba(255,255,255,.12)}
+        main{width:min(760px,calc(100% - 32px));margin:34px auto 50px}
+        .calculator-card{background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 30px rgba(15,23,42,.08);padding:28px}
+        .field{margin-bottom:22px}
+        label{display:block;margin-bottom:8px;font-weight:700;color:var(--navy)}
+        select,input{width:100%;padding:13px 14px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;color:var(--text);background:#fff;outline:none}
+        select:focus,input:focus{border-color:var(--light-blue);box-shadow:0 0 0 3px rgba(56,189,248,.18)}
+        .hint{margin-top:7px;font-size:14px;color:var(--muted)}
+        .calculate-btn{width:100%;border:none;border-radius:8px;background:var(--blue);color:#fff;padding:14px 20px;font-size:17px;font-weight:700;cursor:pointer}
+        .calculate-btn:hover{background:#0b3e69}
+        .result{display:none;margin-top:26px;padding:24px;border:1px solid #bbf7d0;border-radius:12px;background:var(--success-bg);text-align:center}
+        .result h2{color:var(--success);font-size:1.1rem;margin-bottom:14px}
+        .diameter{display:block;color:var(--navy);font-size:clamp(2rem,6vw,3rem);font-weight:800;line-height:1.15}
+        .diameter-mm{display:block;margin-top:8px;color:var(--blue);font-size:clamp(1.45rem,4vw,2rem);font-weight:700}
+        .error{display:none;margin-top:20px;padding:14px 16px;border:1px solid #fecaca;border-radius:8px;background:var(--danger-bg);color:var(--danger);font-weight:700;text-align:center}
+        .disclaimer{margin-top:24px;color:var(--muted);font-size:13px;text-align:center}
+        footer{background:var(--navy);color:#cbd5e1;text-align:center;padding:22px 16px;font-size:14px}
+        @media(max-width:600px){.language-bar{text-align:center;padding:9px 8px}.language-bar button{margin:3px}.calculator-card{padding:22px 18px}}
+    </style>
+</head>
+<body>
+    <div class="language-bar">
+        <button type="button" onclick="setLanguage('en')" id="lang-en">EN</button>
+        <button type="button" onclick="setLanguage('es')" id="lang-es">ES</button>
+        <button type="button" onclick="setLanguage('pt')" id="lang-pt">PT</button>
+        <button type="button" onclick="setLanguage('it')" id="lang-it">IT</button>
+    </div>
+
+    <header>
+        <img src="logo.png" alt="BELTPRO Logo">
+        <h1 data-en="Minimum Terminal Drum Diameter Calculator" data-es="Calculadora del Diámetro Mínimo de los Tambores Terminales" data-pt="Calculadora do Diâmetro Mínimo dos Tambores Terminais" data-it="Calcolatore del Diametro Minimo dei Tamburi Terminali">Minimum Terminal Drum Diameter Calculator</h1>
+        <p data-en="Calculate the minimum terminal drum diameter for Balanced Weave and Compound Balanced Weave conveyor belts." data-es="Calcule el diámetro mínimo de los tambores terminales para bandas Balanced Weave y Compound Balanced Weave." data-pt="Calcule o diâmetro mínimo dos tambores terminais para esteiras Balanced Weave e Compound Balanced Weave." data-it="Calcola il diametro minimo dei tamburi terminali per nastri Balanced Weave e Compound Balanced Weave.">Calculate the minimum terminal drum diameter for Balanced Weave and Compound Balanced Weave conveyor belts.</p>
+        <a href="index.html" class="home-link" data-en="Back to Home" data-es="Volver al Inicio" data-pt="Voltar ao Início" data-it="Torna alla Home">Back to Home</a>
+    </header>
+
+    <main>
+        <section class="calculator-card">
+            <div class="field">
+                <label for="weaveType" data-en="Select belt weave type" data-es="Seleccione el tipo de tejido de la banda" data-pt="Selecione o tipo de malha da esteira" data-it="Seleziona il tipo di maglia del nastro">Select belt weave type</label>
+                <select id="weaveType">
+                    <option value="BW">BW — Balanced Weave</option>
+                    <option value="CB2">CB2 — Compound Balanced Weave 2</option>
+                    <option value="CB3">CB3 — Compound Balanced Weave 3</option>
+                    <option value="CB4">CB4 — Compound Balanced Weave 4</option>
+                    <option value="CB5">CB5 — Compound Balanced Weave 5</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="meshCount" data-en="What is the second mesh count?" data-es="¿Cuál es el segundo número de malla?" data-pt="Qual é o segundo número da malha?" data-it="Qual è il secondo numero della maglia?">What is the second mesh count?</label>
+                <input id="meshCount" type="number" min="0.01" step="any" inputmode="decimal" placeholder="20">
+                <p class="hint" data-en="Examples: enter 20 for B36-20, 84 for CB5-27-84, or 48 for CB2-60-48." data-es="Ejemplos: ingrese 20 para B36-20, 84 para CB5-27-84 o 48 para CB2-60-48." data-pt="Exemplos: informe 20 para B36-20, 84 para CB5-27-84 ou 48 para CB2-60-48." data-it="Esempi: inserire 20 per B36-20, 84 per CB5-27-84 o 48 per CB2-60-48.">Examples: enter 20 for B36-20, 84 for CB5-27-84, or 48 for CB2-60-48.</p>
+            </div>
+
+            <button type="button" class="calculate-btn" onclick="calculateDiameter()" data-en="Calculate Minimum Diameter" data-es="Calcular Diámetro Mínimo" data-pt="Calcular Diâmetro Mínimo" data-it="Calcola Diametro Minimo">Calculate Minimum Diameter</button>
+
+            <div id="errorBox" class="error" data-en="Please enter a valid second mesh count greater than zero." data-es="Ingrese un segundo número de malla válido mayor que cero." data-pt="Informe um segundo número de malha válido maior que zero." data-it="Inserire un secondo numero di maglia valido maggiore di zero.">Please enter a valid second mesh count greater than zero.</div>
+
+            <div id="resultBox" class="result">
+                <h2 data-en="Minimum Terminal Drum Diameter" data-es="Diámetro Mínimo de los Tambores Terminales" data-pt="Diâmetro Mínimo dos Tambores Terminais" data-it="Diametro Minimo dei Tamburi Terminali">Minimum Terminal Drum Diameter</h2>
+                <span id="resultInches" class="diameter">— in</span>
+                <span id="resultMillimetres" class="diameter-mm">— mm</span>
+            </div>
+
+            <p class="disclaimer" data-en="This calculator provides an engineering estimate. Use a terminal drum diameter equal to or greater than the calculated minimum." data-es="Esta calculadora proporciona una estimación de ingeniería. Utilice un tambor terminal con diámetro igual o mayor que el mínimo calculado." data-pt="Esta calculadora fornece uma estimativa de engenharia. Utilize um tambor terminal com diâmetro igual ou superior ao mínimo calculado." data-it="Questo calcolatore fornisce una stima ingegneristica. Utilizzare un tamburo terminale con diametro uguale o superiore al minimo calcolato.">This calculator provides an engineering estimate. Use a terminal drum diameter equal to or greater than the calculated minimum.</p>
+        </section>
+    </main>
+
+    <footer><span>BELTPRO — Trust the Pros</span></footer>
+
+    <script>
+        function setLanguage(language){
+            document.documentElement.lang=language;
+            document.querySelectorAll('[data-en]').forEach(function(element){
+                const translation=element.getAttribute('data-'+language);
+                if(translation!==null) element.textContent=translation;
+            });
+            document.querySelectorAll('.language-bar button').forEach(function(button){button.classList.remove('active')});
+            const activeButton=document.getElementById('lang-'+language);
+            if(activeButton) activeButton.classList.add('active');
+            try{localStorage.setItem('beltpro_lang',language)}catch(error){}
+        }
+
+        function calculateDiameter(){
+            const weaveType=document.getElementById('weaveType').value;
+            const meshCount=parseFloat(document.getElementById('meshCount').value);
+            const errorBox=document.getElementById('errorBox');
+            const resultBox=document.getElementById('resultBox');
+
+            if(!Number.isFinite(meshCount)||meshCount<=0){
+                resultBox.style.display='none';
+                errorBox.style.display='block';
+                return;
+            }
+
+            errorBox.style.display='none';
+            let compoundFactor=1;
+            if(weaveType.startsWith('CB')) compoundFactor=parseInt(weaveType.replace('CB',''),10);
+
+            const effectiveMeshCount=meshCount/compoundFactor;
+            const diameterInches=180/effectiveMeshCount;
+            const diameterMillimetres=diameterInches*25.4;
+
+            document.getElementById('resultInches').textContent=diameterInches.toFixed(2)+' in';
+            document.getElementById('resultMillimetres').textContent=diameterMillimetres.toFixed(1)+' mm';
+            resultBox.style.display='block';
+        }
+
+        document.getElementById('meshCount').addEventListener('keydown',function(event){if(event.key==='Enter')calculateDiameter()});
+
+        document.addEventListener('DOMContentLoaded',function(){
+            let savedLanguage='en';
+            try{savedLanguage=localStorage.getItem('beltpro_lang')||'en'}catch(error){}
+            if(!['en','es','pt','it'].includes(savedLanguage)) savedLanguage='en';
+            setLanguage(savedLanguage);
+        });
+    </script>
+</body>
+</html>
