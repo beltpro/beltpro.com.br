@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BELTPRO | Washburn Wire Gauge Converter</title>
+    <meta name="description"
+          content="Convert Washburn wire gauge to millimetres or millimetres to the nearest Washburn wire gauge.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        :root {
+            --navy: #0f172a;
+            --blue: #0f4c81;
+            --light-blue: #38bdf8;
+            --orange: #f97316;
+            --text: #1f2937;
+            --muted: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #dbe5ee;
+            --success: #166534;
+            --success-bg: #ecfdf5;
+            --warning: #92400e;
+            --warning-bg: #fffbeb;
+            --danger: #b91c1c;
+            --danger-bg: #fef2f2;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.55;
+        }
+
+        .language-bar {
+            background: #111827;
+            border-bottom: 2px solid var(--light-blue);
+            padding: 10px 20px;
+            text-align: right;
+        }
+
+        .language-bar button {
+            border: 1px solid #475569;
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 6px;
+            padding: 7px 11px;
+            margin-left: 6px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .language-bar button:hover,
+        .language-bar button.active {
+            background: var(--blue);
+            border-color: var(--light-blue);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            text-align: center;
+            padding: 34px 20px 38px;
+        }
+
+        header img {
+            width: min(250px, 72vw);
+            height: auto;
+            margin-bottom: 16px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: clamp(1.8rem, 4vw, 2.7rem);
+        }
+
+        header p {
+            margin: 10px auto 0;
+            max-width: 760px;
+            color: #dbeafe;
+            font-size: 1.05rem;
+        }
+
+        .trust {
+            color: var(--orange);
+            font-weight: 800;
+            margin-top: 8px;
+        }
+
+        main {
+            width: min(980px, calc(100% - 30px));
+            margin: 30px auto 50px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+            overflow: hidden;
+        }
+
+        .card-heading {
+            padding: 18px 22px;
+            background: #eef6fb;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-heading h2 {
+            margin: 0;
+            color: var(--navy);
+            font-size: 1.28rem;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .mode-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .mode-button {
+            min-height: 50px;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            background: white;
+            color: #334155;
+            font: inherit;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .mode-button.active {
+            background: var(--blue);
+            color: white;
+            border-color: var(--blue);
+        }
+
+        .converter-panel {
+            display: none;
+        }
+
+        .converter-panel.active {
+            display: block;
+        }
+
+        label {
+            display: block;
+            font-weight: 800;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        select,
+        input {
+            width: 100%;
+            min-height: 48px;
+            padding: 11px 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background: white;
+            color: var(--text);
+            font: inherit;
+        }
+
+        select:focus,
+        input:focus {
+            outline: none;
+            border-color: var(--light-blue);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .hint {
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .calculate-button {
+            width: 100%;
+            min-height: 48px;
+            border: 0;
+            border-radius: 8px;
+            background: var(--blue);
+            color: white;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .calculate-button:hover {
+            background: #0b3b65;
+        }
+
+        .result-box {
+            display: none;
+            margin-top: 22px;
+            padding: 22px;
+            border-radius: 12px;
+            background: var(--success-bg);
+            border: 2px solid #86efac;
+            text-align: center;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-label {
+            display: block;
+            color: #475569;
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .result-value {
+            display: block;
+            margin-top: 7px;
+            color: var(--success);
+            font-size: clamp(1.8rem, 5vw, 2.6rem);
+            font-weight: 900;
+        }
+
+        .result-detail {
+            margin-top: 8px;
+            color: #475569;
+            font-weight: 700;
+        }
+
+        .error {
+            display: none;
+            margin-top: 18px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            background: var(--danger-bg);
+            color: var(--danger);
+            border: 1px solid #fecaca;
+            font-weight: 700;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .note {
+            margin-top: 22px;
+            padding: 14px 16px;
+            border-radius: 9px;
+            background: var(--warning-bg);
+            border-left: 5px solid #f59e0b;
+            color: var(--warning);
+            font-weight: 700;
+        }
+
+        footer {
+            background: var(--navy);
+            color: #cbd5e1;
+            text-align: center;
+            padding: 24px 18px;
+            font-size: 0.92rem;
+        }
+
+        footer a {
+            color: var(--light-blue);
+            text-decoration: none;
+        }
+
+        @media (max-width: 560px) {
+            .mode-selector {
+                grid-template-columns: 1fr;
+            }
+
+            .language-bar {
+                text-align: center;
+                padding-inline: 8px;
+            }
+
+            .language-bar button {
+                margin: 3px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="language-bar">
+        <button type="button" data-lang-button="en" onclick="setLanguage('en')">EN</button>
+        <button type="button" data-lang-button="es" onclick="setLanguage('es')">ES</button>
+        <button type="button" data-lang-button="pt" onclick="setLanguage('pt')">PT</button>
+        <button type="button" data-lang-button="it" onclick="setLanguage('it')">IT</button>
+    </div>
+
+    <header>
+        <img src="logo.png" alt="BELTPRO Logo">
+        <h1 data-i18n="title">Washburn Wire Gauge Converter</h1>
+        <p data-i18n="subtitle">
+            Convert Washburn wire gauge to millimetres or enter a diameter in millimetres to find the nearest Washburn gauge.
+        </p>
+        <div class="trust">Trust the Pros.</div>
+    </header>
+
+    <main>
+        <section class="card">
+            <div class="card-heading">
+                <h2 data-i18n="converter">Wire Diameter Converter</h2>
+            </div>
+
+            <div class="card-body">
+                <div class="mode-selector">
+                    <button id="gaugeModeButton" class="mode-button active" type="button"
+                            onclick="showMode('gauge')"
+                            data-i18n="gaugeToMm">Gauge to mm</button>
+
+                    <button id="mmModeButton" class="mode-button" type="button"
+                            onclick="showMode('mm')"
+                            data-i18n="mmToGauge">mm to Gauge</button>
+                </div>
+
+                <div id="gaugePanel" class="converter-panel active">
+                    <div class="input-group">
+                        <label for="gaugeInput" data-i18n="selectGauge">Select Washburn Gauge</label>
+                        <select id="gaugeInput"></select>
+                    </div>
+
+                    <button class="calculate-button" type="button"
+                            onclick="convertGaugeToMm()"
+                            data-i18n="convertToMm">Convert to mm</button>
+
+                    <div id="gaugeResult" class="result-box">
+                        <span class="result-label" data-i18n="wireDiameter">Wire Diameter</span>
+                        <span id="gaugeResultValue" class="result-value">—</span>
+                        <div id="gaugeResultDetail" class="result-detail"></div>
+                    </div>
+                </div>
+
+                <div id="mmPanel" class="converter-panel">
+                    <div class="input-group">
+                        <label for="mmInput" data-i18n="enterMm">Enter Wire Diameter</label>
+                        <input id="mmInput" type="number" min="0" step="any" inputmode="decimal"
+                               placeholder="mm">
+                        <div class="hint" data-i18n="nearestHint">
+                            The calculator returns the nearest available Washburn gauge from the chart.
+                        </div>
+                    </div>
+
+                    <button class="calculate-button" type="button"
+                            onclick="convertMmToGauge()"
+                            data-i18n="findGauge">Find Nearest Gauge</button>
+
+                    <div id="mmResult" class="result-box">
+                        <span class="result-label" data-i18n="nearestGauge">Nearest Washburn Gauge</span>
+                        <span id="mmResultValue" class="result-value">—</span>
+                        <div id="mmResultDetail" class="result-detail"></div>
+                    </div>
+                </div>
+
+                <div id="errorBox" class="error"></div>
+
+                <div class="note" data-i18n="note">
+                    Values are based on the Washburn &amp; Moen / Roebling / American Steel and Wire Co. column of the supplied wire gauge chart. Original chart dimensions are in inches and are converted to millimetres using 1 inch = 25.4 mm.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div>© <span id="year"></span> BELTPRO — <span data-i18n="footerText">Engineering Calculators</span></div>
+        <div><a href="index.html" data-i18n="backHome">Return to BELTPRO Home</a></div>
+    </footer>
+
+    <script>
+        const gaugeData = [
+            { gauge: "7/0", inches: 0.49000, mm: 12.446000 },
+            { gauge: "6/0", inches: 0.46150, mm: 11.722100 },
+            { gauge: "5/0", inches: 0.43050, mm: 10.934700 },
+            { gauge: "4/0", inches: 0.39380, mm: 10.002520 },
+            { gauge: "3/0", inches: 0.36250, mm: 9.207500 },
+            { gauge: "2/0", inches: 0.33100, mm: 8.407400 },
+            { gauge: "0", inches: 0.30650, mm: 7.785100 },
+            { gauge: "1", inches: 0.28300, mm: 7.188200 },
+            { gauge: "2", inches: 0.26250, mm: 6.667500 },
+            { gauge: "3", inches: 0.24370, mm: 6.189980 },
+            { gauge: "4", inches: 0.22530, mm: 5.722620 },
+            { gauge: "5", inches: 0.20700, mm: 5.257800 },
+            { gauge: "6", inches: 0.19200, mm: 4.876800 },
+            { gauge: "7", inches: 0.17700, mm: 4.495800 },
+            { gauge: "8", inches: 0.16200, mm: 4.114800 },
+            { gauge: "9", inches: 0.14830, mm: 3.766820 },
+            { gauge: "10", inches: 0.13500, mm: 3.429000 },
+            { gauge: "11", inches: 0.12050, mm: 3.060700 },
+            { gauge: "12", inches: 0.10550, mm: 2.679700 },
+            { gauge: "13", inches: 0.09150, mm: 2.324100 },
+            { gauge: "14", inches: 0.08000, mm: 2.032000 },
+            { gauge: "15", inches: 0.07200, mm: 1.828800 },
+            { gauge: "16", inches: 0.06250, mm: 1.587500 },
+            { gauge: "17", inches: 0.05400, mm: 1.371600 },
+            { gauge: "18", inches: 0.04750, mm: 1.206500 },
+            { gauge: "19", inches: 0.04100, mm: 1.041400 },
+            { gauge: "20", inches: 0.03480, mm: 0.883920 },
+            { gauge: "21", inches: 0.03175, mm: 0.806450 },
+            { gauge: "22", inches: 0.02860, mm: 0.726440 },
+            { gauge: "23", inches: 0.02580, mm: 0.655320 },
+            { gauge: "24", inches: 0.02300, mm: 0.584200 },
+            { gauge: "25", inches: 0.02040, mm: 0.518160 },
+            { gauge: "26", inches: 0.01810, mm: 0.459740 },
+            { gauge: "27", inches: 0.01730, mm: 0.439420 },
+            { gauge: "28", inches: 0.01620, mm: 0.411480 },
+            { gauge: "29", inches: 0.01500, mm: 0.381000 },
+            { gauge: "30", inches: 0.01400, mm: 0.355600 },
+            { gauge: "31", inches: 0.01320, mm: 0.335280 },
+            { gauge: "32", inches: 0.01280, mm: 0.325120 },
+            { gauge: "33", inches: 0.01180, mm: 0.299720 },
+            { gauge: "34", inches: 0.01040, mm: 0.264160 },
+            { gauge: "35", inches: 0.00950, mm: 0.241300 },
+            { gauge: "36", inches: 0.00900, mm: 0.228600 }
+        ];
+
+        const translations = {
+            en: {
+                title: "Washburn Wire Gauge Converter",
+                subtitle: "Convert Washburn wire gauge to millimetres or enter a diameter in millimetres to find the nearest Washburn gauge.",
+                converter: "Wire Diameter Converter",
+                gaugeToMm: "Gauge to mm",
+                mmToGauge: "mm to Gauge",
+                selectGauge: "Select Washburn Gauge",
+                convertToMm: "Convert to mm",
+                wireDiameter: "Wire Diameter",
+                enterMm: "Enter Wire Diameter",
+                nearestHint: "The calculator returns the nearest available Washburn gauge from the chart.",
+                findGauge: "Find Nearest Gauge",
+                nearestGauge: "Nearest Washburn Gauge",
+                note: "Values are based on the Washburn & Moen / Roebling / American Steel and Wire Co. column of the supplied wire gauge chart. Original chart dimensions are in inches and are converted to millimetres using 1 inch = 25.4 mm.",
+                footerText: "Engineering Calculators",
+                backHome: "Return to BELTPRO Home",
+                inchEquivalent: "Washburn chart value",
+                exactDifference: "Difference from entered diameter",
+                invalidMm: "Enter a valid diameter greater than zero."
+            },
+            es: {
+                title: "Convertidor de Calibre de Alambre Washburn",
+                subtitle: "Convierta calibre Washburn a milímetros o ingrese un diámetro en milímetros para encontrar el calibre Washburn más cercano.",
+                converter: "Convertidor de Diámetro de Alambre",
+                gaugeToMm: "Calibre a mm",
+                mmToGauge: "mm a Calibre",
+                selectGauge: "Seleccione el Calibre Washburn",
+                convertToMm: "Convertir a mm",
+                wireDiameter: "Diámetro del Alambre",
+                enterMm: "Ingrese el Diámetro del Alambre",
+                nearestHint: "La calculadora devuelve el calibre Washburn disponible más cercano en la tabla.",
+                findGauge: "Encontrar Calibre Más Cercano",
+                nearestGauge: "Calibre Washburn Más Cercano",
+                note: "Los valores se basan en la columna Washburn & Moen / Roebling / American Steel and Wire Co. de la tabla suministrada. Las dimensiones originales están en pulgadas y se convierten usando 1 pulgada = 25,4 mm.",
+                footerText: "Calculadoras de Ingeniería",
+                backHome: "Volver a BELTPRO",
+                inchEquivalent: "Valor de la tabla Washburn",
+                exactDifference: "Diferencia respecto al diámetro ingresado",
+                invalidMm: "Ingrese un diámetro válido mayor que cero."
+            },
+            pt: {
+                title: "Conversor de Bitola de Arame Washburn",
+                subtitle: "Converta a bitola Washburn para milímetros ou informe um diâmetro em milímetros para encontrar a bitola Washburn mais próxima.",
+                converter: "Conversor de Diâmetro de Arame",
+                gaugeToMm: "Bitola para mm",
+                mmToGauge: "mm para Bitola",
+                selectGauge: "Selecione a Bitola Washburn",
+                convertToMm: "Converter para mm",
+                wireDiameter: "Diâmetro do Arame",
+                enterMm: "Informe o Diâmetro do Arame",
+                nearestHint: "A calculadora retorna a bitola Washburn disponível mais próxima na tabela.",
+                findGauge: "Encontrar Bitola Mais Próxima",
+                nearestGauge: "Bitola Washburn Mais Próxima",
+                note: "Os valores são baseados na coluna Washburn & Moen / Roebling / American Steel and Wire Co. da tabela fornecida. As dimensões originais estão em polegadas e são convertidas usando 1 polegada = 25,4 mm.",
+                footerText: "Calculadoras de Engenharia",
+                backHome: "Voltar para a BELTPRO",
+                inchEquivalent: "Valor da tabela Washburn",
+                exactDifference: "Diferença em relação ao diâmetro informado",
+                invalidMm: "Informe um diâmetro válido maior que zero."
+            },
+            it: {
+                title: "Convertitore Calibro Filo Washburn",
+                subtitle: "Converti il calibro Washburn in millimetri oppure inserisci un diametro in millimetri per trovare il calibro Washburn più vicino.",
+                converter: "Convertitore Diametro Filo",
+                gaugeToMm: "Calibro a mm",
+                mmToGauge: "mm a Calibro",
+                selectGauge: "Seleziona Calibro Washburn",
+                convertToMm: "Converti in mm",
+                wireDiameter: "Diametro del Filo",
+                enterMm: "Inserisci il Diametro del Filo",
+                nearestHint: "Il calcolatore restituisce il calibro Washburn disponibile più vicino nella tabella.",
+                findGauge: "Trova Calibro Più Vicino",
+                nearestGauge: "Calibro Washburn Più Vicino",
+                note: "I valori si basano sulla colonna Washburn & Moen / Roebling / American Steel and Wire Co. della tabella fornita. Le dimensioni originali sono in pollici e vengono convertite usando 1 pollice = 25,4 mm.",
+                footerText: "Calcolatori di Ingegneria",
+                backHome: "Torna a BELTPRO",
+                inchEquivalent: "Valore della tabella Washburn",
+                exactDifference: "Differenza rispetto al diametro inserito",
+                invalidMm: "Inserire un diametro valido maggiore di zero."
+            }
+        };
+
+        let currentLanguage = "en";
+
+        function populateGaugeSelect() {
+            const select = document.getElementById("gaugeInput");
+            select.innerHTML = "";
+
+            gaugeData.forEach(item => {
+                const option = document.createElement("option");
+                option.value = item.gauge;
+                option.textContent = item.gauge;
+                select.appendChild(option);
+            });
+        }
+
+        function setLanguage(lang) {
+            currentLanguage = translations[lang] ? lang : "en";
+            document.documentElement.lang = currentLanguage;
+
+            document.querySelectorAll("[data-i18n]").forEach(element => {
+                const key = element.dataset.i18n;
+                if (translations[currentLanguage][key] !== undefined) {
+                    element.textContent = translations[currentLanguage][key];
+                }
+            });
+
+            document.querySelectorAll("[data-lang-button]").forEach(button => {
+                button.classList.toggle("active", button.dataset.langButton === currentLanguage);
+            });
+
+            try {
+                localStorage.setItem("beltpro_lang", currentLanguage);
+            } catch (error) {
+                // Continue without local storage.
+            }
+
+            hideResults();
+        }
+
+        function showMode(mode) {
+            const gaugeMode = mode === "gauge";
+
+            document.getElementById("gaugePanel").classList.toggle("active", gaugeMode);
+            document.getElementById("mmPanel").classList.toggle("active", !gaugeMode);
+            document.getElementById("gaugeModeButton").classList.toggle("active", gaugeMode);
+            document.getElementById("mmModeButton").classList.toggle("active", !gaugeMode);
+
+            hideResults();
+        }
+
+        function hideResults() {
+            document.getElementById("gaugeResult").classList.remove("show");
+            document.getElementById("mmResult").classList.remove("show");
+            document.getElementById("errorBox").classList.remove("show");
+            document.getElementById("errorBox").textContent = "";
+        }
+
+        function formatNumber(value, minimum, maximum) {
+            const locale = currentLanguage === "en" ? "en-GB" : currentLanguage;
+            return new Intl.NumberFormat(locale, {
+                minimumFractionDigits: minimum,
+                maximumFractionDigits: maximum
+            }).format(value);
+        }
+
+        function convertGaugeToMm() {
+            hideResults();
+
+            const gauge = document.getElementById("gaugeInput").value;
+            const item = gaugeData.find(row => row.gauge === gauge);
+
+            if (!item) return;
+
+            document.getElementById("gaugeResultValue").textContent =
+                `${formatNumber(item.mm, 3, 4)} mm`;
+
+            document.getElementById("gaugeResultDetail").textContent =
+                `${translations[currentLanguage].inchEquivalent}: ${item.inches.toFixed(5)} in`;
+
+            document.getElementById("gaugeResult").classList.add("show");
+        }
+
+        function convertMmToGauge() {
+            hideResults();
+
+            const enteredMm = Number.parseFloat(document.getElementById("mmInput").value);
+
+            if (!Number.isFinite(enteredMm) || enteredMm <= 0) {
+                const errorBox = document.getElementById("errorBox");
+                errorBox.textContent = translations[currentLanguage].invalidMm;
+                errorBox.classList.add("show");
+                return;
+            }
+
+            let nearest = gaugeData[0];
+            let smallestDifference = Math.abs(enteredMm - nearest.mm);
+
+            for (const item of gaugeData) {
+                const difference = Math.abs(enteredMm - item.mm);
+                if (difference < smallestDifference) {
+                    nearest = item;
+                    smallestDifference = difference;
+                }
+            }
+
+            document.getElementById("mmResultValue").textContent =
+                nearest.gauge;
+
+            document.getElementById("mmResultDetail").textContent =
+                `${formatNumber(nearest.mm, 3, 4)} mm · ` +
+                `${translations[currentLanguage].exactDifference}: ` +
+                `${formatNumber(smallestDifference, 3, 4)} mm`;
+
+            document.getElementById("mmResult").classList.add("show");
+        }
+
+        document.getElementById("mmInput").addEventListener("keydown", event => {
+            if (event.key === "Enter") convertMmToGauge();
+        });
+
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        document.addEventListener("DOMContentLoaded", () => {
+            populateGaugeSelect();
+
+            let savedLanguage = "en";
+            try {
+                savedLanguage = localStorage.getItem("beltpro_lang") || "en";
+            } catch (error) {
+                savedLanguage = "en";
+            }
+
+            setLanguage(savedLanguage);
+        });
+    </script>
+</body>
+</html>
