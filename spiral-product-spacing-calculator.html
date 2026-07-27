@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BELTPRO | Spiral Product Spacing Calculator</title>
+    <meta name="description"
+          content="Estimate the minimum gap required between round, square or rectangular products before entering a spiral conveyor turn.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        :root {
+            --navy: #0f172a;
+            --blue: #0f4c81;
+            --light-blue: #38bdf8;
+            --orange: #f97316;
+            --text: #1f2937;
+            --muted: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #dbe5ee;
+            --success: #166534;
+            --success-bg: #ecfdf5;
+            --warning: #92400e;
+            --warning-bg: #fffbeb;
+            --danger: #b91c1c;
+            --danger-bg: #fef2f2;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.55;
+        }
+
+        .language-bar {
+            background: #111827;
+            border-bottom: 2px solid var(--light-blue);
+            padding: 10px 20px;
+            text-align: right;
+        }
+
+        .language-bar button {
+            border: 1px solid #475569;
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 6px;
+            padding: 7px 11px;
+            margin-left: 6px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .language-bar button:hover,
+        .language-bar button.active {
+            background: var(--blue);
+            border-color: var(--light-blue);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            text-align: center;
+            padding: 34px 20px 38px;
+        }
+
+        header img {
+            width: min(250px, 72vw);
+            height: auto;
+            margin-bottom: 16px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: clamp(1.8rem, 4vw, 2.7rem);
+        }
+
+        header p {
+            margin: 10px auto 0;
+            max-width: 820px;
+            color: #dbeafe;
+            font-size: 1.05rem;
+        }
+
+        .trust {
+            color: var(--orange);
+            font-weight: 800;
+            margin-top: 8px;
+        }
+
+        main {
+            width: min(980px, calc(100% - 30px));
+            margin: 30px auto 50px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+            overflow: hidden;
+        }
+
+        .card-heading {
+            padding: 18px 22px;
+            background: #eef6fb;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-heading h2 {
+            margin: 0;
+            color: var(--navy);
+            font-size: 1.28rem;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            font-weight: 800;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            min-height: 46px;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background: white;
+            color: var(--text);
+            font: inherit;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--light-blue);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
+        }
+
+        .input-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .unit {
+            width: 82px;
+            flex: 0 0 82px;
+            background: #f1f5f9;
+            color: #475569;
+            text-align: center;
+            font-weight: 800;
+            pointer-events: none;
+        }
+
+        .hint {
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .primary,
+        .secondary {
+            min-height: 48px;
+            border: 0;
+            border-radius: 8px;
+            padding: 11px 18px;
+            font: inherit;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .primary {
+            flex: 1;
+            background: var(--blue);
+            color: white;
+        }
+
+        .primary:hover {
+            background: #0b3b65;
+        }
+
+        .secondary {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        .error {
+            display: none;
+            margin-top: 18px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            background: var(--danger-bg);
+            color: var(--danger);
+            border: 1px solid #fecaca;
+            font-weight: 700;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .result-box {
+            display: none;
+            margin-top: 24px;
+            padding: 24px;
+            border-radius: 12px;
+            background: var(--success-bg);
+            border: 2px solid #86efac;
+            text-align: center;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-label {
+            display: block;
+            color: #475569;
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .result-value {
+            display: block;
+            margin-top: 7px;
+            color: var(--success);
+            font-size: clamp(1.9rem, 5vw, 2.8rem);
+            font-weight: 900;
+        }
+
+        .note {
+            margin-top: 22px;
+            padding: 14px 16px;
+            border-radius: 9px;
+            background: var(--warning-bg);
+            border-left: 5px solid #f59e0b;
+            color: var(--warning);
+            font-weight: 700;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        footer {
+            background: var(--navy);
+            color: #cbd5e1;
+            text-align: center;
+            padding: 24px 18px;
+            font-size: 0.92rem;
+        }
+
+        footer a {
+            color: var(--light-blue);
+            text-decoration: none;
+        }
+
+        @media (max-width: 620px) {
+            .field-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .language-bar {
+                text-align: center;
+                padding-inline: 8px;
+            }
+
+            .language-bar button {
+                margin: 3px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="language-bar">
+        <button type="button" data-lang-button="en" onclick="setLanguage('en')">EN</button>
+        <button type="button" data-lang-button="es" onclick="setLanguage('es')">ES</button>
+        <button type="button" data-lang-button="pt" onclick="setLanguage('pt')">PT</button>
+        <button type="button" data-lang-button="it" onclick="setLanguage('it')">IT</button>
+    </div>
+
+    <header>
+        <img src="logo.png" alt="BELTPRO Logo">
+        <h1 data-i18n="title">Spiral Product Spacing Calculator</h1>
+        <p data-i18n="subtitle">
+            Estimate the minimum gap required between products before they enter a spiral conveyor turn.
+        </p>
+        <div class="trust">Trust the Pros.</div>
+    </header>
+
+    <main>
+        <section class="card">
+            <div class="card-heading">
+                <h2 data-i18n="inputData">Input Data</h2>
+            </div>
+
+            <div class="card-body">
+                <div class="field-grid">
+                    <div class="field full">
+                        <label for="unitSystem" data-i18n="unitSystem">Unit System</label>
+                        <select id="unitSystem">
+                            <option value="metric" data-i18n="metric">Metric</option>
+                            <option value="imperial" data-i18n="imperial">Imperial</option>
+                        </select>
+                    </div>
+
+                    <div class="field full">
+                        <label for="productShape" data-i18n="productShape">Product Shape</label>
+                        <select id="productShape">
+                            <option value="rectangular" data-i18n="rectangular">Rectangular</option>
+                            <option value="square" data-i18n="square">Square</option>
+                            <option value="round" data-i18n="round">Round</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="insideRadius" data-i18n="insideRadius">Inside Turn Radius (IR)</label>
+                        <div class="input-row">
+                            <input id="insideRadius" type="number" min="0" step="any" inputmode="decimal">
+                            <input class="unit dimension-unit" value="mm" readonly tabindex="-1">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="beltWidth" data-i18n="beltWidth">Belt Width (BW)</label>
+                        <div class="input-row">
+                            <input id="beltWidth" type="number" min="0" step="any" inputmode="decimal">
+                            <input class="unit dimension-unit" value="mm" readonly tabindex="-1">
+                        </div>
+                    </div>
+
+                    <div class="field full" id="rectangularGroup">
+                        <label for="productLength" data-i18n="productLength">Product Length in Direction of Belt Travel</label>
+                        <div class="input-row">
+                            <input id="productLength" type="number" min="0" step="any" inputmode="decimal">
+                            <input class="unit dimension-unit" value="mm" readonly tabindex="-1">
+                        </div>
+                    </div>
+
+                    <div class="field full hidden" id="squareGroup">
+                        <label for="squareSide" data-i18n="squareSide">Square Product Side Length</label>
+                        <div class="input-row">
+                            <input id="squareSide" type="number" min="0" step="any" inputmode="decimal">
+                            <input class="unit dimension-unit" value="mm" readonly tabindex="-1">
+                        </div>
+                    </div>
+
+                    <div class="field hidden" id="roundDiameterGroup">
+                        <label for="roundDiameter" data-i18n="roundDiameter">Round Product Diameter</label>
+                        <div class="input-row">
+                            <input id="roundDiameter" type="number" min="0" step="any" inputmode="decimal">
+                            <input class="unit dimension-unit" value="mm" readonly tabindex="-1">
+                        </div>
+                    </div>
+
+                    <div class="field hidden" id="productCenterGroup">
+                        <label for="productCenter" data-i18n="productCenter">Product Center Location (PC)</label>
+                        <div class="input-row">
+                            <input id="productCenter" type="number" min="0" step="any" inputmode="decimal">
+                            <input class="unit dimension-unit" value="mm" readonly tabindex="-1">
+                        </div>
+                        <div class="hint" data-i18n="pcHint">
+                            Distance from the inside edge of the belt to the center of the round product nearest the spiral drum.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="primary" type="button" onclick="calculateGap()" data-i18n="calculate">
+                        Calculate Minimum Gap
+                    </button>
+                    <button class="secondary" type="button" onclick="resetCalculator()" data-i18n="reset">
+                        Reset
+                    </button>
+                </div>
+
+                <div id="errorBox" class="error"></div>
+
+                <div id="resultBox" class="result-box">
+                    <span class="result-label" data-i18n="minimumGap">Minimum Gap Between Products</span>
+                    <span id="resultValue" class="result-value">—</span>
+                </div>
+
+                <div class="note" data-i18n="note">
+                    This is the minimum recommended gap between consecutive products in the straight section before entering the spiral to prevent product interference during the turn.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div>© <span id="year"></span> BELTPRO — <span data-i18n="footerText">Engineering Calculators</span></div>
+        <div><a href="index.html" data-i18n="backHome">Return to BELTPRO Home</a></div>
+    </footer>
+
+    <script>
+        const translations = {
+            en: {
+                title: "Spiral Product Spacing Calculator",
+                subtitle: "Estimate the minimum gap required between products before they enter a spiral conveyor turn.",
+                inputData: "Input Data",
+                unitSystem: "Unit System",
+                metric: "Metric",
+                imperial: "Imperial",
+                productShape: "Product Shape",
+                rectangular: "Rectangular",
+                square: "Square",
+                round: "Round",
+                insideRadius: "Inside Turn Radius (IR)",
+                beltWidth: "Belt Width (BW)",
+                productLength: "Product Length in Direction of Belt Travel",
+                squareSide: "Square Product Side Length",
+                roundDiameter: "Round Product Diameter",
+                productCenter: "Product Center Location (PC)",
+                pcHint: "Distance from the inside edge of the belt to the center of the round product nearest the spiral drum.",
+                calculate: "Calculate Minimum Gap",
+                reset: "Reset",
+                minimumGap: "Minimum Gap Between Products",
+                note: "This is the minimum recommended gap between consecutive products in the straight section before entering the spiral to prevent product interference during the turn.",
+                footerText: "Engineering Calculators",
+                backHome: "Return to BELTPRO Home",
+                invalidCommon: "Enter valid values greater than zero for the inside turn radius and belt width.",
+                invalidProduct: "Enter a valid product dimension greater than zero.",
+                invalidPc: "Enter a valid Product Center Location greater than zero."
+            },
+            es: {
+                title: "Calculadora de Separación de Productos en Espiral",
+                subtitle: "Estime la separación mínima necesaria entre productos antes de entrar en una curva de transportador espiral.",
+                inputData: "Datos de Entrada",
+                unitSystem: "Sistema de Unidades",
+                metric: "Métrico",
+                imperial: "Imperial",
+                productShape: "Forma del Producto",
+                rectangular: "Rectangular",
+                square: "Cuadrado",
+                round: "Redondo",
+                insideRadius: "Radio Interior de Giro (IR)",
+                beltWidth: "Ancho de la Banda (BW)",
+                productLength: "Longitud del Producto en la Dirección de Movimiento",
+                squareSide: "Longitud del Lado del Producto Cuadrado",
+                roundDiameter: "Diámetro del Producto Redondo",
+                productCenter: "Ubicación del Centro del Producto (PC)",
+                pcHint: "Distancia desde el borde interior de la banda hasta el centro del producto redondo más cercano al tambor de la espiral.",
+                calculate: "Calcular Separación Mínima",
+                reset: "Restablecer",
+                minimumGap: "Separación Mínima Entre Productos",
+                note: "Esta es la separación mínima recomendada entre productos consecutivos en la sección recta antes de entrar en la espiral, para evitar interferencias durante el giro.",
+                footerText: "Calculadoras de Ingeniería",
+                backHome: "Volver a BELTPRO",
+                invalidCommon: "Ingrese valores válidos mayores que cero para el radio interior de giro y el ancho de la banda.",
+                invalidProduct: "Ingrese una dimensión válida del producto mayor que cero.",
+                invalidPc: "Ingrese una ubicación válida del centro del producto mayor que cero."
+            },
+            pt: {
+                title: "Calculadora de Espaçamento de Produtos em Espirais",
+                subtitle: "Estime o espaçamento mínimo necessário entre produtos antes de entrarem em uma curva de transportador espiral.",
+                inputData: "Dados de Entrada",
+                unitSystem: "Sistema de Unidades",
+                metric: "Métrico",
+                imperial: "Imperial",
+                productShape: "Formato do Produto",
+                rectangular: "Retangular",
+                square: "Quadrado",
+                round: "Redondo",
+                insideRadius: "Raio Interno da Curva (IR)",
+                beltWidth: "Largura da Esteira (BW)",
+                productLength: "Comprimento do Produto na Direção do Movimento",
+                squareSide: "Comprimento do Lado do Produto Quadrado",
+                roundDiameter: "Diâmetro do Produto Redondo",
+                productCenter: "Localização do Centro do Produto (PC)",
+                pcHint: "Distância da borda interna da esteira até o centro do produto redondo mais próximo do tambor da espiral.",
+                calculate: "Calcular Espaçamento Mínimo",
+                reset: "Limpar",
+                minimumGap: "Espaçamento Mínimo Entre Produtos",
+                note: "Este é o espaçamento mínimo recomendado entre produtos consecutivos na seção reta antes de entrar na espiral, para evitar interferência entre os produtos durante a curva.",
+                footerText: "Calculadoras de Engenharia",
+                backHome: "Voltar para a BELTPRO",
+                invalidCommon: "Informe valores válidos maiores que zero para o raio interno da curva e a largura da esteira.",
+                invalidProduct: "Informe uma dimensão válida do produto maior que zero.",
+                invalidPc: "Informe uma localização válida do centro do produto maior que zero."
+            },
+            it: {
+                title: "Calcolatore della Spaziatura dei Prodotti in Spirale",
+                subtitle: "Stima lo spazio minimo necessario tra i prodotti prima dell'ingresso in una curva del trasportatore a spirale.",
+                inputData: "Dati di Ingresso",
+                unitSystem: "Sistema di Unità",
+                metric: "Metrico",
+                imperial: "Imperiale",
+                productShape: "Forma del Prodotto",
+                rectangular: "Rettangolare",
+                square: "Quadrato",
+                round: "Rotondo",
+                insideRadius: "Raggio Interno della Curva (IR)",
+                beltWidth: "Larghezza del Nastro (BW)",
+                productLength: "Lunghezza del Prodotto nella Direzione di Marcia",
+                squareSide: "Lunghezza del Lato del Prodotto Quadrato",
+                roundDiameter: "Diametro del Prodotto Rotondo",
+                productCenter: "Posizione del Centro del Prodotto (PC)",
+                pcHint: "Distanza dal bordo interno del nastro al centro del prodotto rotondo più vicino al tamburo della spirale.",
+                calculate: "Calcola Spazio Minimo",
+                reset: "Reimposta",
+                minimumGap: "Spazio Minimo Tra i Prodotti",
+                note: "Questo è lo spazio minimo raccomandato tra prodotti consecutivi nel tratto rettilineo prima dell'ingresso nella spirale, per evitare interferenze durante la curva.",
+                footerText: "Calcolatori di Ingegneria",
+                backHome: "Torna a BELTPRO",
+                invalidCommon: "Inserire valori validi maggiori di zero per il raggio interno della curva e la larghezza del nastro.",
+                invalidProduct: "Inserire una dimensione valida del prodotto maggiore di zero.",
+                invalidPc: "Inserire una posizione valida del centro del prodotto maggiore di zero."
+            }
+        };
+
+        let currentLanguage = "en";
+
+        function setLanguage(lang) {
+            currentLanguage = translations[lang] ? lang : "en";
+            document.documentElement.lang = currentLanguage;
+
+            document.querySelectorAll("[data-i18n]").forEach(element => {
+                const key = element.dataset.i18n;
+                if (translations[currentLanguage][key] !== undefined) {
+                    element.textContent = translations[currentLanguage][key];
+                }
+            });
+
+            document.querySelectorAll("[data-lang-button]").forEach(button => {
+                button.classList.toggle("active", button.dataset.langButton === currentLanguage);
+            });
+
+            try {
+                localStorage.setItem("beltpro_lang", currentLanguage);
+            } catch (error) {
+                // Continue without local storage.
+            }
+
+            clearOutput();
+        }
+
+        function updateShapeFields() {
+            const shape = document.getElementById("productShape").value;
+
+            document.getElementById("rectangularGroup").classList.toggle("hidden", shape !== "rectangular");
+            document.getElementById("squareGroup").classList.toggle("hidden", shape !== "square");
+            document.getElementById("roundDiameterGroup").classList.toggle("hidden", shape !== "round");
+            document.getElementById("productCenterGroup").classList.toggle("hidden", shape !== "round");
+
+            clearOutput();
+        }
+
+        function updateUnitLabels() {
+            const unit = document.getElementById("unitSystem").value === "metric" ? "mm" : "in";
+
+            document.querySelectorAll(".dimension-unit").forEach(input => {
+                input.value = unit;
+            });
+
+            clearOutput();
+        }
+
+        function getNumber(id) {
+            return Number.parseFloat(document.getElementById(id).value);
+        }
+
+        function showError(message) {
+            const errorBox = document.getElementById("errorBox");
+            errorBox.textContent = message;
+            errorBox.classList.add("show");
+        }
+
+        function clearOutput() {
+            document.getElementById("errorBox").classList.remove("show");
+            document.getElementById("errorBox").textContent = "";
+            document.getElementById("resultBox").classList.remove("show");
+        }
+
+        function formatNumber(value) {
+            const locale = currentLanguage === "en" ? "en-GB" : currentLanguage;
+            return new Intl.NumberFormat(locale, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(value);
+        }
+
+        function calculateGap() {
+            clearOutput();
+
+            const shape = document.getElementById("productShape").value;
+            const insideRadius = getNumber("insideRadius");
+            const beltWidth = getNumber("beltWidth");
+
+            if (!Number.isFinite(insideRadius) || insideRadius <= 0 ||
+                !Number.isFinite(beltWidth) || beltWidth <= 0) {
+                showError(translations[currentLanguage].invalidCommon);
+                return;
+            }
+
+            let gap;
+
+            if (shape === "round") {
+                const diameter = getNumber("roundDiameter");
+                const productCenter = getNumber("productCenter");
+
+                if (!Number.isFinite(diameter) || diameter <= 0) {
+                    showError(translations[currentLanguage].invalidProduct);
+                    return;
+                }
+
+                if (!Number.isFinite(productCenter) || productCenter <= 0) {
+                    showError(translations[currentLanguage].invalidPc);
+                    return;
+                }
+
+                const spacingFactor = (insideRadius + beltWidth) / (insideRadius + productCenter);
+                gap = diameter * (spacingFactor - 1);
+            } else {
+                const productLength = shape === "square"
+                    ? getNumber("squareSide")
+                    : getNumber("productLength");
+
+                if (!Number.isFinite(productLength) || productLength <= 0) {
+                    showError(translations[currentLanguage].invalidProduct);
+                    return;
+                }
+
+                const spacingFactor = (insideRadius + beltWidth) / insideRadius;
+                gap = productLength * (spacingFactor - 1);
+            }
+
+            if (!Number.isFinite(gap) || gap < 0) {
+                showError(translations[currentLanguage].invalidProduct);
+                return;
+            }
+
+            const unit = document.getElementById("unitSystem").value === "metric" ? "mm" : "in";
+
+            document.getElementById("resultValue").textContent =
+                `${formatNumber(gap)} ${unit}`;
+
+            document.getElementById("resultBox").classList.add("show");
+        }
+
+        function resetCalculator() {
+            [
+                "insideRadius",
+                "beltWidth",
+                "productLength",
+                "squareSide",
+                "roundDiameter",
+                "productCenter"
+            ].forEach(id => {
+                document.getElementById(id).value = "";
+            });
+
+            document.getElementById("productShape").value = "rectangular";
+            updateShapeFields();
+            clearOutput();
+        }
+
+        document.getElementById("productShape").addEventListener("change", updateShapeFields);
+        document.getElementById("unitSystem").addEventListener("change", updateUnitLabels);
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        document.addEventListener("DOMContentLoaded", () => {
+            let savedLanguage = "en";
+
+            try {
+                savedLanguage = localStorage.getItem("beltpro_lang") || "en";
+            } catch (error) {
+                savedLanguage = "en";
+            }
+
+            setLanguage(savedLanguage);
+            updateShapeFields();
+            updateUnitLabels();
+        });
+    </script>
+</body>
+</html>
