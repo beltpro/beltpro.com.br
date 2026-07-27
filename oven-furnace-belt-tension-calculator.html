@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BELTPRO | Oven & Furnace Belt Tension Calculator</title>
+    <meta name="description"
+          content="BELTPRO calculator for estimating oven and furnace belt operating tension, effective drive pull and required drive torque.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        :root {
+            --navy: #0f172a;
+            --blue: #0f4c81;
+            --light-blue: #38bdf8;
+            --orange: #f97316;
+            --text: #1f2937;
+            --muted: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #dbe5ee;
+            --success: #166534;
+            --success-bg: #ecfdf5;
+            --danger: #b91c1c;
+            --danger-bg: #fef2f2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .language-bar {
+            background: #111827;
+            border-bottom: 2px solid var(--light-blue);
+            padding: 10px 24px;
+            text-align: right;
+        }
+
+        .language-bar button {
+            background: #1e293b;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            padding: 7px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 6px;
+        }
+
+        .language-bar button:hover,
+        .language-bar button.active {
+            background: var(--blue);
+            color: #fff;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: #fff;
+            text-align: center;
+            padding: 34px 20px 28px;
+        }
+
+        header img {
+            width: 170px;
+            max-width: 55vw;
+            margin-bottom: 12px;
+        }
+
+        header h1 {
+            font-size: clamp(26px, 4vw, 42px);
+            line-height: 1.15;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #dbeafe;
+            max-width: 850px;
+            margin: 0 auto;
+            font-size: 17px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 18px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid rgba(255,255,255,.45);
+            border-radius: 7px;
+            padding: 8px 14px;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,.12);
+        }
+
+        main {
+            width: min(1180px, calc(100% - 28px));
+            margin: 30px auto 50px;
+        }
+
+        .calculator-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(340px, .95fr);
+            gap: 24px;
+            align-items: start;
+        }
+
+        .panel {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, .08);
+            padding: 24px;
+        }
+
+        .panel h2 {
+            color: var(--navy);
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .panel-intro {
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .mode-selector,
+        .unit-selector {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .choice {
+            position: relative;
+        }
+
+        .choice input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .choice label {
+            display: block;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            background: #fff;
+        }
+
+        .choice input:checked + label {
+            border-color: var(--blue);
+            background: #eff6ff;
+            color: var(--blue);
+            box-shadow: inset 0 0 0 1px var(--blue);
+        }
+
+        .section-title {
+            margin: 22px 0 12px;
+            color: var(--blue);
+            font-size: 17px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 6px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .field {
+            min-width: 0;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #334155;
+        }
+
+        .input-wrap {
+            display: flex;
+            align-items: stretch;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            min-width: 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 11px 12px;
+            font-size: 16px;
+            background: #fff;
+            color: var(--text);
+        }
+
+        .input-wrap input {
+            border-radius: 8px 0 0 8px;
+        }
+
+        .unit {
+            min-width: 70px;
+            border: 1px solid #cbd5e1;
+            border-left: 0;
+            border-radius: 0 8px 8px 0;
+            background: #f1f5f9;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 9px;
+            font-weight: bold;
+        }
+
+        .help {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .custom-mu {
+            margin-top: 8px;
+            display: none;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0b3c67;
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: var(--navy);
+        }
+
+        .result-panel {
+            position: sticky;
+            top: 18px;
+        }
+
+        .status {
+            min-height: 45px;
+            border-radius: 9px;
+            padding: 12px 14px;
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .status.error {
+            display: block;
+            background: var(--danger-bg);
+            color: var(--danger);
+            border: 1px solid #fecaca;
+        }
+
+        .status.success {
+            display: block;
+            background: var(--success-bg);
+            color: var(--success);
+            border: 1px solid #bbf7d0;
+        }
+
+        .primary-result {
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: #fff;
+            border-radius: 12px;
+            padding: 22px;
+            margin-bottom: 16px;
+        }
+
+        .primary-result .label {
+            color: #bfdbfe;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+        }
+
+        .primary-result .value {
+            font-size: clamp(30px, 5vw, 46px);
+            font-weight: bold;
+            line-height: 1.15;
+            margin-top: 4px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .result-row {
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            padding: 12px 14px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .result-row span:first-child {
+            color: #475569;
+        }
+
+        .result-row strong {
+            color: var(--navy);
+            text-align: right;
+        }
+
+        details {
+            margin-top: 18px;
+            border-top: 1px solid var(--border);
+            padding-top: 14px;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--blue);
+        }
+
+        .details-content {
+            margin-top: 12px;
+        }
+
+        .disclaimer {
+            margin-top: 24px;
+            color: var(--muted);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        footer {
+            background: var(--navy);
+            color: #cbd5e1;
+            text-align: center;
+            padding: 22px 16px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 900px) {
+            .calculator-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .result-panel {
+                position: static;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .form-grid,
+            .mode-selector,
+            .unit-selector {
+                grid-template-columns: 1fr;
+            }
+
+            .panel {
+                padding: 18px;
+            }
+
+            .language-bar {
+                text-align: center;
+                padding-inline: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="language-bar">
+        <button type="button" onclick="setLanguage('en')">EN</button>
+        <button type="button" onclick="setLanguage('es')">ES</button>
+        <button type="button" onclick="setLanguage('pt')">PT</button>
+        <button type="button" onclick="setLanguage('it')">IT</button>
+    </div>
+
+    <header>
+        <img src="logo.png" alt="BELTPRO Logo">
+        <h1 data-i18n="title">Oven & Furnace Belt Tension Calculator</h1>
+        <p data-i18n="subtitle">
+            Estimate operating belt tension, effective drive pull and required drive-drum torque.
+        </p>
+        <a class="back-link" href="index.html#calculators" data-i18n="back">← Back to Engineering Calculators</a>
+    </header>
+
+    <main>
+        <div class="calculator-shell">
+            <section class="panel">
+                <h2 data-i18n="inputData">Input Data</h2>
+                <p class="panel-intro" data-i18n="intro">
+                    Select the oven arrangement and enter the operating data.
+                </p>
+
+                <div class="mode-selector">
+                    <div class="choice">
+                        <input type="radio" id="modeHigh" name="mode" value="high" checked>
+                        <label for="modeHigh" data-i18n="highMode">High-temperature furnace</label>
+                    </div>
+                    <div class="choice">
+                        <input type="radio" id="modeLow" name="mode" value="low">
+                        <label for="modeLow" data-i18n="lowMode">Low-temperature oven</label>
+                    </div>
+                </div>
+
+                <div class="unit-selector">
+                    <div class="choice">
+                        <input type="radio" id="unitSI" name="unitSystem" value="SI" checked>
+                        <label for="unitSI" data-i18n="si">SI (Metric)</label>
+                    </div>
+                    <div class="choice">
+                        <input type="radio" id="unitImperial" name="unitSystem" value="Imperial">
+                        <label for="unitImperial" data-i18n="imperial">Imperial</label>
+                    </div>
+                </div>
+
+                <h3 class="section-title" data-i18n="beltLoad">Belt and load</h3>
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="beltWidth" data-i18n="beltWidth">Belt width</label>
+                        <div class="input-wrap">
+                            <input id="beltWidth" type="number" step="any" value="1000">
+                            <span class="unit" data-unit-key="width">mm</span>
+                        </div>
+                    </div>
+
+                    <div class="field low-only hidden">
+                        <label for="conveyorLength" data-i18n="conveyorLength">Conveyor length</label>
+                        <div class="input-wrap">
+                            <input id="conveyorLength" type="number" step="any" value="24.4">
+                            <span class="unit" data-unit-key="length">m</span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="beltWeight" data-i18n="beltWeight">Belt weight</label>
+                        <div class="input-wrap">
+                            <input id="beltWeight" type="number" step="any" value="17.1">
+                            <span class="unit" data-unit-key="areaWeight">kg/m²</span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="productLoad" data-i18n="productLoad">Product loading</label>
+                        <div class="input-wrap">
+                            <input id="productLoad" type="number" step="any" value="24.4">
+                            <span class="unit" data-unit-key="areaWeight">kg/m²</span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="driveDiameter" data-i18n="driveDiameter">Drive-pulley diameter</label>
+                        <div class="input-wrap">
+                            <input id="driveDiameter" type="number" step="any" value="610">
+                            <span class="unit" data-unit-key="smallLength">mm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="highFields">
+                    <h3 class="section-title" data-i18n="highGeometry">High-temperature furnace geometry</h3>
+
+                    <div class="form-grid">
+                        <div class="field full">
+                            <label for="firstSpan" data-i18n="firstSpan">
+                                Distance from drive pulley to first support
+                            </label>
+                            <div class="input-wrap">
+                                <input id="firstSpan" type="number" step="any" value="305">
+                                <span class="unit" data-unit-key="smallLength">mm</span>
+                            </div>
+                            <div class="help" data-i18n="firstSpanHelp">
+                                Unsupported belt distance from the point where the belt leaves the drive pulley to the first rail, roller or other support.
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="desiredSag" data-i18n="desiredSag">Desired sag in first span</label>
+                            <div class="input-wrap">
+                                <input id="desiredSag" type="number" step="any" value="25.4">
+                                <span class="unit" data-unit-key="smallLength">mm</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="section-title" data-i18n="zones">Furnace zones</h3>
+
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="loadingLength" data-i18n="loadingLength">Loading-zone length</label>
+                            <div class="input-wrap">
+                                <input id="loadingLength" type="number" step="any" value="0.61">
+                                <span class="unit" data-unit-key="length">m</span>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="loadingSupport" data-i18n="loadingSupport">Loading-zone support</label>
+                            <select id="loadingSupport"></select>
+                            <input class="custom-mu" id="loadingCustomMu" type="number" step="any" value="0.35">
+                        </div>
+
+                        <div class="field">
+                            <label for="preheatLength" data-i18n="preheatLength">Preheat-zone length</label>
+                            <div class="input-wrap">
+                                <input id="preheatLength" type="number" step="any" value="0.91">
+                                <span class="unit" data-unit-key="length">m</span>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="preheatSupport" data-i18n="preheatSupport">Preheat-zone support</label>
+                            <select id="preheatSupport"></select>
+                            <input class="custom-mu" id="preheatCustomMu" type="number" step="any" value="0.37">
+                        </div>
+
+                        <div class="field">
+                            <label for="hotLength" data-i18n="hotLength">Hot-zone length</label>
+                            <div class="input-wrap">
+                                <input id="hotLength" type="number" step="any" value="2.44">
+                                <span class="unit" data-unit-key="length">m</span>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="hotSupport" data-i18n="hotSupport">Hot-zone support</label>
+                            <select id="hotSupport"></select>
+                            <input class="custom-mu" id="hotCustomMu" type="number" step="any" value="0.55">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="lowFields" class="hidden">
+                    <h3 class="section-title" data-i18n="lowGeometry">Low-temperature oven geometry</h3>
+
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="carrySpacing" data-i18n="carrySpacing">Carrying-side support spacing</label>
+                            <div class="input-wrap">
+                                <input id="carrySpacing" type="number" step="any" value="305">
+                                <span class="unit" data-unit-key="smallLength">mm</span>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="returnSpacing" data-i18n="returnSpacing">Return-side support spacing</label>
+                            <div class="input-wrap">
+                                <input id="returnSpacing" type="number" step="any" value="1219">
+                                <span class="unit" data-unit-key="smallLength">mm</span>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="carrySupport" data-i18n="carrySupport">Carrying-side support</label>
+                            <select id="carrySupport"></select>
+                            <input class="custom-mu" id="carryCustomMu" type="number" step="any" value="0.10">
+                        </div>
+
+                        <div class="field">
+                            <label for="returnSupport" data-i18n="returnSupport">Return-side support</label>
+                            <select id="returnSupport"></select>
+                            <input class="custom-mu" id="returnCustomMu" type="number" step="any" value="0.10">
+                        </div>
+
+                        <div class="field">
+                            <label for="pulleyFace" data-i18n="pulleyFace">Drive pulley surface</label>
+                            <select id="pulleyFace">
+                                <option value="metal" data-i18n-option="metalFace">Metal-faced pulley</option>
+                                <option value="lagged" data-i18n-option="laggedFace">Lagged pulley</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="wrapAngle" data-i18n="wrapAngle">Belt wrap angle</label>
+                            <select id="wrapAngle">
+                                <option>135</option>
+                                <option>150</option>
+                                <option>165</option>
+                                <option>180</option>
+                                <option>195</option>
+                                <option selected>210</option>
+                                <option>225</option>
+                                <option>240</option>
+                                <option>255</option>
+                                <option>270</option>
+                            </select>
+                            <div class="help" data-i18n="wrapHelp">
+                                Pulley surface and wrap angle determine the minimum back tension required to avoid slip.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-primary" type="button" id="calculateButton" data-i18n="calculate">Calculate</button>
+                    <button class="btn btn-secondary" type="button" id="clearButton" data-i18n="clear">Clear</button>
+                </div>
+            </section>
+
+            <aside class="panel result-panel">
+                <h2 data-i18n="results">Results</h2>
+                <p class="panel-intro" data-i18n="resultsIntro">
+                    Results will appear after calculation.
+                </p>
+
+                <div id="status" class="status"></div>
+
+                <div id="resultContent" class="hidden">
+                    <div class="primary-result">
+                        <div class="label" data-i18n="requiredTorque">Required running torque</div>
+                        <div class="value" id="torqueValue">—</div>
+                    </div>
+
+                    <div class="results-grid">
+                        <div class="result-row">
+                            <span data-i18n="effectivePull">Effective drive pull</span>
+                            <strong id="effectivePullValue">—</strong>
+                        </div>
+
+                        <div class="result-row">
+                            <span id="mainTensionLabel" data-i18n="criticalTension">Critical tight-side tension</span>
+                            <strong id="mainTensionValue">—</strong>
+                        </div>
+
+                        <div class="result-row low-result hidden">
+                            <span data-i18n="backTension">Required back tension</span>
+                            <strong id="backTensionValue">—</strong>
+                        </div>
+
+                        <div class="result-row low-result hidden">
+                            <span data-i18n="chargeEndTension">Charge-end tension</span>
+                            <strong id="chargeEndValue">—</strong>
+                        </div>
+
+                        <div class="result-row low-result hidden">
+                            <span data-i18n="returnSag">Return-side sag</span>
+                            <strong id="returnSagValue">—</strong>
+                        </div>
+
+                        <div class="result-row low-result hidden">
+                            <span data-i18n="loadedSag">Loaded-side sag</span>
+                            <strong id="loadedSagValue">—</strong>
+                        </div>
+                    </div>
+
+                    <details>
+                        <summary data-i18n="details">Show calculation details</summary>
+                        <div class="details-content results-grid" id="detailsContent"></div>
+                    </details>
+                </div>
+
+                <p class="disclaimer" data-i18n="disclaimer">
+                    Engineering estimate only. Final equipment design, belt selection and operating limits remain the responsibility of the equipment and belt manufacturers.
+                </p>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        © BELTPRO — Trust the Pros
+    </footer>
+
+    <script>
+        const API_BASE = "https://spiral-tension-api.onrender.com";
+
+        const supportOptions = [
+            { key: "rollers", value: 0.10 },
+            { key: "stainless", value: 0.40 },
+            { key: "carbon1", value: 0.35 },
+            { key: "carbon2", value: 0.37 },
+            { key: "carbon3", value: 0.40 },
+            { key: "carbon4", value: 0.44 },
+            { key: "custom", value: "custom" }
+        ];
+
+        const translations = {
+            en: {
+                title: "Oven & Furnace Belt Tension Calculator",
+                subtitle: "Estimate operating belt tension, effective drive pull and required drive-drum torque.",
+                back: "← Back to Engineering Calculators",
+                inputData: "Input Data",
+                intro: "Select the oven arrangement and enter the operating data.",
+                highMode: "High-temperature furnace",
+                lowMode: "Low-temperature oven",
+                si: "SI (Metric)",
+                imperial: "Imperial",
+                beltLoad: "Belt and load",
+                beltWidth: "Belt width",
+                conveyorLength: "Conveyor length",
+                beltWeight: "Belt weight",
+                productLoad: "Product loading",
+                driveDiameter: "Drive-pulley diameter",
+                highGeometry: "High-temperature furnace geometry",
+                firstSpan: "Distance from drive pulley to first support",
+                firstSpanHelp: "Unsupported belt distance from the point where the belt leaves the drive pulley to the first rail, roller or other support.",
+                desiredSag: "Desired sag in first span",
+                zones: "Furnace zones",
+                loadingLength: "Loading-zone length",
+                loadingSupport: "Loading-zone support",
+                preheatLength: "Preheat-zone length",
+                preheatSupport: "Preheat-zone support",
+                hotLength: "Hot-zone length",
+                hotSupport: "Hot-zone support",
+                lowGeometry: "Low-temperature oven geometry",
+                carrySpacing: "Carrying-side support spacing",
+                returnSpacing: "Return-side support spacing",
+                carrySupport: "Carrying-side support",
+                returnSupport: "Return-side support",
+                pulleyFace: "Drive pulley surface",
+                wrapAngle: "Belt wrap angle",
+                wrapHelp: "Pulley surface and wrap angle determine the minimum back tension required to avoid slip.",
+                metalFace: "Metal-faced pulley",
+                laggedFace: "Lagged pulley",
+                calculate: "Calculate",
+                clear: "Clear",
+                results: "Results",
+                resultsIntro: "Results will appear after calculation.",
+                requiredTorque: "Required running torque",
+                effectivePull: "Effective drive pull",
+                criticalTension: "Critical tight-side tension",
+                minimumDriveTension: "Minimum drive tight-side tension",
+                backTension: "Required back tension",
+                chargeEndTension: "Charge-end tension",
+                returnSag: "Return-side sag",
+                loadedSag: "Loaded-side sag",
+                details: "Show calculation details",
+                disclaimer: "Engineering estimate only. Final equipment design, belt selection and operating limits remain the responsibility of the equipment and belt manufacturers.",
+                rollers: "Free turning rollers (μ = 0.10)",
+                stainless: "Stainless steel skid rails (μ = 0.40)",
+                carbon1: "Carbon steel skid rails ≤ 1000°F / 538°C (μ = 0.35)",
+                carbon2: "Carbon steel skid rails 1001–1200°F / 538–649°C (μ = 0.37)",
+                carbon3: "Carbon steel skid rails 1201–1400°F / 649–760°C (μ = 0.40)",
+                carbon4: "Carbon steel skid rails 1401–1600°F / 760–871°C (μ = 0.44)",
+                custom: "Custom coefficient",
+                success: "Calculation completed.",
+                networkError: "Unable to connect to the calculation server.",
+                invalid: "Please check the input values."
+            },
+            pt: {
+                title: "Calculadora de Tensão de Esteiras para Fornos",
+                subtitle: "Estime a tensão operacional da esteira, a força efetiva de acionamento e o torque necessário no tambor motriz.",
+                back: "← Voltar às Calculadoras de Engenharia",
+                inputData: "Dados de Entrada",
+                intro: "Selecione a configuração do forno e informe os dados operacionais.",
+                highMode: "Forno de alta temperatura",
+                lowMode: "Forno de baixa temperatura",
+                si: "SI (Métrico)",
+                imperial: "Imperial",
+                beltLoad: "Esteira e carga",
+                beltWidth: "Largura da esteira",
+                conveyorLength: "Comprimento do transportador",
+                beltWeight: "Peso da esteira",
+                productLoad: "Carga de produto",
+                driveDiameter: "Diâmetro do tambor motriz",
+                highGeometry: "Geometria do forno de alta temperatura",
+                firstSpan: "Distância do tambor motriz ao primeiro apoio",
+                firstSpanHelp: "Distância sem apoio desde o ponto onde a esteira deixa o tambor motriz até o primeiro trilho, rolete ou outro apoio.",
+                desiredSag: "Flecha desejada no primeiro vão",
+                zones: "Zonas do forno",
+                loadingLength: "Comprimento da zona de carga",
+                loadingSupport: "Apoio da zona de carga",
+                preheatLength: "Comprimento da zona de pré-aquecimento",
+                preheatSupport: "Apoio da zona de pré-aquecimento",
+                hotLength: "Comprimento da zona quente",
+                hotSupport: "Apoio da zona quente",
+                lowGeometry: "Geometria do forno de baixa temperatura",
+                carrySpacing: "Espaçamento dos apoios no lado carregado",
+                returnSpacing: "Espaçamento dos apoios no retorno",
+                carrySupport: "Apoio do lado carregado",
+                returnSupport: "Apoio do retorno",
+                pulleyFace: "Superfície do tambor motriz",
+                wrapAngle: "Ângulo de abraçamento",
+                wrapHelp: "A superfície do tambor e o ângulo de abraçamento determinam a tensão traseira mínima necessária para evitar deslizamento.",
+                metalFace: "Tambor com superfície metálica",
+                laggedFace: "Tambor revestido",
+                calculate: "Calcular",
+                clear: "Limpar",
+                results: "Resultados",
+                resultsIntro: "Os resultados aparecerão após o cálculo.",
+                requiredTorque: "Torque operacional necessário",
+                effectivePull: "Força efetiva de acionamento",
+                criticalTension: "Tensão crítica no lado tracionado",
+                minimumDriveTension: "Tensão mínima no lado tracionado",
+                backTension: "Tensão traseira necessária",
+                chargeEndTension: "Tensão na entrada do forno",
+                returnSag: "Flecha no retorno",
+                loadedSag: "Flecha no lado carregado",
+                details: "Mostrar detalhes do cálculo",
+                disclaimer: "Estimativa de engenharia. O projeto final do equipamento, a seleção da esteira e os limites operacionais permanecem sob responsabilidade dos fabricantes do equipamento e da esteira.",
+                rollers: "Roletes livres (μ = 0,10)",
+                stainless: "Trilhos de aço inoxidável (μ = 0,40)",
+                carbon1: "Trilhos de aço carbono ≤ 538°C (μ = 0,35)",
+                carbon2: "Trilhos de aço carbono 538–649°C (μ = 0,37)",
+                carbon3: "Trilhos de aço carbono 649–760°C (μ = 0,40)",
+                carbon4: "Trilhos de aço carbono 760–871°C (μ = 0,44)",
+                custom: "Coeficiente personalizado",
+                success: "Cálculo concluído.",
+                networkError: "Não foi possível conectar ao servidor de cálculo.",
+                invalid: "Verifique os valores informados."
+            },
+            es: {
+                title: "Calculadora de Tensión de Bandas para Hornos",
+                subtitle: "Estime la tensión operativa de la banda, la fuerza efectiva de accionamiento y el torque requerido en el tambor motriz.",
+                back: "← Volver a las Calculadoras de Ingeniería",
+                inputData: "Datos de Entrada",
+                intro: "Seleccione la configuración del horno e introduzca los datos operativos.",
+                highMode: "Horno de alta temperatura",
+                lowMode: "Horno de baja temperatura",
+                si: "SI (Métrico)",
+                imperial: "Imperial",
+                beltLoad: "Banda y carga",
+                beltWidth: "Ancho de la banda",
+                conveyorLength: "Longitud del transportador",
+                beltWeight: "Peso de la banda",
+                productLoad: "Carga de producto",
+                driveDiameter: "Diámetro del tambor motriz",
+                highGeometry: "Geometría del horno de alta temperatura",
+                firstSpan: "Distancia del tambor motriz al primer apoyo",
+                firstSpanHelp: "Distancia sin apoyo desde el punto donde la banda deja el tambor motriz hasta el primer riel, rodillo u otro apoyo.",
+                desiredSag: "Flecha deseada en el primer vano",
+                zones: "Zonas del horno",
+                loadingLength: "Longitud de la zona de carga",
+                loadingSupport: "Apoyo de la zona de carga",
+                preheatLength: "Longitud de la zona de precalentamiento",
+                preheatSupport: "Apoyo de la zona de precalentamiento",
+                hotLength: "Longitud de la zona caliente",
+                hotSupport: "Apoyo de la zona caliente",
+                lowGeometry: "Geometría del horno de baja temperatura",
+                carrySpacing: "Separación de apoyos del lado cargado",
+                returnSpacing: "Separación de apoyos del retorno",
+                carrySupport: "Apoyo del lado cargado",
+                returnSupport: "Apoyo del retorno",
+                pulleyFace: "Superficie del tambor motriz",
+                wrapAngle: "Ángulo de envoltura",
+                wrapHelp: "La superficie del tambor y el ángulo de envoltura determinan la tensión trasera mínima necesaria para evitar deslizamiento.",
+                metalFace: "Tambor con superficie metálica",
+                laggedFace: "Tambor revestido",
+                calculate: "Calcular",
+                clear: "Limpiar",
+                results: "Resultados",
+                resultsIntro: "Los resultados aparecerán después del cálculo.",
+                requiredTorque: "Torque operativo requerido",
+                effectivePull: "Fuerza efectiva de accionamiento",
+                criticalTension: "Tensión crítica del lado tenso",
+                minimumDriveTension: "Tensión mínima del lado tenso",
+                backTension: "Tensión trasera requerida",
+                chargeEndTension: "Tensión en la entrada del horno",
+                returnSag: "Flecha del retorno",
+                loadedSag: "Flecha del lado cargado",
+                details: "Mostrar detalles del cálculo",
+                disclaimer: "Estimación de ingeniería. El diseño final del equipo, la selección de la banda y los límites operativos siguen siendo responsabilidad de los fabricantes del equipo y de la banda.",
+                rollers: "Rodillos libres (μ = 0,10)",
+                stainless: "Rieles de acero inoxidable (μ = 0,40)",
+                carbon1: "Rieles de acero al carbono ≤ 538°C (μ = 0,35)",
+                carbon2: "Rieles de acero al carbono 538–649°C (μ = 0,37)",
+                carbon3: "Rieles de acero al carbono 649–760°C (μ = 0,40)",
+                carbon4: "Rieles de acero al carbono 760–871°C (μ = 0,44)",
+                custom: "Coeficiente personalizado",
+                success: "Cálculo completado.",
+                networkError: "No fue posible conectarse al servidor de cálculo.",
+                invalid: "Revise los valores ingresados."
+            },
+            it: {
+                title: "Calcolatore della Tensione dei Nastri per Forni",
+                subtitle: "Stima la tensione operativa del nastro, la forza effettiva di azionamento e la coppia richiesta al tamburo motore.",
+                back: "← Torna ai Calcolatori di Ingegneria",
+                inputData: "Dati di Ingresso",
+                intro: "Selezionare la configurazione del forno e inserire i dati operativi.",
+                highMode: "Forno ad alta temperatura",
+                lowMode: "Forno a bassa temperatura",
+                si: "SI (Metrico)",
+                imperial: "Imperiale",
+                beltLoad: "Nastro e carico",
+                beltWidth: "Larghezza del nastro",
+                conveyorLength: "Lunghezza del trasportatore",
+                beltWeight: "Peso del nastro",
+                productLoad: "Carico del prodotto",
+                driveDiameter: "Diametro del tamburo motore",
+                highGeometry: "Geometria del forno ad alta temperatura",
+                firstSpan: "Distanza dal tamburo motore al primo supporto",
+                firstSpanHelp: "Distanza non supportata dal punto in cui il nastro lascia il tamburo motore fino alla prima guida, rullo o altro supporto.",
+                desiredSag: "Freccia desiderata nella prima campata",
+                zones: "Zone del forno",
+                loadingLength: "Lunghezza della zona di carico",
+                loadingSupport: "Supporto della zona di carico",
+                preheatLength: "Lunghezza della zona di preriscaldo",
+                preheatSupport: "Supporto della zona di preriscaldo",
+                hotLength: "Lunghezza della zona calda",
+                hotSupport: "Supporto della zona calda",
+                lowGeometry: "Geometria del forno a bassa temperatura",
+                carrySpacing: "Interasse supporti lato carico",
+                returnSpacing: "Interasse supporti lato ritorno",
+                carrySupport: "Supporto lato carico",
+                returnSupport: "Supporto lato ritorno",
+                pulleyFace: "Superficie del tamburo motore",
+                wrapAngle: "Angolo di avvolgimento",
+                wrapHelp: "La superficie del tamburo e l’angolo di avvolgimento determinano la tensione posteriore minima necessaria per evitare lo slittamento.",
+                metalFace: "Tamburo con superficie metallica",
+                laggedFace: "Tamburo rivestito",
+                calculate: "Calcola",
+                clear: "Cancella",
+                results: "Risultati",
+                resultsIntro: "I risultati appariranno dopo il calcolo.",
+                requiredTorque: "Coppia operativa richiesta",
+                effectivePull: "Forza effettiva di azionamento",
+                criticalTension: "Tensione critica del lato teso",
+                minimumDriveTension: "Tensione minima del lato teso",
+                backTension: "Tensione posteriore richiesta",
+                chargeEndTension: "Tensione all’ingresso del forno",
+                returnSag: "Freccia sul ritorno",
+                loadedSag: "Freccia sul lato carico",
+                details: "Mostra dettagli del calcolo",
+                disclaimer: "Solo stima ingegneristica. Il progetto finale dell’apparecchiatura, la selezione del nastro e i limiti operativi restano responsabilità dei produttori dell’apparecchiatura e del nastro.",
+                rollers: "Rulli liberi (μ = 0,10)",
+                stainless: "Guide in acciaio inox (μ = 0,40)",
+                carbon1: "Guide in acciaio al carbonio ≤ 538°C (μ = 0,35)",
+                carbon2: "Guide in acciaio al carbonio 538–649°C (μ = 0,37)",
+                carbon3: "Guide in acciaio al carbonio 649–760°C (μ = 0,40)",
+                carbon4: "Guide in acciaio al carbonio 760–871°C (μ = 0,44)",
+                custom: "Coefficiente personalizzato",
+                success: "Calcolo completato.",
+                networkError: "Impossibile connettersi al server di calcolo.",
+                invalid: "Controllare i valori inseriti."
+            }
+        };
+
+        let currentLanguage = "en";
+        let previousUnitSystem = "SI";
+
+        function t(key) {
+            return translations[currentLanguage][key] || translations.en[key] || key;
+        }
+
+        function populateSupportSelect(selectId, selectedKey) {
+            const select = document.getElementById(selectId);
+            select.innerHTML = "";
+
+            supportOptions.forEach(option => {
+                const el = document.createElement("option");
+                el.value = option.value;
+                el.dataset.key = option.key;
+                el.textContent = t(option.key);
+                if (option.key === selectedKey) el.selected = true;
+                select.appendChild(el);
+            });
+        }
+
+        function refreshSupportLabels() {
+            const selections = {};
+            ["loadingSupport", "preheatSupport", "hotSupport", "carrySupport", "returnSupport"].forEach(id => {
+                const select = document.getElementById(id);
+                selections[id] = select.options[select.selectedIndex]?.dataset.key;
+            });
+
+            populateSupportSelect("loadingSupport", selections.loadingSupport || "carbon1");
+            populateSupportSelect("preheatSupport", selections.preheatSupport || "carbon2");
+            populateSupportSelect("hotSupport", selections.hotSupport || "custom");
+            populateSupportSelect("carrySupport", selections.carrySupport || "rollers");
+            populateSupportSelect("returnSupport", selections.returnSupport || "rollers");
+
+            toggleAllCustomMu();
+        }
+
+        function setLanguage(lang) {
+            currentLanguage = translations[lang] ? lang : "en";
+
+            document.documentElement.lang = currentLanguage;
+
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const key = el.dataset.i18n;
+                el.textContent = t(key);
+            });
+
+            document.querySelectorAll("[data-i18n-option]").forEach(el => {
+                el.textContent = t(el.dataset.i18nOption);
+            });
+
+            document.querySelectorAll(".language-bar button").forEach(button => {
+                button.classList.toggle("active", button.textContent.toLowerCase() === currentLanguage);
+            });
+
+            refreshSupportLabels();
+            updateMainTensionLabel();
+
+            try {
+                localStorage.setItem("beltpro_lang", currentLanguage);
+            } catch (e) {}
+        }
+
+        function selectedMode() {
+            return document.querySelector('input[name="mode"]:checked').value;
+        }
+
+        function selectedUnitSystem() {
+            return document.querySelector('input[name="unitSystem"]:checked').value;
+        }
+
+        function updateMode() {
+            const high = selectedMode() === "high";
+
+            document.getElementById("highFields").classList.toggle("hidden", !high);
+            document.getElementById("lowFields").classList.toggle("hidden", high);
+            document.querySelectorAll(".low-only").forEach(el => el.classList.toggle("hidden", high));
+            document.querySelectorAll(".low-result").forEach(el => el.classList.toggle("hidden", high));
+
+            updateMainTensionLabel();
+            resetResults();
+        }
+
+        function updateMainTensionLabel() {
+            const label = document.getElementById("mainTensionLabel");
+            label.textContent = selectedMode() === "high"
+                ? t("criticalTension")
+                : t("minimumDriveTension");
+        }
+
+        function convertValue(id, factor) {
+            const element = document.getElementById(id);
+            const value = Number(element.value);
+            if (Number.isFinite(value)) {
+                element.value = Number((value * factor).toPrecision(6));
+            }
+        }
+
+        function updateUnits() {
+            const newSystem = selectedUnitSystem();
+            if (newSystem === previousUnitSystem) return;
+
+            const toSI = newSystem === "SI";
+
+            const FT_TO_MM = 304.8;
+            const FT_TO_M = 0.3048;
+            const IN_TO_MM = 25.4;
+            const LBFT2_TO_KGM2 = 4.88242763638;
+
+            convertValue("beltWidth", toSI ? FT_TO_MM : 1 / FT_TO_MM);
+            convertValue("beltWeight", toSI ? LBFT2_TO_KGM2 : 1 / LBFT2_TO_KGM2);
+            convertValue("productLoad", toSI ? LBFT2_TO_KGM2 : 1 / LBFT2_TO_KGM2);
+            convertValue("driveDiameter", toSI ? IN_TO_MM : 1 / IN_TO_MM);
+
+            convertValue("conveyorLength", toSI ? FT_TO_M : 1 / FT_TO_M);
+            convertValue("firstSpan", toSI ? IN_TO_MM : 1 / IN_TO_MM);
+            convertValue("desiredSag", toSI ? IN_TO_MM : 1 / IN_TO_MM);
+            convertValue("loadingLength", toSI ? FT_TO_M : 1 / FT_TO_M);
+            convertValue("preheatLength", toSI ? FT_TO_M : 1 / FT_TO_M);
+            convertValue("hotLength", toSI ? FT_TO_M : 1 / FT_TO_M);
+            convertValue("carrySpacing", toSI ? IN_TO_MM : 1 / IN_TO_MM);
+            convertValue("returnSpacing", toSI ? IN_TO_MM : 1 / IN_TO_MM);
+
+            document.querySelectorAll('[data-unit-key="width"]').forEach(el => el.textContent = toSI ? "mm" : "ft");
+            document.querySelectorAll('[data-unit-key="length"]').forEach(el => el.textContent = toSI ? "m" : "ft");
+            document.querySelectorAll('[data-unit-key="smallLength"]').forEach(el => el.textContent = toSI ? "mm" : "in");
+            document.querySelectorAll('[data-unit-key="areaWeight"]').forEach(el => el.textContent = toSI ? "kg/m²" : "lb/ft²");
+
+            previousUnitSystem = newSystem;
+            resetResults();
+        }
+
+        function supportMu(selectId, customId) {
+            const select = document.getElementById(selectId);
+            if (select.value === "custom") {
+                return numberValue(customId);
+            }
+            return Number(select.value);
+        }
+
+        function toggleCustomMu(selectId, customId) {
+            const select = document.getElementById(selectId);
+            document.getElementById(customId).style.display =
+                select.value === "custom" ? "block" : "none";
+        }
+
+        function toggleAllCustomMu() {
+            toggleCustomMu("loadingSupport", "loadingCustomMu");
+            toggleCustomMu("preheatSupport", "preheatCustomMu");
+            toggleCustomMu("hotSupport", "hotCustomMu");
+            toggleCustomMu("carrySupport", "carryCustomMu");
+            toggleCustomMu("returnSupport", "returnCustomMu");
+        }
+
+        function numberValue(id) {
+            const value = Number(document.getElementById(id).value);
+            if (!Number.isFinite(value)) throw new Error(t("invalid"));
+            return value;
+        }
+
+        function buildPayload() {
+            const mode = selectedMode();
+            const unitSystem = selectedUnitSystem();
+
+            const payload = {
+                mode,
+                unit_system: unitSystem,
+                belt_width: numberValue("beltWidth"),
+                belt_weight: numberValue("beltWeight"),
+                product_load: numberValue("productLoad"),
+                drive_diameter: numberValue("driveDiameter")
+            };
+
+            if (mode === "high") {
+                Object.assign(payload, {
+                    first_unsupported_span: numberValue("firstSpan"),
+                    desired_sag: numberValue("desiredSag"),
+                    loading_length: numberValue("loadingLength"),
+                    loading_mu: supportMu("loadingSupport", "loadingCustomMu"),
+                    preheat_length: numberValue("preheatLength"),
+                    preheat_mu: supportMu("preheatSupport", "preheatCustomMu"),
+                    hot_length: numberValue("hotLength"),
+                    hot_mu: supportMu("hotSupport", "hotCustomMu")
+                });
+            } else {
+                Object.assign(payload, {
+                    conveyor_length: numberValue("conveyorLength"),
+                    carry_mu: supportMu("carrySupport", "carryCustomMu"),
+                    return_mu: supportMu("returnSupport", "returnCustomMu"),
+                    pulley_face: document.getElementById("pulleyFace").value,
+                    wrap_angle: Number(document.getElementById("wrapAngle").value),
+                    carrying_support_spacing: numberValue("carrySpacing"),
+                    return_support_spacing: numberValue("returnSpacing")
+                });
+            }
+
+            return payload;
+        }
+
+        function formatNumber(value, decimals = 2) {
+            return Number(value).toLocaleString(
+                currentLanguage === "pt" ? "pt-BR" :
+                currentLanguage === "es" ? "es-ES" :
+                currentLanguage === "it" ? "it-IT" : "en-US",
+                { minimumFractionDigits: decimals, maximumFractionDigits: decimals }
+            );
+        }
+
+        function resultLine(label, value) {
+            const row = document.createElement("div");
+            row.className = "result-row";
+            row.innerHTML = `<span>${label}</span><strong>${value}</strong>`;
+            return row;
+        }
+
+        function showResults(data) {
+            const si = selectedUnitSystem() === "SI";
+            const forceUnit = si ? "N" : "lbf";
+            const torqueUnit = si ? "N·m" : "lbf·ft";
+            const sagUnit = si ? "mm" : "in";
+            const perWidthUnit = si ? "N/m" : "lbf/ft";
+
+            document.getElementById("torqueValue").textContent =
+                `${formatNumber(data.required_torque, 2)} ${torqueUnit}`;
+
+            document.getElementById("effectivePullValue").textContent =
+                `${formatNumber(data.effective_drive_pull, 2)} ${forceUnit}`;
+
+            document.getElementById("mainTensionValue").textContent =
+                `${formatNumber(data.main_tension, 2)} ${forceUnit}`;
+
+            if (data.mode === "low") {
+                document.getElementById("backTensionValue").textContent =
+                    `${formatNumber(data.back_tension, 2)} ${forceUnit}`;
+                document.getElementById("chargeEndValue").textContent =
+                    `${formatNumber(data.charge_end_tension, 2)} ${forceUnit}`;
+                document.getElementById("returnSagValue").textContent =
+                    `${formatNumber(data.return_sag, si ? 2 : 3)} ${sagUnit}`;
+                document.getElementById("loadedSagValue").textContent =
+                    `${formatNumber(data.loaded_sag, si ? 2 : 3)} ${sagUnit}`;
+            }
+
+            const details = document.getElementById("detailsContent");
+            details.innerHTML = "";
+
+            Object.entries(data.details || {}).forEach(([key, item]) => {
+                details.appendChild(
+                    resultLine(item.label, `${formatNumber(item.value, 2)} ${item.unit || perWidthUnit}`)
+                );
+            });
+
+            document.getElementById("resultContent").classList.remove("hidden");
+            setStatus(t("success"), "success");
+        }
+
+        function setStatus(message, type) {
+            const status = document.getElementById("status");
+            status.textContent = message;
+            status.className = `status ${type}`;
+        }
+
+        function resetResults() {
+            document.getElementById("resultContent").classList.add("hidden");
+            document.getElementById("status").className = "status";
+            document.getElementById("status").textContent = "";
+        }
+
+        async function calculate() {
+            resetResults();
+
+            try {
+                const response = await fetch(`${API_BASE}/oven-furnace-belt-tension`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(buildPayload())
+                });
+
+                const data = await response.json().catch(() => ({}));
+
+                if (!response.ok) {
+                    throw new Error(data.error || t("invalid"));
+                }
+
+                showResults(data);
+            } catch (error) {
+                const message = error.message === "Failed to fetch"
+                    ? t("networkError")
+                    : error.message;
+                setStatus(message, "error");
+            }
+        }
+
+        function clearInputs() {
+            document.querySelectorAll('input[type="number"]').forEach(input => input.value = "");
+            resetResults();
+        }
+
+        document.querySelectorAll('input[name="mode"]').forEach(input => {
+            input.addEventListener("change", updateMode);
+        });
+
+        document.querySelectorAll('input[name="unitSystem"]').forEach(input => {
+            input.addEventListener("change", updateUnits);
+        });
+
+        [
+            ["loadingSupport", "loadingCustomMu"],
+            ["preheatSupport", "preheatCustomMu"],
+            ["hotSupport", "hotCustomMu"],
+            ["carrySupport", "carryCustomMu"],
+            ["returnSupport", "returnCustomMu"]
+        ].forEach(([selectId, customId]) => {
+            document.getElementById(selectId).addEventListener("change", () => {
+                toggleCustomMu(selectId, customId);
+            });
+        });
+
+        document.getElementById("calculateButton").addEventListener("click", calculate);
+        document.getElementById("clearButton").addEventListener("click", clearInputs);
+
+        document.addEventListener("DOMContentLoaded", () => {
+            populateSupportSelect("loadingSupport", "carbon1");
+            populateSupportSelect("preheatSupport", "carbon2");
+            populateSupportSelect("hotSupport", "custom");
+            populateSupportSelect("carrySupport", "rollers");
+            populateSupportSelect("returnSupport", "rollers");
+            toggleAllCustomMu();
+
+            let saved = "en";
+            try {
+                saved = localStorage.getItem("beltpro_lang") || "en";
+            } catch (e) {}
+            setLanguage(saved);
+            updateMode();
+        });
+    </script>
+</body>
+</html>
