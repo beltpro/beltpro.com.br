@@ -199,6 +199,14 @@
 <div class="container">
   <div class="section-title">System Parameters</div>
 
+  <div class="field full-width" style="margin-bottom: 20px;">
+    <label for="unit_system">Units</label>
+    <select id="unit_system">
+      <option value="imperial" selected>Imperial (ft, in, ft/min)</option>
+      <option value="metric">Metric (m, mm, m/min)</option>
+    </select>
+  </div>
+
   <form id="calc-form">
     <div class="field">
       <label for="straight_through">Straight Through System</label>
@@ -208,11 +216,11 @@
       </select>
     </div>
     <div class="field">
-      <label for="infeed_length">Infeed Length (ft)</label>
+      <label for="infeed_length" id="label-infeed">Infeed Length (ft)</label>
       <input type="number" step="any" id="infeed_length" value="31" required>
     </div>
     <div class="field">
-      <label for="outfeed_length">Outfeed Length (ft)</label>
+      <label for="outfeed_length" id="label-outfeed">Outfeed Length (ft)</label>
       <input type="number" step="any" id="outfeed_length" value="17" required>
     </div>
     <div class="field">
@@ -220,19 +228,19 @@
       <input type="number" step="any" id="tiers" value="36" required>
     </div>
     <div class="field">
-      <label for="belt_width">Belt Width (in)</label>
+      <label for="belt_width" id="label-belt-width">Belt Width (in)</label>
       <input type="number" step="any" id="belt_width" value="42" required>
     </div>
     <div class="field">
-      <label for="tension_link">Tension Link Location (in)</label>
+      <label for="tension_link" id="label-tension-link">Tension Link Location (in)</label>
       <input type="number" step="any" id="tension_link" value="42" required>
     </div>
     <div class="field">
-      <label for="cage_radius">Cage Radius (in)</label>
+      <label for="cage_radius" id="label-cage-radius">Cage Radius (in)</label>
       <input type="number" step="any" id="cage_radius" value="93.5" required>
     </div>
     <div class="field">
-      <label for="belt_speed">Belt Speed (ft/min)</label>
+      <label for="belt_speed" id="label-belt-speed">Belt Speed (ft/min)</label>
       <input type="number" step="any" id="belt_speed" value="66" required>
     </div>
     <div class="field">
@@ -258,7 +266,7 @@
           <span class="result-value" id="res-turn-ratio">—</span>
         </div>
         <div class="result-row">
-          <span class="result-label">Active Belt Length</span>
+          <span class="result-label" id="label-active-length">Active Belt Length</span>
           <span class="result-value" id="res-active-length">—</span>
         </div>
         <div class="result-row">
@@ -301,6 +309,76 @@
   const btn = document.getElementById("calc-btn");
   const resultsBox = document.getElementById("results");
   const errorBox = document.getElementById("error-box");
+  const unitSystem = document.getElementById("unit_system");
+
+  const FT_TO_M = 0.3048;
+  const IN_TO_MM = 25.4;
+
+  let currentUnits = "imperial";
+
+  function roundInput(value, decimals = 3) {
+    const factor = Math.pow(10, decimals);
+    return Math.round((value + Number.EPSILON) * factor) / factor;
+  }
+
+  function convertDisplayedInputs(fromUnits, toUnits) {
+    if (fromUnits === toUnits) return;
+
+    const lengthFields = ["infeed_length", "outfeed_length"];
+    const inchFields = ["belt_width", "tension_link", "cage_radius"];
+    const speedField = document.getElementById("belt_speed");
+
+    if (fromUnits === "imperial" && toUnits === "metric") {
+      lengthFields.forEach((id) => {
+        const field = document.getElementById(id);
+        field.value = roundInput(Number(field.value) * FT_TO_M);
+      });
+
+      inchFields.forEach((id) => {
+        const field = document.getElementById(id);
+        field.value = roundInput(Number(field.value) * IN_TO_MM, 1);
+      });
+
+      speedField.value = roundInput(Number(speedField.value) * FT_TO_M);
+    } else {
+      lengthFields.forEach((id) => {
+        const field = document.getElementById(id);
+        field.value = roundInput(Number(field.value) / FT_TO_M);
+      });
+
+      inchFields.forEach((id) => {
+        const field = document.getElementById(id);
+        field.value = roundInput(Number(field.value) / IN_TO_MM, 3);
+      });
+
+      speedField.value = roundInput(Number(speedField.value) / FT_TO_M);
+    }
+  }
+
+  function updateUnitLabels(units) {
+    const metric = units === "metric";
+
+    document.getElementById("label-infeed").textContent =
+      metric ? "Infeed Length (m)" : "Infeed Length (ft)";
+    document.getElementById("label-outfeed").textContent =
+      metric ? "Outfeed Length (m)" : "Outfeed Length (ft)";
+    document.getElementById("label-belt-width").textContent =
+      metric ? "Belt Width (mm)" : "Belt Width (in)";
+    document.getElementById("label-tension-link").textContent =
+      metric ? "Tension Link Location (mm)" : "Tension Link Location (in)";
+    document.getElementById("label-cage-radius").textContent =
+      metric ? "Cage Radius (mm)" : "Cage Radius (in)";
+    document.getElementById("label-belt-speed").textContent =
+      metric ? "Belt Speed (m/min)" : "Belt Speed (ft/min)";
+  }
+
+  unitSystem.addEventListener("change", () => {
+    const selectedUnits = unitSystem.value;
+    convertDisplayedInputs(currentUnits, selectedUnits);
+    currentUnits = selectedUnits;
+    updateUnitLabels(currentUnits);
+    resultsBox.classList.remove("show");
+  });
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -309,15 +387,24 @@
     errorBox.textContent = "";
     resultsBox.classList.remove("show");
 
+    const metric = currentUnits === "metric";
+
+    const infeedLength = Number(document.getElementById("infeed_length").value);
+    const outfeedLength = Number(document.getElementById("outfeed_length").value);
+    const beltWidth = Number(document.getElementById("belt_width").value);
+    const tensionLink = Number(document.getElementById("tension_link").value);
+    const cageRadius = Number(document.getElementById("cage_radius").value);
+    const beltSpeed = Number(document.getElementById("belt_speed").value);
+
     const payload = {
       straight_through: document.getElementById("straight_through").value,
-      infeed_length: document.getElementById("infeed_length").value,
-      outfeed_length: document.getElementById("outfeed_length").value,
+      infeed_length: metric ? infeedLength / FT_TO_M : infeedLength,
+      outfeed_length: metric ? outfeedLength / FT_TO_M : outfeedLength,
       tiers: document.getElementById("tiers").value,
-      belt_width: document.getElementById("belt_width").value,
-      tension_link: document.getElementById("tension_link").value,
-      cage_radius: document.getElementById("cage_radius").value,
-      belt_speed: document.getElementById("belt_speed").value,
+      belt_width: metric ? beltWidth / IN_TO_MM : beltWidth,
+      tension_link: metric ? tensionLink / IN_TO_MM : tensionLink,
+      cage_radius: metric ? cageRadius / IN_TO_MM : cageRadius,
+      belt_speed: metric ? beltSpeed / FT_TO_M : beltSpeed,
       hours_per_day: document.getElementById("hours_per_day").value,
       days_per_week: document.getElementById("days_per_week").value,
     };
@@ -338,8 +425,12 @@
         throw new Error(data.error || "Something went wrong. Please check your inputs.");
       }
 
+      const activeLength = Number(data.active_belt_length);
+
       document.getElementById("res-turn-ratio").textContent = data.turn_ratio;
-      document.getElementById("res-active-length").textContent = data.active_belt_length + " ft";
+      document.getElementById("res-active-length").textContent = metric
+        ? roundInput(activeLength * FT_TO_M, 2) + " m"
+        : activeLength + " ft";
       document.getElementById("res-dwell").textContent = data.dwell_time + " min";
       document.getElementById("res-cph").textContent = data.cycles_per_hour;
       document.getElementById("res-cpd").textContent = data.cycles_per_day;
