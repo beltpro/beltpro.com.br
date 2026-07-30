@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BELTPRO | High Temperature Belt Alloy Advisor</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#1f2937;margin:0}
+header{background:#0f4c81;color:#fff;padding:22px;text-align:center}
+.container{max-width:980px;margin:auto;padding:20px}
+.card{background:#fff;border:1px solid #dbe5ee;border-radius:10px;padding:20px;margin-bottom:18px}
+label{display:block;margin-top:12px;font-weight:bold}
+input,select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:6px}
+button{margin-top:18px;background:#0f4c81;color:#fff;border:none;padding:12px 20px;border-radius:6px;cursor:pointer}
+table{width:100%;border-collapse:collapse;margin-top:15px}
+th,td{border:1px solid #dbe5ee;padding:8px;text-align:left}
+th{background:#eef6ff}
+details{margin-top:20px}
+.badge{display:inline-block;background:#eaf4ff;padding:3px 8px;border-radius:20px}
+</style>
+</head>
+<body>
+<header>
+<h1>BELTPRO High Temperature Belt Alloy Advisor</h1>
+<p>Engineering guidance based primarily on the Ashworth High Temperature Belts & Applications bulletin.</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+<h2>Inputs</h2>
+
+<label>Maximum Operating Temperature</label>
+<div style="display:flex;gap:10px">
+<input id="temp" type="number" value="1800">
+<select id="unit" style="max-width:120px">
+<option>°F</option>
+<option>°C</option>
+</select>
+</div>
+
+<label>Application</label>
+<select id="app">
+<option>Bakery</option>
+<option>Heat Treatment</option>
+<option>Brazing</option>
+<option>Sintering</option>
+<option>Glass</option>
+<option>Ceramics</option>
+<option>General Industrial</option>
+</select>
+
+<label>Atmosphere</label>
+<select id="atm">
+<option>Air / Oxidizing</option>
+<option>Nitrogen</option>
+<option>Hydrogen</option>
+<option>Vacuum</option>
+<option>Carburizing</option>
+<option>Endogas / Exogas</option>
+</select>
+
+<button onclick="runAdvisor()">Recommend Alloy</button>
+</div>
+
+<div id="results" class="card" style="display:none">
+<h2>Recommendation</h2>
+<div id="hero"></div>
+<div id="why"></div>
+
+<h3>Top Alternatives</h3>
+<table id="rank"></table>
+
+<details>
+<summary><strong>View All Available Alloys</strong></summary>
+<table>
+<tr><th>Alloy</th><th>Approx. Max Temp °F</th><th>Relative Cost</th><th>Typical Application</th></tr>
+<tr><td>Carbon Steel</td><td>800</td><td>$</td><td>Low temperature</td></tr>
+<tr><td>High Carbon</td><td>1000</td><td>$</td><td>Glass lehr</td></tr>
+<tr><td>3% Chrome</td><td>1200</td><td>$$</td><td>Glass lehr</td></tr>
+<tr><td>430 SS</td><td>1500</td><td>$$</td><td>General</td></tr>
+<tr><td>304 SS</td><td>1600</td><td>$$</td><td>Food</td></tr>
+<tr><td>316L SS</td><td>1500</td><td>$$$</td><td>Bakery</td></tr>
+<tr><td>347 SS</td><td>1700</td><td>$$$</td><td>Heat</td></tr>
+<tr><td>309 SS</td><td>1900</td><td>$$$</td><td>Heat Treat</td></tr>
+<tr><td>310 SS</td><td>2000</td><td>$$$$</td><td>High Temp</td></tr>
+<tr><td>314 SS</td><td>2050</td><td>$$$$</td><td>Brazing</td></tr>
+<tr><td>35-19</td><td>1950</td><td>$$$$</td><td>Cyclic heating</td></tr>
+<tr><td>35-19 Cb</td><td>2000</td><td>$$$$</td><td>Carburizing</td></tr>
+<tr><td>Inconel 600</td><td>2150</td><td>$$$$$</td><td>Nitrogen</td></tr>
+<tr><td>Inconel 601/604*</td><td>2200</td><td>$$$$$</td><td>Carburizing</td></tr>
+<tr><td>Hastelloy X</td><td>2200</td><td>$$$$$</td><td>Reducing atmospheres</td></tr>
+<tr><td>Tophet 30</td><td>2150+</td><td>$$$$$</td><td>Oxidizing service</td></tr>
+</table>
+<p><small>*Verify the exact alloy designation against the original engineering bulletin before final specification.</small></p>
+</details>
+
+<p><small><strong>Disclaimer:</strong> This advisor is intended as an engineering aid. Final alloy selection should consider complete operating conditions and manufacturer recommendations.</small></p>
+</div>
+
+</div>
+
+<script>
+function F(t,u){return u==="°C"?t*9/5+32:t;}
+function runAdvisor(){
+let t=F(+temp.value,unit.value);
+let app=document.getElementById("app").value;
+let atm=document.getElementById("atm").value;
+let rec={name:"309 Stainless Steel",score:86,why:["General high-temperature stainless steel."]};
+let alts=[];
+
+if(app==="Bakery"&&t<=1500){
+rec={name:"316L Stainless Steel",score:98,why:["Excellent for bakery and food applications.","Good corrosion resistance.","Preferred for infrared baking applications."]};
+alts=[["304 SS",91],["347 SS",88],["309 SS",84]];
+}
+else if(app==="Brazing"){
+rec={name:"314 Stainless Steel",score:98,why:["Excellent oxidation resistance.","Well suited for brazing furnaces.","High-temperature strength."]};
+alts=[["35-19",95],["310 SS",92],["Inconel 600",89]];
+}
+else if(atm==="Nitrogen"){
+rec={name:"Inconel 600",score:97,why:["Excellent for high-temperature nitrogen atmospheres.","Resists nitrogen embrittlement better than many stainless grades."]};
+alts=[["314 SS",91],["35-19",90],["310 SS",87]];
+}
+else if(atm==="Carburizing"){
+rec={name:"35-19 Cb",score:96,why:["Good resistance for carburizing service."]};
+alts=[["Inconel 601/604",95],["314 SS",90],["35-19",88]];
+}
+else if(app==="Glass"){
+rec={name:t<1000?"High Carbon Steel":"3% Chrome",score:94,why:["Common glass lehr recommendation based on operating temperature."]};
+alts=[["430 SS",85],["309 SS",82],["310 SS",80]];
+}else{
+alts=[["310 SS",84],["347 SS",82],["304 SS",80]];
+}
+results.style.display="block";
+hero.innerHTML="<h3>"+rec.name+" <span class='badge'>Suitability "+rec.score+"%</span></h3>";
+why.innerHTML="<b>Why selected</b><ul>"+rec.why.map(x=>"<li>"+x+"</li>").join("")+"</ul>";
+let h="<tr><th>Alloy</th><th>Score</th></tr>";
+alts.forEach(a=>h+=`<tr><td>${a[0]}</td><td>${a[1]}%</td></tr>`);
+rank.innerHTML=h;
+}
+</script>
+</body>
+</html>
