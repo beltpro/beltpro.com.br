@@ -690,6 +690,92 @@ gtag('config', 'G-9937NXCF9J');
       color: var(--orange);
     }
 
+    /* BELTPRO Engineering App promotion */
+    .app-promotion-section {
+      background: var(--white);
+      border-bottom: 1px solid #e8eef4;
+    }
+
+    .app-promotion-panel {
+      display: grid;
+      grid-template-columns: 150px 1fr auto;
+      gap: 34px;
+      align-items: center;
+      padding: 38px 42px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: linear-gradient(135deg, #f8fcff, #eef8fd);
+      box-shadow: var(--shadow);
+    }
+
+    .app-promotion-icon {
+      width: 132px;
+      height: 132px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 28px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      box-shadow: 0 14px 32px rgba(15, 76, 129, .13);
+    }
+
+    .app-promotion-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .app-promotion-copy h2 {
+      color: var(--navy);
+      font-size: clamp(28px, 3vw, 40px);
+      line-height: 1.1;
+      letter-spacing: -.035em;
+      margin-bottom: 13px;
+    }
+
+    .app-promotion-copy p {
+      max-width: 690px;
+      color: var(--muted);
+      font-size: 17px;
+      margin-bottom: 17px;
+    }
+
+    .app-device-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .app-device-list span {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 11px;
+      border: 1px solid #cfe3ee;
+      border-radius: 999px;
+      background: var(--white);
+      color: #38536a;
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .app-promotion-action {
+      min-width: 220px;
+      text-align: center;
+    }
+
+    .app-promotion-action .btn {
+      width: 100%;
+    }
+
+    .app-promotion-note {
+      display: block;
+      margin-top: 11px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
     .projects-section {
       background: var(--white);
     }
@@ -1038,6 +1124,21 @@ gtag('config', 'G-9937NXCF9J');
         grid-template-columns: 1fr;
       }
 
+      .app-promotion-panel {
+        grid-template-columns: 120px 1fr;
+      }
+
+      .app-promotion-icon {
+        width: 110px;
+        height: 110px;
+      }
+
+      .app-promotion-action {
+        grid-column: 1 / -1;
+        width: min(360px, 100%);
+        justify-self: center;
+      }
+
       .services-grid,
       .calculators-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1106,6 +1207,27 @@ gtag('config', 'G-9937NXCF9J');
         padding: 28px;
       }
 
+      .app-promotion-panel {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 30px 24px;
+        text-align: center;
+      }
+
+      .app-promotion-icon {
+        width: 112px;
+        height: 112px;
+        justify-self: center;
+      }
+
+      .app-device-list {
+        justify-content: center;
+      }
+
+      .app-promotion-action {
+        grid-column: auto;
+      }
+
       .footer-grid {
         grid-template-columns: 1fr;
       }
@@ -1163,6 +1285,12 @@ gtag('config', 'G-9937NXCF9J');
 <div class="hero-actions">
 <a class="btn btn-primary" data-en="Request Technical Assistance →" data-es="Solicitar Asistencia Técnica →" data-it="Richiedi Assistenza Tecnica →" data-pt="Solicitar Assistência Técnica →" href="#contact">Request Technical Assistance →</a>
 <button class="btn btn-secondary" data-en="Engineering Calculators →" data-es="Calculadoras de Ingeniería →" data-it="Calcolatori di Ingegneria →" data-pt="Calculadoras de Engenharia →" id="heroCalculatorsButton" type="button">Engineering Calculators →</button>
+<a class="btn btn-secondary"
+   href="/app/"
+   data-en="Install Calculator App →"
+   data-es="Instalar App de Calculadoras →"
+   data-it="Installa App Calcolatori →"
+   data-pt="Instalar App de Calculadoras →">Install Calculator App →</a>
 </div>
 </div>
 </div>
@@ -1295,6 +1423,49 @@ gtag('config', 'G-9937NXCF9J');
 </a>
 
 <a class="calculator-card protected-calculator-link" href="curve-conveyor-radius-angle-calculator.html"><span data-en="Conveyor Geometry" data-es="Geometría de Transportador" data-it="Geometria Trasportatore" data-pt="Geometria de Transportador">Conveyor Geometry</span><h3 data-en="Curve Radius &amp; Angle" data-es="Radio y Ángulo de Curva" data-it="Raggio e Angolo Curva" data-pt="Raio e Ângulo de Curva">Curve Radius &amp; Angle</h3><b data-en="Open calculator" data-es="Abrir calculadora" data-it="Apri calcolatore" data-pt="Abrir calculadora">Open calculator</b></a>
+</div>
+</div>
+</section>
+<section class="app-promotion-section" id="beltpro-app">
+<div class="shell">
+<div class="app-promotion-panel">
+<div class="app-promotion-icon">
+<img alt="BELTPRO Engineering App" src="/app/icons/icon-192.png"/>
+</div>
+<div class="app-promotion-copy">
+<span class="eyebrow"
+      data-en="BELTPRO Engineering App"
+      data-es="Aplicación de Ingeniería BELTPRO"
+      data-it="App di Ingegneria BELTPRO"
+      data-pt="Aplicativo de Engenharia BELTPRO">BELTPRO Engineering App</span>
+<h2 data-en="Take BELTPRO engineering tools with you."
+    data-es="Lleve consigo las herramientas de ingeniería BELTPRO."
+    data-it="Porta con te gli strumenti di ingegneria BELTPRO."
+    data-pt="Leve as ferramentas de engenharia BELTPRO com você.">Take BELTPRO engineering tools with you.</h2>
+<p data-en="Open the BELTPRO Engineering Suite on your phone, tablet or computer and install it for quick access to calculators during field work."
+   data-es="Abra la suite de ingeniería BELTPRO en su teléfono, tableta o computadora e instálela para acceder rápidamente a las calculadoras durante el trabajo de campo."
+   data-it="Apri la suite di ingegneria BELTPRO sul telefono, tablet o computer e installala per accedere rapidamente ai calcolatori durante il lavoro sul campo."
+   data-pt="Abra a suíte de engenharia BELTPRO no celular, tablet ou computador e instale-a para acessar rapidamente as calculadoras durante o trabalho de campo.">Open the BELTPRO Engineering Suite on your phone, tablet or computer and install it for quick access to calculators during field work.</p>
+<div class="app-device-list" aria-label="Supported devices">
+<span>📱 iPhone</span>
+<span>🤖 Android</span>
+<span>💻 Windows</span>
+<span>🍎 macOS</span>
+</div>
+</div>
+<div class="app-promotion-action">
+<a class="btn btn-primary"
+   href="/app/"
+   data-en="Open BELTPRO App →"
+   data-es="Abrir la App BELTPRO →"
+   data-it="Apri l'App BELTPRO →"
+   data-pt="Abrir o App BELTPRO →">Open BELTPRO App →</a>
+<small class="app-promotion-note"
+       data-en="Open the app and use your browser's install option to add it to your device."
+       data-es="Abra la aplicación y use la opción de instalación de su navegador para añadirla a su dispositivo."
+       data-it="Apri l'app e usa l'opzione di installazione del browser per aggiungerla al dispositivo."
+       data-pt="Abra o aplicativo e use a opção de instalação do navegador para adicioná-lo ao seu dispositivo.">Open the app and use your browser's install option to add it to your device.</small>
+</div>
 </div>
 </div>
 </section>
