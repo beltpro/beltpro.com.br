@@ -1,1 +1,86 @@
-temporary
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#082f49">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="styles.css">
+<title>BELTPRO Engineering Suite</title>
+<meta name="description" content="BELTPRO engineering calculators for spiral systems, industrial baking ovens, belts and conveyors.">
+</head>
+<body>
+<div class="app-shell">
+
+<div id="offlineBanner" class="offline-banner">You are offline. Calculator pages that require the Render API may not calculate until the connection returns.</div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <div class="brand-mark">B</div>
+      <div class="brand-copy"><strong>BELTPRO</strong><span>Engineering Suite</span></div>
+    </a>
+    <div class="top-actions">
+      <button class="language-button" type="button" aria-label="Language">EN ▾</button>
+    </div>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-kicker">Trust the Pros</div>
+  <h1>Engineering tools for <span>the field.</span></h1>
+  <p>Practical calculators for spiral conveyor systems, industrial baking ovens, metal belts and conveyor geometry.</p>
+  <div class="hero-actions">
+    <a class="primary-button" href="#categories">Open Calculators →</a>
+    <button id="installAppButton" class="install-button" type="button" onclick="installApp()" hidden>Install BELTPRO App</button>
+    <a class="secondary-button" href="https://www.beltpro.com.br">Visit BELTPRO Website</a>
+  </div>
+</section>
+
+<main class="content">
+  <section id="categories">
+    <div class="section-heading">
+      <span>Engineering Categories</span>
+      <h2>Select a calculator group</h2>
+    </div>
+
+    <div class="category-grid">
+      <a class="category-card" href="spiral-systems.html">
+        <div><div class="category-icon">🌀</div><h3>Spiral Systems</h3><p>Tension, drives, cycles, overdrive, cage load, belt length and product spacing.</p></div>
+        <div class="category-footer"><span>11 calculators</span><span>→</span></div>
+      </a>
+
+      <a class="category-card" href="baking-ovens.html">
+        <div><div class="category-icon">🔥</div><h3>Baking Ovens</h3><p>Band tension, oven force and CB5 air-pressure calculations.</p></div>
+        <div class="category-footer"><span>3 calculators</span><span>→</span></div>
+      </a>
+
+      <a class="category-card" href="belts.html">
+        <div><div class="category-icon">⛓</div><h3>Belts</h3><p>Allowable tension, weight, wire gauge, turn ratio and drive sprockets.</p></div>
+        <div class="category-footer"><span>6 calculators</span><span>→</span></div>
+      </a>
+
+      <a class="category-card" href="conveyors.html">
+        <div><div class="category-icon">↪</div><h3>Conveyors</h3><p>General conveyor geometry and curve-layout tools.</p></div>
+        <div class="category-footer"><span>1 calculator</span><span>→</span></div>
+      </a>
+    </div>
+
+    <div class="info-card">
+      <strong>Designed for mobile use</strong>
+      <p>Install this PWA on a phone or tablet. The interface opens like an app, while your engineering calculations continue to run securely through the existing Flask API.</p>
+    </div>
+  </section>
+</main>
+</div>
+
+<nav class="bottom-nav" aria-label="App navigation">
+  <div class="bottom-nav-inner">
+    <a class="nav-item active" href="index.html"><span>⌂</span><span>Home</span></a>
+    <a class="nav-item" href="index.html#categories"><span>🧮</span><span>Calculators</span></a>
+    <a class="nav-item" href="field-experience.html"><span>📚</span><span>Articles</span></a>
+    <a class="nav-item" href="index.html#contact"><span>✉</span><span>Contact</span></a>
+  </div>
+</nav>
+<script src="app.js"></script>
+</body>
+</html>
