@@ -369,11 +369,7 @@ footer{max-width:1050px;margin:0 auto 30px;padding:0 16px;color:var(--muted);fon
     </tbody>
   </table>
 
-  <details>
-    <summary>Calculation details</summary>
-    <div id="detailsOut"></div>
-  </details>
-</section>
+ 
 
 <section class="card">
   <h2>Method and limitations</h2>
@@ -601,15 +597,7 @@ function calculate(){
     status.textContent="Recommended nominal diameter is governed by the larger of the bulletin strength result and the deflection result.";
   }
 
-  $("detailsOut").innerHTML=`
-    <p><strong>Material:</strong> ${inputs.materialName}; E = ${fmt(inputs.E/1000,1)} GPa.</p>
-    <p><strong>Service factors:</strong> Cb = ${fmt(inputs.Cb,2)}, Ct = ${fmt(inputs.Ct,2)} (${inputs.loadLabel}).</p>
-    <p><strong>Bulletin constants:</strong> P = ${bulletin.P}; hollow-shaft factor B = ${fmt(bulletin.B,4)}.</p>
-    <p><strong>Bulletin torque:</strong> ${fmt(bulletin.torqueInLb,1)} in·lbf. <strong>Bending moment:</strong> ${fmt(bulletin.momentInLb,1)} in·lbf.</p>
-    <p><strong>Load model:</strong> R = total supported mass × g; Wr = √(R² + belt tension²). With ${inputs.supports} intermediate support(s), the shaft is divided into ${seg.segments} equal spans, each approximately carrying Wr/${seg.segments}.</p>
-    <p><strong>Bending model:</strong> maximum segment moment M = (Wr/${seg.segments}) × (${fmt(seg.effectiveSpan,1)} mm) / 8. Full shaft torque is retained.</p>
-    <p><strong>Deflection model:</strong> each segment is treated as a simply supported round shaft with uniformly distributed resultant load.</p>
-  `;
+
 
   $("results").style.display="block";
   $("results").scrollIntoView({behavior:"smooth",block:"start"});
