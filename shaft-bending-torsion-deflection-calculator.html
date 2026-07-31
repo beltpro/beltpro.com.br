@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BELTPRO | Shaft Bending, Torsion & Deflection Calculator</title>
+<meta name="description" content="Calculate shaft deflection and required shaft diameter for combined bending and torsion.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{
+  --navy:#0f172a;
+  --blue:#0f4c81;
+  --light-blue:#38bdf8;
+  --text:#1f2937;
+  --muted:#64748b;
+  --background:#f8fafc;
+  --card:#ffffff;
+  --border:#dbe5ee;
+  --success:#166534;
+  --success-bg:#ecfdf5;
+  --warning:#92400e;
+  --warning-bg:#fffbeb;
+  --danger:#991b1b;
+  --danger-bg:#fef2f2;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--background);
+  color:var(--text);
+  line-height:1.5;
+}
+header{
+  background:linear-gradient(135deg,var(--navy),var(--blue));
+  color:white;
+  padding:28px 18px;
+  border-bottom:4px solid var(--light-blue);
+}
+.header-inner{max-width:1050px;margin:auto}
+h1{margin:0 0 8px;font-size:clamp(1.65rem,4vw,2.45rem)}
+.subtitle{margin:0;color:#dbeafe;max-width:850px}
+main{max-width:1050px;margin:24px auto;padding:0 16px 40px}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:0 8px 24px rgba(15,23,42,.07);
+  padding:22px;
+  margin-bottom:20px;
+}
+.mode-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.mode-btn{
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--navy);
+  padding:14px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+}
+.mode-btn.active{
+  background:var(--blue);
+  color:white;
+  border-color:var(--blue);
+}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.field label{display:block;font-weight:700;margin-bottom:6px}
+.field small{display:block;color:var(--muted);margin-top:5px}
+.input-row{display:flex;gap:8px}
+input,select{
+  width:100%;
+  padding:11px 12px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  font-size:1rem;
+  background:white;
+}
+.unit{width:105px}
+.section-title{
+  margin:22px 0 12px;
+  padding-bottom:7px;
+  border-bottom:1px solid var(--border);
+  color:var(--blue);
+}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+button.action{
+  border:0;border-radius:9px;padding:12px 18px;font-weight:700;cursor:pointer
+}
+.primary{background:var(--blue);color:white}
+.secondary{background:#e2e8f0;color:var(--navy)}
+.results{display:none}
+.result-hero{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:16px;
+}
+.metric{
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:15px;
+  background:#f8fafc;
+}
+.metric .label{font-size:.85rem;color:var(--muted)}
+.metric .value{font-size:1.45rem;font-weight:800;margin-top:3px;color:var(--navy)}
+.status{
+  padding:14px 16px;
+  border-radius:10px;
+  font-weight:700;
+  margin:12px 0 18px;
+}
+.status.ok{background:var(--success-bg);color:var(--success)}
+.status.warn{background:var(--warning-bg);color:var(--warning)}
+.status.fail{background:var(--danger-bg);color:var(--danger)}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{border-bottom:1px solid var(--border);padding:9px;text-align:left}
+th{background:#f1f5f9;color:var(--navy)}
+details{
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:12px 14px;
+  margin-top:16px;
+  background:#fff;
+}
+summary{cursor:pointer;font-weight:700;color:var(--blue)}
+.note{
+  background:#eff6ff;
+  border-left:4px solid var(--light-blue);
+  padding:13px 15px;
+  border-radius:6px;
+}
+.error{
+  display:none;
+  background:var(--danger-bg);
+  color:var(--danger);
+  padding:12px 14px;
+  border-radius:8px;
+  margin-top:14px;
+  font-weight:700;
+}
+.hidden{display:none!important}
+footer{max-width:1050px;margin:0 auto 30px;padding:0 16px;color:var(--muted);font-size:.9rem}
+@media(max-width:760px){
+  .grid,.result-hero,.mode-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <h1>Shaft Bending, Torsion & Deflection Calculator</h1>
+    <p class="subtitle">Check an existing round shaft or find the diameter required by both combined-load method and an elastic deflection limit.</p>
+  </div>
+</header>
+
+<main>
+<section class="card">
+  <div class="mode-row">
+    <button class="mode-btn active" id="modeCheck" type="button">Check Existing Shaft</button>
+    <button class="mode-btn" id="modeFind" type="button">Find Required Diameter</button>
+  </div>
+
+  <div class="grid">
+    <div class="field">
+      <label for="tension">Total belt tension</label>
+      <div class="input-row">
+        <input id="tension" type="number" min="0" step="any" value="3500">
+        <select id="tensionUnit" class="unit">
+          <option value="N">N</option>
+          <option value="kN">kN</option>
+          <option value="kgf">kgf</option>
+          <option value="lbf">lbf</option>
+        </select>
+      </div>
+      <small>Total force acting across the belt width.</small>
+    </div>
+
+    <div class="field">
+      <label for="span">Bearing-to-bearing shaft span</label>
+      <div class="input-row">
+        <input id="span" type="number" min="0" step="any" value="2500">
+        <select id="spanUnit" class="unit">
+          <option value="mm">mm</option>
+          <option value="in">in</option>
+        </select>
+      </div>
+      <small>Use the actual bearing span, not only belt width.</small>
+    </div>
+
+    <div class="field">
+      <label for="intermediateSupports">Intermediate support bearings</label>
+      <select id="intermediateSupports">
+        <option value="0">None</option>
+        <option value="1">1 support — centered</option>
+        <option value="2">2 supports — equally spaced</option>
+        <option value="3">3 supports — equally spaced</option>
+      </select>
+      <small>Supports are assumed equally spaced and radial only; full shaft torque is retained.</small>
+    </div>
+
+    <div class="field">
+      <label for="pitchDiameter">Sprocket pitch diameter</label>
+      <div class="input-row">
+        <input id="pitchDiameter" type="number" min="0" step="any" value="100">
+        <select id="pitchUnit" class="unit">
+          <option value="mm">mm</option>
+          <option value="in">in</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="additionalMass">Additional supported mass</label>
+      <div class="input-row">
+        <input id="additionalMass" type="number" min="0" step="any" value="100">
+        <select id="massUnit" class="unit">
+          <option value="kg">kg</option>
+          <option value="lb">lb</option>
+        </select>
+      </div>
+      <small>Sprockets, fillers, belt and product near the shaft. Shaft mass is calculated automatically.</small>
+    </div>
+  </div>
+
+  <h3 class="section-title">Shaft</h3>
+  <div class="grid">
+    <div class="field">
+      <label for="shaftType">Shaft type</label>
+      <select id="shaftType">
+        <option value="solid">Solid round shaft</option>
+        <option value="hollow">Hollow round shaft</option>
+      </select>
+    </div>
+
+    <div class="field check-only">
+      <label for="shaftDiameter">Existing outside diameter</label>
+      <div class="input-row">
+        <input id="shaftDiameter" type="number" min="0" step="any" value="60">
+        <select id="shaftDiaUnit" class="unit">
+          <option value="mm">mm</option>
+          <option value="in">in</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field hollow-check hidden">
+      <label for="insideDiameter">Inside diameter</label>
+      <div class="input-row">
+        <input id="insideDiameter" type="number" min="0" step="any" value="30">
+        <select id="insideDiaUnit" class="unit">
+          <option value="mm">mm</option>
+          <option value="in">in</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field hollow-find hidden">
+      <label for="hollowRatio">Inside / outside diameter ratio</label>
+      <input id="hollowRatio" type="number" min="0" max="0.95" step="0.01" value="0.50">
+      <small>Example: 0.50 means the inside diameter is half the outside diameter.</small>
+    </div>
+
+    <div class="field">
+      <label for="material">Material</label>
+      <select id="material">
+        <option value="stainless">Stainless steel</option>
+        <option value="carbon">Carbon steel</option>
+        <option value="custom">Custom</option>
+      </select>
+    </div>
+
+    <div class="field custom-material hidden">
+      <label for="customE">Elastic modulus</label>
+      <div class="input-row">
+        <input id="customE" type="number" min="0" step="any" value="193">
+        <span class="unit" style="padding:11px 0">GPa</span>
+      </div>
+    </div>
+
+    <div class="field custom-material hidden">
+      <label for="customDensity">Density</label>
+      <div class="input-row">
+        <input id="customDensity" type="number" min="0" step="any" value="8000">
+        <span class="unit" style="padding:11px 0">kg/m³</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="keyway">Keyway</label>
+      <select id="keyway">
+        <option value="yes">Yes — bulletin P = 6000</option>
+        <option value="no">No — bulletin P = 8000</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="loadCondition">Load condition</label>
+      <select id="loadCondition">
+        <option value="steady">Steady load — Cb 1.50, Ct 1.00</option>
+        <option value="minor" selected>Minor shock — Cb 1.75, Ct 1.25</option>
+        <option value="heavy">Heavy shock — Cb 2.50, Ct 2.25</option>
+        <option value="custom">Custom service factors</option>
+      </select>
+    </div>
+
+    <div class="field custom-factors hidden">
+      <label for="Cb">Bending service factor Cb</label>
+      <input id="Cb" type="number" min="0" step="any" value="1.75">
+    </div>
+
+    <div class="field custom-factors hidden">
+      <label for="Ct">Torsion service factor Ct</label>
+      <input id="Ct" type="number" min="0" step="any" value="1.25">
+    </div>
+
+    <div class="field">
+      <label for="allowableDeflection">Maximum allowable deflection</label>
+      <div class="input-row">
+        <input id="allowableDeflection" type="number" min="0" step="any" value="0.50">
+        <select id="deflectionUnit" class="unit">
+          <option value="mm">mm</option>
+          <option value="in">in</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="action primary" id="calculateBtn" type="button">Calculate</button>
+    <button class="action secondary" id="exampleBtn" type="button">Load Verification Example</button>
+    <button class="action secondary" id="resetBtn" type="button">Reset</button>
+  </div>
+  <div id="errorBox" class="error"></div>
+</section>
+
+<section class="card results" id="results">
+  <h2>Results</h2>
+  <div class="result-hero">
+    <div class="metric">
+      <div class="label">Bulletin required outside diameter</div>
+      <div class="value" id="strengthDiameter">—</div>
+    </div>
+    <div class="metric">
+      <div class="label">Deflection required outside diameter</div>
+      <div class="value" id="deflectionDiameter">—</div>
+    </div>
+    <div class="metric">
+      <div class="label">Governing recommended diameter</div>
+      <div class="value" id="recommendedDiameter">—</div>
+    </div>
+  </div>
+
+  <div id="statusBox" class="status"></div>
+
+  <table>
+    <tbody>
+      <tr><th>Support arrangement</th><td id="supportArrangementOut">—</td></tr>
+      <tr><th>Effective span between supports</th><td id="effectiveSpanOut">—</td></tr>
+      <tr><th>Resultant load per span</th><td id="spanLoadOut">—</td></tr>
+      <tr><th>Total shaft mass</th><td id="shaftMassOut">—</td></tr>
+      <tr><th>Total vertical weight force R</th><td id="weightForceOut">—</td></tr>
+      <tr><th>Resultant distributed shaft load Wr</th><td id="resultantLoadOut">—</td></tr>
+      <tr><th>Torque</th><td id="torqueOut">—</td></tr>
+      <tr><th>Maximum bending moment</th><td id="momentOut">—</td></tr>
+      <tr><th>Calculated maximum deflection</th><td id="deflectionOut">—</td></tr>
+      <tr><th>Deflection ratio</th><td id="ratioOut">—</td></tr>
+      <tr><th>Suggested intermediate supports</th><td id="supportOut">—</td></tr>
+    </tbody>
+  </table>
+
+  <details>
+    <summary>Calculation details</summary>
+    <div id="detailsOut"></div>
+  </details>
+</section>
+
+<section class="card">
+  <h2>Method and limitations</h2>
+  <div class="note">
+    The combined bending-and-torsion diameter follows equation in its original inch-pound form. SI inputs are converted internally before applying the bulletin equation. With intermediate supports, the full shaft is divided into equal spans, the distributed radial load is divided among those spans, bending is calculated for the most heavily loaded span, and full shaft torque is retained. Deflection is calculated separately for a simply supported span.
+  </div>
+  <p>The calculator is intended for preliminary engineering checks. It does not replace a detailed shaft design including stress concentrations, fatigue, bearing reactions, critical speed, key design, local sprocket loads, shaft shoulders, corrosion allowance, thermal effects or verification by the equipment manufacturer.</p>
+</section>
+</main>
+
+<footer>
+  BELTPRO engineering calculator. Always verify input units, actual bearing span, belt-force direction and support arrangement before using the result for fabrication.
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+let mode = "check";
+
+function mm(value, unit){ return unit === "in" ? value * 25.4 : value; }
+function newtons(value, unit){
+  if(unit === "kN") return value * 1000;
+  if(unit === "kgf") return value * 9.80665;
+  if(unit === "lbf") return value * 4.4482216153;
+  return value;
+}
+function kilograms(value, unit){ return unit === "lb" ? value * 0.45359237 : value; }
+function deflectionMm(value, unit){ return unit === "in" ? value * 25.4 : value; }
+function fmt(value, digits=2){
+  if(!Number.isFinite(value)) return "—";
+  return value.toLocaleString(undefined,{maximumFractionDigits:digits,minimumFractionDigits:digits});
+}
+function nextStandardMm(value){
+  return Math.ceil(value / 5) * 5;
+}
+function materialProperties(){
+  const m = $("material").value;
+  if(m === "carbon") return {E:200000,density:7850,name:"Carbon steel"};
+  if(m === "custom") return {
+    E:parseFloat($("customE").value)*1000,
+    density:parseFloat($("customDensity").value),
+    name:"Custom material"
+  };
+  return {E:193000,density:8000,name:"Stainless steel"};
+}
+function serviceFactors(){
+  const c = $("loadCondition").value;
+  if(c === "steady") return {Cb:1.5,Ct:1.0,label:"Steady"};
+  if(c === "heavy") return {Cb:2.5,Ct:2.25,label:"Heavy shock"};
+  if(c === "custom") return {Cb:parseFloat($("Cb").value),Ct:parseFloat($("Ct").value),label:"Custom"};
+  return {Cb:1.75,Ct:1.25,label:"Minor shock"};
+}
+function updateVisibility(){
+  const hollow = $("shaftType").value === "hollow";
+  document.querySelectorAll(".check-only").forEach(x=>x.classList.toggle("hidden",mode!=="check"));
+  document.querySelectorAll(".hollow-check").forEach(x=>x.classList.toggle("hidden",!(hollow && mode==="check")));
+  document.querySelectorAll(".hollow-find").forEach(x=>x.classList.toggle("hidden",!(hollow && mode==="find")));
+  document.querySelectorAll(".custom-material").forEach(x=>x.classList.toggle("hidden",$("material").value!=="custom"));
+  document.querySelectorAll(".custom-factors").forEach(x=>x.classList.toggle("hidden",$("loadCondition").value!=="custom"));
+}
+function setMode(newMode){
+  mode = newMode;
+  $("modeCheck").classList.toggle("active",mode==="check");
+  $("modeFind").classList.toggle("active",mode==="find");
+  updateVisibility();
+  $("results").style.display="none";
+}
+function validatePositive(values){
+  return values.every(v=>Number.isFinite(v) && v>0);
+}
+function shaftGeometry(odMm,idMm){
+  const areaM2 = Math.PI * ((odMm/1000)**2 - (idMm/1000)**2) / 4;
+  const I = Math.PI * (odMm**4 - idMm**4) / 64;
+  return {areaM2,I};
+}
+function loadsAtDiameter(odMm,idRatio,inputs){
+  const idMm = inputs.hollow ? odMm*idRatio : 0;
+  const geom = shaftGeometry(odMm,idMm);
+  const shaftMass = geom.areaM2 * (inputs.L/1000) * inputs.density;
+  const totalMass = shaftMass + inputs.additionalMass;
+  const R = totalMass * 9.80665;
+  const Wr = Math.hypot(R,inputs.F);
+  return {idMm,geom,shaftMass,totalMass,R,Wr};
+}
+function segmentLoads(totalLoads,inputs){
+  const segments=inputs.supports+1;
+  return {
+    segments,
+    effectiveSpan:inputs.L/segments,
+    spanWr:totalLoads.Wr/segments
+  };
+}
+function bulletinDiameterForLoads(loads,inputs,idRatio){
+  const N_TO_LBF=0.22480894387096;
+  const MM_TO_IN=1/25.4;
+  const F_lbf=inputs.F*N_TO_LBF;
+  const seg=segmentLoads(loads,inputs);
+  const Wr_lbf=seg.spanWr*N_TO_LBF;
+  const L_in=seg.effectiveSpan*MM_TO_IN;
+  const Dp_in=inputs.Dp*MM_TO_IN;
+  const torque=F_lbf*Dp_in/2;
+  const moment=Wr_lbf*L_in/8;
+  const P=inputs.keyway?6000:8000;
+  const B=inputs.hollow ? Math.pow(1/(1-idRatio**4),1/3) : 1;
+  const deq=Math.sqrt((inputs.Cb*moment)**2+(inputs.Ct*torque)**2);
+  const dIn=B*Math.pow((5.1/P)*deq,1/3);
+  return {dMm:dIn*25.4,torqueInLb:torque,momentInLb:moment,P,B,deq};
+}
+function deflectionAt(odMm,idRatio,inputs,loads){
+  const idMm=inputs.hollow?odMm*idRatio:0;
+  const I=shaftGeometry(odMm,idMm).I;
+  const seg=segmentLoads(loads,inputs);
+  return 5*seg.spanWr*seg.effectiveSpan**3/(384*inputs.E*I);
+}
+function iterateRequiredDiameter(inputs,type){
+  let d=20;
+  for(let i=0;i<200;i++){
+    const loads=loadsAtDiameter(d,inputs.idRatio,inputs);
+    let target;
+    if(type==="strength"){
+      target=bulletinDiameterForLoads(loads,inputs,inputs.idRatio).dMm;
+    } else {
+      const factor=inputs.hollow ? (1-inputs.idRatio**4) : 1;
+      const seg=segmentLoads(loads,inputs);
+      target=Math.pow((5*seg.spanWr*seg.effectiveSpan**3*64)/(384*inputs.E*Math.PI*inputs.allowable*factor),1/4);
+    }
+    if(Math.abs(target-d)<0.0001) return {d:target,loads};
+    d=0.5*d+0.5*target;
+  }
+  return {d,loads:loadsAtDiameter(d,inputs.idRatio,inputs)};
+}
+function suggestedSupports(odMm,inputs){
+  for(let supports=0;supports<=5;supports++){
+    const local={...inputs,supports};
+    const loads=loadsAtDiameter(odMm,inputs.idRatio,local);
+    const delta=deflectionAt(odMm,inputs.idRatio,local,loads);
+    const strength=bulletinDiameterForLoads(loads,local,inputs.idRatio).dMm;
+    if(delta<=inputs.allowable && odMm>=strength) return supports;
+  }
+  return ">5";
+}
+function calculate(){
+  $("errorBox").style.display="none";
+  const material=materialProperties();
+  const sf=serviceFactors();
+  const F=newtons(parseFloat($("tension").value),$("tensionUnit").value);
+  const L=mm(parseFloat($("span").value),$("spanUnit").value);
+  const Dp=mm(parseFloat($("pitchDiameter").value),$("pitchUnit").value);
+  const additionalMass=kilograms(parseFloat($("additionalMass").value),$("massUnit").value);
+  const allowable=deflectionMm(parseFloat($("allowableDeflection").value),$("deflectionUnit").value);
+  const supports=parseInt($("intermediateSupports").value,10);
+  const hollow=$("shaftType").value==="hollow";
+  let existingOd=NaN,idRatio=0;
+  if(mode==="check"){
+    existingOd=mm(parseFloat($("shaftDiameter").value),$("shaftDiaUnit").value);
+    const existingId=hollow?mm(parseFloat($("insideDiameter").value),$("insideDiaUnit").value):0;
+    idRatio=hollow?existingId/existingOd:0;
+  }else{
+    idRatio=hollow?parseFloat($("hollowRatio").value):0;
+  }
+
+  const required=[F,L,Dp,material.E,material.density,allowable,sf.Cb,sf.Ct];
+  if(mode==="check") required.push(existingOd);
+  if(!validatePositive(required) || !Number.isFinite(additionalMass) || additionalMass<0 || idRatio<0 || idRatio>=1){
+    $("errorBox").textContent="Please enter valid positive values. For a hollow shaft, the inside diameter must be smaller than the outside diameter.";
+    $("errorBox").style.display="block";
+    return;
+  }
+
+  const inputs={
+    F,L,Dp,additionalMass,E:material.E,density:material.density,
+    keyway:$("keyway").value==="yes",Cb:sf.Cb,Ct:sf.Ct,
+    allowable,hollow,idRatio,supports,materialName:material.name,loadLabel:sf.label
+  };
+
+  const strengthReq=iterateRequiredDiameter(inputs,"strength");
+  const deflReq=iterateRequiredDiameter(inputs,"deflection");
+  const governing=Math.max(strengthReq.d,deflReq.d);
+  const recommended=nextStandardMm(governing);
+
+  let analysisDiameter=mode==="check"?existingOd:recommended;
+  const analysisLoads=loadsAtDiameter(analysisDiameter,idRatio,inputs);
+  const bulletin=bulletinDiameterForLoads(analysisLoads,inputs,idRatio);
+  const delta=deflectionAt(analysisDiameter,idRatio,inputs,analysisLoads);
+  const seg=segmentLoads(analysisLoads,inputs);
+  const ratio=seg.effectiveSpan/delta;
+  const recommendedSupports=suggestedSupports(analysisDiameter,inputs);
+
+  $("strengthDiameter").textContent=fmt(strengthReq.d,1)+" mm";
+  $("deflectionDiameter").textContent=fmt(deflReq.d,1)+" mm";
+  $("recommendedDiameter").textContent=fmt(recommended,0)+" mm";
+  $("supportArrangementOut").textContent=inputs.supports===0?"No intermediate support":inputs.supports+(inputs.supports===1?" centered intermediate support":" equally spaced intermediate supports");
+  $("effectiveSpanOut").textContent=fmt(seg.effectiveSpan,1)+" mm";
+  $("spanLoadOut").textContent=fmt(seg.spanWr,0)+" N";
+  $("shaftMassOut").textContent=fmt(analysisLoads.shaftMass,1)+" kg";
+  $("weightForceOut").textContent=fmt(analysisLoads.R,0)+" N";
+  $("resultantLoadOut").textContent=fmt(analysisLoads.Wr,0)+" N";
+  $("torqueOut").textContent=fmt(inputs.F*inputs.Dp/2/1000,1)+" N·m";
+  $("momentOut").textContent=fmt(seg.spanWr*seg.effectiveSpan/8/1e6,3)+" kN·m";
+  $("deflectionOut").textContent=fmt(delta,3)+" mm";
+  $("ratioOut").textContent="L / "+fmt(ratio,0);
+  if(recommendedSupports===">5"){
+    $("supportOut").textContent="More than 5 supports or a larger shaft may be required";
+  }else if(recommendedSupports<=inputs.supports){
+    $("supportOut").textContent="Selected support arrangement satisfies the selected limits";
+  }else{
+    $("supportOut").textContent=recommendedSupports+(recommendedSupports===1?" intermediate support recommended":" intermediate supports recommended");
+  }
+
+  const status=$("statusBox");
+  if(mode==="check"){
+    const strengthPass=analysisDiameter>=strengthReq.d;
+    const deflPass=delta<=allowable;
+    if(strengthPass&&deflPass){
+      status.className="status ok";
+      status.textContent="PASS — The existing shaft satisfies both the bulletin diameter check and the selected deflection limit.";
+    }else if(strengthPass||deflPass){
+      status.className="status warn";
+      status.textContent="CAUTION — The shaft passes one criterion but not the other. The governing requirement should be used.";
+    }else{
+      status.className="status fail";
+      status.textContent="FAIL — The existing shaft does not satisfy the bulletin diameter check or the selected deflection limit.";
+    }
+  }else{
+    status.className="status ok";
+    status.textContent="Recommended nominal diameter is governed by the larger of the bulletin strength result and the deflection result.";
+  }
+
+  $("detailsOut").innerHTML=`
+    <p><strong>Material:</strong> ${inputs.materialName}; E = ${fmt(inputs.E/1000,1)} GPa.</p>
+    <p><strong>Service factors:</strong> Cb = ${fmt(inputs.Cb,2)}, Ct = ${fmt(inputs.Ct,2)} (${inputs.loadLabel}).</p>
+    <p><strong>Bulletin constants:</strong> P = ${bulletin.P}; hollow-shaft factor B = ${fmt(bulletin.B,4)}.</p>
+    <p><strong>Bulletin torque:</strong> ${fmt(bulletin.torqueInLb,1)} in·lbf. <strong>Bending moment:</strong> ${fmt(bulletin.momentInLb,1)} in·lbf.</p>
+    <p><strong>Load model:</strong> R = total supported mass × g; Wr = √(R² + belt tension²). With ${inputs.supports} intermediate support(s), the shaft is divided into ${seg.segments} equal spans, each approximately carrying Wr/${seg.segments}.</p>
+    <p><strong>Bending model:</strong> maximum segment moment M = (Wr/${seg.segments}) × (${fmt(seg.effectiveSpan,1)} mm) / 8. Full shaft torque is retained.</p>
+    <p><strong>Deflection model:</strong> each segment is treated as a simply supported round shaft with uniformly distributed resultant load.</p>
+  `;
+
+  $("results").style.display="block";
+  $("results").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function loadExample(){
+  setMode("check");
+  $("tension").value=3500;$("tensionUnit").value="N";
+  $("span").value=2500;$("spanUnit").value="mm";
+  $("intermediateSupports").value="0";
+  $("pitchDiameter").value=100;$("pitchUnit").value="mm";
+  $("additionalMass").value=100;$("massUnit").value="kg";
+  $("shaftType").value="solid";
+  $("shaftDiameter").value=60;$("shaftDiaUnit").value="mm";
+  $("material").value="stainless";
+  $("keyway").value="yes";
+  $("loadCondition").value="minor";
+  $("allowableDeflection").value=0.5;$("deflectionUnit").value="mm";
+  updateVisibility();
+  calculate();
+}
+function reset(){
+  location.reload();
+}
+$("modeCheck").addEventListener("click",()=>setMode("check"));
+$("modeFind").addEventListener("click",()=>setMode("find"));
+$("shaftType").addEventListener("change",updateVisibility);
+$("material").addEventListener("change",updateVisibility);
+$("loadCondition").addEventListener("change",updateVisibility);
+$("calculateBtn").addEventListener("click",calculate);
+$("exampleBtn").addEventListener("click",loadExample);
+$("resetBtn").addEventListener("click",reset);
+updateVisibility();
+</script>
+</body>
+</html>
