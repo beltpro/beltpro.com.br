@@ -289,8 +289,8 @@ footer{max-width:1050px;margin:0 auto 30px;padding:0 16px;color:var(--muted);fon
     <div class="field">
       <label for="keyway">Keyway</label>
       <select id="keyway">
-        <option value="yes">Yes — bulletin P = 6000</option>
-        <option value="no">No — bulletin P = 8000</option>
+        <option value="yes">Yes — P = 6000</option>
+        <option value="no">No —   P = 8000</option>
       </select>
     </div>
 
@@ -338,7 +338,7 @@ footer{max-width:1050px;margin:0 auto 30px;padding:0 16px;color:var(--muted);fon
   <h2>Results</h2>
   <div class="result-hero">
     <div class="metric">
-      <div class="label">Bulletin required outside diameter</div>
+      <div class="label">Required outside diameter</div>
       <div class="value" id="strengthDiameter">—</div>
     </div>
     <div class="metric">
@@ -378,7 +378,7 @@ footer{max-width:1050px;margin:0 auto 30px;padding:0 16px;color:var(--muted);fon
 <section class="card">
   <h2>Method and limitations</h2>
   <div class="note">
-    The combined bending-and-torsion diameter follows equation in its original inch-pound form. SI inputs are converted internally before applying the bulletin equation. With intermediate supports, the full shaft is divided into equal spans, the distributed radial load is divided among those spans, bending is calculated for the most heavily loaded span, and full shaft torque is retained. Deflection is calculated separately for a simply supported span.
+    The combined bending-and-torsion diameter follows equation in its original inch-pound form. SI inputs are converted internally before applying the equation. With intermediate supports, the full shaft is divided into equal spans, the distributed radial load is divided among those spans, bending is calculated for the most heavily loaded span, and full shaft torque is retained. Deflection is calculated separately for a simply supported span.
   </div>
   <p>The calculator is intended for preliminary engineering checks. It does not replace a detailed shaft design including stress concentrations, fatigue, bearing reactions, critical speed, key design, local sprocket loads, shaft shoulders, corrosion allowance, thermal effects or verification by the equipment manufacturer.</p>
 </section>
@@ -493,7 +493,7 @@ function iterateRequiredDiameter(inputs,type){
     const loads=loadsAtDiameter(d,inputs.idRatio,inputs);
     let target;
     if(type==="strength"){
-      target=bulletinDiameterForLoads(loads,inputs,inputs.idRatio).dMm;
+      target=DiameterForLoads(loads,inputs,inputs.idRatio).dMm;
     } else {
       const factor=inputs.hollow ? (1-inputs.idRatio**4) : 1;
       const seg=segmentLoads(loads,inputs);
@@ -509,7 +509,7 @@ function suggestedSupports(odMm,inputs){
     const local={...inputs,supports};
     const loads=loadsAtDiameter(odMm,inputs.idRatio,local);
     const delta=deflectionAt(odMm,inputs.idRatio,local,loads);
-    const strength=bulletinDiameterForLoads(loads,local,inputs.idRatio).dMm;
+    const strength=DiameterForLoads(loads,local,inputs.idRatio).dMm;
     if(delta<=inputs.allowable && odMm>=strength) return supports;
   }
   return ">5";
@@ -555,7 +555,7 @@ function calculate(){
 
   let analysisDiameter=mode==="check"?existingOd:recommended;
   const analysisLoads=loadsAtDiameter(analysisDiameter,idRatio,inputs);
-  const bulletin=bulletinDiameterForLoads(analysisLoads,inputs,idRatio);
+  const bulletin=DiameterForLoads(analysisLoads,inputs,idRatio);
   const delta=deflectionAt(analysisDiameter,idRatio,inputs,analysisLoads);
   const seg=segmentLoads(analysisLoads,inputs);
   const ratio=seg.effectiveSpan/delta;
@@ -588,17 +588,17 @@ function calculate(){
     const deflPass=delta<=allowable;
     if(strengthPass&&deflPass){
       status.className="status ok";
-      status.textContent="PASS — The existing shaft satisfies both the bulletin diameter check and the selected deflection limit.";
+      status.textContent="PASS — The existing shaft satisfies both the diameter check and the selected deflection limit.";
     }else if(strengthPass||deflPass){
       status.className="status warn";
       status.textContent="CAUTION — The shaft passes one criterion but not the other. The governing requirement should be used.";
     }else{
       status.className="status fail";
-      status.textContent="FAIL — The existing shaft does not satisfy the bulletin diameter check or the selected deflection limit.";
+      status.textContent="FAIL — The existing shaft does not satisfy the diameter check or the selected deflection limit.";
     }
   }else{
     status.className="status ok";
-    status.textContent="Recommended nominal diameter is governed by the larger of the bulletin strength result and the deflection result.";
+    status.textContent="Recommended nominal diameter is governed by the larger of the strength result and the deflection result.";
   }
 
   $("detailsOut").innerHTML=`
