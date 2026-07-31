@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BELTPRO | Spiral Belt Minimum Terminal Diameter Calculator</title>
+<meta name="description" content="Calculate the minimum terminal diameter for a spiral conveyor belt based on belt pitch.">
+<link rel="icon" type="image/png" href="favicon.png">
+
+<style>
+:root {
+    --navy: #0f172a;
+    --blue: #0f4c81;
+    --light-blue: #38bdf8;
+    --text: #1f2937;
+    --muted: #64748b;
+    --background: #f8fafc;
+    --card: #ffffff;
+    --border: #dbe5ee;
+    --success: #166534;
+    --success-bg: #ecfdf5;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.language-bar {
+    background: #111827;
+    border-bottom: 2px solid var(--light-blue);
+    padding: 10px 20px;
+    text-align: right;
+}
+
+.language-bar button {
+    background: #1e293b;
+    color: #e2e8f0;
+    border: 1px solid #334155;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 6px;
+}
+
+.language-bar button:hover,
+.language-bar button.active {
+    background: var(--blue);
+    border-color: var(--light-blue);
+}
+
+header {
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+    color: white;
+    text-align: center;
+    padding: 54px 20px 48px;
+}
+
+header h1 {
+    margin: 0 0 12px;
+    font-size: clamp(28px, 5vw, 44px);
+}
+
+header p {
+    margin: 0 auto;
+    max-width: 760px;
+    color: #dbeafe;
+    font-size: 18px;
+}
+
+main {
+    width: min(760px, calc(100% - 32px));
+    margin: 34px auto 50px;
+}
+
+.calculator-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+select {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: white;
+    color: var(--text);
+    font-size: 16px;
+}
+
+button.calculate-button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px 18px;
+    background: var(--blue);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button.calculate-button:hover {
+    background: #0b3f6d;
+}
+
+.result {
+    display: none;
+    margin-top: 24px;
+    padding: 20px;
+    background: var(--success-bg);
+    border-left: 5px solid var(--success);
+    border-radius: 8px;
+}
+
+.result strong {
+    display: block;
+    color: var(--success);
+    font-size: 17px;
+    margin-bottom: 6px;
+}
+
+.result-value {
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--navy);
+}
+
+.formula-note {
+    margin-top: 24px;
+    padding: 16px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    color: #1e3a5f;
+}
+
+.disclaimer {
+    margin-top: 22px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+footer {
+    text-align: center;
+    padding: 25px 20px 35px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+    .calculator-card {
+        padding: 22px 18px;
+    }
+
+    .language-bar {
+        text-align: center;
+    }
+
+    .language-bar button {
+        margin: 3px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="language-bar">
+    <button type="button" onclick="setLanguage('en')" data-lang-button="en">EN</button>
+    <button type="button" onclick="setLanguage('pt')" data-lang-button="pt">PT</button>
+    <button type="button" onclick="setLanguage('es')" data-lang-button="es">ES</button>
+    <button type="button" onclick="setLanguage('it')" data-lang-button="it">IT</button>
+</div>
+
+<header>
+    <h1 data-i18n="title">Spiral Belt Minimum Terminal Diameter Calculator</h1>
+    <p data-i18n="subtitle">Select the spiral belt pitch to determine the recommended minimum terminal diameter.</p>
+</header>
+
+<main>
+    <section class="calculator-card">
+        <label for="pitch" data-i18n="pitchLabel">Belt pitch</label>
+        <select id="pitch">
+            <option value="0.75">0.75 in</option>
+            <option value="1.08">1.08 in</option>
+            <option value="1.2">1.20 in</option>
+            <option value="1.5">1.50 in</option>
+        </select>
+
+        <button class="calculate-button" type="button" onclick="calculateDiameter()" data-i18n="calculate">
+            Calculate Minimum Diameter
+        </button>
+
+        <div id="result" class="result">
+            <strong data-i18n="resultLabel">Minimum terminal diameter</strong>
+            <div id="resultValue" class="result-value"></div>
+        </div>
+
+        <div class="formula-note">
+            <strong data-i18n="formulaTitle">Calculation method</strong><br>
+            <span data-i18n="formulaText">Minimum terminal diameter = Belt pitch × 4</span>
+        </div>
+
+        <p class="disclaimer" data-i18n="disclaimer">
+            This calculator provides a general minimum diameter based on the selected pitch. Confirm the final terminal diameter with the belt manufacturer's specifications and application requirements.
+        </p>
+    </section>
+</main>
+
+<footer>
+    BELTPRO — Trust the Pros
+</footer>
+
+<script>
+const translations = {
+    en: {
+        title: "Spiral Belt Minimum Terminal Diameter Calculator",
+        subtitle: "Select the spiral belt pitch to determine the recommended minimum terminal diameter.",
+        pitchLabel: "Belt pitch",
+        calculate: "Calculate Minimum Diameter",
+        resultLabel: "Minimum terminal diameter",
+        formulaTitle: "Calculation method",
+        formulaText: "Minimum terminal diameter = Belt pitch × 4",
+        disclaimer: "This calculator provides a general minimum diameter based on the selected pitch. Confirm the final terminal diameter with the belt manufacturer's specifications and application requirements."
+    },
+    pt: {
+        title: "Calculadora do Diâmetro Mínimo dos Terminais para Esteiras Espirais",
+        subtitle: "Selecione o passo da esteira espiral para determinar o diâmetro mínimo recomendado dos terminais.",
+        pitchLabel: "Passo da esteira",
+        calculate: "Calcular Diâmetro Mínimo",
+        resultLabel: "Diâmetro mínimo do terminal",
+        formulaTitle: "Método de cálculo",
+        formulaText: "Diâmetro mínimo do terminal = Passo da esteira × 4",
+        disclaimer: "Esta calculadora fornece um diâmetro mínimo geral com base no passo selecionado. Confirme o diâmetro final do terminal com as especificações do fabricante da esteira e os requisitos da aplicação."
+    },
+    es: {
+        title: "Calculadora del Diámetro Mínimo de Terminales para Bandas Espirales",
+        subtitle: "Seleccione el paso de la banda espiral para determinar el diámetro mínimo recomendado de los terminales.",
+        pitchLabel: "Paso de la banda",
+        calculate: "Calcular Diámetro Mínimo",
+        resultLabel: "Diámetro mínimo del terminal",
+        formulaTitle: "Método de cálculo",
+        formulaText: "Diámetro mínimo del terminal = Paso de la banda × 4",
+        disclaimer: "Esta calculadora proporciona un diámetro mínimo general basado en el paso seleccionado. Confirme el diámetro final del terminal con las especificaciones del fabricante de la banda y los requisitos de la aplicación."
+    },
+    it: {
+        title: "Calcolatore del Diametro Minimo dei Terminali per Nastri a Spirale",
+        subtitle: "Selezionare il passo del nastro a spirale per determinare il diametro minimo consigliato dei terminali.",
+        pitchLabel: "Passo del nastro",
+        calculate: "Calcola Diametro Minimo",
+        resultLabel: "Diametro minimo del terminale",
+        formulaTitle: "Metodo di calcolo",
+        formulaText: "Diametro minimo del terminale = Passo del nastro × 4",
+        disclaimer: "Questo calcolatore fornisce un diametro minimo generale in base al passo selezionato. Confermare il diametro finale del terminale con le specifiche del produttore del nastro e i requisiti dell'applicazione."
+    }
+};
+
+function calculateDiameter() {
+    const pitch = Number(document.getElementById("pitch").value);
+    const diameterInches = pitch * 4;
+    const diameterMillimeters = diameterInches * 25.4;
+
+    document.getElementById("resultValue").textContent =
+        diameterInches.toFixed(2) + " in  (" + diameterMillimeters.toFixed(1) + " mm)";
+
+    document.getElementById("result").style.display = "block";
+}
+
+function setLanguage(language) {
+    const selected = translations[language] ? language : "en";
+
+    document.documentElement.lang = selected;
+
+    document.querySelectorAll("[data-i18n]").forEach(function(element) {
+        const key = element.getAttribute("data-i18n");
+        if (translations[selected][key]) {
+            element.textContent = translations[selected][key];
+        }
+    });
+
+    document.querySelectorAll("[data-lang-button]").forEach(function(button) {
+        button.classList.toggle("active", button.getAttribute("data-lang-button") === selected);
+    });
+
+    try {
+        localStorage.setItem("beltpro_lang", selected);
+    } catch (error) {}
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    let savedLanguage = "en";
+
+    try {
+        savedLanguage = localStorage.getItem("beltpro_lang") || "en";
+    } catch (error) {}
+
+    setLanguage(savedLanguage);
+});
+</script>
+
+</body>
+</html>
