@@ -1,8 +1,10 @@
 {
+  "id": "/app/",
   "name": "BELTPRO Engineering Suite",
   "short_name": "BELTPRO",
-  "start_url": "./",
-  "scope": "./",
+  "description": "BELTPRO engineering calculators for spiral systems, industrial baking ovens, belts and conveyors.",
+  "start_url": "/app/index.html",
+  "scope": "/app/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0f4c81",
@@ -18,12 +20,6 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
-    },
-    {
-      "src": "icons/icon-maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
     }
   ]
 }
