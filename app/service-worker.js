@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "beltpro-pwa-v1";
+const CACHE_NAME = "beltpro-pwa-v2";
 const APP_SHELL = [
   "./",
   "./index.html",
