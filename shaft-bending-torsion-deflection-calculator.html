@@ -493,7 +493,7 @@ function iterateRequiredDiameter(inputs,type){
     const loads=loadsAtDiameter(d,inputs.idRatio,inputs);
     let target;
     if(type==="strength"){
-      target=DiameterForLoads(loads,inputs,inputs.idRatio).dMm;
+      target=bulletinDiameterForLoads(loads,inputs,inputs.idRatio).dMm;
     } else {
       const factor=inputs.hollow ? (1-inputs.idRatio**4) : 1;
       const seg=segmentLoads(loads,inputs);
