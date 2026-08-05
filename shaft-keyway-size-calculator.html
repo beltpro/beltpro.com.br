@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BELTPRO | Shaft Keyway Size Calculator</title>
+<meta name="description" content="Identify the standard metric or imperial key size from shaft diameter.">
+<link rel="icon" href="favicon.png" type="image/png">
+<style>
+:root{--navy:#082f49;--blue:#0f4c81;--sky:#38bdf8;--text:#1f2937;--muted:#64748b;--bg:#f8fafc;--card:#fff;--line:#dbe5ee;--warn:#92400e;--warnbg:#fff7ed}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+header{padding:46px 20px;text-align:center;color:#fff;background:linear-gradient(145deg,var(--navy),var(--blue))}
+header h1{margin:0 0 10px;font-size:clamp(28px,5vw,44px)}header p{max-width:760px;margin:auto;color:#dbeafe}
+main{width:min(1000px,calc(100% - 30px));margin:34px auto 50px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:0 18px 42px rgba(15,76,129,.12)}
+h2{margin:0 0 20px;color:var(--navy)}.field{margin-bottom:18px}label{display:block;margin-bottom:7px;font-weight:800}
+select,input{width:100%;min-height:50px;padding:11px 13px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;font-size:16px}
+.row{display:grid;grid-template-columns:1fr 80px;gap:10px}.unit{display:grid;place-items:center;border:1px solid #cbd5e1;border-radius:10px;background:#f8fafc;font-weight:800}
+button{width:100%;min-height:50px;border:0;border-radius:10px;background:var(--blue);color:#fff;font-size:16px;font-weight:800;cursor:pointer}
+.help{margin:7px 0 0;color:var(--muted);font-size:13px}.result{text-align:center;display:flex;flex-direction:column;justify-content:center}
+.kicker{color:var(--blue);font-size:13px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.value{margin:22px 0 12px;color:var(--navy);font-size:clamp(38px,7vw,62px);font-weight:900}
+.badge{align-self:center;padding:7px 12px;border-radius:999px;background:#e0f2fe;color:#075985;font-size:13px;font-weight:800}
+table{width:100%;margin-top:22px;border-collapse:collapse;text-align:left}th,td{padding:11px 10px;border-bottom:1px solid #e2e8f0}th{width:48%;color:var(--muted)}td{font-weight:800;color:var(--navy)}
+.error{margin-top:18px;padding:13px;border:1px solid #fed7aa;border-radius:9px;background:var(--warnbg);color:var(--warn);font-weight:700}
+.note{margin-top:24px;padding:18px 20px;background:#fff;border:1px solid var(--line);border-radius:14px;color:var(--muted);font-size:14px}
+footer{text-align:center;padding:24px;background:#111827;color:#cbd5e1;font-size:13px}[hidden]{display:none!important}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.card{padding:21px}}
+</style>
+</head>
+<body>
+<header>
+<h1>Shaft Keyway Size Calculator</h1>
+<p>Select Metric or Imperial, enter the shaft diameter, and identify the standard key cross-section.</p>
+</header>
+<main>
+<div class="grid">
+<section class="card">
+<h2>Shaft information</h2>
+<div class="field">
+<label for="system">Unit system</label>
+<select id="system"><option value="metric">Metric</option><option value="imperial">Imperial</option></select>
+</div>
+<div class="field" id="typeField" hidden>
+<label for="type">Imperial key type</label>
+<select id="type"><option value="square">Square key</option><option value="rectangular">Rectangular key</option></select>
+<p class="help">The imperial chart includes both square and rectangular keys.</p>
+</div>
+<div class="field">
+<label for="diameter">Shaft diameter</label>
+<div class="row"><input id="diameter" type="number" min="0" step="any" placeholder="50"><div class="unit" id="unit">mm</div></div>
+<p class="help" id="rangeHelp">Supported range: over 10 mm to 230 mm inclusive.</p>
+</div>
+<button id="calculate">Identify key size</button>
+<div id="error" class="error" hidden></div>
+</section>
+
+<section class="card result" aria-live="polite">
+<div class="kicker">Recommended standard key</div>
+<div class="value" id="value">—</div>
+<div class="badge" id="badge">Awaiting input</div>
+<table id="details" hidden>
+<tr><th>Applicable shaft range</th><td id="range"></td></tr>
+<tr><th>Key width</th><td id="width"></td></tr>
+<tr><th>Key height</th><td id="height"></td></tr>
+<tr><th>Reference standard</th><td id="standard"></td></tr>
+</table>
+</section>
+</div>
+
+<div class="note"><strong>Important:</strong> Shaft ranges follow the chart convention “over” the lower limit and “to and including” the upper limit. This tool identifies the standard key cross-section only. Key length, material, tolerances and load capacity must be checked separately for the transmitted torque and application.</div>
+</main>
+<footer>BELTPRO — Trust the Pros</footer>
+
+<script>
+const metric=[
+[10,12,"4 × 4 mm","4 mm","4 mm"],[12,17,"5 × 5 mm","5 mm","5 mm"],[17,22,"6 × 6 mm","6 mm","6 mm"],
+[22,30,"8 × 7 mm","8 mm","7 mm"],[30,38,"10 × 8 mm","10 mm","8 mm"],[38,44,"12 × 8 mm","12 mm","8 mm"],
+[44,50,"14 × 9 mm","14 mm","9 mm"],[50,58,"16 × 10 mm","16 mm","10 mm"],[58,65,"18 × 11 mm","18 mm","11 mm"],
+[65,75,"20 × 12 mm","20 mm","12 mm"],[75,85,"22 × 14 mm","22 mm","14 mm"],[85,95,"25 × 14 mm","25 mm","14 mm"],
+[95,110,"28 × 16 mm","28 mm","16 mm"],[110,130,"32 × 18 mm","32 mm","18 mm"],[130,150,"36 × 20 mm","36 mm","20 mm"],
+[150,170,"40 × 22 mm","40 mm","22 mm"],[170,200,"45 × 25 mm","45 mm","25 mm"],[200,230,"50 × 28 mm","50 mm","28 mm"]
+];
+const square=[
+[0.25,0.5,"1/8 × 1/8 in","1/8 in","1/8 in"],[0.5,0.75,"3/16 × 3/16 in","3/16 in","3/16 in"],
+[0.75,1,"1/4 × 1/4 in","1/4 in","1/4 in"],[1,1.25,"5/16 × 5/16 in","5/16 in","5/16 in"],
+[1.25,1.5,"3/8 × 3/8 in","3/8 in","3/8 in"],[1.5,1.75,"7/16 × 7/16 in","7/16 in","7/16 in"],
+[1.75,2,"1/2 × 1/2 in","1/2 in","1/2 in"],[2,2.5,"5/8 × 5/8 in","5/8 in","5/8 in"],
+[2.5,3,"3/4 × 3/4 in","3/4 in","3/4 in"],[3,3.5,"7/8 × 7/8 in","7/8 in","7/8 in"],
+[3.5,4,"1 × 1 in","1 in","1 in"],[4,5,"1 1/4 × 1 1/4 in","1 1/4 in","1 1/4 in"],
+[5,6,"1 1/2 × 1 1/2 in","1 1/2 in","1 1/2 in"]
+];
+const rectangular=[
+[1,1.25,"5/16 × 1/4 in","5/16 in","1/4 in"],[1.25,1.5,"3/8 × 1/4 in","3/8 in","1/4 in"],
+[1.5,1.75,"7/16 × 5/16 in","7/16 in","5/16 in"],[1.75,2,"1/2 × 5/16 in","1/2 in","5/16 in"],
+[2,2.5,"5/8 × 7/16 in","5/8 in","7/16 in"],[2.5,3,"3/4 × 1/2 in","3/4 in","1/2 in"],
+[3,3.5,"7/8 × 5/8 in","7/8 in","5/8 in"],[3.5,4,"1 × 3/4 in","1 in","3/4 in"],
+[4,5,"1 1/4 × 7/8 in","1 1/4 in","7/8 in"],[5,6,"1 1/2 × 1 in","1 1/2 in","1 in"]
+];
+
+const system=document.getElementById("system"),type=document.getElementById("type"),typeField=document.getElementById("typeField");
+const diameter=document.getElementById("diameter"),unit=document.getElementById("unit"),rangeHelp=document.getElementById("rangeHelp");
+const error=document.getElementById("error"),value=document.getElementById("value"),badge=document.getElementById("badge");
+const details=document.getElementById("details"),range=document.getElementById("range"),width=document.getElementById("width"),height=document.getElementById("height"),standard=document.getElementById("standard");
+
+function reset(){value.textContent="—";badge.textContent="Awaiting input";details.hidden=true;error.hidden=true}
+function updateMode(){
+ const imperial=system.value==="imperial";
+ typeField.hidden=!imperial;unit.textContent=imperial?"in":"mm";diameter.placeholder=imperial?"1.5":"50";
+ rangeHelp.textContent=!imperial?"Supported range: over 10 mm to 230 mm inclusive.":type.value==="square"?"Supported range: over 0.25 in to 6 in inclusive.":"Supported range: over 1 in to 6 in inclusive.";
+ reset();
+}
+function calculate(){
+ const d=Number(diameter.value); error.hidden=true;
+ if(!Number.isFinite(d)||d<=0){error.textContent="Enter a valid positive shaft diameter.";error.hidden=false;return}
+ let rows,label,std,u;
+ if(system.value==="metric"){rows=metric;label="Metric rectangular key";std="B.S.4235 : Part 1 : 1972";u="mm"}
+ else if(type.value==="square"){rows=square;label="Imperial square key";std="B.S.46 : Part 1 : 1958";u="in"}
+ else{rows=rectangular;label="Imperial rectangular key";std="B.S.46 : Part 1 : 1958";u="in"}
+ const m=rows.find(r=>d>r[0]&&d<=r[1]);
+ if(!m){error.textContent="The shaft diameter is outside the selected chart range or equals an excluded lower boundary.";error.hidden=false;reset();error.hidden=false;return}
+ value.textContent=m[2];badge.textContent=label;range.textContent="> "+m[0]+" "+u+" to ≤ "+m[1]+" "+u;
+ width.textContent=m[3];height.textContent=m[4];standard.textContent=std;details.hidden=false;
+}
+system.addEventListener("change",updateMode);type.addEventListener("change",updateMode);
+document.getElementById("calculate").addEventListener("click",calculate);
+diameter.addEventListener("keydown",e=>{if(e.key==="Enter")calculate()});
+updateMode();
+</script>
+</body>
+</html>
