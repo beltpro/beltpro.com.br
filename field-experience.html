@@ -328,12 +328,12 @@
         }
 
         .nav-item:not(.calculators-dropdown):hover > .dropdown-menu,
-            .nav-item:not(.calculators-dropdown):focus-within > .dropdown-menu,
-            .nav-item.open > .dropdown-menu {
-                opacity: 1;
-                visibility: visible;
-                transform: translateY(0);
-            }
+        .nav-item:not(.calculators-dropdown):focus-within > .dropdown-menu,
+        .nav-item.open > .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
 
         .dropdown-menu a {
             display: block;
@@ -1220,8 +1220,8 @@
                     </ul>
                 </li>
 
-                <li class="nav-item calculators-dropdown">
-                    <button class="dropdown-toggle" type="button" onclick="toggleDropdown(event)"
+                <li class="nav-item calculators-dropdown" id="calculatorsNavItem">
+                    <button class="dropdown-toggle" type="button" onclick="requestCalculatorsMenu(event)"
                             data-en="Calculators ▼"
                             data-es="Calculadoras ▼"
                             data-pt="Calculadoras ▼"
@@ -2086,6 +2086,17 @@
             var destination = pendingCalculatorUrl;
             pendingCalculatorUrl = '';
 
+            if (destination === '__OPEN_CALCULATORS__') {
+                closeAllDropdowns();
+
+                var calculatorsItem = document.getElementById('calculatorsNavItem');
+                if (calculatorsItem) {
+                    calculatorsItem.classList.add('open');
+                }
+
+                return;
+            }
+
             if (destination) {
                 window.location.href = destination;
             }
@@ -2134,6 +2145,15 @@
             } finally {
                 button.disabled = false;
             }
+        }
+
+
+        function requestCalculatorsMenu(event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            closeAllDropdowns();
+            openEngineeringDisclaimer('__OPEN_CALCULATORS__');
         }
 
 
