@@ -327,13 +327,13 @@
             transition: 0.2s ease;
         }
 
-        .nav-item:hover > .dropdown-menu,
-        .nav-item:focus-within > .dropdown-menu,
-        .nav-item.open > .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
+        .nav-item:not(.calculators-dropdown):hover > .dropdown-menu,
+            .nav-item:not(.calculators-dropdown):focus-within > .dropdown-menu,
+            .nav-item.open > .dropdown-menu {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
 
         .dropdown-menu a {
             display: block;
@@ -1220,7 +1220,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item calculators-dropdown">
                     <button class="dropdown-toggle" type="button" onclick="toggleDropdown(event)"
                             data-en="Calculators ▼"
                             data-es="Calculadoras ▼"
