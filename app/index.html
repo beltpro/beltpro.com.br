@@ -9,6 +9,16 @@
 <link rel="stylesheet" href="styles.css">
 <title>BELTPRO Engineering Suite</title>
 <meta name="description" content="BELTPRO engineering calculators for spiral systems, industrial baking ovens, belts and conveyors.">
+<script src="/access-gate.js"></script>
+<script>
+  (function () {
+    if (!window.BeltproAccess || !window.BeltproAccess.hasAccess()) {
+      window.BeltproAccess
+        ? window.BeltproAccess.redirectToGate(window.location.href)
+        : (window.location.href = "/client-access.html?return=" + encodeURIComponent(window.location.href));
+    }
+  })();
+</script>
 </head>
 <body>
 <div class="app-shell">
