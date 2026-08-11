@@ -1535,6 +1535,28 @@ Open calculator
 </div>
 </div>
 </div>
+
+<div aria-labelledby="clientAccessTitle" aria-modal="true" class="modal-backdrop" id="clientAccessModal" role="dialog">
+<div class="modal">
+<div class="modal-head">
+<h2 data-en="Client Access" data-es="Acceso del Cliente" data-it="Accesso Cliente" data-pt="Acesso do Cliente" id="clientAccessTitle">Client Access</h2>
+<p data-en="Enter the Client Access Code provided by BELTPRO." data-es="Ingrese el Código de Acceso del Cliente proporcionado por BELTPRO." data-it="Inserisci il Codice di Accesso Cliente fornito da BELTPRO." data-pt="Digite o Código de Acesso do Cliente fornecido pela BELTPRO.">Enter the Client Access Code provided by BELTPRO.</p>
+</div>
+<div class="modal-body">
+<label for="clientAccessCode" style="display:block;margin-bottom:8px;font-weight:800;color:#082f49;"
+data-en="Client Access Code" data-es="Código de Acceso del Cliente" data-it="Codice di Accesso Cliente" data-pt="Código de Acesso do Cliente">Client Access Code</label>
+<input id="clientAccessCode" type="password" autocomplete="off" spellcheck="false"
+style="width:100%;min-height:48px;padding:11px 13px;border:1px solid #cbd5e1;border-radius:9px;font:inherit;"
+placeholder="••••••••••">
+<p id="clientAccessError" style="display:none;margin-top:12px;color:#b91c1c;font-weight:700;"></p>
+</div>
+<div class="modal-actions">
+<button class="modal-cancel" data-en="Cancel" data-es="Cancelar" data-it="Annulla" data-pt="Cancelar" id="cancelClientAccess" type="button">Cancel</button>
+<button class="modal-accept" data-en="Access Calculators" data-es="Acceder a las Calculadoras" data-it="Accedi ai Calcolatori" data-pt="Acessar Calculadoras" id="submitClientAccess" type="button">Access Calculators</button>
+</div>
+</div>
+</div>
+
 <script>
     const disclaimerModal = document.getElementById('disclaimerModal');
     const calculatorsDropdown = document.getElementById('calculatorsDropdown');
@@ -1544,6 +1566,13 @@ Open calculator
     const cancelDisclaimer = document.getElementById('cancelDisclaimer');
     const mobileMenuButton = document.getElementById('mobileMenuButton');
     const navLinks = document.getElementById('navLinks');
+    const clientAccessModal = document.getElementById('clientAccessModal');
+    const clientAccessCode = document.getElementById('clientAccessCode');
+    const clientAccessError = document.getElementById('clientAccessError');
+    const submitClientAccess = document.getElementById('submitClientAccess');
+    const cancelClientAccess = document.getElementById('cancelClientAccess');
+    const CLIENT_ACCESS_API = 'https://spiral-tension-api.onrender.com';
+    const CLIENT_ACCESS_TOKEN_KEY = 'beltpro_client_access_token';
     let pendingCalculatorHref = null;
 
     function setLanguage(lang) {
@@ -1555,6 +1584,138 @@ Open calculator
       document.querySelectorAll('.language-bar button').forEach(function (btn) {
         btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
       });
+    }
+
+
+    function clientAccessMessage(type) {
+      const lang = document.documentElement.getAttribute('lang') || 'en';
+      const messages = {
+        invalid: {
+          en: 'Invalid Client Access Code.',
+          es: 'Código de Acceso del Cliente no válido.',
+          it: 'Codice di Accesso Cliente non valido.',
+          pt: 'Código de Acesso do Cliente inválido.'
+        },
+        unavailable: {
+          en: 'Unable to validate access right now. Please try again.',
+          es: 'No se puede validar el acceso en este momento. Inténtelo de nuevo.',
+          it: 'Impossibile convalidare l’accesso in questo momento. Riprova.',
+          pt: 'Não foi possível validar o acesso agora. Tente novamente.'
+        }
+      };
+      return (messages[type] && messages[type][lang]) || messages[type].en;
+    }
+
+    async function hasValidClientAccess() {
+      let token = '';
+      try { token = localStorage.getItem(CLIENT_ACCESS_TOKEN_KEY) || ''; } catch (e) {}
+
+      if (!token) return false;
+
+      try {
+        const response = await fetch(CLIENT_ACCESS_API + '/client-access/check', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: token })
+        });
+
+        if (response.ok) return true;
+      } catch (e) {}
+
+      try { localStorage.removeItem(CLIENT_ACCESS_TOKEN_KEY); } catch (e) {}
+      return false;
+    }
+
+    function openClientAccess() {
+      clientAccessError.style.display = 'none';
+      clientAccessError.textContent = '';
+      clientAccessCode.value = '';
+      clientAccessModal.classList.add('show');
+      document.body.classList.add('modal-open');
+      window.setTimeout(function () { clientAccessCode.focus(); }, 50);
+    }
+
+    function closeClientAccess(clearPending) {
+      clientAccessModal.classList.remove('show');
+      document.body.classList.remove('modal-open');
+      clientAccessCode.value = '';
+      clientAccessError.style.display = 'none';
+
+      if (clearPending) {
+        pendingCalculatorHref = null;
+      }
+    }
+
+    function completeCalculatorAccess() {
+      if (pendingCalculatorHref) {
+        const href = pendingCalculatorHref;
+        pendingCalculatorHref = null;
+        window.location.href = href;
+        return;
+      }
+
+      if (window.innerWidth <= 1050) {
+        navLinks.classList.add('show');
+        mobileMenuButton.setAttribute('aria-expanded', 'true');
+      }
+
+      calculatorsDropdown.classList.add('open');
+      calculatorsTrigger.setAttribute('aria-expanded', 'true');
+
+      window.setTimeout(function () {
+        calculatorsTrigger.focus();
+        calculatorsTrigger.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }, 100);
+    }
+
+    async function continueAfterDisclaimer() {
+      if (await hasValidClientAccess()) {
+        completeCalculatorAccess();
+      } else {
+        openClientAccess();
+      }
+    }
+
+    async function validateClientAccessCode() {
+      const code = clientAccessCode.value;
+
+      if (!code) {
+        clientAccessError.textContent = clientAccessMessage('invalid');
+        clientAccessError.style.display = 'block';
+        return;
+      }
+
+      submitClientAccess.disabled = true;
+      clientAccessError.style.display = 'none';
+
+      try {
+        const response = await fetch(CLIENT_ACCESS_API + '/client-access/validate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code: code })
+        });
+
+        const data = await response.json().catch(function () { return {}; });
+
+        if (!response.ok || !data.ok || !data.token) {
+          clientAccessError.textContent =
+            response.status === 401 ? clientAccessMessage('invalid') : clientAccessMessage('unavailable');
+          clientAccessError.style.display = 'block';
+          return;
+        }
+
+        try { localStorage.setItem(CLIENT_ACCESS_TOKEN_KEY, data.token); } catch (e) {}
+        closeClientAccess(false);
+        completeCalculatorAccess();
+      } catch (e) {
+        clientAccessError.textContent = clientAccessMessage('unavailable');
+        clientAccessError.style.display = 'block';
+      } finally {
+        submitClientAccess.disabled = false;
+      }
     }
 
     function openDisclaimer(href) {
@@ -1588,32 +1749,27 @@ Open calculator
       });
     });
 
-    acceptDisclaimer.addEventListener('click', function () {
+    acceptDisclaimer.addEventListener('click', async function () {
       disclaimerModal.classList.remove('show');
       document.body.classList.remove('modal-open');
+      await continueAfterDisclaimer();
+    });
 
-      if (pendingCalculatorHref) {
-        const href = pendingCalculatorHref;
-        pendingCalculatorHref = null;
-        window.location.href = href;
-        return;
+    submitClientAccess.addEventListener('click', validateClientAccessCode);
+
+    clientAccessCode.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        validateClientAccessCode();
       }
+    });
 
-      if (window.innerWidth <= 1050) {
-        navLinks.classList.add('show');
-        mobileMenuButton.setAttribute('aria-expanded', 'true');
-      }
+    cancelClientAccess.addEventListener('click', function () {
+      closeClientAccess(true);
+    });
 
-      calculatorsDropdown.classList.add('open');
-      calculatorsTrigger.setAttribute('aria-expanded', 'true');
-
-      window.setTimeout(function () {
-        calculatorsTrigger.focus();
-        calculatorsTrigger.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center'
-        });
-      }, 100);
+    clientAccessModal.addEventListener('click', function (event) {
+      if (event.target === clientAccessModal) closeClientAccess(true);
     });
 
     cancelDisclaimer.addEventListener('click', closeDisclaimer);
