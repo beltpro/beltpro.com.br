@@ -1612,24 +1612,39 @@ placeholder="••••••••••">
 
       if (!token) return false;
 
+      let response;
+
       try {
-        const response = await fetch(CLIENT_ACCESS_API + '/client-access/check', {
+        response = await fetch(CLIENT_ACCESS_API + '/client-access/check', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ token: token })
+          body: JSON.stringify({ token: token }),
+          cache: 'no-store'
         });
+      } catch (e) {
+        throw new Error('client-access-check-unavailable');
+      }
 
-        if (response.ok) return true;
-      } catch (e) {}
+      if (response.ok) return true;
 
-      try { localStorage.removeItem(CLIENT_ACCESS_TOKEN_KEY); } catch (e) {}
-      return false;
+      if (response.status === 401) {
+        try { localStorage.removeItem(CLIENT_ACCESS_TOKEN_KEY); } catch (e) {}
+        return false;
+      }
+
+      throw new Error('client-access-check-unavailable');
     }
 
-    function openClientAccess() {
+    function openClientAccess(messageType) {
       clientAccessError.style.display = 'none';
       clientAccessError.textContent = '';
       clientAccessCode.value = '';
+
+      if (messageType) {
+        clientAccessError.textContent = clientAccessMessage(messageType);
+        clientAccessError.style.display = 'block';
+      }
+
       clientAccessModal.classList.add('show');
       document.body.classList.add('modal-open');
       window.setTimeout(function () { clientAccessCode.focus(); }, 50);
@@ -1646,10 +1661,11 @@ placeholder="••••••••••">
       }
     }
 
-    function completeCalculatorAccess() {
-      if (pendingCalculatorHref) {
-        const href = pendingCalculatorHref;
-        pendingCalculatorHref = null;
+    function completeCalculatorAccess(destination) {
+      const href = destination !== undefined ? destination : pendingCalculatorHref;
+      pendingCalculatorHref = null;
+
+      if (href) {
         window.location.href = href;
         return;
       }
@@ -1672,15 +1688,22 @@ placeholder="••••••••••">
     }
 
     async function continueAfterDisclaimer() {
-      if (await hasValidClientAccess()) {
-        completeCalculatorAccess();
-      } else {
-        openClientAccess();
+      const destination = pendingCalculatorHref;
+
+      try {
+        if (await hasValidClientAccess()) {
+          completeCalculatorAccess(destination);
+        } else {
+          openClientAccess();
+        }
+      } catch (e) {
+        openClientAccess('unavailable');
       }
     }
 
     async function validateClientAccessCode() {
       const code = clientAccessCode.value;
+      const destination = pendingCalculatorHref;
 
       if (!code) {
         clientAccessError.textContent = clientAccessMessage('invalid');
@@ -1695,7 +1718,8 @@ placeholder="••••••••••">
         const response = await fetch(CLIENT_ACCESS_API + '/client-access/validate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ code: code })
+          body: JSON.stringify({ code: code }),
+          cache: 'no-store'
         });
 
         const data = await response.json().catch(function () { return {}; });
@@ -1709,7 +1733,7 @@ placeholder="••••••••••">
 
         try { localStorage.setItem(CLIENT_ACCESS_TOKEN_KEY, data.token); } catch (e) {}
         closeClientAccess(false);
-        completeCalculatorAccess();
+        completeCalculatorAccess(destination);
       } catch (e) {
         clientAccessError.textContent = clientAccessMessage('unavailable');
         clientAccessError.style.display = 'block';
