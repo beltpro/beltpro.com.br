@@ -1586,6 +1586,8 @@ placeholder="••••••••••">
     const CLIENT_ACCESS_API = 'https://spiral-tension-api.onrender.com';
     const CLIENT_ACCESS_TOKEN_KEY = 'beltpro_client_access_token';
     let pendingCalculatorHref = null;
+    let accessCheckInProgress = false;
+    let clientValidationInProgress = false;
 
     function setLanguage(lang) {
       document.querySelectorAll('[data-' + lang + ']').forEach(function (el) {
@@ -1618,6 +1620,50 @@ placeholder="••••••••••">
       return (messages[type] && messages[type][lang]) || messages[type].en;
     }
 
+    function clientAccessCheckingMessage() {
+      const lang = document.documentElement.getAttribute('lang') || 'en';
+      const messages = {
+        en: 'Checking access...',
+        es: 'Verificando acceso...',
+        it: 'Verifica accesso...',
+        pt: 'Verificando acesso...'
+      };
+      return messages[lang] || messages.en;
+    }
+
+    async function fetchClientAccess(url, options, timeoutMs) {
+      const attempts = 2;
+      const timeout = timeoutMs || 8000;
+      let lastError = null;
+
+      for (let attempt = 0; attempt < attempts; attempt++) {
+        const controller = new AbortController();
+        const timer = window.setTimeout(function () {
+          controller.abort();
+        }, timeout);
+
+        try {
+          const response = await fetch(url, Object.assign({}, options, {
+            signal: controller.signal,
+            cache: 'no-store'
+          }));
+          window.clearTimeout(timer);
+          return response;
+        } catch (error) {
+          window.clearTimeout(timer);
+          lastError = error;
+
+          if (attempt < attempts - 1) {
+            await new Promise(function (resolve) {
+              window.setTimeout(resolve, 450);
+            });
+          }
+        }
+      }
+
+      throw lastError || new Error('client-access-request-failed');
+    }
+
     async function hasValidClientAccess() {
       let token = '';
       try { token = localStorage.getItem(CLIENT_ACCESS_TOKEN_KEY) || ''; } catch (e) {}
@@ -1627,12 +1673,11 @@ placeholder="••••••••••">
       let response;
 
       try {
-        response = await fetch(CLIENT_ACCESS_API + '/client-access/check', {
+        response = await fetchClientAccess(CLIENT_ACCESS_API + '/client-access/check', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ token: token }),
-          cache: 'no-store'
-        });
+          body: JSON.stringify({ token: token })
+        }, 8000);
       } catch (e) {
         throw new Error('client-access-check-unavailable');
       }
@@ -1700,20 +1745,39 @@ placeholder="••••••••••">
     }
 
     async function continueAfterDisclaimer() {
+      if (accessCheckInProgress) return;
+
+      accessCheckInProgress = true;
       const destination = pendingCalculatorHref;
+      const originalText = acceptDisclaimer.textContent;
+
+      acceptDisclaimer.disabled = true;
+      acceptDisclaimer.textContent = clientAccessCheckingMessage();
 
       try {
         if (await hasValidClientAccess()) {
+          disclaimerModal.classList.remove('show');
+          document.body.classList.remove('modal-open');
           completeCalculatorAccess(destination);
         } else {
+          disclaimerModal.classList.remove('show');
+          document.body.classList.remove('modal-open');
           openClientAccess();
         }
       } catch (e) {
+        disclaimerModal.classList.remove('show');
+        document.body.classList.remove('modal-open');
         openClientAccess('unavailable');
+      } finally {
+        acceptDisclaimer.disabled = false;
+        acceptDisclaimer.textContent = originalText;
+        accessCheckInProgress = false;
       }
     }
 
     async function validateClientAccessCode() {
+      if (clientValidationInProgress) return;
+
       const code = clientAccessCode.value;
       const destination = pendingCalculatorHref;
 
@@ -1723,16 +1787,19 @@ placeholder="••••••••••">
         return;
       }
 
+      clientValidationInProgress = true;
+      const originalText = submitClientAccess.textContent;
+
       submitClientAccess.disabled = true;
+      submitClientAccess.textContent = clientAccessCheckingMessage();
       clientAccessError.style.display = 'none';
 
       try {
-        const response = await fetch(CLIENT_ACCESS_API + '/client-access/validate', {
+        const response = await fetchClientAccess(CLIENT_ACCESS_API + '/client-access/validate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ code: code }),
-          cache: 'no-store'
-        });
+          body: JSON.stringify({ code: code })
+        }, 8000);
 
         const data = await response.json().catch(function () { return {}; });
 
@@ -1751,6 +1818,8 @@ placeholder="••••••••••">
         clientAccessError.style.display = 'block';
       } finally {
         submitClientAccess.disabled = false;
+        submitClientAccess.textContent = originalText;
+        clientValidationInProgress = false;
       }
     }
 
@@ -1786,8 +1855,6 @@ placeholder="••••••••••">
     });
 
     acceptDisclaimer.addEventListener('click', async function () {
-      disclaimerModal.classList.remove('show');
-      document.body.classList.remove('modal-open');
       await continueAfterDisclaimer();
     });
 
@@ -1868,7 +1935,10 @@ placeholder="••••••••••">
     });
 
     document.addEventListener('click', function (event) {
-      if (!event.target.closest('.dropdown') && !disclaimerModal.contains(event.target)) {
+      const insideDisclaimer = disclaimerModal.contains(event.target);
+      const insideClientAccess = clientAccessModal.contains(event.target);
+
+      if (!event.target.closest('.dropdown') && !insideDisclaimer && !insideClientAccess) {
         closeAllDropdowns();
       }
 
@@ -1877,7 +1947,8 @@ placeholder="••••••••••">
         navLinks.classList.contains('show') &&
         !navLinks.contains(event.target) &&
         !mobileMenuButton.contains(event.target) &&
-        !disclaimerModal.contains(event.target)
+        !insideDisclaimer &&
+        !insideClientAccess
       ) {
         closeMobileNavigation();
       }
