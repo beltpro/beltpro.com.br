@@ -2037,24 +2037,33 @@
 
             if (!token) return false;
 
+            var response;
+
             try {
-                var response = await fetch(CLIENT_ACCESS_API + '/client-access/check', {
+                response = await fetch(CLIENT_ACCESS_API + '/client-access/check', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ token: token })
+                    body: JSON.stringify({ token: token }),
+                    cache: 'no-store'
                 });
+            } catch (error) {
+                throw new Error('client-access-check-unavailable');
+            }
 
-                if (response.ok) return true;
-            } catch (error) {}
+            if (response.ok) return true;
 
-            try {
-                localStorage.removeItem(CLIENT_ACCESS_TOKEN_KEY);
-            } catch (error) {}
+            if (response.status === 401) {
+                try {
+                    localStorage.removeItem(CLIENT_ACCESS_TOKEN_KEY);
+                } catch (error) {}
 
-            return false;
+                return false;
+            }
+
+            throw new Error('client-access-check-unavailable');
         }
 
-        function openClientAccess() {
+        function openClientAccess(messageType) {
             var modal = document.getElementById('clientAccessModal');
             var input = document.getElementById('clientAccessCode');
             var error = document.getElementById('clientAccessError');
@@ -2062,6 +2071,12 @@
             input.value = '';
             error.style.display = 'none';
             error.textContent = '';
+
+            if (messageType) {
+                error.textContent = clientAccessMessage(messageType);
+                error.style.display = 'block';
+            }
+
             modal.classList.add('show');
             modal.setAttribute('aria-hidden', 'false');
             document.body.classList.add('modal-open');
@@ -2082,11 +2097,11 @@
             }
         }
 
-        function completeFieldCalculatorAccess() {
-            var destination = pendingCalculatorUrl;
+        function completeFieldCalculatorAccess(destination) {
+            var target = destination !== undefined ? destination : pendingCalculatorUrl;
             pendingCalculatorUrl = '';
 
-            if (destination === '__OPEN_CALCULATORS__') {
+            if (target === '__OPEN_CALCULATORS__') {
                 closeAllDropdowns();
 
                 var calculatorsItem = document.getElementById('calculatorsNavItem');
@@ -2097,8 +2112,8 @@
                 return;
             }
 
-            if (destination) {
-                window.location.href = destination;
+            if (target) {
+                window.location.href = target;
             }
         }
 
@@ -2107,6 +2122,7 @@
             var error = document.getElementById('clientAccessError');
             var button = document.getElementById('submitClientAccessButton');
             var code = input.value;
+            var destination = pendingCalculatorUrl;
 
             if (!code) {
                 error.textContent = clientAccessMessage('invalid');
@@ -2121,7 +2137,8 @@
                 var response = await fetch(CLIENT_ACCESS_API + '/client-access/validate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ code: code })
+                    body: JSON.stringify({ code: code }),
+                    cache: 'no-store'
                 });
 
                 var data = await response.json().catch(function () { return {}; });
@@ -2138,7 +2155,7 @@
                 } catch (error) {}
 
                 closeClientAccess(false);
-                completeFieldCalculatorAccess();
+                completeFieldCalculatorAccess(destination);
             } catch (requestError) {
                 error.textContent = clientAccessMessage('unavailable');
                 error.style.display = 'block';
@@ -2191,10 +2208,14 @@
                 return;
             }
 
-            if (await hasValidClientAccess()) {
-                completeFieldCalculatorAccess();
-            } else {
-                openClientAccess();
+            try {
+                if (await hasValidClientAccess()) {
+                    completeFieldCalculatorAccess(destination);
+                } else {
+                    openClientAccess();
+                }
+            } catch (error) {
+                openClientAccess('unavailable');
             }
         }
 
