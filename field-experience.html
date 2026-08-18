@@ -1973,7 +1973,12 @@
         }
 
         document.addEventListener('click', function (event) {
-            if (!event.target.closest('.site-nav')) {
+            var engineeringDisclaimer = document.getElementById('engineeringDisclaimer');
+            var clientAccessModal = document.getElementById('clientAccessModal');
+            var insideEngineeringDisclaimer = engineeringDisclaimer && engineeringDisclaimer.contains(event.target);
+            var insideClientAccess = clientAccessModal && clientAccessModal.contains(event.target);
+
+            if (!event.target.closest('.site-nav') && !insideEngineeringDisclaimer && !insideClientAccess) {
                 closeAllDropdowns();
             }
         });
@@ -2007,6 +2012,8 @@
 
         var CLIENT_ACCESS_API = 'https://spiral-tension-api.onrender.com';
         var CLIENT_ACCESS_TOKEN_KEY = 'beltpro_client_access_token';
+        var accessCheckInProgress = false;
+        var clientValidationInProgress = false;
 
         function clientAccessMessage(type) {
             var lang = document.documentElement.getAttribute('lang') || 'en';
@@ -2028,6 +2035,52 @@
             return (messages[type] && messages[type][lang]) || messages[type].en;
         }
 
+        function clientAccessCheckingMessage() {
+            var lang = document.documentElement.getAttribute('lang') || 'en';
+            var messages = {
+                en: 'Checking access...',
+                es: 'Verificando acceso...',
+                pt: 'Verificando acesso...',
+                it: 'Verifica accesso...'
+            };
+
+            return messages[lang] || messages.en;
+        }
+
+        async function fetchClientAccess(url, options, timeoutMs) {
+            var attempts = 2;
+            var timeout = timeoutMs || 8000;
+            var lastError = null;
+
+            for (var attempt = 0; attempt < attempts; attempt++) {
+                var controller = new AbortController();
+                var timer = window.setTimeout(function () {
+                    controller.abort();
+                }, timeout);
+
+                try {
+                    var response = await fetch(url, Object.assign({}, options, {
+                        signal: controller.signal,
+                        cache: 'no-store'
+                    }));
+
+                    window.clearTimeout(timer);
+                    return response;
+                } catch (error) {
+                    window.clearTimeout(timer);
+                    lastError = error;
+
+                    if (attempt < attempts - 1) {
+                        await new Promise(function (resolve) {
+                            window.setTimeout(resolve, 450);
+                        });
+                    }
+                }
+            }
+
+            throw lastError || new Error('client-access-request-failed');
+        }
+
         async function hasValidClientAccess() {
             var token = '';
 
@@ -2040,12 +2093,11 @@
             var response;
 
             try {
-                response = await fetch(CLIENT_ACCESS_API + '/client-access/check', {
+                response = await fetchClientAccess(CLIENT_ACCESS_API + '/client-access/check', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ token: token }),
-                    cache: 'no-store'
-                });
+                    body: JSON.stringify({ token: token })
+                }, 8000);
             } catch (error) {
                 throw new Error('client-access-check-unavailable');
             }
@@ -2118,6 +2170,8 @@
         }
 
         async function validateClientAccessCode() {
+            if (clientValidationInProgress) return;
+
             var input = document.getElementById('clientAccessCode');
             var error = document.getElementById('clientAccessError');
             var button = document.getElementById('submitClientAccessButton');
@@ -2130,16 +2184,19 @@
                 return;
             }
 
+            clientValidationInProgress = true;
+            var originalText = button.textContent;
+
             button.disabled = true;
+            button.textContent = clientAccessCheckingMessage();
             error.style.display = 'none';
 
             try {
-                var response = await fetch(CLIENT_ACCESS_API + '/client-access/validate', {
+                var response = await fetchClientAccess(CLIENT_ACCESS_API + '/client-access/validate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ code: code }),
-                    cache: 'no-store'
-                });
+                    body: JSON.stringify({ code: code })
+                }, 8000);
 
                 var data = await response.json().catch(function () { return {}; });
 
@@ -2161,6 +2218,8 @@
                 error.style.display = 'block';
             } finally {
                 button.disabled = false;
+                button.textContent = originalText;
+                clientValidationInProgress = false;
             }
         }
 
@@ -2196,26 +2255,44 @@
         }
 
         async function acceptEngineeringDisclaimer() {
-            var destination = pendingCalculatorUrl;
+            if (accessCheckInProgress) return;
 
+            var destination = pendingCalculatorUrl;
             var modal = document.getElementById('engineeringDisclaimer');
-            modal.classList.remove('show');
-            modal.setAttribute('aria-hidden', 'true');
-            document.body.classList.remove('modal-open');
+            var button = document.getElementById('acceptDisclaimerButton');
 
             if (!destination) {
                 pendingCalculatorUrl = '';
                 return;
             }
 
+            accessCheckInProgress = true;
+            var originalText = button.textContent;
+
+            button.disabled = true;
+            button.textContent = clientAccessCheckingMessage();
+
             try {
                 if (await hasValidClientAccess()) {
+                    modal.classList.remove('show');
+                    modal.setAttribute('aria-hidden', 'true');
+                    document.body.classList.remove('modal-open');
                     completeFieldCalculatorAccess(destination);
                 } else {
+                    modal.classList.remove('show');
+                    modal.setAttribute('aria-hidden', 'true');
+                    document.body.classList.remove('modal-open');
                     openClientAccess();
                 }
             } catch (error) {
+                modal.classList.remove('show');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('modal-open');
                 openClientAccess('unavailable');
+            } finally {
+                button.disabled = false;
+                button.textContent = originalText;
+                accessCheckInProgress = false;
             }
         }
 
