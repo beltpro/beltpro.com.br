@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+ 
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BELTPRO | Spiral Belt Specification</title>
+<meta content="How to identify spiral drive systems and measure Omni-Grid, Omni-Flex and self-stacking metal spiral belts: pitch, rods, links, side plates, turn ratio and specification checklist." name="description"/>
+<link href="favicon.png" rel="icon" type="image/png"/>
+<style>
+        :root {
+            --navy: #0b1f33;
+            --blue: #0f4c81;
+            --cyan: #38bdf8;
+            --orange: #f59e0b;
+            --text: #1f2937;
+            --muted: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #dbe5ee;
+            --shadow: 0 18px 45px rgba(15, 23, 42, 0.10);
+            --radius: 18px;
+            --max-width: 1050px;
+        }
+ 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+ 
+        html {
+            scroll-behavior: smooth;
+        }
+ 
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.72;
+        }
+ 
+        a {
+            color: inherit;
+        }
+ 
+        img {
+            max-width: 100%;
+        }
+ 
+        .language-bar {
+            background: #071625;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 8px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+ 
+        .language-bar button {
+            border: 0;
+            background: transparent;
+            color: #cbd5e1;
+            padding: 7px 9px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+        }
+ 
+        .language-bar button:hover,
+        .language-bar button.active {
+            color: #ffffff;
+            background: rgba(56, 189, 248, 0.16);
+        }
+ 
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 31, 51, 0.97);
+            box-shadow: 0 8px 25px rgba(2, 8, 23, 0.20);
+            backdrop-filter: blur(12px);
+        }
+ 
+        .header-inner {
+            width: min(94%, 1180px);
+            min-height: 72px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+ 
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+ 
+        .logo-link img {
+            height: 48px;
+            width: auto;
+            display: block;
+        }
+ 
+        .back-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 10px 14px;
+            border: 1px solid rgba(255,255,255,.20);
+            border-radius: 9px;
+        }
+ 
+        .back-link:hover {
+            color: var(--cyan);
+            background: rgba(255,255,255,.07);
+        }
+ 
+        .hero {
+            color: #ffffff;
+            background:
+                linear-gradient(90deg, rgba(5, 20, 35, 0.96), rgba(7, 31, 53, 0.80)),
+                url("beltbackground.jpg") center / cover no-repeat;
+        }
+ 
+        .hero-inner {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 76px 0 84px;
+        }
+ 
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            color: #bae6fd;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+ 
+        .eyebrow::before {
+            content: "";
+            width: 34px;
+            height: 2px;
+            background: var(--cyan);
+        }
+ 
+        .hero h1 {
+            max-width: 900px;
+            margin-bottom: 20px;
+            font-size: clamp(40px, 6vw, 66px);
+            line-height: 1.04;
+            letter-spacing: -2px;
+        }
+ 
+        .hero p {
+            max-width: 800px;
+            color: #dbeafe;
+            font-size: clamp(17px, 2vw, 21px);
+        }
+ 
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+ 
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 12px 18px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 900;
+            transition: transform .2s ease, background .2s ease;
+        }
+ 
+        .action-button:hover {
+            transform: translateY(-2px);
+        }
+ 
+        .action-primary {
+            background: var(--orange);
+            color: #1f2937;
+        }
+ 
+        .action-primary:hover {
+            background: #fbbf24;
+        }
+ 
+        .action-secondary {
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,.28);
+            background: rgba(255,255,255,.08);
+        }
+ 
+        .article-shell {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 64px 0 86px;
+        }
+ 
+        .article-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: clamp(28px, 5vw, 58px);
+        }
+ 
+        .article-card h2 {
+            margin: 46px 0 16px;
+            color: var(--navy);
+            font-size: clamp(28px, 4vw, 39px);
+            line-height: 1.2;
+            letter-spacing: -0.7px;
+        }
+ 
+        .article-card h2:first-child {
+            margin-top: 0;
+        }
+ 
+        .article-card h3 {
+            margin: 28px 0 10px;
+            color: var(--blue);
+            font-size: 23px;
+        }
+ 
+        .article-card p {
+            margin-bottom: 18px;
+            color: #475569;
+            font-size: 17px;
+        }
+ 
+        .article-card ul,
+        .article-card ol {
+            margin: 0 0 20px 24px;
+            color: #475569;
+        }
+ 
+        .article-card li {
+            margin-bottom: 8px;
+        }
+ 
+        .toc {
+            margin: 0 0 36px;
+            padding: 24px 26px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+        }
+ 
+        .toc strong {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--navy);
+        }
+ 
+        .toc ol {
+            margin-bottom: 0;
+        }
+ 
+        .toc a {
+            color: var(--blue);
+            font-weight: 700;
+            text-decoration: none;
+        }
+ 
+        .toc a:hover {
+            text-decoration: underline;
+        }
+ 
+        .formula-box {
+            margin: 26px 0;
+            padding: 24px;
+            border-left: 5px solid var(--cyan);
+            border-radius: 12px;
+            background: #eef8fd;
+        }
+ 
+        .formula-box strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--navy);
+            font-size: 18px;
+        }
+ 
+        .formula-box code,
+        .designation {
+            font-family: "Courier New", Courier, monospace;
+            font-weight: 700;
+            color: var(--navy);
+        }
+ 
+        .formula-box p:last-child,
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+ 
+        .example-box {
+            margin: 26px 0;
+            padding: 24px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+        }
+ 
+        .example-box strong {
+            display: block;
+            margin-bottom: 10px;
+            color: #92400e;
+        }
+ 
+        .designation-breakdown {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            margin: 22px 0 26px;
+        }
+ 
+        .designation-part {
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+            text-align: center;
+        }
+ 
+        .designation-part .code {
+            display: block;
+            margin-bottom: 6px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--blue);
+        }
+ 
+        .designation-part span:last-child {
+            display: block;
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.45;
+        }
+ 
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+            margin: 24px 0 28px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+ 
+        .spec-table {
+            width: 100%;
+            min-width: 560px;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+ 
+        .spec-table th,
+        .spec-table td {
+            padding: 12px 14px;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid var(--border);
+            color: #475569;
+        }
+ 
+        .spec-table th {
+            background: var(--navy);
+            color: #ffffff;
+            font-weight: 800;
+        }
+ 
+        .spec-table tr:last-child td {
+            border-bottom: 0;
+        }
+ 
+        .spec-table tbody tr:nth-child(even) td {
+            background: #f8fbfe;
+        }
+ 
+        .spec-table td:first-child {
+            color: var(--navy);
+            font-weight: 700;
+        }
+ 
+        .consequence-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 17px;
+            margin: 26px 0;
+        }
+ 
+        .consequence-card {
+            padding: 21px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+        }
+ 
+        .consequence-card strong {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--navy);
+        }
+ 
+        .consequence-card p {
+            margin-bottom: 0;
+            font-size: 16px;
+        }
+ 
+        .website-note {
+            margin-top: 42px;
+            padding: 26px;
+            border-radius: 13px;
+            border: 1px solid #bfe5f5;
+            background: #eef9fd;
+        }
+ 
+        .website-note h2 {
+            margin-top: 0;
+            font-size: 27px;
+        }
+ 
+        .website-note .note-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+ 
+        .website-note a {
+            display: inline-flex;
+            padding: 11px 16px;
+            border-radius: 8px;
+            background: var(--blue);
+            color: #ffffff;
+            font-weight: 900;
+            text-decoration: none;
+        }
+ 
+        .website-note a:hover {
+            background: var(--navy);
+        }
+ 
+        .engineering-disclaimer {
+            margin-top: 34px;
+            padding: 22px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+            color: #6b4d21;
+        }
+ 
+        .engineering-disclaimer strong {
+            display: block;
+            margin-bottom: 7px;
+            color: #92400e;
+        }
+ 
+        .engineering-disclaimer p {
+            margin-bottom: 0;
+            color: #6b4d21;
+        }
+ 
+        .site-footer {
+            background: #071625;
+            color: #cbd5e1;
+        }
+ 
+        .footer-inner {
+            width: min(92%, 1180px);
+            margin: auto;
+            padding: 34px 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+ 
+        .footer-inner strong {
+            color: #ffffff;
+        }
+ 
+        .footer-inner span {
+            color: #94a3b8;
+            font-size: 14px;
+            text-align: right;
+        }
+ 
+        @media (max-width: 760px) {
+            .header-inner {
+                min-height: 64px;
+            }
+ 
+            .logo-link img {
+                height: 41px;
+            }
+ 
+            .back-link {
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+ 
+            .hero-inner {
+                padding: 58px 0 64px;
+            }
+ 
+            .consequence-grid {
+                grid-template-columns: 1fr;
+            }
+ 
+            .designation-breakdown {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+ 
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+ 
+            .footer-inner span {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div aria-label="Language selection" class="language-bar">
+<button data-lang="en" onclick="setLanguage('en')" type="button">English</button>
+<button data-lang="es" onclick="setLanguage('es')" type="button">Español</button>
+<button data-lang="pt" onclick="setLanguage('pt')" type="button">Português</button>
+<button data-lang="it" onclick="setLanguage('it')" type="button">Italiano</button>
+</div>
+ 
+<header class="site-header">
+<div class="header-inner">
+<a aria-label="BELTPRO home" class="logo-link" href="index.html">
+<img alt="BELTPRO Logo" src="logo.png"/>
+</a>
+<a class="back-link" data-en="← Back to Technical Articles" data-es="← Volver a Artículos Técnicos" data-it="← Torna agli Articoli Tecnici" data-pt="← Voltar aos Artigos Técnicos" href="index.html#articles">← Back to Technical Articles</a>
+</div>
+</header>
+ 
+<section class="hero">
+<div class="hero-inner">
+<span class="eyebrow" data-en="Technical Article" data-es="Artículo Técnico" data-it="Articolo Tecnico" data-pt="Artigo Técnico">Technical Article</span>
+<h1 data-en="Spiral Belt Specification" data-es="Especificación de Bandas Espirales" data-it="Specifica dei Nastri a Spirale" data-pt="Especificação de Esteiras Espirais">Spiral Belt Specification</h1>
+<p data-en="How to identify the spiral drive system and how to measure Omni-Grid, Omni-Flex and self-stacking metal belts before ordering a replacement." data-es="Cómo identificar el sistema de accionamiento de la espiral y cómo medir bandas metálicas Omni-Grid, Omni-Flex y autoapilables antes de solicitar un reemplazo." data-it="Come identificare il sistema di azionamento della spirale e come misurare i nastri metallici Omni-Grid, Omni-Flex e autoimpilanti prima di ordinare una sostituzione." data-pt="Como identificar o sistema de acionamento da espiral e como medir esteiras metálicas Omni-Grid, Omni-Flex e autoempilháveis antes de solicitar uma reposição.">How to identify the spiral drive system and how to measure Omni-Grid, Omni-Flex and self-stacking metal belts before ordering a replacement.</p>
+<div class="hero-actions">
+<a class="action-button action-primary" data-en="Request Technical Specification" data-es="Solicitar Especificación Técnica" data-it="Richiedi Specifica Tecnica" data-pt="Solicitar Especificação Técnica" href="index.html#contact">Request Technical Specification</a>
+<a class="action-button action-secondary" data-en="Send Measurements for Review" data-es="Enviar Mediciones para Análisis" data-it="Invia le Misure per Analisi" data-pt="Enviar Medições para Análise" href="index.html#contact">Send Measurements for Review</a>
+</div>
+</div>
+</section>
+ 
+<main class="article-shell">
+<article class="article-card">
+ 
+<nav aria-label="Article contents" class="toc">
+<strong data-en="In this article" data-es="En este artículo" data-it="In questo articolo" data-pt="Neste artigo">In this article</strong>
+<ol>
+<li><a data-en="Spiral drive systems" data-es="Sistemas de accionamiento de espirales" data-it="Sistemi di azionamento delle spirali" data-pt="Sistemas de acionamento de espirais" href="#drives">Spiral drive systems</a></li>
+<li><a data-en="Tools and preparation" data-es="Herramientas y preparación" data-it="Strumenti e preparazione" data-pt="Ferramentas e preparação" href="#tools">Tools and preparation</a></li>
+<li><a data-en="Measurements common to all spiral belts" data-es="Mediciones comunes a todas las bandas espirales" data-it="Misure comuni a tutti i nastri a spirale" data-pt="Medições comuns a todas as esteiras espirais" href="#common">Measurements common to all spiral belts</a></li>
+<li><a data-en="Omni-Grid belts" data-es="Bandas Omni-Grid" data-it="Nastri Omni-Grid" data-pt="Esteiras Omni-Grid" href="#omni-grid">Omni-Grid belts</a></li>
+<li><a data-en="Omni-Flex belts" data-es="Bandas Omni-Flex" data-it="Nastri Omni-Flex" data-pt="Esteiras Omni-Flex" href="#omni-flex">Omni-Flex belts</a></li>
+<li><a data-en="Positive-drive drum belts" data-es="Bandas para tambor con engrane directo" data-it="Nastri per tamburo a trascinamento positivo" data-pt="Esteiras para tambor com engate direto" href="#positive">Positive-drive drum belts</a></li>
+<li><a data-en="Self-stacking belts" data-es="Bandas autoapilables" data-it="Nastri autoimpilanti" data-pt="Esteiras autoempilháveis" href="#self-stacking">Self-stacking belts</a></li>
+<li><a data-en="Drumless spirals with external drive" data-es="Espirales sin tambor con accionamiento externo" data-it="Spirali senza tamburo con azionamento esterno" data-pt="Espirais sem tambor com acionamento externo" href="#external">Drumless spirals with external drive</a></li>
+<li><a data-en="Quick comparison" data-es="Comparativo rápido" data-it="Confronto rapido" data-pt="Comparativo rápido" href="#comparison">Quick comparison</a></li>
+<li><a data-en="Specification checklist" data-es="Ficha de especificación" data-it="Scheda di specifica" data-pt="Ficha de especificação" href="#checklist">Specification checklist</a></li>
+<li><a data-en="Common measuring mistakes" data-es="Errores comunes de medición" data-it="Errori di misura comuni" data-pt="Erros comuns de medição" href="#mistakes">Common measuring mistakes</a></li>
+</ol>
+</nav>
+ 
+<h2 data-en="Spiral Drive Systems" data-es="Sistemas de Accionamiento de Espirales" data-it="Sistemi di Azionamento delle Spirali" data-pt="Sistemas de Acionamento de Espirais" id="drives">Spiral Drive Systems</h2>
+<p data-en="The first step in specifying a spiral belt is identifying how the spiral drives the belt. The drive system defines which belt construction can be used, which edge carries the tension and which details must be measured. Spiral systems generally fall into four groups." data-es="El primer paso para especificar una banda espiral es identificar cómo la espiral acciona la banda. El sistema de accionamiento define qué construcción de banda puede utilizarse, qué borde soporta la tensión y qué detalles deben medirse. Los sistemas espirales se dividen generalmente en cuatro grupos." data-it="Il primo passo per specificare un nastro a spirale è identificare come la spirale trascina il nastro. Il sistema di azionamento definisce quale costruzione di nastro può essere utilizzata, quale bordo sopporta la tensione e quali dettagli devono essere misurati. I sistemi a spirale si dividono generalmente in quattro gruppi." data-pt="O primeiro passo para especificar uma esteira espiral é identificar como a espiral aciona a esteira. O sistema de acionamento define qual construção de esteira pode ser usada, qual borda suporta a tensão e quais detalhes precisam ser medidos. Os sistemas espirais se dividem, em geral, em quatro grupos.">The first step in specifying a spiral belt is identifying how the spiral drives the belt. The drive system defines which belt construction can be used, which edge carries the tension and which details must be measured. Spiral systems generally fall into four groups.</p>
+ 
+<div class="consequence-grid">
+<div class="consequence-card">
+<strong data-en="1. Friction drum drive" data-es="1. Tambor por fricción" data-it="1. Tamburo a frizione" data-pt="1. Tambor por atrito">1. Friction drum drive</strong>
+<p data-en="A rotating drum drives the inner edge of the belt by friction against its vertical bars. The drum turns slightly faster than the belt (overdrive). This page covers Omni-Grid and Omni-Flex metal belts for this system." data-es="Un tambor giratorio acciona el borde interno de la banda por fricción contra sus barras verticales. El tambor gira un poco más rápido que la banda (overdrive). Esta página trata las bandas metálicas Omni-Grid y Omni-Flex para este sistema." data-it="Un tamburo rotante trascina il bordo interno del nastro per attrito contro le sue barre verticali. Il tamburo gira leggermente più veloce del nastro (overdrive). Questa pagina tratta i nastri metallici Omni-Grid e Omni-Flex per questo sistema." data-pt="Um tambor rotativo aciona a borda interna da esteira por atrito contra suas barras verticais. O tambor gira um pouco mais rápido que a esteira (overdrive). Esta página trata das esteiras metálicas Omni-Grid e Omni-Flex para esse sistema.">A rotating drum drives the inner edge of the belt by friction against its vertical bars. The drum turns slightly faster than the belt (overdrive). This page covers Omni-Grid and Omni-Flex metal belts for this system.</p>
+</div>
+<div class="consequence-card">
+<strong data-en="2. Positive-drive drum" data-es="2. Tambor con engrane directo" data-it="2. Tamburo a trascinamento positivo" data-pt="2. Tambor com engate direto">2. Positive-drive drum</strong>
+<p data-en="The drum bars engage the inner edge of the belt directly, without relying on friction. Metal belts for this system are similar to friction-drive belts, with an added tab on the inner edge that engages the drum bars." data-es="Las barras del tambor engranan directamente el borde interno de la banda, sin depender de la fricción. Las bandas metálicas para este sistema son similares a las de tambor por fricción, con una lengüeta adicional en el borde interno que engrana en las barras del tambor." data-it="Le barre del tamburo ingranano direttamente il bordo interno del nastro, senza dipendere dall'attrito. I nastri metallici per questo sistema sono simili a quelli per tamburo a frizione, con una linguetta aggiuntiva sul bordo interno che ingrana nelle barre del tamburo." data-pt="As barras do tambor engatam diretamente a borda interna da esteira, sem depender do atrito. As esteiras metálicas para esse sistema são semelhantes às de tambor por atrito, com uma aba adicional na borda interna que engata nas barras do tambor.">The drum bars engage the inner edge of the belt directly, without relying on friction. Metal belts for this system are similar to friction-drive belts, with an added tab on the inner edge that engages the drum bars.</p>
+</div>
+<div class="consequence-card">
+<strong data-en="3. Self-stacking" data-es="3. Autoapilable" data-it="3. Autoimpilante" data-pt="3. Autoempilhável">3. Self-stacking</strong>
+<p data-en="There is no central drum. The belt has side plates that rest on the tier below, forming a self-supporting stack. The belt is driven from the bottom tier. This page covers metal self-stacking belts." data-es="No existe tambor central. La banda tiene placas laterales que se apoyan sobre el nivel inferior, formando una pila autoportante. La banda se acciona desde el nivel inferior. Esta página trata las bandas metálicas autoapilables." data-it="Non esiste un tamburo centrale. Il nastro ha piastre laterali che poggiano sul livello inferiore, formando una pila autoportante. Il nastro è azionato dal livello inferiore. Questa pagina tratta i nastri metallici autoimpilanti." data-pt="Não existe tambor central. A esteira possui placas laterais que se apoiam sobre o nível inferior, formando uma pilha autoportante. A esteira é acionada a partir do nível inferior. Esta página trata das esteiras metálicas autoempilháveis.">There is no central drum. The belt has side plates that rest on the tier below, forming a self-supporting stack. The belt is driven from the bottom tier. This page covers metal self-stacking belts.</p>
+</div>
+<div class="consequence-card">
+<strong data-en="4. Drumless with external drive" data-es="4. Sin tambor con accionamiento externo" data-it="4. Senza tamburo con azionamento esterno" data-pt="4. Sem tambor com acionamento externo">4. Drumless with external drive</strong>
+<p data-en="There is no central drum. A tower of sprockets or gears outside the spiral drives the belt through its outer edge. Metal belts for this system have an engaging mechanism on the outer links." data-es="No existe tambor central. Una torre de piñones o engranajes en la parte externa de la espiral acciona la banda por su borde externo. Las bandas metálicas para este sistema poseen un mecanismo de engrane en los eslabones externos." data-it="Non esiste un tamburo centrale. Una torre di ruote dentate o ingranaggi all'esterno della spirale trascina il nastro dal bordo esterno. I nastri metallici per questo sistema hanno un meccanismo di ingranamento sulle maglie esterne." data-pt="Não existe tambor central. Uma torre de engrenagens na parte externa da espiral aciona a esteira pela borda externa. As esteiras metálicas para esse sistema possuem algum mecanismo de engate nos elos externos.">There is no central drum. A tower of sprockets or gears outside the spiral drives the belt through its outer edge. Metal belts for this system have an engaging mechanism on the outer links.</p>
+</div>
+</div>
+ 
+<h2 data-en="Tools and Preparation" data-es="Herramientas y Preparación" data-it="Strumenti e Preparazione" data-pt="Ferramentas e Preparação" id="tools">Tools and Preparation</h2>
+<ul>
+<li data-en="Caliper, outside micrometer and steel tape measure in millimeters and inches" data-es="Calibre, micrómetro de exteriores y cinta métrica de acero en milímetros y pulgadas" data-it="Calibro, micrometro per esterni e metro a nastro in acciaio in millimetri e pollici" data-pt="Paquímetro, micrômetro externo e trena de aço em milímetros e polegadas">Caliper, outside micrometer and steel tape measure in millimeters and inches</li>
+<li data-en="Camera for photos with a ruler placed next to the belt" data-es="Cámara para fotos con una regla colocada junto a la banda" data-it="Fotocamera per foto con un righello posizionato accanto al nastro" data-pt="Câmera para fotos com régua posicionada ao lado da esteira">Camera for photos with a ruler placed next to the belt</li>
+<li data-en="Take measurements with the spiral stopped, locked out and with safety procedures applied" data-es="Realice las mediciones con la espiral detenida, bloqueada y con los procedimientos de seguridad aplicados" data-it="Eseguire le misure con la spirale ferma, bloccata e con le procedure di sicurezza applicate" data-pt="Realize as medições com a espiral parada, travada e com os procedimentos de segurança aplicados">Take measurements with the spiral stopped, locked out and with safety procedures applied</li>
+<li data-en="Measure on a straight section of the belt, fully extended, such as the infeed, outfeed or return path" data-es="Mida en un tramo recto de la banda, totalmente extendido, como la entrada, la salida o el retorno" data-it="Misurare su un tratto rettilineo del nastro, completamente esteso, come ingresso, uscita o ritorno" data-pt="Meça em um trecho reto da esteira, totalmente estendido, como a entrada, a saída ou o retorno">Measure on a straight section of the belt, fully extended, such as the infeed, outfeed or return path</li>
+<li data-en="Repeat each measurement at least three times, away from splices and repaired sections" data-es="Repita cada medición al menos tres veces, lejos de uniones y tramos reparados" data-it="Ripetere ogni misura almeno tre volte, lontano da giunzioni e tratti riparati" data-pt="Repita cada medição pelo menos três vezes, longe de emendas e trechos reparados">Repeat each measurement at least three times, away from splices and repaired sections</li>
+</ul>
+ 
+<h2 data-en="Measurements Common to All Spiral Belts" data-es="Mediciones Comunes a Todas las Bandas Espirales" data-it="Misure Comuni a Tutti i Nastri a Spirale" data-pt="Medições Comuns a Todas as Esteiras Espirais" id="common">Measurements Common to All Spiral Belts</h2>
+<ul>
+<li><strong data-en="Overall belt width:" data-es="Ancho total de la banda:" data-it="Larghezza totale del nastro:" data-pt="Largura total da esteira:">Overall belt width:</strong> <span data-en="from the end of the rod on one edge to the end of the rod on the other edge, on a straight section." data-es="desde el extremo de la varilla en un borde hasta el extremo de la varilla en el otro borde, en un tramo recto." data-it="dall'estremità dell'asta su un bordo all'estremità dell'asta sull'altro bordo, su un tratto rettilineo." data-pt="da ponta da vareta em uma borda até a ponta da vareta na outra borda, em um trecho reto.">from the end of the rod on one edge to the end of the rod on the other edge, on a straight section.</span></li>
+<li><strong data-en="Usable width:" data-es="Ancho útil:" data-it="Larghezza utile:" data-pt="Largura útil:">Usable width:</strong> <span data-en="the width available for product, measured between the inner faces of the edge links or side plates." data-es="el ancho disponible para el producto, medido entre las caras internas de los eslabones de borde o placas laterales." data-it="la larghezza disponibile per il prodotto, misurata tra le facce interne delle maglie di bordo o delle piastre laterali." data-pt="a largura disponível para o produto, medida entre as faces internas dos elos de borda ou das placas laterais.">the width available for product, measured between the inner faces of the edge links or side plates.</span></li>
+<li><strong data-en="Pitch:" data-es="Paso:" data-it="Passo:" data-pt="Passo:">Pitch:</strong> <span data-en="center-to-center distance between consecutive rods. Measure over 10 pitches with the belt fully extended and divide by 10." data-es="distancia entre centros de varillas consecutivas. Mida sobre 10 pasos con la banda totalmente extendida y divida por 10." data-it="distanza tra i centri di aste consecutive. Misurare su 10 passi con il nastro completamente esteso e dividere per 10." data-pt="distância entre centros de varetas consecutivas. Meça sobre 10 passos com a esteira totalmente estendida e divida por 10.">center-to-center distance between consecutive rods. Measure over 10 pitches with the belt fully extended and divide by 10.</span></li>
+<li><strong data-en="Rod diameter:" data-es="Diámetro de la varilla:" data-it="Diametro dell'asta:" data-pt="Diâmetro da vareta:">Rod diameter:</strong> <span data-en="with a micrometer, in an area without wear." data-es="con micrómetro, en una zona sin desgaste." data-it="con il micrometro, in una zona senza usura." data-pt="com micrômetro, em uma região sem desgaste.">with a micrometer, in an area without wear.</span></li>
+<li><strong data-en="Belt height:" data-es="Altura de la banda:" data-it="Altezza del nastro:" data-pt="Altura da esteira:">Belt height:</strong> <span data-en="height of the edge links or side plates, from the bottom face to the top face." data-es="altura de los eslabones de borde o placas laterales, de la cara inferior a la cara superior." data-it="altezza delle maglie di bordo o delle piastre laterali, dalla faccia inferiore a quella superiore." data-pt="altura dos elos de borda ou das placas laterais, da face inferior à face superior.">height of the edge links or side plates, from the bottom face to the top face.</span></li>
+<li><strong data-en="Turn direction:" data-es="Sentido de giro:" data-it="Senso di rotazione:" data-pt="Sentido de giro:">Turn direction:</strong> <span data-en="left, right or both, and which edge is the inner edge in the spiral." data-es="izquierda, derecha o ambos, y cuál borde es el borde interno en la espiral." data-it="sinistra, destra o entrambi, e quale bordo è quello interno nella spirale." data-pt="esquerda, direita ou ambos, e qual borda é a borda interna na espiral.">left, right or both, and which edge is the inner edge in the spiral.</span></li>
+<li><strong data-en="Total belt length:" data-es="Longitud total de la banda:" data-it="Lunghezza totale del nastro:" data-pt="Comprimento total da esteira:">Total belt length:</strong> <span data-en="in meters or in number of pitches, including the take-up allowance." data-es="en metros o en número de pasos, incluyendo la reserva del tensor." data-it="in metri o in numero di passi, compresa la riserva del tenditore." data-pt="em metros ou em número de passos, incluindo a reserva do esticador.">in meters or in number of pitches, including the take-up allowance.</span></li>
+<li><strong data-en="Material:" data-es="Material:" data-it="Materiale:" data-pt="Material:">Material:</strong> <span data-en="stainless steel grade of rods, links and overlay, according to the original belt records." data-es="tipo de acero inoxidable de varillas, eslabones y malla, según el registro de la banda original." data-it="tipo di acciaio inossidabile di aste, maglie e rete, secondo i dati del nastro originale." data-pt="tipo de aço inoxidável das varetas, elos e malha, conforme registro da esteira original.">stainless steel grade of rods, links and overlay, according to the original belt records.</span></li>
+</ul>
+ 
+<div class="formula-box">
+<strong data-en="Turn ratio" data-es="Turn ratio" data-it="Turn ratio" data-pt="Turn ratio">Turn ratio</strong>
+<p><span data-en="Turn ratio =" data-es="Turn ratio =" data-it="Turn ratio =" data-pt="Turn ratio =">Turn ratio =</span> <code data-en="inside turn radius ÷ overall belt width" data-es="radio interno de giro ÷ ancho total de la banda" data-it="raggio interno di curva ÷ larghezza totale del nastro" data-pt="raio interno de giro ÷ largura total da esteira">inside turn radius ÷ overall belt width</code></p>
+<p data-en="In a spiral with a drum, the inside turn radius is half the drum diameter measured at the bars. Each belt construction has a minimum turn ratio, so this value must be confirmed before choosing the replacement belt." data-es="En una espiral con tambor, el radio interno de giro es la mitad del diámetro del tambor medido en las barras. Cada construcción de banda tiene un turn ratio mínimo, por lo que este valor debe confirmarse antes de elegir la banda de reemplazo." data-it="In una spirale con tamburo, il raggio interno di curva è la metà del diametro del tamburo misurato sulle barre. Ogni costruzione di nastro ha un turn ratio minimo, quindi questo valore deve essere confermato prima di scegliere il nastro di ricambio." data-pt="Em uma espiral com tambor, o raio interno de giro é a metade do diâmetro do tambor medido nas barras. Cada construção de esteira possui um turn ratio mínimo, por isso esse valor deve ser confirmado antes de escolher a esteira de reposição.">In a spiral with a drum, the inside turn radius is half the drum diameter measured at the bars. Each belt construction has a minimum turn ratio, so this value must be confirmed before choosing the replacement belt.</p>
+</div>
+ 
+<h2 data-en="Omni-Grid Belts" data-es="Bandas Omni-Grid" data-it="Nastri Omni-Grid" data-pt="Esteiras Omni-Grid" id="omni-grid">Omni-Grid Belts</h2>
+<p data-en="The Omni-Grid is a rod-and-link belt. Transverse rods are joined at the edges by formed links, and a woven wire mesh overlay is usually fitted over the rods to support the product. The links have slots that allow the inner edge to collapse in the turns, while the outer edge stays extended. It is one of the most common belts for friction drum spirals." data-es="La Omni-Grid es una banda de varillas y eslabones. Varillas transversales se unen en los bordes por eslabones conformados y, normalmente, una malla de alambre tejido se monta sobre las varillas para apoyar el producto. Los eslabones tienen ranuras que permiten que el borde interno se contraiga en las curvas, mientras el borde externo permanece extendido. Es una de las bandas más comunes para espirales con tambor por fricción." data-it="L'Omni-Grid è un nastro ad aste e maglie. Le aste trasversali sono unite ai bordi da maglie sagomate e, normalmente, una rete in filo tessuto viene montata sulle aste per sostenere il prodotto. Le maglie hanno asole che permettono al bordo interno di chiudersi in curva, mentre il bordo esterno resta esteso. È uno dei nastri più comuni per spirali con tamburo a frizione." data-pt="A Omni-Grid é uma esteira de varetas e elos. Varetas transversais são unidas nas bordas por elos conformados e, normalmente, uma malha de arame trançado é montada sobre as varetas para apoiar o produto. Os elos possuem rasgos que permitem que a borda interna se feche nas curvas, enquanto a borda externa permanece estendida. É uma das esteiras mais comuns em espirais com tambor por atrito.">The Omni-Grid is a rod-and-link belt. Transverse rods are joined at the edges by formed links, and a woven wire mesh overlay is usually fitted over the rods to support the product. The links have slots that allow the inner edge to collapse in the turns, while the outer edge stays extended. It is one of the most common belts for friction drum spirals.</p>
+ 
+<h3 data-en="How to recognize it" data-es="Cómo reconocerla" data-it="Come riconoscerlo" data-pt="Como reconhecer">How to recognize it</h3>
+<ul>
+<li data-en="Round transverse rods with formed ends at the edges" data-es="Varillas transversales redondas con extremos conformados en los bordes" data-it="Aste trasversali tonde con estremità formate sui bordi" data-pt="Varetas transversais redondas com pontas conformadas nas bordas">Round transverse rods with formed ends at the edges</li>
+<li data-en="Formed links on both edges, sometimes with an additional center link" data-es="Eslabones conformados en ambos bordes, a veces con un eslabón central adicional" data-it="Maglie sagomate su entrambi i bordi, a volte con una maglia centrale aggiuntiva" data-pt="Elos conformados nas duas bordas, às vezes com um elo central adicional">Formed links on both edges, sometimes with an additional center link</li>
+<li data-en="Woven wire spiral mesh overlay wrapped around the rods" data-es="Malla de espirales de alambre tejido envolviendo las varillas" data-it="Rete a spirali di filo tessuto avvolta attorno alle aste" data-pt="Malha de espirais de arame trançado envolvendo as varetas">Woven wire spiral mesh overlay wrapped around the rods</li>
+<li data-en="In the turns, the rods come closer together on the inner edge" data-es="En las curvas, las varillas se acercan en el borde interno" data-it="In curva, le aste si avvicinano sul bordo interno" data-pt="Nas curvas, as varetas se aproximam na borda interna">In the turns, the rods come closer together on the inner edge</li>
+</ul>
+ 
+<h3 data-en="Common pitches and rod diameters" data-es="Pasos comunes y diámetros de varilla" data-it="Passi comuni e diametri delle aste" data-pt="Passos comuns e diâmetros de vareta">Common pitches and rod diameters</h3>
+<div class="table-wrap">
+<table class="spec-table">
+<thead>
+<tr>
+<th data-en="Nominal pitch" data-es="Paso nominal" data-it="Passo nominale" data-pt="Passo nominal">Nominal pitch</th>
+<th data-en="Nominal pitch (mm)" data-es="Paso nominal (mm)" data-it="Passo nominale (mm)" data-pt="Passo nominal (mm)">Nominal pitch (mm)</th>
+<th data-en="Rod diameter" data-es="Diámetro de la varilla" data-it="Diametro dell'asta" data-pt="Diâmetro da vareta">Rod diameter</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>3/4"</td><td data-en="19.1 mm" data-es="19,1 mm" data-it="19,1 mm" data-pt="19,1 mm">19.1 mm</td><td data-en="4.9 mm" data-es="4,9 mm" data-it="4,9 mm" data-pt="4,9 mm">4.9 mm</td></tr>
+<tr><td>1"</td><td data-en="25.4 mm" data-es="25,4 mm" data-it="25,4 mm" data-pt="25,4 mm">25.4 mm</td><td data-en="4.9 mm" data-es="4,9 mm" data-it="4,9 mm" data-pt="4,9 mm">4.9 mm</td></tr>
+<tr><td>1.2"</td><td data-en="30.5 mm" data-es="30,5 mm" data-it="30,5 mm" data-pt="30,5 mm">30.5 mm</td><td data-en="6.0 mm" data-es="6,0 mm" data-it="6,0 mm" data-pt="6,0 mm">6.0 mm</td></tr>
+<tr><td>1.5"</td><td data-en="38.1 mm" data-es="38,1 mm" data-it="38,1 mm" data-pt="38,1 mm">38.1 mm</td><td data-en="6.0 mm" data-es="6,0 mm" data-it="6,0 mm" data-pt="6,0 mm">6.0 mm</td></tr>
+</tbody>
+</table>
+</div>
+<p data-en="The pitch name is nominal: the pitch measured in the field may be slightly larger than the nominal value, as in 1&quot; belts that measure about 27.4 mm. Use the measured pitch together with the rod diameter to identify the series: a 4.9 mm rod indicates the 3/4&quot; or 1&quot; series, and a 6 mm rod indicates the 1.2&quot; or 1.5&quot; series. Link height, link thickness and overlay counts must always be measured, since they vary with the link type and the application." data-es="El nombre del paso es nominal: el paso medido en campo puede ser un poco mayor que el valor nominal, como en bandas de 1&quot; que miden aproximadamente 27,4 mm. Utilice el paso medido junto con el diámetro de la varilla para identificar la serie: una varilla de 4,9 mm indica la serie de 3/4&quot; o 1&quot;, y una varilla de 6 mm indica la serie de 1,2&quot; o 1,5&quot;. La altura y el espesor del eslabón y los conteos de la malla siempre deben medirse, ya que varían según el tipo de eslabón y la aplicación." data-it="Il nome del passo è nominale: il passo misurato in campo può essere leggermente superiore al valore nominale, come nei nastri da 1&quot; che misurano circa 27,4 mm. Utilizzare il passo misurato insieme al diametro dell'asta per identificare la serie: un'asta da 4,9 mm indica la serie da 3/4&quot; o 1&quot;, e un'asta da 6 mm indica la serie da 1,2&quot; o 1,5&quot;. Altezza e spessore della maglia e conteggi della rete devono sempre essere misurati, poiché variano in base al tipo di maglia e all'applicazione." data-pt="O nome do passo é nominal: o passo medido em campo pode ser um pouco maior que o valor nominal, como em esteiras de 1&quot; que medem aproximadamente 27,4 mm. Use o passo medido junto com o diâmetro da vareta para identificar a série: vareta de 4,9 mm indica a série de 3/4&quot; ou 1&quot;, e vareta de 6 mm indica a série de 1,2&quot; ou 1,5&quot;. Altura e espessura do elo e contagens da malha devem sempre ser medidas, pois variam conforme o tipo de elo e a aplicação.">The pitch name is nominal: the pitch measured in the field may be slightly larger than the nominal value, as in 1" belts that measure about 27.4 mm. Use the measured pitch together with the rod diameter to identify the series: a 4.9 mm rod indicates the 3/4" or 1" series, and a 6 mm rod indicates the 1.2" or 1.5" series. Link height, link thickness and overlay counts must always be measured, since they vary with the link type and the application.</p>
+ 
+<h3 data-en="Omni-Grid measurements" data-es="Mediciones de la Omni-Grid" data-it="Misure dell'Omni-Grid" data-pt="Medições da Omni-Grid">Omni-Grid measurements</h3>
+<ol>
+<li><strong data-en="Pitch and rod diameter:" data-es="Paso y diámetro de la varilla:" data-it="Passo e diametro dell'asta:" data-pt="Passo e diâmetro da vareta:">Pitch and rod diameter:</strong> <span data-en="as described in the common measurements." data-es="como se describe en las mediciones comunes." data-it="come descritto nelle misure comuni." data-pt="conforme descrito nas medições comuns.">as described in the common measurements.</span></li>
+<li><strong data-en="Link type:" data-es="Tipo de eslabón:" data-it="Tipo di maglia:" data-pt="Tipo de elo:">Link type:</strong> <span data-en="measure link height and thickness, and record whether the slots are short or long. Thicker links indicate heavy-duty construction." data-es="mida la altura y el espesor del eslabón y registre si las ranuras son cortas o largas. Eslabones más gruesos indican construcción de servicio pesado." data-it="misurare altezza e spessore della maglia e registrare se le asole sono corte o lunghe. Maglie più spesse indicano una costruzione per servizio pesante." data-pt="meça a altura e a espessura do elo e registre se os rasgos são curtos ou longos. Elos mais espessos indicam construção de serviço pesado.">measure link height and thickness, and record whether the slots are short or long. Thicker links indicate heavy-duty construction.</span></li>
+<li><strong data-en="Center link:" data-es="Eslabón central:" data-it="Maglia centrale:" data-pt="Elo central:">Center link:</strong> <span data-en="record whether there is a center link and its distance from the inner edge." data-es="registre si existe eslabón central y su distancia al borde interno." data-it="registrare se è presente una maglia centrale e la sua distanza dal bordo interno." data-pt="registre se existe elo central e sua distância até a borda interna.">record whether there is a center link and its distance from the inner edge.</span></li>
+<li><strong data-en="Mesh overlay — loop count:" data-es="Malla — conteo de bucles:" data-it="Rete — conteggio delle spire:" data-pt="Malha — contagem de laços:">Mesh overlay — loop count:</strong> <span data-en="count the overlay loops per 12&quot; (304.8 mm) of width. Some belts have a variable loop count, more open on the inner side." data-es="cuente los bucles de la malla por 12&quot; (304,8 mm) de ancho. Algunas bandas tienen conteo variable, más abierto en el lado interno." data-it="contare le spire della rete per 12&quot; (304,8 mm) di larghezza. Alcuni nastri hanno un conteggio variabile, più aperto sul lato interno." data-pt="conte os laços da malha por 12&quot; (304,8 mm) de largura. Algumas esteiras têm contagem variável, mais aberta no lado interno.">count the overlay loops per 12" (304.8 mm) of width. Some belts have a variable loop count, more open on the inner side.</span></li>
+<li><strong data-en="Mesh overlay — weave and gauge:" data-es="Malla — tejido y calibre:" data-it="Rete — tessitura e calibro:" data-pt="Malha — trama e bitola:">Mesh overlay — weave and gauge:</strong> <span data-en="record whether the overlay is balanced (alternating spirals) or unilateral (spirals of one hand only), and measure the wire diameter." data-es="registre si la malla es balanceada (espirales alternadas) o unilateral (espirales de un solo sentido) y mida el diámetro del alambre." data-it="registrare se la rete è bilanciata (spirali alternate) o unilaterale (spirali di un solo senso) e misurare il diametro del filo." data-pt="registre se a malha é balanceada (espirais alternadas) ou unilateral (espirais de um só sentido) e meça o diâmetro do arame.">record whether the overlay is balanced (alternating spirals) or unilateral (spirals of one hand only), and measure the wire diameter.</span></li>
+<li><strong data-en="Overall and usable width:" data-es="Ancho total y útil:" data-it="Larghezza totale e utile:" data-pt="Largura total e útil:">Overall and usable width:</strong> <span data-en="on standard constructions, the usable width is roughly 56 to 64 mm narrower than the overall width, depending on the link type." data-es="en construcciones estándar, el ancho útil es aproximadamente de 56 a 64 mm menor que el ancho total, según el tipo de eslabón." data-it="nelle costruzioni standard, la larghezza utile è circa da 56 a 64 mm inferiore alla larghezza totale, a seconda del tipo di maglia." data-pt="em construções padrão, a largura útil é aproximadamente de 56 a 64 mm menor que a largura total, conforme o tipo de elo.">on standard constructions, the usable width is roughly 56 to 64 mm narrower than the overall width, depending on the link type.</span></li>
+</ol>
+ 
+<div class="example-box">
+<strong data-en="Overlay designation" data-es="Designación de la malla" data-it="Designazione della rete" data-pt="Designação da malha">Overlay designation</strong>
+<p><span data-en="The mesh overlay follows the format B or U XX-YY-ZZ: B for balanced or U for unilateral, loops per 12&quot; of width, spirals per 12&quot; of length and wire gauge. Example:" data-es="La malla sigue el formato B o U XX-YY-ZZ: B para balanceada o U para unilateral, bucles por 12&quot; de ancho, espirales por 12&quot; de longitud y calibre del alambre. Ejemplo:" data-it="La rete segue il formato B o U XX-YY-ZZ: B per bilanciata o U per unilaterale, spire per 12&quot; di larghezza, spirali per 12&quot; di lunghezza e calibro del filo. Esempio:" data-pt="A malha segue o formato B ou U XX-YY-ZZ: B para balanceada ou U para unilateral, laços por 12&quot; de largura, espirais por 12&quot; de comprimento e bitola do arame. Exemplo:">The mesh overlay follows the format B or U XX-YY-ZZ: B for balanced or U for unilateral, loops per 12" of width, spirals per 12" of length and wire gauge. Example:</span> <span class="designation">B30-16-17</span></p>
+</div>
+ 
+<h2 data-en="Omni-Flex Belts" data-es="Bandas Omni-Flex" data-it="Nastri Omni-Flex" data-pt="Esteiras Omni-Flex" id="omni-flex">Omni-Flex Belts</h2>
+<p data-en="The Omni-Flex is a flat-wire belt. Flat wire strips are punched with slots and formed into pickets that create rectangular openings across the width. The pickets are joined by transverse rods with button heads, and reinforcing bar links are usually fitted along the edges. The slots allow the inner edge to collapse in the turns. The result is a strong belt with a large open area, suitable for airflow in freezers and coolers." data-es="La Omni-Flex es una banda de alambre plano. Flejes planos se perforan con ranuras y se conforman en piquetes que forman aberturas rectangulares a lo ancho. Los piquetes se unen por varillas transversales con cabeza redondeada y, normalmente, se montan eslabones de refuerzo en los bordes. Las ranuras permiten que el borde interno se contraiga en las curvas. El resultado es una banda resistente con gran área abierta, adecuada para el flujo de aire en congeladores y enfriadores." data-it="L'Omni-Flex è un nastro in filo piatto. Piattine vengono forate con asole e sagomate in picchetti che formano aperture rettangolari lungo la larghezza. I picchetti sono uniti da aste trasversali con testa ribattuta e, normalmente, sui bordi vengono montate maglie di rinforzo. Le asole permettono al bordo interno di chiudersi in curva. Il risultato è un nastro resistente con ampia area aperta, adatto al flusso d'aria in congelatori e raffreddatori." data-pt="A Omni-Flex é uma esteira de fio chato. Fitas planas são puncionadas com rasgos e conformadas em piquetes que formam aberturas retangulares ao longo da largura. Os piquetes são unidos por varetas transversais com cabeça arredondada e, normalmente, elos de reforço são montados nas bordas. Os rasgos permitem que a borda interna se feche nas curvas. O resultado é uma esteira resistente, com grande área aberta, adequada para o fluxo de ar em congeladores e resfriadores.">The Omni-Flex is a flat-wire belt. Flat wire strips are punched with slots and formed into pickets that create rectangular openings across the width. The pickets are joined by transverse rods with button heads, and reinforcing bar links are usually fitted along the edges. The slots allow the inner edge to collapse in the turns. The result is a strong belt with a large open area, suitable for airflow in freezers and coolers.</p>
+ 
+<h3 data-en="How to recognize it" data-es="Cómo reconocerla" data-it="Come riconoscerlo" data-pt="Como reconhecer">How to recognize it</h3>
+<ul>
+<li data-en="Conveying surface formed by flat strips standing on edge, not by round wire spirals" data-es="Superficie de transporte formada por flejes planos de canto, y no por espirales de alambre redondo" data-it="Superficie di trasporto formata da piattine di taglio, non da spirali di filo tondo" data-pt="Superfície de transporte formada por fitas planas de cutelo, e não por espirais de arame redondo">Conveying surface formed by flat strips standing on edge, not by round wire spirals</li>
+<li data-en="Regular rectangular openings across the full width" data-es="Aberturas rectangulares regulares en todo el ancho" data-it="Aperture rettangolari regolari su tutta la larghezza" data-pt="Aberturas retangulares regulares em toda a largura">Regular rectangular openings across the full width</li>
+<li data-en="Rods with button heads at the edges" data-es="Varillas con cabeza redondeada en los bordes" data-it="Aste con testa ribattuta sui bordi" data-pt="Varetas com cabeça arredondada nas bordas">Rods with button heads at the edges</li>
+<li data-en="Flat reinforcing bar links along the edges, usually in two rows" data-es="Eslabones planos de refuerzo en los bordes, normalmente en dos filas" data-it="Maglie piatte di rinforzo lungo i bordi, normalmente su due file" data-pt="Elos planos de reforço nas bordas, normalmente em duas fileiras">Flat reinforcing bar links along the edges, usually in two rows</li>
+</ul>
+ 
+<h3 data-en="Typical dimensions" data-es="Dimensiones típicas" data-it="Dimensioni tipiche" data-pt="Dimensões típicas">Typical dimensions</h3>
+<div class="table-wrap">
+<table class="spec-table">
+<thead>
+<tr>
+<th data-en="Feature" data-es="Característica" data-it="Caratteristica" data-pt="Característica">Feature</th>
+<th data-en="Typical value" data-es="Valor típico" data-it="Valore tipico" data-pt="Valor típico">Typical value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-en="Pitch" data-es="Paso" data-it="Passo" data-pt="Passo">Pitch</td>
+<td data-en="1.084 in (27.5 mm)" data-es="1,084 pulg (27,5 mm)" data-it="1,084 pollici (27,5 mm)" data-pt="1,084 pol (27,5 mm)">1.084 in (27.5 mm)</td>
+</tr>
+<tr>
+<td data-en="Rod diameter" data-es="Diámetro de la varilla" data-it="Diametro dell'asta" data-pt="Diâmetro da vareta">Rod diameter</td>
+<td data-en="0.192 in (4.9 mm)" data-es="0,192 pulg (4,9 mm)" data-it="0,192 pollici (4,9 mm)" data-pt="0,192 pol (4,9 mm)">0.192 in (4.9 mm)</td>
+</tr>
+<tr>
+<td data-en="Picket strip" data-es="Fleje del piquete" data-it="Piattina del picchetto" data-pt="Fita do piquete">Picket strip</td>
+<td data-en="1/2 in × 0.062 in (12.7 × 1.6 mm)" data-es="1/2 pulg × 0,062 pulg (12,7 × 1,6 mm)" data-it="1/2 pollice × 0,062 pollici (12,7 × 1,6 mm)" data-pt="1/2 pol × 0,062 pol (12,7 × 1,6 mm)">1/2 in × 0.062 in (12.7 × 1.6 mm)</td>
+</tr>
+<tr>
+<td data-en="Nominal openings" data-es="Aberturas nominales" data-it="Aperture nominali" data-pt="Aberturas nominais">Nominal openings</td>
+<td data-en="1 × 1 in, 1/2 × 1 in, 1/3 × 1 in" data-es="1 × 1 pulg, 1/2 × 1 pulg, 1/3 × 1 pulg" data-it="1 × 1 pollice, 1/2 × 1 pollice, 1/3 × 1 pollice" data-pt="1 × 1 pol, 1/2 × 1 pol, 1/3 × 1 pol">1 × 1 in, 1/2 × 1 in, 1/3 × 1 in</td>
+</tr>
+<tr>
+<td data-en="Usable width" data-es="Ancho útil" data-it="Larghezza utile" data-pt="Largura útil">Usable width</td>
+<td data-en="approx. overall width minus 6 mm" data-es="aprox. ancho total menos 6 mm" data-it="circa larghezza totale meno 6 mm" data-pt="aprox. largura total menos 6 mm">approx. overall width minus 6 mm</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+<h3 data-en="Omni-Flex measurements" data-es="Mediciones de la Omni-Flex" data-it="Misure dell'Omni-Flex" data-pt="Medições da Omni-Flex">Omni-Flex measurements</h3>
+<ol>
+<li><strong data-en="Opening size:" data-es="Tamaño de la abertura:" data-it="Dimensione dell'apertura:" data-pt="Tamanho da abertura:">Opening size:</strong> <span data-en="measure the lateral spacing between pickets and the longitudinal pitch. This defines the nominal opening (1 × 1, 1/2 × 1 or 1/3 × 1 in)." data-es="mida la separación lateral entre piquetes y el paso longitudinal. Esto define la abertura nominal (1 × 1, 1/2 × 1 o 1/3 × 1 pulg)." data-it="misurare la distanza trasversale tra i picchetti e il passo longitudinale. Questo definisce l'apertura nominale (1 × 1, 1/2 × 1 o 1/3 × 1 pollice)." data-pt="meça o espaçamento lateral entre piquetes e o passo longitudinal. Isso define a abertura nominal (1 × 1, 1/2 × 1 ou 1/3 × 1 pol).">measure the lateral spacing between pickets and the longitudinal pitch. This defines the nominal opening (1 × 1, 1/2 × 1 or 1/3 × 1 in).</span></li>
+<li><strong data-en="Picket strip:" data-es="Fleje del piquete:" data-it="Piattina del picchetto:" data-pt="Fita do piquete:">Picket strip:</strong> <span data-en="measure the height and thickness of the flat strip with a caliper." data-es="mida la altura y el espesor del fleje plano con calibre." data-it="misurare altezza e spessore della piattina con il calibro." data-pt="meça a altura e a espessura da fita plana com paquímetro.">measure the height and thickness of the flat strip with a caliper.</span></li>
+<li><strong data-en="Bar links:" data-es="Eslabones de refuerzo:" data-it="Maglie di rinforzo:" data-pt="Elos de reforço:">Bar links:</strong> <span data-en="record the number of rows on each edge, their thickness and position." data-es="registre el número de filas en cada borde, su espesor y su posición." data-it="registrare il numero di file su ogni bordo, il loro spessore e la posizione." data-pt="registre o número de fileiras em cada borda, sua espessura e posição.">record the number of rows on each edge, their thickness and position.</span></li>
+<li><strong data-en="Pitch, rod diameter and widths:" data-es="Paso, diámetro de la varilla y anchos:" data-it="Passo, diametro dell'asta e larghezze:" data-pt="Passo, diâmetro da vareta e larguras:">Pitch, rod diameter and widths:</strong> <span data-en="as described in the common measurements." data-es="como se describe en las mediciones comunes." data-it="come descritto nelle misure comuni." data-pt="conforme descrito nas medições comuns.">as described in the common measurements.</span></li>
+</ol>
+ 
+<div class="formula-box">
+<strong data-en="Omni-Grid or Omni-Flex?" data-es="¿Omni-Grid u Omni-Flex?" data-it="Omni-Grid o Omni-Flex?" data-pt="Omni-Grid ou Omni-Flex?">Omni-Grid or Omni-Flex?</strong>
+<p data-en="If the product rests on a woven mesh of round wire spirals over the rods, it is an Omni-Grid. If the product rests on flat strips standing on edge that form rectangular openings, it is an Omni-Flex." data-es="Si el producto se apoya sobre una malla tejida de espirales de alambre redondo sobre las varillas, es una Omni-Grid. Si el producto se apoya sobre flejes planos de canto que forman aberturas rectangulares, es una Omni-Flex." data-it="Se il prodotto poggia su una rete tessuta di spirali di filo tondo sopra le aste, è un Omni-Grid. Se il prodotto poggia su piattine di taglio che formano aperture rettangolari, è un Omni-Flex." data-pt="Se o produto se apoia sobre uma malha trançada de espirais de arame redondo sobre as varetas, é uma Omni-Grid. Se o produto se apoia sobre fitas planas de cutelo que formam aberturas retangulares, é uma Omni-Flex.">If the product rests on a woven mesh of round wire spirals over the rods, it is an Omni-Grid. If the product rests on flat strips standing on edge that form rectangular openings, it is an Omni-Flex.</p>
+</div>
+ 
+<h2 data-en="Positive-Drive Drum Belts" data-es="Bandas para Tambor con Engrane Directo" data-it="Nastri per Tamburo a Trascinamento Positivo" data-pt="Esteiras para Tambor com Engate Direto" id="positive">Positive-Drive Drum Belts</h2>
+<p data-en="Metal belts for positive-drive drums follow the same constructions as friction-drive belts. The difference is a tab on the inner edge that engages the drum bars. Measure the belt as described for Omni-Grid or Omni-Flex and add the following information:" data-es="Las bandas metálicas para tambor con engrane directo siguen las mismas construcciones de las bandas para tambor por fricción. La diferencia es una lengüeta en el borde interno que engrana en las barras del tambor. Mida la banda como se describe para Omni-Grid u Omni-Flex y agregue la siguiente información:" data-it="I nastri metallici per tamburo a trascinamento positivo seguono le stesse costruzioni dei nastri per tamburo a frizione. La differenza è una linguetta sul bordo interno che ingrana nelle barre del tamburo. Misurare il nastro come descritto per Omni-Grid o Omni-Flex e aggiungere le seguenti informazioni:" data-pt="As esteiras metálicas para tambor com engate direto seguem as mesmas construções das esteiras para tambor por atrito. A diferença é uma aba na borda interna que engata nas barras do tambor. Meça a esteira como descrito para Omni-Grid ou Omni-Flex e acrescente as seguintes informações:">Metal belts for positive-drive drums follow the same constructions as friction-drive belts. The difference is a tab on the inner edge that engages the drum bars. Measure the belt as described for Omni-Grid or Omni-Flex and add the following information:</p>
+<ul>
+<li data-en="Tab shape, height and thickness, with a photo next to a ruler" data-es="Forma, altura y espesor de la lengüeta, con foto junto a una regla" data-it="Forma, altezza e spessore della linguetta, con foto accanto a un righello" data-pt="Formato, altura e espessura da aba, com foto ao lado de uma régua">Tab shape, height and thickness, with a photo next to a ruler</li>
+<li data-en="Tab spacing: on every pitch or every certain number of pitches" data-es="Espaciado de las lengüetas: en cada paso o cada cierto número de pasos" data-it="Spaziatura delle linguette: a ogni passo o ogni certo numero di passi" data-pt="Espaçamento das abas: em todo passo ou a cada certo número de passos">Tab spacing: on every pitch or every certain number of pitches</li>
+<li data-en="Number of drum bars and the spacing between them" data-es="Número de barras del tambor y la separación entre ellas" data-it="Numero di barre del tamburo e distanza tra di esse" data-pt="Número de barras do tambor e o espaçamento entre elas">Number of drum bars and the spacing between them</li>
+<li data-en="Drum diameter measured at the bars" data-es="Diámetro del tambor medido en las barras" data-it="Diametro del tamburo misurato sulle barre" data-pt="Diâmetro do tambor medido nas barras">Drum diameter measured at the bars</li>
+</ul>
+ 
+<h2 data-en="Self-Stacking Belts" data-es="Bandas Autoapilables" data-it="Nastri Autoimpilanti" data-pt="Esteiras Autoempilháveis" id="self-stacking">Self-Stacking Belts</h2>
+<p data-en="In a self-stacking spiral, the belt itself forms the structure. Each link is made of transverse rods and two vertical side plates. In the helix, the side plates of each tier rest on the tier below, forming a self-supporting stack without a central drum. The drive acts on the bottom tier, and a wire or plastic mesh between the side plates supports the product. On the inner side, the side plates overlap and slide over each other so the belt can turn." data-es="En una espiral autoapilable, la propia banda forma la estructura. Cada eslabón está formado por varillas transversales y dos placas laterales verticales. En la hélice, las placas laterales de cada nivel se apoyan sobre el nivel inferior, formando una pila autoportante sin tambor central. El accionamiento actúa sobre el nivel inferior, y una malla metálica o plástica entre las placas laterales apoya el producto. En el lado interno, las placas laterales se superponen y deslizan unas sobre otras para que la banda pueda girar." data-it="In una spirale autoimpilante, il nastro stesso forma la struttura. Ogni maglia è composta da aste trasversali e due piastre laterali verticali. Nell'elica, le piastre laterali di ogni livello poggiano sul livello inferiore, formando una pila autoportante senza tamburo centrale. L'azionamento agisce sul livello inferiore e una rete metallica o plastica tra le piastre laterali sostiene il prodotto. Sul lato interno, le piastre laterali si sovrappongono e scorrono l'una sull'altra per permettere al nastro di curvare." data-pt="Em uma espiral autoempilhável, a própria esteira forma a estrutura. Cada elo é formado por varetas transversais e duas placas laterais verticais. Na hélice, as placas laterais de cada nível se apoiam sobre o nível inferior, formando uma pilha autoportante sem tambor central. O acionamento atua sobre o nível inferior, e uma malha metálica ou plástica entre as placas laterais apoia o produto. No lado interno, as placas laterais se sobrepõem e deslizam umas sobre as outras para que a esteira possa fazer a curva.">In a self-stacking spiral, the belt itself forms the structure. Each link is made of transverse rods and two vertical side plates. In the helix, the side plates of each tier rest on the tier below, forming a self-supporting stack without a central drum. The drive acts on the bottom tier, and a wire or plastic mesh between the side plates supports the product. On the inner side, the side plates overlap and slide over each other so the belt can turn.</p>
+ 
+<h3 data-en="How to recognize it" data-es="Cómo reconocerla" data-it="Come riconoscerlo" data-pt="Como reconhecer">How to recognize it</h3>
+<ul>
+<li data-en="Tall vertical side plates on both edges, forming a channel" data-es="Placas laterales verticales altas en ambos bordes, formando un canal" data-it="Piastre laterali verticali alte su entrambi i bordi, che formano un canale" data-pt="Placas laterais verticais altas nas duas bordas, formando um canal">Tall vertical side plates on both edges, forming a channel</li>
+<li data-en="The stacked tiers form a closed column, without a central drum" data-es="Los niveles apilados forman una columna cerrada, sin tambor central" data-it="I livelli impilati formano una colonna chiusa, senza tamburo centrale" data-pt="Os níveis empilhados formam uma coluna fechada, sem tambor central">The stacked tiers form a closed column, without a central drum</li>
+<li data-en="Side plates with slots and overlapping sections" data-es="Placas laterales con ranuras y secciones superpuestas" data-it="Piastre laterali con asole e sezioni sovrapposte" data-pt="Placas laterais com rasgos e seções sobrepostas">Side plates with slots and overlapping sections</li>
+<li data-en="Support and wear surfaces at the bottom of the side plates" data-es="Superficies de apoyo y desgaste en la parte inferior de las placas laterales" data-it="Superfici di appoggio e usura nella parte inferiore delle piastre laterali" data-pt="Superfícies de apoio e desgaste na parte inferior das placas laterais">Support and wear surfaces at the bottom of the side plates</li>
+</ul>
+ 
+<h3 data-en="Typical dimensions" data-es="Dimensiones típicas" data-it="Dimensioni tipiche" data-pt="Dimensões típicas">Typical dimensions</h3>
+<p data-en="Metal self-stacking belts are built in standard and wide versions, for clockwise or counterclockwise rotation. The most common dimensions are:" data-es="Las bandas metálicas autoapilables se fabrican en versiones estándar y anchas, para giro horario o antihorario. Las dimensiones más comunes son:" data-it="I nastri metallici autoimpilanti sono costruiti in versione standard e larga, per rotazione oraria o antioraria. Le dimensioni più comuni sono:" data-pt="As esteiras metálicas autoempilháveis são fabricadas nas versões padrão e larga, para giro horário ou anti-horário. As dimensões mais comuns são:">Metal self-stacking belts are built in standard and wide versions, for clockwise or counterclockwise rotation. The most common dimensions are:</p>
+<div class="table-wrap">
+<table class="spec-table">
+<thead>
+<tr>
+<th data-en="Feature" data-es="Característica" data-it="Caratteristica" data-pt="Característica">Feature</th>
+<th data-en="Common values" data-es="Valores comunes" data-it="Valori comuni" data-pt="Valores comuns">Common values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-en="Pitch" data-es="Paso" data-it="Passo" data-pt="Passo">Pitch</td>
+<td data-en="30.0 to 59.9 mm" data-es="30,0 a 59,9 mm" data-it="da 30,0 a 59,9 mm" data-pt="30,0 a 59,9 mm">30.0 to 59.9 mm</td>
+</tr>
+<tr>
+<td data-en="Rod diameter" data-es="Diámetro de la varilla" data-it="Diametro dell'asta" data-pt="Diâmetro da vareta">Rod diameter</td>
+<td data-en="5.0, 6.0 or 7.0 mm" data-es="5,0, 6,0 o 7,0 mm" data-it="5,0, 6,0 o 7,0 mm" data-pt="5,0, 6,0 ou 7,0 mm">5.0, 6.0 or 7.0 mm</td>
+</tr>
+<tr>
+<td data-en="Tier height" data-es="Altura de nivel" data-it="Altezza del livello" data-pt="Altura de nível">Tier height</td>
+<td>60, 80, 90, 100, 120, 150, 180, 220 mm</td>
+</tr>
+<tr>
+<td data-en="Belt width" data-es="Ancho de la banda" data-it="Larghezza del nastro" data-pt="Largura da esteira">Belt width</td>
+<td>420, 580, 640, 760, 920, 1060 mm</td>
+</tr>
+<tr>
+<td data-en="Turn direction" data-es="Sentido de giro" data-it="Senso di rotazione" data-pt="Sentido de giro">Turn direction</td>
+<td data-en="Clockwise or counterclockwise" data-es="Horario o antihorario" data-it="Orario o antiorario" data-pt="Horário ou anti-horário">Clockwise or counterclockwise</td>
+</tr>
+<tr>
+<td data-en="Mesh opening" data-es="Abertura de malla" data-it="Apertura della maglia" data-pt="Abertura da malha">Mesh opening</td>
+<td>6, 9, 13, 20 mm</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+<h3 data-en="Open area by mesh opening" data-es="Área abierta según la abertura de malla" data-it="Area aperta in base all'apertura della maglia" data-pt="Área aberta conforme a abertura da malha">Open area by mesh opening</h3>
+<div class="table-wrap">
+<table class="spec-table">
+<thead>
+<tr>
+<th data-en="Mesh opening" data-es="Abertura de malla" data-it="Apertura della maglia" data-pt="Abertura da malha">Mesh opening</th>
+<th data-en="Standard — straight" data-es="Estándar — recta" data-it="Standard — rettilineo" data-pt="Padrão — reta">Standard — straight</th>
+<th data-en="Standard — curve" data-es="Estándar — curva" data-it="Standard — curva" data-pt="Padrão — curva">Standard — curve</th>
+<th data-en="Wide — straight" data-es="Ancha — recta" data-it="Larga — rettilineo" data-pt="Larga — reta">Wide — straight</th>
+<th data-en="Wide — curve" data-es="Ancha — curva" data-it="Larga — curva" data-pt="Larga — curva">Wide — curve</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>6 mm</td><td>57%</td><td>47%</td><td>54%</td><td>45%</td></tr>
+<tr><td>9 mm</td><td>66%</td><td>58%</td><td>59%</td><td>51%</td></tr>
+<tr><td>13 mm</td><td>71%</td><td>65%</td><td>65%</td><td>58%</td></tr>
+<tr><td>20 mm</td><td>76%</td><td>69%</td><td>69%</td><td>63%</td></tr>
+</tbody>
+</table>
+</div>
+<p data-en="Compare the measured tier height, width and mesh opening with these values. A measurement that falls between two common values usually indicates measuring error, wear or a special construction, and should be checked again." data-es="Compare la altura de nivel, el ancho y la abertura de malla medidos con estos valores. Una medida que queda entre dos valores comunes normalmente indica error de medición, desgaste o una construcción especial, y debe verificarse nuevamente." data-it="Confrontare l'altezza del livello, la larghezza e l'apertura della maglia misurate con questi valori. Una misura che cade tra due valori comuni indica normalmente un errore di misura, usura o una costruzione speciale, e deve essere verificata di nuovo." data-pt="Compare a altura de nível, a largura e a abertura da malha medidas com esses valores. Uma medida que fica entre dois valores comuns normalmente indica erro de medição, desgaste ou uma construção especial, e deve ser verificada novamente.">Compare the measured tier height, width and mesh opening with these values. A measurement that falls between two common values usually indicates measuring error, wear or a special construction, and should be checked again.</p>
+ 
+<h3 data-en="Self-stacking belt measurements" data-es="Mediciones de la banda autoapilable" data-it="Misure del nastro autoimpilante" data-pt="Medições da esteira autoempilhável">Self-stacking belt measurements</h3>
+<ol>
+<li><strong data-en="Side plate height:" data-es="Altura de la placa lateral:" data-it="Altezza della piastra laterale:" data-pt="Altura da placa lateral:">Side plate height:</strong> <span data-en="defines the tier pitch and the free height available for the product. Measure the inner and outer plates." data-es="define el paso entre niveles y la altura libre disponible para el producto. Mida las placas interna y externa." data-it="definisce il passo tra i livelli e l'altezza libera disponibile per il prodotto. Misurare le piastre interna ed esterna." data-pt="define o passo entre níveis e a altura livre disponível para o produto. Meça as placas interna e externa.">defines the tier pitch and the free height available for the product. Measure the inner and outer plates.</span></li>
+<li><strong data-en="Tier pitch:" data-es="Paso entre niveles:" data-it="Passo tra i livelli:" data-pt="Passo entre níveis:">Tier pitch:</strong> <span data-en="vertical distance between the same point on two consecutive tiers in the stack." data-es="distancia vertical entre el mismo punto de dos niveles consecutivos de la pila." data-it="distanza verticale tra lo stesso punto di due livelli consecutivi della pila." data-pt="distância vertical entre o mesmo ponto de dois níveis consecutivos da pilha.">vertical distance between the same point on two consecutive tiers in the stack.</span></li>
+<li><strong data-en="Width over the side plates and inner width:" data-es="Ancho sobre las placas y ancho interno:" data-it="Larghezza sulle piastre e larghezza interna:" data-pt="Largura sobre as placas e largura interna:">Width over the side plates and inner width:</strong> <span data-en="measure the outside width over the plates and the clear width between them." data-es="mida el ancho externo sobre las placas y el ancho libre entre ellas." data-it="misurare la larghezza esterna sulle piastre e la larghezza libera tra di esse." data-pt="meça a largura externa sobre as placas e a largura livre entre elas.">measure the outside width over the plates and the clear width between them.</span></li>
+<li><strong data-en="Side plate thickness and condition:" data-es="Espesor y condición de las placas:" data-it="Spessore e condizioni delle piastre:" data-pt="Espessura e condição das placas:">Side plate thickness and condition:</strong> <span data-en="record the thickness and any wear on the support surfaces, slots and guide tabs." data-es="registre el espesor y cualquier desgaste en las superficies de apoyo, ranuras y lengüetas guía." data-it="registrare lo spessore e l'eventuale usura delle superfici di appoggio, delle asole e delle linguette di guida." data-pt="registre a espessura e qualquer desgaste nas superfícies de apoio, rasgos e abas-guia.">record the thickness and any wear on the support surfaces, slots and guide tabs.</span></li>
+<li><strong data-en="Pitch and rod diameter:" data-es="Paso y diámetro de la varilla:" data-it="Passo e diametro dell'asta:" data-pt="Passo e diâmetro da vareta:">Pitch and rod diameter:</strong> <span data-en="as described in the common measurements, on a straight section." data-es="como se describe en las mediciones comunes, en un tramo recto." data-it="come descritto nelle misure comuni, su un tratto rettilineo." data-pt="conforme descrito nas medições comuns, em um trecho reto.">as described in the common measurements, on a straight section.</span></li>
+<li><strong data-en="Mesh between the plates:" data-es="Malla entre las placas:" data-it="Rete tra le piastre:" data-pt="Malha entre as placas:">Mesh between the plates:</strong> <span data-en="record whether it is metal or plastic, the loop count, wire diameter and opening." data-es="registre si es metálica o plástica, el conteo de bucles, el diámetro del alambre y la abertura." data-it="registrare se è metallica o plastica, il conteggio delle spire, il diametro del filo e l'apertura." data-pt="registre se é metálica ou plástica, a contagem de laços, o diâmetro do arame e a abertura.">record whether it is metal or plastic, the loop count, wire diameter and opening.</span></li>
+<li><strong data-en="Stack geometry:" data-es="Geometría de la pila:" data-it="Geometria della pila:" data-pt="Geometria da pilha:">Stack geometry:</strong> <span data-en="number of tiers, inner diameter of the stack and direction of rotation." data-es="número de niveles, diámetro interno de la pila y sentido de rotación." data-it="numero di livelli, diametro interno della pila e senso di rotazione." data-pt="número de níveis, diâmetro interno da pilha e sentido de rotação.">number of tiers, inner diameter of the stack and direction of rotation.</span></li>
+</ol>
+ 
+<h2 data-en="Drumless Spirals with External Drive" data-es="Espirales sin Tambor con Accionamiento Externo" data-it="Spirali senza Tamburo con Azionamento Esterno" data-pt="Espirais sem Tambor com Acionamento Externo" id="external">Drumless Spirals with External Drive</h2>
+<p data-en="In these spirals, the belt is driven by a tower of sprockets or gears installed outside the helix. The metal belt has an engaging mechanism on the outer links, such as lugs, teeth or rollers. In addition to the common measurements, record:" data-es="En estas espirales, la banda es accionada por una torre de piñones o engranajes instalada fuera de la hélice. La banda metálica posee un mecanismo de engrane en los eslabones externos, como tetones, dientes o rodillos. Además de las mediciones comunes, registre:" data-it="In queste spirali, il nastro è trascinato da una torre di ruote dentate o ingranaggi installata all'esterno dell'elica. Il nastro metallico ha un meccanismo di ingranamento sulle maglie esterne, come tacchetti, denti o rulli. Oltre alle misure comuni, registrare:" data-pt="Nessas espirais, a esteira é acionada por uma torre de engrenagens instalada fora da hélice. A esteira metálica possui algum mecanismo de engate nos elos externos, como ressaltos, dentes ou roletes. Além das medições comuns, registre:">In these spirals, the belt is driven by a tower of sprockets or gears installed outside the helix. The metal belt has an engaging mechanism on the outer links, such as lugs, teeth or rollers. In addition to the common measurements, record:</p>
+<ul>
+<li data-en="Type, dimensions and spacing of the engaging element on the outer links" data-es="Tipo, dimensiones y espaciado del elemento de engrane en los eslabones externos" data-it="Tipo, dimensioni e spaziatura dell'elemento di ingranamento sulle maglie esterne" data-pt="Tipo, dimensões e espaçamento do elemento de engate nos elos externos">Type, dimensions and spacing of the engaging element on the outer links</li>
+<li data-en="Number of drive towers and the number of teeth on the sprockets or gears" data-es="Número de torres de accionamiento y número de dientes de los piñones o engranajes" data-it="Numero di torri di azionamento e numero di denti delle ruote dentate o ingranaggi" data-pt="Número de torres de acionamento e número de dentes das engrenagens">Number of drive towers and the number of teeth on the sprockets or gears</li>
+<li data-en="Outer edge pitch in the turns" data-es="Paso del borde externo en las curvas" data-it="Passo del bordo esterno in curva" data-pt="Passo da borda externa nas curvas">Outer edge pitch in the turns</li>
+<li data-en="Photos of the outer links and of the engagement with the drive tower" data-es="Fotos de los eslabones externos y del engrane con la torre de accionamiento" data-it="Foto delle maglie esterne e dell'ingranamento con la torre di azionamento" data-pt="Fotos dos elos externos e do engate com a torre de acionamento">Photos of the outer links and of the engagement with the drive tower</li>
+</ul>
+ 
+<h2 data-en="Quick Comparison" data-es="Comparativo Rápido" data-it="Confronto Rapido" data-pt="Comparativo Rápido" id="comparison">Quick Comparison</h2>
+<div class="table-wrap">
+<table class="spec-table">
+<thead>
+<tr>
+<th data-en="Feature" data-es="Característica" data-it="Caratteristica" data-pt="Característica">Feature</th>
+<th>Omni-Grid</th>
+<th>Omni-Flex</th>
+<th data-en="Self-stacking" data-es="Autoapilable" data-it="Autoimpilante" data-pt="Autoempilhável">Self-stacking</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-en="Drive system" data-es="Sistema de accionamiento" data-it="Sistema di azionamento" data-pt="Sistema de acionamento">Drive system</td>
+<td data-en="Friction or positive-drive drum" data-es="Tambor por fricción o con engrane directo" data-it="Tamburo a frizione o a trascinamento positivo" data-pt="Tambor por atrito ou com engate direto">Friction or positive-drive drum</td>
+<td data-en="Friction or positive-drive drum" data-es="Tambor por fricción o con engrane directo" data-it="Tamburo a frizione o a trascinamento positivo" data-pt="Tambor por atrito ou com engate direto">Friction or positive-drive drum</td>
+<td data-en="No drum, driven at the bottom tier" data-es="Sin tambor, accionada en el nivel inferior" data-it="Senza tamburo, azionato al livello inferiore" data-pt="Sem tambor, acionada no nível inferior">No drum, driven at the bottom tier</td>
+</tr>
+<tr>
+<td data-en="Conveying surface" data-es="Superficie de transporte" data-it="Superficie di trasporto" data-pt="Superfície de transporte">Conveying surface</td>
+<td data-en="Woven round-wire mesh" data-es="Malla tejida de alambre redondo" data-it="Rete tessuta in filo tondo" data-pt="Malha trançada de arame redondo">Woven round-wire mesh</td>
+<td data-en="Flat-strip pickets with rectangular openings" data-es="Piquetes de fleje plano con aberturas rectangulares" data-it="Picchetti in piattina con aperture rettangolari" data-pt="Piquetes de fita plana com aberturas retangulares">Flat-strip pickets with rectangular openings</td>
+<td data-en="Metal or plastic mesh between side plates" data-es="Malla metálica o plástica entre placas laterales" data-it="Rete metallica o plastica tra piastre laterali" data-pt="Malha metálica ou plástica entre placas laterais">Metal or plastic mesh between side plates</td>
+</tr>
+<tr>
+<td data-en="Edges" data-es="Bordes" data-it="Bordi" data-pt="Bordas">Edges</td>
+<td data-en="Formed slotted links" data-es="Eslabones conformados con ranura" data-it="Maglie sagomate con asola" data-pt="Elos conformados com rasgo">Formed slotted links</td>
+<td data-en="Button-head rods and bar links" data-es="Varillas con cabeza y eslabones de refuerzo" data-it="Aste con testa e maglie di rinforzo" data-pt="Varetas com cabeça e elos de reforço">Button-head rods and bar links</td>
+<td data-en="Tall vertical side plates" data-es="Placas laterales verticales altas" data-it="Piastre laterali verticali alte" data-pt="Placas laterais verticais altas">Tall vertical side plates</td>
+</tr>
+<tr>
+<td data-en="Essential measurements" data-es="Mediciones esenciales" data-it="Misure essenziali" data-pt="Medições essenciais">Essential measurements</td>
+<td data-en="Pitch, rod, link type, center link, overlay counts and gauge" data-es="Paso, varilla, tipo de eslabón, eslabón central, conteos y calibre de la malla" data-it="Passo, asta, tipo di maglia, maglia centrale, conteggi e calibro della rete" data-pt="Passo, vareta, tipo de elo, elo central, contagens e bitola da malha">Pitch, rod, link type, center link, overlay counts and gauge</td>
+<td data-en="Pitch, rod, opening, picket strip, bar links" data-es="Paso, varilla, abertura, fleje del piquete, eslabones de refuerzo" data-it="Passo, asta, apertura, piattina del picchetto, maglie di rinforzo" data-pt="Passo, vareta, abertura, fita do piquete, elos de reforço">Pitch, rod, opening, picket strip, bar links</td>
+<td data-en="Plate height, tier pitch, widths, plate thickness, mesh" data-es="Altura de placa, paso entre niveles, anchos, espesor de placa, malla" data-it="Altezza della piastra, passo tra i livelli, larghezze, spessore della piastra, rete" data-pt="Altura da placa, passo entre níveis, larguras, espessura da placa, malha">Plate height, tier pitch, widths, plate thickness, mesh</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+<h2 data-en="Specification Checklist" data-es="Ficha de Especificación" data-it="Scheda di Specifica" data-pt="Ficha de Especificação" id="checklist">Specification Checklist</h2>
+<h3 data-en="Belt data" data-es="Datos de la banda" data-it="Dati del nastro" data-pt="Dados da esteira">Belt data</h3>
+<ul>
+<li data-en="Belt type (Omni-Grid, Omni-Flex, self-stacking or other) and designation, if known" data-es="Tipo de banda (Omni-Grid, Omni-Flex, autoapilable u otra) y designación, si se conoce" data-it="Tipo di nastro (Omni-Grid, Omni-Flex, autoimpilante o altro) e designazione, se nota" data-pt="Tipo de esteira (Omni-Grid, Omni-Flex, autoempilhável ou outra) e designação, se conhecida">Belt type (Omni-Grid, Omni-Flex, self-stacking or other) and designation, if known</li>
+<li data-en="Overall width, usable width and total length" data-es="Ancho total, ancho útil y longitud total" data-it="Larghezza totale, larghezza utile e lunghezza totale" data-pt="Largura total, largura útil e comprimento total">Overall width, usable width and total length</li>
+<li data-en="Pitch, rod diameter and belt height" data-es="Paso, diámetro de la varilla y altura de la banda" data-it="Passo, diametro dell'asta e altezza del nastro" data-pt="Passo, diâmetro da vareta e altura da esteira">Pitch, rod diameter and belt height</li>
+<li data-en="Link, picket or side plate details, as applicable" data-es="Detalles de eslabones, piquetes o placas laterales, según corresponda" data-it="Dettagli di maglie, picchetti o piastre laterali, secondo il caso" data-pt="Detalhes de elos, piquetes ou placas laterais, conforme o caso">Link, picket or side plate details, as applicable</li>
+<li data-en="Mesh overlay data: weave, loop count and wire diameter" data-es="Datos de la malla: tejido, conteo de bucles y diámetro del alambre" data-it="Dati della rete: tessitura, conteggio delle spire e diametro del filo" data-pt="Dados da malha: trama, contagem de laços e diâmetro do arame">Mesh overlay data: weave, loop count and wire diameter</li>
+<li data-en="Turn direction and inner edge identification" data-es="Sentido de giro e identificación del borde interno" data-it="Senso di rotazione e identificazione del bordo interno" data-pt="Sentido de giro e identificação da borda interna">Turn direction and inner edge identification</li>
+<li data-en="Material of rods, links and mesh" data-es="Material de varillas, eslabones y malla" data-it="Materiale di aste, maglie e rete" data-pt="Material das varetas, elos e malha">Material of rods, links and mesh</li>
+</ul>
+<h3 data-en="Spiral data" data-es="Datos de la espiral" data-it="Dati della spirale" data-pt="Dados da espiral">Spiral data</h3>
+<ul>
+<li data-en="Drive system: friction drum, positive-drive drum, self-stacking or external drive" data-es="Sistema de accionamiento: tambor por fricción, tambor con engrane directo, autoapilable o accionamiento externo" data-it="Sistema di azionamento: tamburo a frizione, tamburo a trascinamento positivo, autoimpilante o azionamento esterno" data-pt="Sistema de acionamento: tambor por atrito, tambor com engate direto, autoempilhável ou acionamento externo">Drive system: friction drum, positive-drive drum, self-stacking or external drive</li>
+<li data-en="Drum diameter measured at the bars, or inner diameter of the stack" data-es="Diámetro del tambor medido en las barras, o diámetro interno de la pila" data-it="Diametro del tamburo misurato sulle barre, o diametro interno della pila" data-pt="Diâmetro do tambor medido nas barras, ou diâmetro interno da pilha">Drum diameter measured at the bars, or inner diameter of the stack</li>
+<li data-en="Number of tiers and tier pitch" data-es="Número de niveles y paso entre niveles" data-it="Numero di livelli e passo tra i livelli" data-pt="Número de níveis e passo entre níveis">Number of tiers and tier pitch</li>
+<li data-en="Up-going or down-going spiral and direction of rotation" data-es="Espiral ascendente o descendente y sentido de rotación" data-it="Spirale ascendente o discendente e senso di rotazione" data-pt="Espiral ascendente ou descendente e sentido de rotação">Up-going or down-going spiral and direction of rotation</li>
+<li data-en="Operating temperature: freezing, cooling, proofing or cooking" data-es="Temperatura de operación: congelación, enfriamiento, fermentación o cocción" data-it="Temperatura di esercizio: surgelazione, raffreddamento, lievitazione o cottura" data-pt="Temperatura de operação: congelamento, resfriamento, fermentação ou cozimento">Operating temperature: freezing, cooling, proofing or cooking</li>
+<li data-en="Product, load per square meter and belt speed" data-es="Producto, carga por metro cuadrado y velocidad de la banda" data-it="Prodotto, carico al metro quadrato e velocità del nastro" data-pt="Produto, carga por metro quadrado e velocidade da esteira">Product, load per square meter and belt speed</li>
+</ul>
+<h3 data-en="Recommended photos" data-es="Fotos recomendadas" data-it="Foto consigliate" data-pt="Fotos recomendadas">Recommended photos</h3>
+<ul>
+<li data-en="Top view of a straight section with a ruler across the width" data-es="Vista superior de un tramo recto con regla en el ancho" data-it="Vista dall'alto di un tratto rettilineo con righello sulla larghezza" data-pt="Vista superior de um trecho reto com régua na largura">Top view of a straight section with a ruler across the width</li>
+<li data-en="Close-up of the inner and outer edges" data-es="Primer plano de los bordes interno y externo" data-it="Primo piano dei bordi interno ed esterno" data-pt="Close das bordas interna e externa">Close-up of the inner and outer edges</li>
+<li data-en="Side view showing links or side plates" data-es="Vista lateral mostrando eslabones o placas laterales" data-it="Vista laterale che mostra maglie o piastre laterali" data-pt="Vista lateral mostrando elos ou placas laterais">Side view showing links or side plates</li>
+<li data-en="Belt in the turn, showing the collapsed inner edge" data-es="Banda en la curva, mostrando el borde interno contraído" data-it="Nastro in curva, con il bordo interno chiuso" data-pt="Esteira na curva, mostrando a borda interna fechada">Belt in the turn, showing the collapsed inner edge</li>
+<li data-en="Drive interface: drum bars, tabs or engaging elements" data-es="Interfaz de accionamiento: barras del tambor, lengüetas o elementos de engrane" data-it="Interfaccia di azionamento: barre del tamburo, linguette o elementi di ingranamento" data-pt="Interface de acionamento: barras do tambor, abas ou elementos de engate">Drive interface: drum bars, tabs or engaging elements</li>
+</ul>
+ 
+<h2 data-en="Common Measuring Mistakes" data-es="Errores Comunes de Medición" data-it="Errori di Misura Comuni" data-pt="Erros Comuns de Medição" id="mistakes">Common Measuring Mistakes</h2>
+<div class="consequence-grid">
+<div class="consequence-card">
+<strong data-en="Measuring pitch in a turn" data-es="Medir el paso en la curva" data-it="Misurare il passo in curva" data-pt="Medir o passo na curva">Measuring pitch in a turn</strong>
+<p data-en="In the turns the inner edge is collapsed. Pitch must be measured on a straight section, with the belt fully extended." data-es="En las curvas el borde interno está contraído. El paso debe medirse en un tramo recto, con la banda totalmente extendida." data-it="In curva il bordo interno è chiuso. Il passo deve essere misurato su un tratto rettilineo, con il nastro completamente esteso." data-pt="Nas curvas a borda interna está fechada. O passo deve ser medido em um trecho reto, com a esteira totalmente estendida.">In the turns the inner edge is collapsed. Pitch must be measured on a straight section, with the belt fully extended.</p>
+</div>
+<div class="consequence-card">
+<strong data-en="Confusing overall and usable width" data-es="Confundir ancho total y útil" data-it="Confondere larghezza totale e utile" data-pt="Confundir largura total e útil">Confusing overall and usable width</strong>
+<p data-en="The turn ratio is calculated with the overall width. Always record both values and how each was measured." data-es="El turn ratio se calcula con el ancho total. Registre siempre ambos valores y cómo se midió cada uno." data-it="Il turn ratio si calcola con la larghezza totale. Registrare sempre entrambi i valori e come è stato misurato ciascuno." data-pt="O turn ratio é calculado com a largura total. Registre sempre os dois valores e como cada um foi medido.">The turn ratio is calculated with the overall width. Always record both values and how each was measured.</p>
+</div>
+<div class="consequence-card">
+<strong data-en="Measuring a worn belt" data-es="Medir una banda desgastada" data-it="Misurare un nastro usurato" data-pt="Medir uma esteira desgastada">Measuring a worn belt</strong>
+<p data-en="Worn rods and slots increase the measured pitch. Measure in the least worn area and record the condition of the belt." data-es="Varillas y ranuras desgastadas aumentan el paso medido. Mida en la zona menos desgastada y registre la condición de la banda." data-it="Aste e asole usurate aumentano il passo misurato. Misurare nella zona meno usurata e registrare le condizioni del nastro." data-pt="Varetas e rasgos desgastados aumentam o passo medido. Meça na região menos desgastada e registre a condição da esteira.">Worn rods and slots increase the measured pitch. Measure in the least worn area and record the condition of the belt.</p>
+</div>
+<div class="consequence-card">
+<strong data-en="Ignoring the turn direction" data-es="Ignorar el sentido de giro" data-it="Ignorare il senso di rotazione" data-pt="Ignorar o sentido de giro">Ignoring the turn direction</strong>
+<p data-en="Belts with tabs, center links or variable mesh have a defined inner edge. A belt mounted the wrong way will not work correctly." data-es="Bandas con lengüetas, eslabón central o malla variable tienen un borde interno definido. Una banda montada al revés no funcionará correctamente." data-it="Nastri con linguette, maglia centrale o rete variabile hanno un bordo interno definito. Un nastro montato al contrario non funzionerà correttamente." data-pt="Esteiras com abas, elo central ou malha variável possuem uma borda interna definida. Uma esteira montada ao contrário não funcionará corretamente.">Belts with tabs, center links or variable mesh have a defined inner edge. A belt mounted the wrong way will not work correctly.</p>
+</div>
+<div class="consequence-card">
+<strong data-en="Measuring the drum at the wrong diameter" data-es="Medir el tambor en el diámetro incorrecto" data-it="Misurare il tamburo sul diametro sbagliato" data-pt="Medir o tambor no diâmetro errado">Measuring the drum at the wrong diameter</strong>
+<p data-en="The drum diameter for the turn ratio must be measured at the bars that contact the belt, not at the structure." data-es="El diámetro del tambor para el turn ratio debe medirse en las barras que tocan la banda, y no en la estructura." data-it="Il diametro del tamburo per il turn ratio deve essere misurato sulle barre a contatto con il nastro, non sulla struttura." data-pt="O diâmetro do tambor para o turn ratio deve ser medido nas barras que tocam a esteira, e não na estrutura.">The drum diameter for the turn ratio must be measured at the bars that contact the belt, not at the structure.</p>
+</div>
+<div class="consequence-card">
+<strong data-en="Measuring with the belt slack" data-es="Medir con la banda floja" data-it="Misurare con il nastro allentato" data-pt="Medir com a esteira frouxa">Measuring with the belt slack</strong>
+<p data-en="A slack belt may be partially collapsed even on straight sections. Make sure the measured section is fully extended." data-es="Una banda floja puede estar parcialmente contraída incluso en tramos rectos. Asegúrese de que el tramo medido esté totalmente extendido." data-it="Un nastro allentato può essere parzialmente chiuso anche nei tratti rettilinei. Assicurarsi che il tratto misurato sia completamente esteso." data-pt="Uma esteira frouxa pode estar parcialmente fechada mesmo em trechos retos. Garanta que o trecho medido esteja totalmente estendido.">A slack belt may be partially collapsed even on straight sections. Make sure the measured section is fully extended.</p>
+</div>
+</div>
+ 
+<h2 data-en="Conclusion" data-es="Conclusión" data-it="Conclusione" data-pt="Conclusão">Conclusion</h2>
+<p data-en="Specifying a spiral belt starts with identifying the drive system, followed by identifying the belt construction and taking standardized measurements on a straight, fully extended section. With the belt data, the spiral data and good photos, the replacement belt can be specified with confidence, preserving the turn ratio, the drive interface and the behavior of the spiral." data-es="La especificación de una banda espiral comienza con la identificación del sistema de accionamiento, seguida de la identificación de la construcción de la banda y de mediciones estandarizadas en un tramo recto y totalmente extendido. Con los datos de la banda, los datos de la espiral y buenas fotos, la banda de reemplazo puede especificarse con seguridad, preservando el turn ratio, la interfaz de accionamiento y el comportamiento de la espiral." data-it="La specifica di un nastro a spirale inizia con l'identificazione del sistema di azionamento, seguita dall'identificazione della costruzione del nastro e da misure standardizzate su un tratto rettilineo e completamente esteso. Con i dati del nastro, i dati della spirale e buone foto, il nastro di ricambio può essere specificato con sicurezza, preservando il turn ratio, l'interfaccia di azionamento e il comportamento della spirale." data-pt="A especificação de uma esteira espiral começa pela identificação do sistema de acionamento, seguida da identificação da construção da esteira e de medições padronizadas em um trecho reto e totalmente estendido. Com os dados da esteira, os dados da espiral e boas fotos, a esteira de reposição pode ser especificada com segurança, preservando o turn ratio, a interface de acionamento e o comportamento da espiral.">Specifying a spiral belt starts with identifying the drive system, followed by identifying the belt construction and taking standardized measurements on a straight, fully extended section. With the belt data, the spiral data and good photos, the replacement belt can be specified with confidence, preserving the turn ratio, the drive interface and the behavior of the spiral.</p>
+ 
+<section class="website-note">
+<h2 data-en="Need to Identify a Spiral Belt?" data-es="¿Necesita Identificar una Banda Espiral?" data-it="Hai Bisogno di Identificare un Nastro a Spirale?" data-pt="Precisa Identificar uma Esteira Espiral?">Need to Identify a Spiral Belt?</h2>
+<p data-en="BELTPRO assists with the identification, measurement and specification of spiral conveyor belts throughout the Americas. Send your belt measurements and photos for review." data-es="BELTPRO apoya en la identificación, medición y especificación de bandas para transportadores espirales en toda América. Envíe las mediciones y fotos de su banda para análisis." data-it="BELTPRO supporta l'identificazione, la misura e la specifica dei nastri per trasportatori a spirale in tutte le Americhe. Invia le misure e le foto del tuo nastro per un'analisi." data-pt="A BELTPRO auxilia na identificação, medição e especificação de esteiras para transportadores espirais em toda a América. Envie as medições e fotos da sua esteira para análise.">BELTPRO assists with the identification, measurement and specification of spiral conveyor belts throughout the Americas. Send your belt measurements and photos for review.</p>
+<div class="note-actions">
+<a data-en="Request Technical Specification" data-es="Solicitar Especificación Técnica" data-it="Richiedi Specifica Tecnica" data-pt="Solicitar Especificação Técnica" href="index.html#contact">Request Technical Specification</a>
+</div>
+</section>
+ 
+<div class="engineering-disclaimer">
+<strong data-en="Engineering Disclaimer" data-es="Aviso de Ingeniería" data-it="Avvertenza Tecnica" data-pt="Aviso de Engenharia">Engineering Disclaimer</strong>
+<p data-en="This article provides general technical guidance. Dimensions, turn ratios, operating limits and construction features vary according to the specific belt construction, spiral design and application. Omni-Grid and Omni-Flex are trade names used here only to identify belt constructions. Field measurements should be confirmed against drawings, samples or technical records of the original belt before a replacement is manufactured." data-es="Este artículo proporciona orientación técnica general. Las dimensiones, turn ratios, límites operativos y características constructivas varían según la construcción específica de la banda, el diseño de la espiral y la aplicación. Omni-Grid y Omni-Flex son nombres comerciales utilizados aquí solo para identificar construcciones de banda. Las mediciones de campo deben confirmarse con planos, muestras o registros técnicos de la banda original antes de fabricar un reemplazo." data-it="Questo articolo fornisce indicazioni tecniche generali. Dimensioni, turn ratio, limiti operativi e caratteristiche costruttive variano in base alla specifica costruzione del nastro, al progetto della spirale e all'applicazione. Omni-Grid e Omni-Flex sono nomi commerciali utilizzati qui solo per identificare costruzioni di nastro. Le misure in campo devono essere confermate con disegni, campioni o dati tecnici del nastro originale prima della fabbricazione di un ricambio." data-pt="Este artigo fornece orientação técnica geral. Dimensões, turn ratios, limites operacionais e características construtivas variam conforme a construção específica da esteira, o projeto da espiral e a aplicação. Omni-Grid e Omni-Flex são nomes comerciais usados aqui apenas para identificar construções de esteira. Medições de campo devem ser confirmadas com desenhos, amostras ou registros técnicos da esteira original antes da fabricação de uma reposição.">This article provides general technical guidance. Dimensions, turn ratios, operating limits and construction features vary according to the specific belt construction, spiral design and application. Omni-Grid and Omni-Flex are trade names used here only to identify belt constructions. Field measurements should be confirmed against drawings, samples or technical records of the original belt before a replacement is manufactured.</p>
+</div>
+ 
+</article>
+</main>
+ 
+<footer class="site-footer">
+<div class="footer-inner">
+<strong>BELTPRO</strong>
+<span data-en="Spiral Conveyor Systems • Industrial Baking Ovens • Engineering Services — Serving Industry Since 2014" data-es="Sistemas Transportadores Espirales • Hornos Industriales • Servicios de Ingeniería — Al Servicio de la Industria Desde 2014" data-it="Sistemi Trasportatori a Spirale • Forni Industriali • Servizi di Ingegneria — Al Servizio dell'Industria Dal 2014" data-pt="Sistemas Transportadores Espirais • Fornos Industriais • Serviços de Engenharia — Atendendo a Indústria Desde 2014">Spiral Conveyor Systems • Industrial Baking Ovens • Engineering Services — Serving Industry Since 2014</span>
+</div>
+</footer>
+ 
+<script>
+        function setLanguage(lang) {
+            const supported = ['en', 'es', 'pt', 'it'];
+            const selected = supported.includes(lang) ? lang : 'en';
+ 
+            document.documentElement.lang = selected;
+ 
+            const pageTitles = {
+                en: 'BELTPRO | Spiral Belt Specification',
+                es: 'BELTPRO | Especificación de Bandas Espirales',
+                pt: 'BELTPRO | Especificação de Esteiras Espirais',
+                it: 'BELTPRO | Specifica dei Nastri a Spirale'
+            };
+            document.title = pageTitles[selected];
+ 
+            document.querySelectorAll('[data-en]').forEach(function (element) {
+                const translation = element.getAttribute('data-' + selected);
+                if (translation !== null) {
+                    element.textContent = translation;
+                }
+            });
+ 
+            document.querySelectorAll('[data-lang]').forEach(function (button) {
+                button.classList.toggle('active', button.getAttribute('data-lang') === selected);
+            });
+ 
+            try {
+                localStorage.setItem('beltpro_lang', selected);
+            } catch (error) {}
+        }
+ 
+        document.addEventListener('DOMContentLoaded', function () {
+            let savedLanguage = 'en';
+ 
+            try {
+                savedLanguage = localStorage.getItem('beltpro_lang') || 'en';
+            } catch (error) {}
+ 
+            setLanguage(savedLanguage);
+        });
+    </script>
+</body>
+</html>
+ 
