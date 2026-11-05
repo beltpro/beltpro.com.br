@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+ 
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BELTPRO | Oven Belt Specification</title>
+<meta content="How to measure a balanced weave belt and identify CB and Z47 oven belts: counts, pitches, wire gauges, thickness and specification checklist." name="description"/>
+<link href="favicon.png" rel="icon" type="image/png"/>
+<style>
+        :root {
+            --navy: #0b1f33;
+            --blue: #0f4c81;
+            --cyan: #38bdf8;
+            --orange: #f59e0b;
+            --text: #1f2937;
+            --muted: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #dbe5ee;
+            --shadow: 0 18px 45px rgba(15, 23, 42, 0.10);
+            --radius: 18px;
+            --max-width: 1050px;
+        }
+ 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+ 
+        html {
+            scroll-behavior: smooth;
+        }
+ 
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.72;
+        }
+ 
+        a {
+            color: inherit;
+        }
+ 
+        img {
+            max-width: 100%;
+        }
+ 
+        .language-bar {
+            background: #071625;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 8px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+ 
+        .language-bar button {
+            border: 0;
+            background: transparent;
+            color: #cbd5e1;
+            padding: 7px 9px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+        }
+ 
+        .language-bar button:hover,
+        .language-bar button.active {
+            color: #ffffff;
+            background: rgba(56, 189, 248, 0.16);
+        }
+ 
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 31, 51, 0.97);
+            box-shadow: 0 8px 25px rgba(2, 8, 23, 0.20);
+            backdrop-filter: blur(12px);
+        }
+ 
+        .header-inner {
+            width: min(94%, 1180px);
+            min-height: 72px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+ 
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+ 
+        .logo-link img {
+            height: 48px;
+            width: auto;
+            display: block;
+        }
+ 
+        .back-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 10px 14px;
+            border: 1px solid rgba(255,255,255,.20);
+            border-radius: 9px;
+        }
+ 
+        .back-link:hover {
+            color: var(--cyan);
+            background: rgba(255,255,255,.07);
+        }
+ 
+        .hero {
+            color: #ffffff;
+            background:
+                linear-gradient(90deg, rgba(5, 20, 35, 0.96), rgba(7, 31, 53, 0.80)),
+                url("beltbackground.jpg") center / cover no-repeat;
+        }
+ 
+        .hero-inner {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 76px 0 84px;
+        }
+ 
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            color: #bae6fd;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+ 
+        .eyebrow::before {
+            content: "";
+            width: 34px;
+            height: 2px;
+            background: var(--cyan);
+        }
+ 
+        .hero h1 {
+            max-width: 900px;
+            margin-bottom: 20px;
+            font-size: clamp(40px, 6vw, 66px);
+            line-height: 1.04;
+            letter-spacing: -2px;
+        }
+ 
+        .hero p {
+            max-width: 800px;
+            color: #dbeafe;
+            font-size: clamp(17px, 2vw, 21px);
+        }
+ 
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+ 
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 12px 18px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 900;
+            transition: transform .2s ease, background .2s ease;
+        }
+ 
+        .action-button:hover {
+            transform: translateY(-2px);
+        }
+ 
+        .action-primary {
+            background: var(--orange);
+            color: #1f2937;
+        }
+ 
+        .action-primary:hover {
+            background: #fbbf24;
+        }
+ 
+        .action-secondary {
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,.28);
+            background: rgba(255,255,255,.08);
+        }
+ 
+        .article-shell {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 64px 0 86px;
+        }
+ 
+        .article-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: clamp(28px, 5vw, 58px);
+        }
+ 
+        .article-card h2 {
+            margin: 46px 0 16px;
+            color: var(--navy);
+            font-size: clamp(28px, 4vw, 39px);
+            line-height: 1.2;
+            letter-spacing: -0.7px;
+        }
+ 
+        .article-card h2:first-child {
+            margin-top: 0;
+        }
+ 
+        .article-card h3 {
+            margin: 28px 0 10px;
+            color: var(--blue);
+            font-size: 23px;
+        }
+ 
+        .article-card p {
+            margin-bottom: 18px;
+            color: #475569;
+            font-size: 17px;
+        }
+ 
+        .article-card ul,
+        .article-card ol {
+            margin: 0 0 20px 24px;
+            color: #475569;
+        }
+ 
+        .article-card li {
+            margin-bottom: 8px;
+        }
+ 
+        .toc {
+            margin: 0 0 36px;
+            padding: 24px 26px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+        }
+ 
+        .toc strong {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--navy);
+        }
+ 
+        .toc ol {
+            margin-bottom: 0;
+        }
+ 
+        .toc a {
+            color: var(--blue);
+            font-weight: 700;
+            text-decoration: none;
+        }
+ 
+        .toc a:hover {
+            text-decoration: underline;
+        }
+ 
+        .formula-box {
+            margin: 26px 0;
+            padding: 24px;
+            border-left: 5px solid var(--cyan);
+            border-radius: 12px;
+            background: #eef8fd;
+        }
+ 
+        .formula-box strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--navy);
+            font-size: 18px;
+        }
+ 
+        .formula-box code,
+        .designation {
+            font-family: "Courier New", Courier, monospace;
+            font-weight: 700;
+            color: var(--navy);
+        }
+ 
+        .formula-box p:last-child,
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+ 
+        .example-box {
+            margin: 26px 0;
+            padding: 24px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+        }
+ 
+        .example-box strong {
+            display: block;
+            margin-bottom: 10px;
+            color: #92400e;
+        }
+ 
+        .designation-breakdown {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            margin: 22px 0 26px;
+        }
+ 
+        .designation-part {
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+            text-align: center;
+        }
+ 
+        .designation-part .code {
+            display: block;
+            margin-bottom: 6px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--blue);
+        }
+ 
+        .designation-part span:last-child {
+            display: block;
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.45;
+        }
+ 
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+            margin: 24px 0 28px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+ 
+        .spec-table {
+            width: 100%;
+            min-width: 560px;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+ 
+        .spec-table th,
+        .spec-table td {
+            padding: 12px 14px;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid var(--border);
+            color: #475569;
+        }
+ 
+        .spec-table th {
+            background: var(--navy);
+            color: #ffffff;
+            font-weight: 800;
+        }
+ 
+        .spec-table tr:last-child td {
+            border-bottom: 0;
+        }
+ 
+        .spec-table tbody tr:nth-child(even) td {
+            background: #f8fbfe;
+        }
+ 
+        .spec-table td:first-child {
+            color: var(--navy);
+            font-weight: 700;
+        }
+ 
+        .consequence-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 17px;
+            margin: 26px 0;
+        }
+ 
+        .consequence-card {
+            padding: 21px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+        }
+ 
+        .consequence-card strong {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--navy);
+        }
+ 
+        .consequence-card p {
+            margin-bottom: 0;
+            font-size: 16px;
+        }
+ 
+        .website-note {
+            margin-top: 42px;
+            padding: 26px;
+            border-radius: 13px;
+            border: 1px solid #bfe5f5;
+            background: #eef9fd;
+        }
+ 
+        .website-note h2 {
+            margin-top: 0;
+            font-size: 27px;
+        }
+ 
+        .website-note .note-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+ 
+        .website-note a {
+            display: inline-flex;
+            padding: 11px 16px;
+            border-radius: 8px;
+            background: var(--blue);
+            color: #ffffff;
+            font-weight: 900;
+            text-decoration: none;
+        }
+ 
+        .website-note a:hover {
+            background: var(--navy);
+        }
+ 
+        .engineering-disclaimer {
+            margin-top: 34px;
+            padding: 22px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+            color: #6b4d21;
+        }
+ 
+        .engineering-disclaimer strong {
+            display: block;
+            margin-bottom: 7px;
+            color: #92400e;
+        }
+ 
+        .engineering-disclaimer p {
+            margin-bottom: 0;
+            color: #6b4d21;
+        }
+ 
+        .site-footer {
+            background: #071625;
+            color: #cbd5e1;
+        }
+ 
+        .footer-inner {
+            width: min(92%, 1180px);
+            margin: auto;
+            padding: 34px 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+ 
+        .footer-inner strong {
+            color: #ffffff;
+        }
+ 
+        .footer-inner span {
+            color: #94a3b8;
+            font-size: 14px;
+            text-align: right;
+        }
+ 
+        @media (max-width: 760px) {
+            .header-inner {
+                min-height: 64px;
+            }
+ 
+            .logo-link img {
+                height: 41px;
+            }
+ 
+            .back-link {
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+ 
+            .hero-inner {
+                padding: 58px 0 64px;
+            }
+ 
+            .consequence-grid {
+                grid-template-columns: 1fr;
+            }
+ 
+            .designation-breakdown {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+ 
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+ 
+            .footer-inner span {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div aria-label="Language selection" class="language-bar">
+<button data-lang="en" onclick="setLanguage('en')" type="button">English</button>
+<button data-lang="es" onclick="setLanguage('es')" type="button">Español</button>
+<button data-lang="pt" onclick="setLanguage('pt')" type="button">Português</button>
+<button data-lang="it" onclick="setLanguage('it')" type="button">Italiano</button>
+</div>
+ 
+<header class="site-header">
+<div class="header-inner">
+<a aria-label="BELTPRO home" class="logo-link" href="index.html">
+<img alt="BELTPRO Logo" src="logo.png"/>
+</a>
+<a class="back-link" data-en="← Back to Technical Articles" data-es="← Volver a Artículos Técnicos" data-it="← Torna agli Articoli Tecnici" data-pt="← Voltar aos Artigos Técnicos" href="index.html#articles">← Back to Technical Articles</a>
+</div>
+</header>
+ 
+<section class="hero">
+<div class="hero-inner">
+<span class="eyebrow" data-en="Technical Article" data-es="Artículo Técnico" data-it="Articolo Tecnico" data-pt="Artigo Técnico">Technical Article</span>
+<h1 data-en="Oven Belt Specification" data-es="Especificación de Bandas para Hornos" data-it="Specifica dei Nastri per Forni" data-pt="Especificação de Esteiras para Fornos">Oven Belt Specification</h1>
+<p data-en="How to measure a balanced weave belt and how to identify CB and Z47 oven belts before ordering a replacement." data-es="Cómo medir una banda de tejido balanceado y cómo identificar bandas de los modelos CB y Z47 antes de solicitar un reemplazo." data-it="Come misurare un nastro a tessitura bilanciata e come identificare i nastri dei modelli CB e Z47 prima di ordinare una sostituzione." data-pt="Como medir uma esteira balanceada e como identificar esteiras dos modelos CB e Z47 antes de solicitar uma reposição.">How to measure a balanced weave belt and how to identify CB and Z47 oven belts before ordering a replacement.</p>
+<div class="hero-actions">
+<a class="action-button action-primary" data-en="Request Technical Specification" data-es="Solicitar Especificación Técnica" data-it="Richiedi Specifica Tecnica" data-pt="Solicitar Especificação Técnica" href="index.html#contact">Request Technical Specification</a>
+<a class="action-button action-secondary" data-en="Send Measurements for Review" data-es="Enviar Mediciones para Análisis" data-it="Invia le Misure per Analisi" data-pt="Enviar Medições para Análise" href="index.html#contact">Send Measurements for Review</a>
+</div>
+</div>
+</section>
+ 
+<main class="article-shell">
+<article class="article-card">
+ 
+<nav aria-label="Article contents" class="toc">
+<strong data-en="In this article" data-es="En este artículo" data-it="In questo articolo" data-pt="Neste artigo">In this article</strong>
+<ol>
+<li><a data-en="Why correct specification matters" data-es="Por qué especificar correctamente" data-it="Perché specificare correttamente" data-pt="Por que especificar corretamente" href="#why">Why correct specification matters</a></li>
+<li><a data-en="Tools and preparation" data-es="Herramientas y preparación" data-it="Strumenti e preparazione" data-pt="Ferramentas e preparação" href="#tools">Tools and preparation</a></li>
+<li><a data-en="How to measure a balanced weave belt" data-es="Cómo medir una banda de tejido balanceado" data-it="Come misurare un nastro a tessitura bilanciata" data-pt="Como medir uma esteira balanceada" href="#balanced">How to measure a balanced weave belt</a></li>
+<li><a data-en="How to identify a CB belt" data-es="Cómo identificar una banda modelo CB" data-it="Come identificare un nastro modello CB" data-pt="Como identificar uma esteira modelo CB" href="#cb">How to identify a CB belt</a></li>
+<li><a data-en="How to identify a Z47 belt" data-es="Cómo identificar una banda modelo Z47" data-it="Come identificare un nastro modello Z47" data-pt="Como identificar uma esteira modelo Z47" href="#z47">How to identify a Z47 belt</a></li>
+<li><a data-en="Quick comparison" data-es="Comparativo rápido" data-it="Confronto rapido" data-pt="Comparativo rápido" href="#comparison">Quick comparison</a></li>
+<li><a data-en="Specification checklist" data-es="Ficha de especificación" data-it="Scheda di specifica" data-pt="Ficha de especificação" href="#checklist">Specification checklist</a></li>
+<li><a data-en="Common measuring mistakes" data-es="Errores comunes de medición" data-it="Errori di misura comuni" data-pt="Erros comuns de medição" href="#mistakes">Common measuring mistakes</a></li>
+</ol>
+</nav>
+ 
+<h2 data-en="Why Correct Specification Matters" data-es="Por Qué Especificar Correctamente" data-it="Perché Specificare Correttamente" data-pt="Por Que Especificar Corretamente" id="why">Why Correct Specification Matters</h2>
+<p data-en="Oven belts that look alike at first glance can have very different constructions. A small difference in spiral count, wire diameter or weave type changes strength, weight, open area, heat transfer and the way the belt behaves on the drums." data-es="Bandas para hornos que parecen iguales a primera vista pueden tener construcciones muy diferentes. Una pequeña diferencia en el conteo de espirales, en el diámetro del alambre o en el tipo de tejido modifica la resistencia, el peso, el área abierta, la transferencia de calor y el comportamiento de la banda sobre los tambores." data-it="Nastri per forni che sembrano uguali a prima vista possono avere costruzioni molto diverse. Una piccola differenza nel numero di spirali, nel diametro del filo o nel tipo di tessitura modifica resistenza, peso, area aperta, trasmissione del calore e comportamento del nastro sui tamburi." data-pt="Esteiras de forno que parecem iguais à primeira vista podem ter construções muito diferentes. Uma diferença pequena na contagem de espirais, no diâmetro do fio ou no tipo de trama altera a resistência, o peso, a área aberta, a transferência de calor e a forma como a esteira se comporta nos tambores.">Oven belts that look alike at first glance can have very different constructions. A small difference in spiral count, wire diameter or weave type changes strength, weight, open area, heat transfer and the way the belt behaves on the drums.</p>
+<p data-en="A replacement belt specified from incomplete measurements may not track correctly in the oven, may mark the product differently, or may require tension and tracking adjustments that the original belt never needed. The goal of specification is therefore to identify the weave model and record the measurements that define it." data-es="Una banda de reemplazo especificada a partir de mediciones incompletas puede no guiarse correctamente en el horno, marcar el producto de forma diferente o requerir ajustes de tensión y de guiado que la banda original no necesitaba. Por eso, el objetivo de la especificación es identificar el modelo de tejido y registrar las mediciones que lo definen." data-it="Un nastro di ricambio specificato sulla base di misure incomplete può non centrarsi correttamente nel forno, marcare il prodotto in modo diverso o richiedere regolazioni di tensione e di centraggio che il nastro originale non richiedeva. L'obiettivo della specifica è quindi identificare il modello di tessitura e registrare le misure che lo definiscono." data-pt="Uma esteira de reposição especificada a partir de medições incompletas pode não acompanhar corretamente o forno, marcar o produto de forma diferente ou exigir ajustes de tensão e de tracking que a esteira original não exigia. Por isso, o objetivo da especificação é identificar o modelo da trama e registrar as medições que definem essa trama.">A replacement belt specified from incomplete measurements may not track correctly in the oven, may mark the product differently, or may require tension and tracking adjustments that the original belt never needed. The goal of specification is therefore to identify the weave model and record the measurements that define it.</p>
+ 
+<h2 data-en="Tools and Preparation" data-es="Herramientas y Preparación" data-it="Strumenti e Preparazione" data-pt="Ferramentas e Preparação" id="tools">Tools and Preparation</h2>
+<h3 data-en="Recommended tools" data-es="Herramientas recomendadas" data-it="Strumenti consigliati" data-pt="Ferramentas recomendadas">Recommended tools</h3>
+<ul>
+<li data-en="Caliper (preferably digital)" data-es="Calibre (preferentemente digital)" data-it="Calibro (preferibilmente digitale)" data-pt="Paquímetro (preferencialmente digital)">Caliper (preferably digital)</li>
+<li data-en="Outside micrometer for wire diameter" data-es="Micrómetro de exteriores para el diámetro del alambre" data-it="Micrometro per esterni per il diametro del filo" data-pt="Micrômetro externo para diâmetro de fio">Outside micrometer for wire diameter</li>
+<li data-en="Steel ruler or tape measure graduated in millimeters and inches" data-es="Regla de acero o cinta métrica graduada en milímetros y pulgadas" data-it="Righello d'acciaio o metro a nastro graduato in millimetri e pollici" data-pt="Régua de aço ou trena com graduação em milímetros e polegadas">Steel ruler or tape measure graduated in millimeters and inches</li>
+<li data-en="Magnifier or camera with macro function" data-es="Lupa o cámara con función macro" data-it="Lente d'ingrandimento o fotocamera con funzione macro" data-pt="Lupa ou câmera com função macro">Magnifier or camera with macro function</li>
+<li data-en="Marker or industrial chalk to mark the counting area" data-es="Marcador o tiza industrial para delimitar el área de conteo" data-it="Pennarello o gesso industriale per delimitare l'area di conteggio" data-pt="Marcador ou giz industrial para delimitar a área de contagem">Marker or industrial chalk to mark the counting area</li>
+<li data-en="Camera for photos with a ruler placed next to the belt" data-es="Cámara para fotos con una regla colocada junto a la banda" data-it="Fotocamera per foto con un righello posizionato accanto al nastro" data-pt="Câmera para fotos com régua posicionada ao lado da esteira">Camera for photos with a ruler placed next to the belt</li>
+</ul>
+<h3 data-en="Belt preparation" data-es="Preparación de la banda" data-it="Preparazione del nastro" data-pt="Preparação da esteira">Belt preparation</h3>
+<ul>
+<li data-en="Take measurements with the oven switched off, cold, locked out and with safety procedures applied" data-es="Realice las mediciones con el horno apagado, frío, bloqueado y con los procedimientos de seguridad aplicados" data-it="Eseguire le misure con il forno spento, freddo, bloccato e con le procedure di sicurezza applicate" data-pt="Realize as medições com o forno desligado, frio, travado e com os procedimentos de segurança aplicados">Take measurements with the oven switched off, cold, locked out and with safety procedures applied</li>
+<li data-en="Clean the measuring area to remove product residue and carbon buildup" data-es="Limpie la zona de medición para eliminar residuos de producto y carbonización" data-it="Pulire la zona di misura per rimuovere residui di prodotto e carbonizzazione" data-pt="Limpe a região de medição para remover resíduos de produto e carbonização">Clean the measuring area to remove product residue and carbon buildup</li>
+<li data-en="Choose representative areas, away from splices, repairs, damaged edges or deformed sections" data-es="Elija zonas representativas, lejos de uniones, reparaciones, bordes dañados o zonas deformadas" data-it="Scegliere zone rappresentative, lontano da giunzioni, riparazioni, bordi danneggiati o zone deformate" data-pt="Escolha áreas representativas, longe de emendas, reparos, bordas danificadas ou regiões deformadas">Choose representative areas, away from splices, repairs, damaged edges or deformed sections</li>
+<li data-en="Repeat each measurement in at least three locations across the width and along the length" data-es="Repita las mediciones en al menos tres puntos a lo ancho y a lo largo de la banda" data-it="Ripetere le misure in almeno tre punti lungo la larghezza e la lunghezza del nastro" data-pt="Repita as medições em pelo menos três pontos ao longo da largura e do comprimento">Repeat each measurement in at least three locations across the width and along the length</li>
+<li data-en="If a loose sample of the belt is available, use it: it allows more accurate measurements and photos from every side" data-es="Si hay una muestra suelta de la banda, utilícela: permite mediciones más precisas y fotos de todos los lados" data-it="Se è disponibile un campione sciolto del nastro, utilizzarlo: consente misure più precise e foto da ogni lato" data-pt="Se houver uma amostra solta da esteira, utilize-a: ela permite medições mais precisas e fotos de todos os lados">If a loose sample of the belt is available, use it: it allows more accurate measurements and photos from every side</li>
+</ul>
+ 
+<div class="formula-box">
+<strong data-en="Reference length: 12 inches" data-es="Longitud de referencia: 12 pulgadas" data-it="Lunghezza di riferimento: 12 pollici" data-pt="Unidade de referência: 12 polegadas">Reference length: 12 inches</strong>
+<p data-en="Balanced and CB belt designations use counts per 12 inches, that is, per 304.8 mm. When counting in millimeters, always use this reference length so the result matches the belt designation." data-es="Las designaciones de bandas balanceadas y CB utilizan conteos por 12 pulgadas, es decir, por 304,8 mm. Al contar en milímetros, utilice siempre esta longitud de referencia para que el resultado corresponda a la designación de la banda." data-it="Le designazioni dei nastri bilanciati e CB utilizzano conteggi per 12 pollici, cioè per 304,8 mm. Quando si conta in millimetri, utilizzare sempre questa lunghezza di riferimento affinché il risultato corrisponda alla designazione del nastro." data-pt="As designações de esteiras balanceadas e CB utilizam contagens por 12 polegadas, ou seja, por 304,8 mm. Ao contar em milímetros, use sempre esse comprimento de referência para que o resultado corresponda à designação da esteira.">Balanced and CB belt designations use counts per 12 inches, that is, per 304.8 mm. When counting in millimeters, always use this reference length so the result matches the belt designation.</p>
+</div>
+ 
+<h2 data-en="How to Measure a Balanced Weave Belt" data-es="Cómo Medir una Banda de Tejido Balanceado" data-it="Come Misurare un Nastro a Tessitura Bilanciata" data-pt="Como Medir uma Esteira Balanceada" id="balanced">How to Measure a Balanced Weave Belt</h2>
+<p data-en="A balanced weave belt is made of wire spirals wound alternately right-hand and left-hand. Each pair of spirals is joined by a cross rod called a connector. Alternating the spiral direction balances the lateral forces so the belt tends to run straight. The result is a closed, flat and strong surface widely used in ovens." data-es="La banda de tejido balanceado está formada por espirales de alambre enrolladas alternadamente a la derecha y a la izquierda. Cada par de espirales está unido por una varilla transversal llamada conector. La alternancia del sentido de las espirales equilibra las fuerzas laterales y hace que la banda tienda a avanzar recta. El resultado es una superficie cerrada, plana y resistente, muy utilizada en hornos." data-it="Il nastro a tessitura bilanciata è formato da spirali di filo avvolte alternativamente a destra e a sinistra. Ogni coppia di spirali è unita da un'asta trasversale chiamata connettore. L'alternanza del senso delle spirali bilancia le forze laterali e fa sì che il nastro tenda a scorrere dritto. Il risultato è una superficie chiusa, piana e resistente, molto utilizzata nei forni." data-pt="A esteira balanceada é formada por espirais de fio enroladas alternadamente à direita e à esquerda. Cada par de espirais é unido por uma vareta de conexão, chamada de conector. A alternância do sentido das espirais equilibra as forças laterais e faz com que a esteira tenda a correr reta. O resultado é uma superfície fechada, plana e resistente, muito utilizada em fornos.">A balanced weave belt is made of wire spirals wound alternately right-hand and left-hand. Each pair of spirals is joined by a cross rod called a connector. Alternating the spiral direction balances the lateral forces so the belt tends to run straight. The result is a closed, flat and strong surface widely used in ovens.</p>
+ 
+<h3 data-en="How to recognize it" data-es="Cómo reconocerla" data-it="Come riconoscerlo" data-pt="Como reconhecer">How to recognize it</h3>
+<ul>
+<li data-en="Adjacent spirals with alternating winding direction" data-es="Espirales vecinas con sentido de enrollado alternado" data-it="Spirali adiacenti con senso di avvolgimento alternato" data-pt="Espirais vizinhas com sentido de enrolamento alternado">Adjacent spirals with alternating winding direction</li>
+<li data-en="One connector running through each pair of spirals across the full width" data-es="Un conector atravesando cada par de espirales en todo el ancho" data-it="Un connettore che attraversa ogni coppia di spirali su tutta la larghezza" data-pt="Um conector atravessando cada par de espirais ao longo de toda a largura">One connector running through each pair of spirals across the full width</li>
+<li data-en="Connectors usually crimped, keeping the spiral loops evenly spaced" data-es="Conectores normalmente ondulados (crimpados), que mantienen los bucles de las espirales espaciados de forma uniforme" data-it="Connettori normalmente ondulati (crimpati), che mantengono le spire delle spirali distanziate in modo uniforme" data-pt="Conectores normalmente ondulados (crimpados), mantendo os laços das espirais espaçados de forma uniforme">Connectors usually crimped, keeping the spiral loops evenly spaced</li>
+<li data-en="A single layer of weave, with visible openings between spirals and connectors" data-es="Una sola capa de tejido, con aberturas visibles entre espirales y conectores" data-it="Un unico strato di tessitura, con aperture visibili tra spirali e connettori" data-pt="Uma única camada de trama, com aberturas visíveis entre espirais e conectores">A single layer of weave, with visible openings between spirals and connectors</li>
+</ul>
+ 
+<h3 data-en="How to read the designation" data-es="Cómo leer la designación" data-it="Come leggere la designazione" data-pt="Como ler a designação">How to read the designation</h3>
+<p data-en="The designation of a balanced weave belt follows the format B XX-YY-ZZ:" data-es="La designación de una banda de tejido balanceado sigue el formato B XX-YY-ZZ:" data-it="La designazione di un nastro a tessitura bilanciata segue il formato B XX-YY-ZZ:" data-pt="A designação de uma esteira balanceada segue o formato B XX-YY-ZZ:">The designation of a balanced weave belt follows the format B XX-YY-ZZ:</p>
+<div class="designation-breakdown">
+<div class="designation-part"><span class="code">B</span><span data-en="Balanced weave" data-es="Tejido balanceado" data-it="Tessitura bilanciata" data-pt="Trama balanceada">Balanced weave</span></div>
+<div class="designation-part"><span class="code">XX</span><span data-en="Spiral loops per 12&quot; of width" data-es="Bucles de espiral por 12&quot; de ancho" data-it="Spire per 12&quot; di larghezza" data-pt="Laços de espiral por 12&quot; de largura">Spiral loops per 12" of width</span></div>
+<div class="designation-part"><span class="code">YY</span><span data-en="Connectors per 12&quot; of length" data-es="Conectores por 12&quot; de longitud" data-it="Connettori per 12&quot; di lunghezza" data-pt="Conectores por 12&quot; de comprimento">Connectors per 12" of length</span></div>
+<div class="designation-part"><span class="code">ZZ</span><span data-en="Wire gauge" data-es="Calibre del alambre" data-it="Calibro del filo" data-pt="Bitola do fio">Wire gauge</span></div>
+</div>
+<p data-en="When the gauge has four digits, the first two indicate the connector gauge and the last two the spiral gauge. Suffixes may indicate additional features, such as F for flattened wire and M for metric construction." data-es="Cuando el calibre aparece con cuatro dígitos, los dos primeros indican el calibre del conector y los dos últimos, el calibre de la espiral. Los sufijos pueden indicar características adicionales, como F para alambre aplanado y M para construcción métrica." data-it="Quando il calibro ha quattro cifre, le prime due indicano il calibro del connettore e le ultime due il calibro della spirale. I suffissi possono indicare caratteristiche aggiuntive, come F per filo appiattito e M per costruzione metrica." data-pt="Quando a bitola aparece com quatro dígitos, os dois primeiros indicam a bitola do conector e os dois últimos, a bitola da espiral. Sufixos podem indicar características adicionais, como F para fio achatado e M para construção métrica.">When the gauge has four digits, the first two indicate the connector gauge and the last two the spiral gauge. Suffixes may indicate additional features, such as F for flattened wire and M for metric construction.</p>
+ 
+<h3 data-en="Step 1 — Loop count across the width (XX)" data-es="Paso 1 — Conteo de bucles en el ancho (XX)" data-it="Passo 1 — Conteggio delle spire sulla larghezza (XX)" data-pt="Passo 1 — Contagem de laços na largura (XX)">Step 1 — Loop count across the width (XX)</h3>
+<ol>
+<li data-en="Mark a 304.8 mm (12&quot;) section across the belt width, perpendicular to the direction of travel." data-es="Marque un tramo de 304,8 mm (12&quot;) en el ancho de la banda, perpendicular al sentido de marcha." data-it="Segnare un tratto di 304,8 mm (12&quot;) sulla larghezza del nastro, perpendicolare alla direzione di marcia." data-pt="Marque um trecho de 304,8 mm (12&quot;) na largura da esteira, perpendicular ao sentido de movimento.">Mark a 304.8 mm (12") section across the belt width, perpendicular to the direction of travel.</li>
+<li data-en="Count the spiral loops within that section, along a single connector." data-es="Cuente cuántos bucles de espiral hay dentro de ese tramo, a lo largo de un mismo conector." data-it="Contare le spire presenti in quel tratto, lungo uno stesso connettore." data-pt="Conte quantos laços de espiral existem dentro desse trecho, ao longo de um mesmo conector.">Count the spiral loops within that section, along a single connector.</li>
+<li data-en="Repeat in at least three positions and use the most frequent value." data-es="Repita en al menos tres posiciones y utilice el valor más frecuente." data-it="Ripetere in almeno tre posizioni e utilizzare il valore più frequente." data-pt="Repita em pelo menos três posições e use o valor mais frequente.">Repeat in at least three positions and use the most frequent value.</li>
+</ol>
+<p data-en="If the belt is narrow or the count is high, count over 152.4 mm (6&quot;) and multiply by 2, but confirm the result with a second count." data-es="Si la banda es estrecha o el conteo es alto, cuente en 152,4 mm (6&quot;) y multiplique por 2, pero confirme el resultado con un segundo conteo." data-it="Se il nastro è stretto o il conteggio è elevato, contare su 152,4 mm (6&quot;) e moltiplicare per 2, confermando il risultato con un secondo conteggio." data-pt="Se a esteira for estreita ou a contagem for alta, conte em 152,4 mm (6&quot;) e multiplique por 2, mas confirme o resultado com uma segunda contagem.">If the belt is narrow or the count is high, count over 152.4 mm (6") and multiply by 2, but confirm the result with a second count.</p>
+ 
+<h3 data-en="Step 2 — Connector count along the length (YY)" data-es="Paso 2 — Conteo de conectores en la longitud (YY)" data-it="Passo 2 — Conteggio dei connettori sulla lunghezza (YY)" data-pt="Passo 2 — Contagem de conectores no comprimento (YY)">Step 2 — Connector count along the length (YY)</h3>
+<ol>
+<li data-en="Mark a 304.8 mm (12&quot;) section in the direction of travel." data-es="Marque un tramo de 304,8 mm (12&quot;) en el sentido de marcha de la banda." data-it="Segnare un tratto di 304,8 mm (12&quot;) nella direzione di marcia del nastro." data-pt="Marque um trecho de 304,8 mm (12&quot;) no sentido de movimento da esteira.">Mark a 304.8 mm (12") section in the direction of travel.</li>
+<li data-en="Count how many connectors cross that section." data-es="Cuente cuántos conectores atraviesan ese tramo." data-it="Contare quanti connettori attraversano quel tratto." data-pt="Conte quantos conectores atravessam esse trecho.">Count how many connectors cross that section.</li>
+<li data-en="Repeat at different points along the length, away from the splice." data-es="Repita en diferentes puntos de la longitud, lejos de la unión." data-it="Ripetere in punti diversi della lunghezza, lontano dalla giunzione." data-pt="Repita em pontos diferentes do comprimento, longe da emenda.">Repeat at different points along the length, away from the splice.</li>
+</ol>
+ 
+<div class="formula-box">
+<strong data-en="Pitch calculation" data-es="Cálculo de los pasos" data-it="Calcolo dei passi" data-pt="Cálculo dos passos">Pitch calculation</strong>
+<p><span data-en="Lateral pitch =" data-es="Paso lateral =" data-it="Passo trasversale =" data-pt="Passo lateral =">Lateral pitch =</span> <code data-en="304.8 mm ÷ XX" data-es="304,8 mm ÷ XX" data-it="304,8 mm ÷ XX" data-pt="304,8 mm ÷ XX">304.8 mm ÷ XX</code></p>
+<p><span data-en="Longitudinal pitch =" data-es="Paso longitudinal =" data-it="Passo longitudinale =" data-pt="Passo longitudinal =">Longitudinal pitch =</span> <code data-en="304.8 mm ÷ YY" data-es="304,8 mm ÷ YY" data-it="304,8 mm ÷ YY" data-pt="304,8 mm ÷ YY">304.8 mm ÷ YY</code></p>
+<p data-en="Measuring the pitch directly over 10 loops or 10 connectors and dividing by 10 is a good way to check the count." data-es="Medir el paso directamente sobre 10 bucles o 10 conectores y dividir por 10 es una buena forma de verificar el conteo." data-it="Misurare il passo direttamente su 10 spire o 10 connettori e dividere per 10 è un buon modo per verificare il conteggio." data-pt="Medir o passo diretamente sobre 10 laços ou 10 conectores e dividir por 10 é uma boa forma de conferir a contagem.">Measuring the pitch directly over 10 loops or 10 connectors and dividing by 10 is a good way to check the count.</p>
+</div>
+ 
+<h3 data-en="Step 3 — Wire diameter (ZZ)" data-es="Paso 3 — Diámetro de los alambres (ZZ)" data-it="Passo 3 — Diametro dei fili (ZZ)" data-pt="Passo 3 — Diâmetro dos fios (ZZ)">Step 3 — Wire diameter (ZZ)</h3>
+<p data-en="Use a micrometer to measure the spiral wire diameter and the connector diameter separately. Record the value in millimeters and compare it with the gauge table below, choosing the closest gauge. On flattened wire, also record the width and thickness of the flattened profile." data-es="Mida con micrómetro el diámetro del alambre de la espiral y el diámetro del conector por separado. Registre el valor en milímetros y compárelo con la tabla de calibres a continuación, eligiendo el calibre más cercano. En alambres aplanados, registre también el ancho y el espesor del perfil aplanado." data-it="Misurare con il micrometro il diametro del filo della spirale e il diametro del connettore separatamente. Registrare il valore in millimetri e confrontarlo con la tabella dei calibri qui sotto, scegliendo il calibro più vicino. Nei fili appiattiti, registrare anche la larghezza e lo spessore del profilo appiattito." data-pt="Meça com micrômetro o diâmetro do fio da espiral e o diâmetro do conector separadamente. Registre o valor em milímetros e compare com a tabela de bitolas abaixo, escolhendo a bitola mais próxima. Em fios achatados, registre também a largura e a espessura do perfil achatado.">Use a micrometer to measure the spiral wire diameter and the connector diameter separately. Record the value in millimeters and compare it with the gauge table below, choosing the closest gauge. On flattened wire, also record the width and thickness of the flattened profile.</p>
+ 
+<div class="table-wrap">
+<table class="spec-table">
+<thead>
+<tr>
+<th data-en="Gauge" data-es="Calibre" data-it="Calibro" data-pt="Bitola">Gauge</th>
+<th data-en="Diameter (in)" data-es="Diámetro (pulg)" data-it="Diametro (pollici)" data-pt="Diâmetro (pol)">Diameter (in)</th>
+<th data-en="Diameter (mm)" data-es="Diámetro (mm)" data-it="Diametro (mm)" data-pt="Diâmetro (mm)">Diameter (mm)</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>10</td><td data-en="0.135" data-es="0,135" data-it="0,135" data-pt="0,135">0.135</td><td data-en="3.43" data-es="3,43" data-it="3,43" data-pt="3,43">3.43</td></tr>
+<tr><td>11</td><td data-en="0.120" data-es="0,120" data-it="0,120" data-pt="0,120">0.120</td><td data-en="3.06" data-es="3,06" data-it="3,06" data-pt="3,06">3.06</td></tr>
+<tr><td>12</td><td data-en="0.106" data-es="0,106" data-it="0,106" data-pt="0,106">0.106</td><td data-en="2.68" data-es="2,68" data-it="2,68" data-pt="2,68">2.68</td></tr>
+<tr><td>13</td><td data-en="0.092" data-es="0,092" data-it="0,092" data-pt="0,092">0.092</td><td data-en="2.32" data-es="2,32" data-it="2,32" data-pt="2,32">2.32</td></tr>
+<tr><td>14</td><td data-en="0.080" data-es="0,080" data-it="0,080" data-pt="0,080">0.080</td><td data-en="2.03" data-es="2,03" data-it="2,03" data-pt="2,03">2.03</td></tr>
+<tr><td>15</td><td data-en="0.072" data-es="0,072" data-it="0,072" data-pt="0,072">0.072</td><td data-en="1.83" data-es="1,83" data-it="1,83" data-pt="1,83">1.83</td></tr>
+<tr><td>16</td><td data-en="0.063" data-es="0,063" data-it="0,063" data-pt="0,063">0.063</td><td data-en="1.59" data-es="1,59" data-it="1,59" data-pt="1,59">1.59</td></tr>
+<tr><td>17</td><td data-en="0.054" data-es="0,054" data-it="0,054" data-pt="0,054">0.054</td><td data-en="1.37" data-es="1,37" data-it="1,37" data-pt="1,37">1.37</td></tr>
+<tr><td>18</td><td data-en="0.048" data-es="0,048" data-it="0,048" data-pt="0,048">0.048</td><td data-en="1.21" data-es="1,21" data-it="1,21" data-pt="1,21">1.21</td></tr>
+<tr><td>19</td><td data-en="0.041" data-es="0,041" data-it="0,041" data-pt="0,041">0.041</td><td data-en="1.04" data-es="1,04" data-it="1,04" data-pt="1,04">1.04</td></tr>
+<tr><td>20</td><td data-en="0.035" data-es="0,035" data-it="0,035" data-pt="0,035">0.035</td><td data-en="0.88" data-es="0,88" data-it="0,88" data-pt="0,88">0.88</td></tr>
+</tbody>
+</table>
+</div>
+ 
+<h3 data-en="Step 4 — Other measurements" data-es="Paso 4 — Demás mediciones" data-it="Passo 4 — Altre misure" data-pt="Passo 4 — Demais medições">Step 4 — Other measurements</h3>
+<ul>
+<li><strong data-en="Overall width:" data-es="Ancho total:" data-it="Larghezza totale:" data-pt="Largura total:">Overall width:</strong> <span data-en="edge to edge, including the edge finish" data-es="de borde a borde, incluyendo el acabado del borde" data-it="da bordo a bordo, compresa la finitura del bordo" data-pt="de borda a borda, incluindo o acabamento da borda">edge to edge, including the edge finish</span></li>
+<li><strong data-en="Overall thickness:" data-es="Espesor total:" data-it="Spessore totale:" data-pt="Espessura total:">Overall thickness:</strong> <span data-en="with a caliper, at several points across the width" data-es="con calibre, en varios puntos del ancho" data-it="con il calibro, in diversi punti della larghezza" data-pt="com paquímetro, em vários pontos da largura">with a caliper, at several points across the width</span></li>
+<li><strong data-en="Overall length:" data-es="Longitud total:" data-it="Lunghezza totale:" data-pt="Comprimento total:">Overall length:</strong> <span data-en="measured with the belt under operating tension, or calculated from the oven belt path" data-es="medida con la banda bajo tensión de trabajo, o calculada a partir del recorrido del horno" data-it="misurata con il nastro sotto tensione di lavoro, oppure calcolata dal percorso del forno" data-pt="medido com a esteira sob tensão de trabalho, ou calculado pelo percurso do forno">measured with the belt under operating tension, or calculated from the oven belt path</span></li>
+<li><strong data-en="Edge finish:" data-es="Acabado de los bordes:" data-it="Finitura dei bordi:" data-pt="Acabamento das bordas:">Edge finish:</strong> <span data-en="welded or looped" data-es="soldado o doblado (en bucle)" data-it="saldato o ad asola" data-pt="soldado ou dobrado (laçado)">welded or looped</span></li>
+<li><strong data-en="Material:" data-es="Material:" data-it="Materiale:" data-pt="Material:">Material:</strong> <span data-en="stainless steel or carbon steel, according to the original belt records" data-es="acero inoxidable o acero al carbono, según el registro de la banda original" data-it="acciaio inossidabile o acciaio al carbonio, secondo i dati del nastro originale" data-pt="aço inoxidável ou aço carbono, conforme registro da esteira original">stainless steel or carbon steel, according to the original belt records</span></li>
+<li><strong data-en="Direction of travel and product-contact side" data-es="Sentido de marcha y lado de contacto con el producto" data-it="Direzione di marcia e lato a contatto con il prodotto" data-pt="Sentido de movimento e lado de contato com o produto">Direction of travel and product-contact side</strong></li>
+</ul>
+ 
+<div class="example-box">
+<strong data-en="Reading example" data-es="Ejemplo de lectura" data-it="Esempio di lettura" data-pt="Exemplo de leitura">Reading example</strong>
+<p data-en="Over 304.8 mm of width, 48 loops were counted, and over 304.8 mm of length, 36 connectors were counted. The spiral wire measured 1.59 mm and the connector 1.21 mm." data-es="En 304,8 mm de ancho se contaron 48 bucles y en 304,8 mm de longitud se contaron 36 conectores. El alambre de la espiral midió 1,59 mm y el conector, 1,21 mm." data-it="Su 304,8 mm di larghezza sono state contate 48 spire e su 304,8 mm di lunghezza sono stati contati 36 connettori. Il filo della spirale misura 1,59 mm e il connettore 1,21 mm." data-pt="Em 304,8 mm de largura foram contados 48 laços, e em 304,8 mm de comprimento foram contados 36 conectores. O fio da espiral mediu 1,59 mm e o conector, 1,21 mm.">Over 304.8 mm of width, 48 loops were counted, and over 304.8 mm of length, 36 connectors were counted. The spiral wire measured 1.59 mm and the connector 1.21 mm.</p>
+<p><span data-en="Result: count 48-36, lateral pitch 6.35 mm, longitudinal pitch 8.47 mm, 18-gauge connector and 16-gauge spiral. Designation:" data-es="Resultado: conteo 48-36, paso lateral de 6,35 mm, paso longitudinal de 8,47 mm, conector calibre 18 y espiral calibre 16. Designación:" data-it="Risultato: conteggio 48-36, passo trasversale di 6,35 mm, passo longitudinale di 8,47 mm, connettore calibro 18 e spirale calibro 16. Designazione:" data-pt="Resultado: contagem 48-36, passo lateral de 6,35 mm, passo longitudinal de 8,47 mm, conector bitola 18 e espiral bitola 16. Designação:">Result: count 48-36, lateral pitch 6.35 mm, longitudinal pitch 8.47 mm, 18-gauge connector and 16-gauge spiral. Designation:</span> <span class="designation">B48-36-1816</span></p>
+</div>
+ 
+<h2 data-en="How to Identify a CB Belt" data-es="Cómo Identificar una Banda Modelo CB" data-it="Come Identificare un Nastro Modello CB" data-pt="Como Identificar uma Esteira Modelo CB" id="cb">How to Identify a CB Belt</h2>
+<p data-en="A CB (compound balanced) belt is made of two to five balanced belts interlocked and compressed into a single dense belt. The result is a very closed, smooth surface with the smallest openings of any woven wire belt. It is therefore widely used for products that need uniform support and even heat distribution." data-es="La banda CB, de tejido balanceado compuesto, está formada por dos a cinco bandas balanceadas entrelazadas y comprimidas en una sola banda densa. El resultado es una superficie muy cerrada y lisa, con las menores aberturas entre las bandas de alambre tejido. Por eso se utiliza mucho en productos que requieren apoyo uniforme y buena distribución del calor." data-it="Il nastro CB, a tessitura bilanciata composta, è formato da due a cinque nastri bilanciati intrecciati e compressi in un unico nastro denso. Il risultato è una superficie molto chiusa e liscia, con le aperture più piccole tra i nastri in filo tessuto. Per questo è molto utilizzato per prodotti che richiedono un appoggio uniforme e una buona distribuzione del calore." data-pt="A esteira CB, de trama balanceada composta, é formada por duas a cinco esteiras balanceadas entrelaçadas e comprimidas em uma única esteira densa. O resultado é uma superfície muito fechada e lisa, com as menores aberturas entre as esteiras de fio trançado. Por isso, é muito utilizada em produtos que exigem apoio uniforme e boa distribuição de calor.">A CB (compound balanced) belt is made of two to five balanced belts interlocked and compressed into a single dense belt. The result is a very closed, smooth surface with the smallest openings of any woven wire belt. It is therefore widely used for products that need uniform support and even heat distribution.</p>
+ 
+<h3 data-en="How to recognize it" data-es="Cómo reconocerla" data-it="Come riconoscerlo" data-pt="Como reconhecer">How to recognize it</h3>
+<ul>
+<li data-en="Very dense surface, with almost no openings visible to the naked eye" data-es="Superficie muy densa, casi sin aberturas visibles a simple vista" data-it="Superficie molto densa, quasi senza aperture visibili a occhio nudo" data-pt="Superfície muito densa, quase sem aberturas visíveis a olho nu">Very dense surface, with almost no openings visible to the naked eye</li>
+<li data-en="Several connectors passing through the same spiral loop" data-es="Varios conectores pasando dentro de un mismo bucle de espiral" data-it="Diversi connettori che passano all'interno della stessa spira" data-pt="Vários conectores passando dentro de um mesmo laço de espiral">Several connectors passing through the same spiral loop</li>
+<li data-en="Spirals nested into one another, appearing as several layers of weave" data-es="Espirales encajadas unas en otras, con apariencia de varias capas de tejido" data-it="Spirali incastrate l'una nell'altra, con l'aspetto di più strati di tessitura" data-pt="Espirais encaixadas umas nas outras, aparentando várias camadas de trama">Spirals nested into one another, appearing as several layers of weave</li>
+<li data-en="Much higher weight per square meter than a balanced belt of the same width" data-es="Peso por metro cuadrado mucho mayor que el de una banda balanceada del mismo ancho" data-it="Peso al metro quadrato molto superiore a quello di un nastro bilanciato della stessa larghezza" data-pt="Peso por metro quadrado bem maior que o de uma esteira balanceada de mesma largura">Much higher weight per square meter than a balanced belt of the same width</li>
+<li data-en="Edges usually welded" data-es="Bordes normalmente soldados" data-it="Bordi normalmente saldati" data-pt="Bordas normalmente soldadas">Edges usually welded</li>
+</ul>
+ 
+<h3 data-en="How to determine the number after CB" data-es="Cómo determinar el número después de CB" data-it="Come determinare il numero dopo CB" data-pt="Como determinar o número após CB">How to determine the number after CB</h3>
+<p data-en="The number after the letters indicates how many belts make up the weave. A CB3 belt has three connectors running through each spiral; a CB5, five." data-es="El número que acompaña a la sigla indica cuántas bandas componen el tejido. Una banda CB3 tiene tres conectores atravesando cada espiral; una CB5, cinco." data-it="Il numero che segue la sigla indica quanti nastri compongono la tessitura. Un nastro CB3 ha tre connettori che attraversano ogni spirale; un CB5, cinque." data-pt="O número que acompanha a sigla indica quantas esteiras compõem a trama. Uma esteira CB3 tem três conectores atravessando cada espiral; uma CB5, cinco.">The number after the letters indicates how many belts make up the weave. A CB3 belt has three connectors running through each spiral; a CB5, five.</p>
+<ol>
+<li data-en="Look at the belt edge or a cut sample, where the connectors are easiest to see." data-es="Observe el borde de la banda o una muestra cortada, donde los conectores son más visibles." data-it="Osservare il bordo del nastro o un campione tagliato, dove i connettori sono più visibili." data-pt="Observe a borda da esteira ou uma amostra cortada, onde os conectores ficam mais visíveis.">Look at the belt edge or a cut sample, where the connectors are easiest to see.</li>
+<li data-en="Choose a single spiral loop and count how many connectors pass through it." data-es="Elija un único bucle de espiral y cuente cuántos conectores pasan por dentro de él." data-it="Scegliere una singola spira e contare quanti connettori vi passano all'interno." data-pt="Escolha um único laço de espiral e conte quantos conectores passam por dentro dele.">Choose a single spiral loop and count how many connectors pass through it.</li>
+<li data-en="Repeat on other loops to confirm. The number found corresponds to the number after CB." data-es="Repita en otros bucles para confirmar. El número encontrado corresponde al número después de CB." data-it="Ripetere su altre spire per conferma. Il numero trovato corrisponde al numero dopo CB." data-pt="Repita em outros laços para confirmar. O número encontrado corresponde ao número após CB.">Repeat on other loops to confirm. The number found corresponds to the number after CB.</li>
+</ol>
+ 
+<h3 data-en="How to read the designation" data-es="Cómo leer la designación" data-it="Come leggere la designazione" data-pt="Como ler a designação">How to read the designation</h3>
+<p data-en="The designation follows the same principle as the balanced weave belt, in the format CBn XX-YY-ZZZZ:" data-es="La designación sigue el mismo principio de la banda balanceada, en el formato CBn XX-YY-ZZZZ:" data-it="La designazione segue lo stesso principio del nastro bilanciato, nel formato CBn XX-YY-ZZZZ:" data-pt="A designação segue o mesmo princípio da esteira balanceada, no formato CBn XX-YY-ZZZZ:">The designation follows the same principle as the balanced weave belt, in the format CBn XX-YY-ZZZZ:</p>
+<div class="designation-breakdown">
+<div class="designation-part"><span class="code">CBn</span><span data-en="Compound balanced weave with n component belts" data-es="Tejido balanceado compuesto por n bandas" data-it="Tessitura bilanciata composta da n nastri" data-pt="Trama balanceada composta por n esteiras">Compound balanced weave with n component belts</span></div>
+<div class="designation-part"><span class="code">XX</span><span data-en="Spiral loops per 12&quot; of width" data-es="Bucles de espiral por 12&quot; de ancho" data-it="Spire per 12&quot; di larghezza" data-pt="Laços de espiral por 12&quot; de largura">Spiral loops per 12" of width</span></div>
+<div class="designation-part"><span class="code">YY</span><span data-en="Connectors per 12&quot; of length" data-es="Conectores por 12&quot; de longitud" data-it="Connettori per 12&quot; di lunghezza" data-pt="Conectores por 12&quot; de comprimento">Connectors per 12" of length</span></div>
+<div class="designation-part"><span class="code">ZZZZ</span><span data-en="Connector gauge followed by spiral gauge" data-es="Calibre del conector seguido del calibre de la espiral" data-it="Calibro del connettore seguito dal calibro della spirale" data-pt="Bitola do conector seguida da bitola da espiral">Connector gauge followed by spiral gauge</span></div>
+</div>
+ 
+<div class="example-box">
+<strong data-en="Reading example" data-es="Ejemplo de lectura" data-it="Esempio di lettura" data-pt="Exemplo de leitura">Reading example</strong>
+<p><span class="designation">CB5-27-84-1416F</span> <span data-en="— compound weave of five belts, 27 loops per 12&quot; of width, 84 connectors per 12&quot; of length, 14-gauge connector, 16-gauge spiral and flattened wire (F)." data-es="— tejido compuesto por cinco bandas, 27 bucles por 12&quot; de ancho, 84 conectores por 12&quot; de longitud, conector calibre 14, espiral calibre 16 y alambre aplanado (F)." data-it="— tessitura composta da cinque nastri, 27 spire per 12&quot; di larghezza, 84 connettori per 12&quot; di lunghezza, connettore calibro 14, spirale calibro 16 e filo appiattito (F)." data-pt="— trama composta por cinco esteiras, 27 laços por 12&quot; de largura, 84 conectores por 12&quot; de comprimento, conector bitola 14, espiral bitola 16 e fio achatado (F).">— compound weave of five belts, 27 loops per 12" of width, 84 connectors per 12" of length, 14-gauge connector, 16-gauge spiral and flattened wire (F).</span></p>
+</div>
+ 
+<h3 data-en="CB-specific measurements" data-es="Mediciones específicas de la CB" data-it="Misure specifiche del CB" data-pt="Medições específicas da CB">CB-specific measurements</h3>
+<ul>
+<li><strong data-en="Connector count:" data-es="Conteo de conectores:" data-it="Conteggio dei connettori:" data-pt="Contagem de conectores:">Connector count:</strong> <span data-en="since the count is high, count over 76.2 mm (3&quot;) or 152.4 mm (6&quot;) and multiply, repeating at different points" data-es="como el conteo es alto, cuente en 76,2 mm (3&quot;) o 152,4 mm (6&quot;) y multiplique, repitiendo en diferentes puntos" data-it="poiché il conteggio è elevato, contare su 76,2 mm (3&quot;) o 152,4 mm (6&quot;) e moltiplicare, ripetendo in punti diversi" data-pt="como a contagem é alta, conte em 76,2 mm (3&quot;) ou 152,4 mm (6&quot;) e multiplique, repetindo em pontos diferentes">since the count is high, count over 76.2 mm (3") or 152.4 mm (6") and multiply, repeating at different points</span></li>
+<li><strong data-en="Loop count:" data-es="Conteo de bucles:" data-it="Conteggio delle spire:" data-pt="Contagem de laços:">Loop count:</strong> <span data-en="count along a single connector, as on the balanced weave belt" data-es="cuente a lo largo de un mismo conector, como en la banda balanceada" data-it="contare lungo uno stesso connettore, come nel nastro bilanciato" data-pt="conte ao longo de um mesmo conector, como na esteira balanceada">count along a single connector, as on the balanced weave belt</span></li>
+<li><strong data-en="Flattened wire:" data-es="Alambre aplanado:" data-it="Filo appiattito:" data-pt="Fio achatado:">Flattened wire:</strong> <span data-en="check whether the top face of the wire is flat; if so, record the width and thickness of the profile" data-es="verifique si la cara superior del alambre es plana; en ese caso, registre el ancho y el espesor del perfil" data-it="verificare se la faccia superiore del filo è piana; in tal caso, registrare larghezza e spessore del profilo" data-pt="verifique se a face superior do fio é plana; nesse caso, registre largura e espessura do perfil">check whether the top face of the wire is flat; if so, record the width and thickness of the profile</span></li>
+<li><strong data-en="Ground surface:" data-es="Superficie rectificada:" data-it="Superficie rettificata:" data-pt="Superfície retificada:">Ground surface:</strong> <span data-en="check whether the product-contact face has been ground flat" data-es="verifique si la cara de contacto con el producto fue rectificada para quedar plana" data-it="verificare se la faccia a contatto con il prodotto è stata rettificata per renderla piana" data-pt="verifique se a face de contato com o produto foi desbastada para ficar plana">check whether the product-contact face has been ground flat</span></li>
+<li><strong data-en="Overall thickness and weight per square meter:" data-es="Espesor total y peso por metro cuadrado:" data-it="Spessore totale e peso al metro quadrato:" data-pt="Espessura total e peso por metro quadrado:">Overall thickness and weight per square meter:</strong> <span data-en="help distinguish constructions with similar counts" data-es="ayudan a diferenciar construcciones con conteos similares" data-it="aiutano a distinguere costruzioni con conteggi simili" data-pt="ajudam a diferenciar construções com contagens próximas">help distinguish constructions with similar counts</span></li>
+</ul>
+ 
+<h2 data-en="How to Identify a Z47 Belt" data-es="Cómo Identificar una Banda Modelo Z47" data-it="Come Identificare un Nastro Modello Z47" data-pt="Como Identificar uma Esteira Modelo Z47" id="z47">How to Identify a Z47 Belt</h2>
+<p data-en="The Z47 is a rolled belt for tunnel ovens. Unlike balanced and CB belts, it is made only of round wire spirals, with no cross rods. The spirals have alternating winding direction and are interlocked in pairs with the adjacent spirals. After weaving, the mesh is rolled to obtain a flat, smooth surface, cut to width, and the wires are spot welded at the edges." data-es="La Z47 es una banda laminada para hornos túnel. A diferencia de las bandas balanceadas y CB, está formada solamente por espirales de alambre redondo, sin varillas transversales. Las espirales tienen sentido de enrollado alternado y se entrelazan por pares con las espirales vecinas. Después del tejido, la malla se lamina para obtener una superficie plana y lisa, se corta al ancho y los alambres se sueldan por puntos en los bordes." data-it="Lo Z47 è un nastro laminato per forni a tunnel. A differenza dei nastri bilanciati e CB, è formato soltanto da spirali di filo tondo, senza aste trasversali. Le spirali hanno senso di avvolgimento alternato e sono intrecciate a coppie con le spirali adiacenti. Dopo la tessitura, la rete viene laminata per ottenere una superficie piana e liscia, tagliata in larghezza e i fili vengono saldati a punti sui bordi." data-pt="A Z47 é uma esteira laminada para fornos túnel. Diferentemente das esteiras balanceadas e CB, ela é formada somente por espirais de fio redondo, sem varetas transversais. As espirais têm sentido de enrolamento alternado e são entrelaçadas aos pares com as espirais vizinhas. Depois da tecelagem, a trama é laminada para obter uma superfície plana e lisa, cortada na largura e os fios são soldados por ponto nas bordas.">The Z47 is a rolled belt for tunnel ovens. Unlike balanced and CB belts, it is made only of round wire spirals, with no cross rods. The spirals have alternating winding direction and are interlocked in pairs with the adjacent spirals. After weaving, the mesh is rolled to obtain a flat, smooth surface, cut to width, and the wires are spot welded at the edges.</p>
+<p data-en="Since there are no connectors to absorb tension, the tension is distributed across the full width of the mesh. This requires very regular spirals and makes pitch and wire-diameter measurements especially important." data-es="Como no existen conectores para absorber la tensión, esta se distribuye en todo el ancho de la malla. Esto exige espirales muy regulares y hace que las mediciones de paso y de diámetro del alambre sean especialmente importantes." data-it="Poiché non ci sono connettori ad assorbire la tensione, questa viene distribuita su tutta la larghezza della rete. Ciò richiede spirali molto regolari e rende particolarmente importanti le misure del passo e del diametro del filo." data-pt="Como não existem conectores para absorver a tensão, a tensão é distribuída por toda a largura da trama. Isso exige espirais muito regulares e torna as medições de passo e de diâmetro do fio especialmente importantes.">Since there are no connectors to absorb tension, the tension is distributed across the full width of the mesh. This requires very regular spirals and makes pitch and wire-diameter measurements especially important.</p>
+ 
+<h3 data-en="How to recognize it" data-es="Cómo reconocerla" data-it="Come riconoscerlo" data-pt="Como reconhecer">How to recognize it</h3>
+<ul>
+<li data-en="No connectors or cross rods" data-es="Ausencia de conectores o varillas transversales" data-it="Assenza di connettori o aste trasversali" data-pt="Ausência de conectores ou varetas transversais">No connectors or cross rods</li>
+<li data-en="Only spirals interlocked with one another along the full length" data-es="Solamente espirales entrelazadas unas con otras a lo largo de toda la longitud" data-it="Solo spirali intrecciate tra loro lungo tutta la lunghezza" data-pt="Somente espirais entrelaçadas umas nas outras ao longo de todo o comprimento">Only spirals interlocked with one another along the full length</li>
+<li data-en="Flat surface on both sides, as a result of rolling" data-es="Superficie plana en ambos lados, resultado del laminado" data-it="Superficie piana su entrambi i lati, risultato della laminazione" data-pt="Superfície plana dos dois lados, resultado da laminação">Flat surface on both sides, as a result of rolling</li>
+<li data-en="Wires with a slightly flattened appearance on the top and bottom faces" data-es="Alambres con apariencia ligeramente aplanada en las caras superior e inferior" data-it="Fili con aspetto leggermente appiattito sulle facce superiore e inferiore" data-pt="Fios com aparência levemente achatada nas faces superior e inferior">Wires with a slightly flattened appearance on the top and bottom faces</li>
+<li data-en="Wires spot welded at the edges" data-es="Alambres soldados por puntos en los bordes" data-it="Fili saldati a punti sui bordi" data-pt="Fios soldados por ponto nas bordas">Wires spot welded at the edges</li>
+<li data-en="Splice made through the mesh itself, without adapter segments" data-es="Unión realizada por el propio tejido, sin segmentos de adaptación" data-it="Giunzione realizzata attraverso la tessitura stessa, senza segmenti di adattamento" data-pt="Emenda feita pela própria trama, sem segmentos de adaptação">Splice made through the mesh itself, without adapter segments</li>
+</ul>
+ 
+<h3 data-en="Dimensional reference" data-es="Referencia dimensional" data-it="Riferimento dimensionale" data-pt="Referência dimensional">Dimensional reference</h3>
+<p data-en="The Z47 corresponds to the construction with a wire diameter of approximately 1.2 mm and a mesh opening of approximately 4 mm, also referred to as type 40/12. Other rolled belts use different combinations of opening and wire, so the measurements below are needed to confirm the model." data-es="La Z47 corresponde a la construcción con alambre de aproximadamente 1,2 mm de diámetro y abertura de malla de aproximadamente 4 mm, también denominada tipo 40/12. Otras bandas laminadas utilizan combinaciones diferentes de abertura y alambre, por lo que las mediciones siguientes son necesarias para confirmar el modelo." data-it="Lo Z47 corrisponde alla costruzione con filo di circa 1,2 mm di diametro e apertura della maglia di circa 4 mm, indicata anche come tipo 40/12. Altri nastri laminati utilizzano combinazioni diverse di apertura e filo, quindi le misure seguenti sono necessarie per confermare il modello." data-pt="A Z47 corresponde à construção com fio de aproximadamente 1,2 mm de diâmetro e abertura de malha de aproximadamente 4 mm, também referenciada como tipo 40/12. Outras esteiras laminadas usam combinações diferentes de abertura e fio, por isso as medições abaixo são necessárias para confirmar o modelo.">The Z47 corresponds to the construction with a wire diameter of approximately 1.2 mm and a mesh opening of approximately 4 mm, also referred to as type 40/12. Other rolled belts use different combinations of opening and wire, so the measurements below are needed to confirm the model.</p>
+ 
+<h3 data-en="Z47-specific measurements" data-es="Mediciones específicas de la Z47" data-it="Misure specifiche dello Z47" data-pt="Medições específicas da Z47">Z47-specific measurements</h3>
+<ol>
+<li><strong data-en="Wire diameter:" data-es="Diámetro del alambre:" data-it="Diametro del filo:" data-pt="Diâmetro do fio:">Wire diameter:</strong> <span data-en="measure on the side of the wire, in the direction that was not rolled. Confirm that the value is close to 1.2 mm." data-es="mida en el lateral del alambre, en la dirección que no fue laminada. Confirme si el valor está cerca de 1,2 mm." data-it="misurare sul lato del filo, nella direzione non laminata. Verificare che il valore sia vicino a 1,2 mm." data-pt="meça na lateral do fio, na direção que não foi laminada. Confirme se o valor está próximo de 1,2 mm.">measure on the side of the wire, in the direction that was not rolled. Confirm that the value is close to 1.2 mm.</span></li>
+<li><strong data-en="Mesh opening:" data-es="Abertura de malla:" data-it="Apertura della maglia:" data-pt="Abertura da malha:">Mesh opening:</strong> <span data-en="with a caliper or a magnifier with scale, measure the opening between wires at several points. Confirm that it is close to 4 mm." data-es="con calibre o lupa con escala, mida la abertura entre alambres en varios puntos. Confirme si está cerca de 4 mm." data-it="con il calibro o una lente con scala, misurare l'apertura tra i fili in diversi punti. Verificare che sia vicina a 4 mm." data-pt="com paquímetro ou lupa com escala, meça a abertura entre fios em vários pontos. Confirme se está próxima de 4 mm.">with a caliper or a magnifier with scale, measure the opening between wires at several points. Confirm that it is close to 4 mm.</span></li>
+<li><strong data-en="Spiral pitch:" data-es="Paso de las espirales:" data-it="Passo delle spirali:" data-pt="Passo das espirais:">Spiral pitch:</strong> <span data-en="measure the distance covered by 10 spirals in the direction of travel and divide by 10." data-es="mida la distancia ocupada por 10 espirales en el sentido de marcha y divida por 10." data-it="misurare la distanza occupata da 10 spirali nella direzione di marcia e dividere per 10." data-pt="meça a distância ocupada por 10 espirais no sentido de movimento e divida por 10.">measure the distance covered by 10 spirals in the direction of travel and divide by 10.</span></li>
+<li><strong data-en="Loop pitch:" data-es="Paso de los bucles:" data-it="Passo delle spire:" data-pt="Passo dos laços:">Loop pitch:</strong> <span data-en="measure the distance covered by 10 loops across the width and divide by 10." data-es="mida la distancia ocupada por 10 bucles en el ancho y divida por 10." data-it="misurare la distanza occupata da 10 spire sulla larghezza e dividere per 10." data-pt="meça a distância ocupada por 10 laços na largura e divida por 10.">measure the distance covered by 10 loops across the width and divide by 10.</span></li>
+<li><strong data-en="Overall thickness after rolling:" data-es="Espesor total después del laminado:" data-it="Spessore totale dopo la laminazione:" data-pt="Espessura total após laminação:">Overall thickness after rolling:</strong> <span data-en="with a caliper, at several points across the width." data-es="con calibre, en varios puntos del ancho." data-it="con il calibro, in diversi punti della larghezza." data-pt="com paquímetro, em vários pontos da largura.">with a caliper, at several points across the width.</span></li>
+<li><strong data-en="Width, length and edge finish." data-es="Ancho, longitud y acabado de los bordes." data-it="Larghezza, lunghezza e finitura dei bordi." data-pt="Largura, comprimento e acabamento das bordas.">Width, length and edge finish.</strong></li>
+</ol>
+ 
+<div class="formula-box">
+<strong data-en="Quick identification test" data-es="Prueba rápida de identificación" data-it="Test rapido di identificazione" data-pt="Teste rápido de identificação">Quick identification test</strong>
+<p data-en="If there are visible connectors crossing the belt width, it is not a Z47. If there are no connectors, the surface is flat on both sides and the spirals are interlocked directly with one another, measure the wire and opening to confirm the model." data-es="Si hay conectores visibles atravesando el ancho de la banda, no es una Z47. Si no hay conectores, la superficie es plana en ambos lados y las espirales están entrelazadas directamente unas con otras, mida el alambre y la abertura para confirmar el modelo." data-it="Se ci sono connettori visibili che attraversano la larghezza del nastro, non è uno Z47. Se non ci sono connettori, la superficie è piana su entrambi i lati e le spirali sono intrecciate direttamente tra loro, misurare filo e apertura per confermare il modello." data-pt="Se houver conectores visíveis atravessando a largura da esteira, ela não é uma Z47. Se não houver conectores, a superfície for plana dos dois lados e as espirais estiverem entrelaçadas diretamente umas nas outras, meça fio e abertura para confirmar o modelo.">If there are visible connectors crossing the belt width, it is not a Z47. If there are no connectors, the surface is flat on both sides and the spirals are interlocked directly with one another, measure the wire and opening to confirm the model.</p>
+</div>
+ 
+<h2 data-en="Quick Comparison" data-es="Comparativo Rápido" data-it="Confronto Rapido" data-pt="Comparativo Rápido" id="comparison">Quick Comparison</h2>
+<div class="table-wrap">
+<table class="spec-table">
+<thead>
+<tr>
+<th data-en="Feature" data-es="Característica" data-it="Caratteristica" data-pt="Característica">Feature</th>
+<th data-en="Balanced" data-es="Balanceada" data-it="Bilanciato" data-pt="Balanceada">Balanced</th>
+<th>CB</th>
+<th>Z47</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-en="Cross connectors" data-es="Conectores transversales" data-it="Connettori trasversali" data-pt="Conectores transversais">Cross connectors</td>
+<td data-en="Yes, one per pair of spirals" data-es="Sí, uno por par de espirales" data-it="Sì, uno per coppia di spirali" data-pt="Sim, um por par de espirais">Yes, one per pair of spirals</td>
+<td data-en="Yes, several per spiral" data-es="Sí, varios por espiral" data-it="Sì, diversi per spirale" data-pt="Sim, vários por espiral">Yes, several per spiral</td>
+<td data-en="No" data-es="No" data-it="No" data-pt="Não">No</td>
+</tr>
+<tr>
+<td data-en="Weave density" data-es="Densidad del tejido" data-it="Densità della tessitura" data-pt="Densidade da trama">Weave density</td>
+<td data-en="Medium" data-es="Media" data-it="Media" data-pt="Média">Medium</td>
+<td data-en="Very high" data-es="Muy alta" data-it="Molto alta" data-pt="Muito alta">Very high</td>
+<td data-en="High" data-es="Alta" data-it="Alta" data-pt="Alta">High</td>
+</tr>
+<tr>
+<td data-en="Surface" data-es="Superficie" data-it="Superficie" data-pt="Superfície">Surface</td>
+<td data-en="Flat, with visible openings" data-es="Plana, con aberturas visibles" data-it="Piana, con aperture visibili" data-pt="Plana, com aberturas visíveis">Flat, with visible openings</td>
+<td data-en="Very closed and smooth" data-es="Muy cerrada y lisa" data-it="Molto chiusa e liscia" data-pt="Muito fechada e lisa">Very closed and smooth</td>
+<td data-en="Rolled, flat on both sides" data-es="Laminada, plana en ambos lados" data-it="Laminata, piana su entrambi i lati" data-pt="Laminada, plana dos dois lados">Rolled, flat on both sides</td>
+</tr>
+<tr>
+<td data-en="Main identification" data-es="Identificación principal" data-it="Identificazione principale" data-pt="Identificação principal">Main identification</td>
+<td data-en="Alternating spirals joined by one connector" data-es="Espirales alternadas unidas por un conector" data-it="Spirali alternate unite da un connettore" data-pt="Espirais alternadas unidas por um conector">Alternating spirals joined by one connector</td>
+<td data-en="Number of connectors inside each loop" data-es="Número de conectores dentro de cada bucle" data-it="Numero di connettori all'interno di ogni spira" data-pt="Número de conectores dentro de cada laço">Number of connectors inside each loop</td>
+<td data-en="Spirals only, no connectors" data-es="Solo espirales, sin conectores" data-it="Solo spirali, senza connettori" data-pt="Somente espirais, sem conectores">Spirals only, no connectors</td>
+</tr>
+<tr>
+<td data-en="Essential measurements" data-es="Mediciones esenciales" data-it="Misure essenziali" data-pt="Medições essenciais">Essential measurements</td>
+<td data-en="Loops/12&quot;, connectors/12&quot;, gauges" data-es="Bucles/12&quot;, conectores/12&quot;, calibres" data-it="Spire/12&quot;, connettori/12&quot;, calibri" data-pt="Laços/12&quot;, conectores/12&quot;, bitolas">Loops/12", connectors/12", gauges</td>
+<td data-en="CB number, loops/12&quot;, connectors/12&quot;, gauges, flattened wire" data-es="Número CB, bucles/12&quot;, conectores/12&quot;, calibres, alambre aplanado" data-it="Numero CB, spire/12&quot;, connettori/12&quot;, calibri, filo appiattito" data-pt="Número CB, laços/12&quot;, conectores/12&quot;, bitolas, fio achatado">CB number, loops/12", connectors/12", gauges, flattened wire</td>
+<td data-en="Wire diameter, opening, pitches, thickness" data-es="Diámetro del alambre, abertura, pasos, espesor" data-it="Diametro del filo, apertura, passi, spessore" data-pt="Diâmetro do fio, abertura, passos, espessura">Wire diameter, opening, pitches, thickness</td>
+</tr>
+</tbody>
+</table>
+</div>
+ 
+<h2 data-en="Specification Checklist" data-es="Ficha de Especificación" data-it="Scheda di Specifica" data-pt="Ficha de Especificação" id="checklist">Specification Checklist</h2>
+<p data-en="When requesting a replacement belt or a technical review, send the information below. The more complete the checklist, the lower the risk of an incorrect specification." data-es="Al solicitar una banda de reemplazo o un análisis técnico, envíe la información a continuación. Cuanto más completa sea la ficha, menor será el riesgo de una especificación incorrecta." data-it="Quando si richiede un nastro di ricambio o un'analisi tecnica, inviare le informazioni seguenti. Più la scheda è completa, minore è il rischio di una specifica errata." data-pt="Ao solicitar uma esteira de reposição ou uma análise técnica, envie as informações abaixo. Quanto mais completa a ficha, menor o risco de uma especificação incorreta.">When requesting a replacement belt or a technical review, send the information below. The more complete the checklist, the lower the risk of an incorrect specification.</p>
+ 
+<h3 data-en="Belt data" data-es="Datos de la banda" data-it="Dati del nastro" data-pt="Dados da esteira">Belt data</h3>
+<ul>
+<li data-en="Identified model (balanced, CB or Z47) and designation, if known" data-es="Modelo identificado (balanceada, CB o Z47) y designación, si se conoce" data-it="Modello identificato (bilanciato, CB o Z47) e designazione, se nota" data-pt="Modelo identificado (balanceada, CB ou Z47) e designação, se conhecida">Identified model (balanced, CB or Z47) and designation, if known</li>
+<li data-en="Overall width and overall length" data-es="Ancho total y longitud total" data-it="Larghezza totale e lunghezza totale" data-pt="Largura total e comprimento total">Overall width and overall length</li>
+<li data-en="Loop count per 12&quot; of width and connector count per 12&quot; of length, when applicable" data-es="Conteo de bucles por 12&quot; de ancho y de conectores por 12&quot; de longitud, cuando corresponda" data-it="Conteggio delle spire per 12&quot; di larghezza e dei connettori per 12&quot; di lunghezza, se applicabile" data-pt="Contagem de laços por 12&quot; de largura e de conectores por 12&quot; de comprimento, quando aplicável">Loop count per 12" of width and connector count per 12" of length, when applicable</li>
+<li data-en="Spiral wire and connector diameters" data-es="Diámetro del alambre de la espiral y del conector" data-it="Diametro del filo della spirale e del connettore" data-pt="Diâmetro do fio da espiral e do conector">Spiral wire and connector diameters</li>
+<li data-en="Measured mesh opening and pitches" data-es="Abertura de malla y pasos medidos" data-it="Apertura della maglia e passi misurati" data-pt="Abertura de malha e passos medidos">Measured mesh opening and pitches</li>
+<li data-en="Overall thickness" data-es="Espesor total" data-it="Spessore totale" data-pt="Espessura total">Overall thickness</li>
+<li data-en="Material and edge finish" data-es="Material y acabado de los bordes" data-it="Materiale e finitura dei bordi" data-pt="Material e acabamento das bordas">Material and edge finish</li>
+<li data-en="Type of splice used" data-es="Tipo de unión utilizado" data-it="Tipo di giunzione utilizzato" data-pt="Tipo de emenda utilizado">Type of splice used</li>
+</ul>
+ 
+<h3 data-en="Oven data" data-es="Datos del horno" data-it="Dati del forno" data-pt="Dados do forno">Oven data</h3>
+<ul>
+<li data-en="Maximum operating temperature" data-es="Temperatura máxima de operación" data-it="Temperatura massima di esercizio" data-pt="Temperatura máxima de operação">Maximum operating temperature</li>
+<li data-en="Head and tail drum diameters" data-es="Diámetro de los tambores de accionamiento y retorno" data-it="Diametro dei tamburi di testa e di coda" data-pt="Diâmetro dos tambores de acionamento e retorno">Head and tail drum diameters</li>
+<li data-en="Oven length and belt path" data-es="Longitud del horno y recorrido de la banda" data-it="Lunghezza del forno e percorso del nastro" data-pt="Comprimento do forno e percurso da esteira">Oven length and belt path</li>
+<li data-en="Tensioning system and tracking system" data-es="Sistema de tensado y sistema de guiado" data-it="Sistema di tensionamento e sistema di centraggio" data-pt="Sistema de tensionamento e sistema de tracking">Tensioning system and tracking system</li>
+<li data-en="Product processed and load per square meter" data-es="Producto procesado y carga por metro cuadrado" data-it="Prodotto lavorato e carico al metro quadrato" data-pt="Produto processado e carga por metro quadrado">Product processed and load per square meter</li>
+</ul>
+ 
+<h3 data-en="Recommended photos" data-es="Fotos recomendadas" data-it="Foto consigliate" data-pt="Fotos recomendadas">Recommended photos</h3>
+<ul>
+<li data-en="Top view with a ruler placed across the width" data-es="Vista superior con regla colocada en el ancho" data-it="Vista dall'alto con righello posizionato sulla larghezza" data-pt="Vista superior com régua posicionada na largura">Top view with a ruler placed across the width</li>
+<li data-en="Top view with a ruler placed along the length" data-es="Vista superior con regla colocada en la longitud" data-it="Vista dall'alto con righello posizionato sulla lunghezza" data-pt="Vista superior com régua posicionada no comprimento">Top view with a ruler placed along the length</li>
+<li data-en="Close-up of the belt edge" data-es="Primer plano del borde de la banda" data-it="Primo piano del bordo del nastro" data-pt="Borda da esteira em close">Close-up of the belt edge</li>
+<li data-en="Side view showing the thickness" data-es="Vista lateral mostrando el espesor" data-it="Vista laterale che mostra lo spessore" data-pt="Vista lateral mostrando a espessura">Side view showing the thickness</li>
+<li data-en="Existing splice" data-es="Unión existente" data-it="Giunzione esistente" data-pt="Emenda existente">Existing splice</li>
+<li data-en="Underside of the belt" data-es="Cara inferior de la banda" data-it="Lato inferiore del nastro" data-pt="Face inferior da esteira">Underside of the belt</li>
+</ul>
+ 
+<h2 data-en="Common Measuring Mistakes" data-es="Errores Comunes de Medición" data-it="Errori di Misura Comuni" data-pt="Erros Comuns de Medição" id="mistakes">Common Measuring Mistakes</h2>
+<div class="consequence-grid">
+<div class="consequence-card">
+<strong data-en="Counting at a single point" data-es="Contar en un único punto" data-it="Contare in un solo punto" data-pt="Contar em um único ponto">Counting at a single point</strong>
+<p data-en="Wear, repairs and local deformation change the count. Always measure at several points and use the value that repeats." data-es="El desgaste, las reparaciones y las deformaciones locales alteran el conteo. Mida siempre en varios puntos y utilice el valor que se repite." data-it="Usura, riparazioni e deformazioni locali alterano il conteggio. Misurare sempre in più punti e utilizzare il valore che si ripete." data-pt="Desgaste, reparos e deformações locais alteram a contagem. Meça sempre em vários pontos e use o valor que se repete.">Wear, repairs and local deformation change the count. Always measure at several points and use the value that repeats.</p>
+</div>
+<div class="consequence-card">
+<strong data-en="Measuring near the splice" data-es="Medir cerca de la unión" data-it="Misurare vicino alla giunzione" data-pt="Medir próximo da emenda">Measuring near the splice</strong>
+<p data-en="The splice area may have a different pitch from the rest of the belt and does not represent the original weave." data-es="La zona de la unión puede tener un paso diferente al resto de la banda y no representa el tejido original." data-it="La zona della giunzione può avere un passo diverso dal resto del nastro e non rappresenta la tessitura originale." data-pt="A região da emenda pode ter passo diferente do restante da esteira e não representa a trama original.">The splice area may have a different pitch from the rest of the belt and does not represent the original weave.</p>
+</div>
+<div class="consequence-card">
+<strong data-en="Confusing spirals with loops" data-es="Confundir espirales con bucles" data-it="Confondere spirali e spire" data-pt="Confundir espiral com laço">Confusing spirals with loops</strong>
+<p data-en="The width count refers to the loops along a single connector, not to the number of spirals in the belt." data-es="El conteo en el ancho considera los bucles a lo largo de un mismo conector, y no el número de espirales de la banda." data-it="Il conteggio sulla larghezza considera le spire lungo uno stesso connettore, non il numero di spirali del nastro." data-pt="A contagem na largura considera os laços ao longo de um mesmo conector, e não o número de espirais da esteira.">The width count refers to the loops along a single connector, not to the number of spirals in the belt.</p>
+</div>
+<div class="consequence-card">
+<strong data-en="Measuring the wire on the rolled face" data-es="Medir el alambre en la cara laminada" data-it="Misurare il filo sulla faccia laminata" data-pt="Medir o fio na face laminada">Measuring the wire on the rolled face</strong>
+<p data-en="On flattened or rolled wire, the measurement on the flat face is smaller than the original wire diameter." data-es="En alambres aplanados o laminados, la medida en la cara plana es menor que el diámetro original del alambre." data-it="Nei fili appiattiti o laminati, la misura sulla faccia piana è inferiore al diametro originale del filo." data-pt="Em fios achatados ou laminados, a medida na face plana é menor que o diâmetro original do fio.">On flattened or rolled wire, the measurement on the flat face is smaller than the original wire diameter.</p>
+</div>
+<div class="consequence-card">
+<strong data-en="Rounding the gauge without recording the measurement" data-es="Redondear el calibre sin registrar la medida" data-it="Arrotondare il calibro senza registrare la misura" data-pt="Arredondar a bitola sem registrar a medida">Rounding the gauge without recording the measurement</strong>
+<p data-en="Always record the measured diameter in millimeters, in addition to the estimated gauge." data-es="Registre siempre el diámetro medido en milímetros, además del calibre estimado." data-it="Registrare sempre il diametro misurato in millimetri, oltre al calibro stimato." data-pt="Registre sempre o diâmetro medido em milímetros, além da bitola estimada.">Always record the measured diameter in millimeters, in addition to the estimated gauge.</p>
+</div>
+<div class="consequence-card">
+<strong data-en="Measuring length without tension" data-es="Medir la longitud sin tensión" data-it="Misurare la lunghezza senza tensione" data-pt="Medir o comprimento sem tensão">Measuring length without tension</strong>
+<p data-en="Woven belts elongate under tension. The length must reflect the operating condition in the oven." data-es="Las bandas tejidas se alargan bajo tensión. La longitud debe considerar la condición de trabajo en el horno." data-it="I nastri tessuti si allungano sotto tensione. La lunghezza deve considerare la condizione di lavoro nel forno." data-pt="Esteiras trançadas se alongam sob tensão. O comprimento deve considerar a condição de trabalho no forno.">Woven belts elongate under tension. The length must reflect the operating condition in the oven.</p>
+</div>
+</div>
+ 
+<h2 data-en="Conclusion" data-es="Conclusión" data-it="Conclusione" data-pt="Conclusão">Conclusion</h2>
+<p data-en="Correct specification of an oven belt starts with identifying the weave and continues with measurements taken in a standardized way. On a balanced weave belt, the counts per 12&quot; and the gauges define the construction. On a CB belt, the number of connectors inside each loop indicates the type of compound weave. On a Z47 belt, the absence of connectors, the rolled surface, the wire diameter and the mesh opening confirm the model." data-es="La especificación correcta de una banda para horno comienza con la identificación del tejido y continúa con mediciones realizadas de forma estandarizada. En la banda balanceada, los conteos por 12&quot; y los calibres definen la construcción. En la CB, el número de conectores dentro de cada bucle indica el tipo de composición. En la Z47, la ausencia de conectores, la superficie laminada, el diámetro del alambre y la abertura de malla confirman el modelo." data-it="La corretta specifica di un nastro per forno inizia con l'identificazione della tessitura e prosegue con misure eseguite in modo standardizzato. Nel nastro bilanciato, i conteggi per 12&quot; e i calibri definiscono la costruzione. Nel CB, il numero di connettori all'interno di ogni spira indica il tipo di composizione. Nello Z47, l'assenza di connettori, la superficie laminata, il diametro del filo e l'apertura della maglia confermano il modello." data-pt="A especificação correta de uma esteira de forno começa pela identificação da trama e continua com medições feitas de forma padronizada. Na esteira balanceada, as contagens por 12&quot; e as bitolas definem a construção. Na CB, o número de conectores dentro de cada laço indica o tipo de composição. Na Z47, a ausência de conectores, a superfície laminada, o diâmetro do fio e a abertura da malha confirmam o modelo.">Correct specification of an oven belt starts with identifying the weave and continues with measurements taken in a standardized way. On a balanced weave belt, the counts per 12" and the gauges define the construction. On a CB belt, the number of connectors inside each loop indicates the type of compound weave. On a Z47 belt, the absence of connectors, the rolled surface, the wire diameter and the mesh opening confirm the model.</p>
+<p data-en="With this information recorded, the replacement belt can be specified with confidence, reducing start-up adjustments and preserving the behavior of the oven." data-es="Con esta información registrada, la banda de reemplazo puede especificarse con seguridad, reduciendo ajustes en el arranque y preservando el comportamiento del horno." data-it="Con queste informazioni registrate, il nastro di ricambio può essere specificato con sicurezza, riducendo le regolazioni all'avviamento e preservando il comportamento del forno." data-pt="Com essas informações registradas, a esteira de reposição pode ser especificada com segurança, reduzindo ajustes na partida e preservando o comportamento do forno.">With this information recorded, the replacement belt can be specified with confidence, reducing start-up adjustments and preserving the behavior of the oven.</p>
+ 
+<section class="website-note">
+<h2 data-en="Need to Identify a Belt?" data-es="¿Necesita Identificar una Banda?" data-it="Hai Bisogno di Identificare un Nastro?" data-pt="Precisa Identificar uma Esteira?">Need to Identify a Belt?</h2>
+<p data-en="BELTPRO assists with the identification, measurement and specification of industrial oven belts throughout the Americas. Send your belt measurements and photos for review." data-es="BELTPRO apoya en la identificación, medición y especificación de bandas para hornos industriales en toda América. Envíe las mediciones y fotos de su banda para análisis." data-it="BELTPRO supporta l'identificazione, la misura e la specifica dei nastri per forni industriali in tutte le Americhe. Invia le misure e le foto del tuo nastro per un'analisi." data-pt="A BELTPRO auxilia na identificação, medição e especificação de esteiras para fornos industriais em toda a América. Envie as medições e fotos da sua esteira para análise.">BELTPRO assists with the identification, measurement and specification of industrial oven belts throughout the Americas. Send your belt measurements and photos for review.</p>
+<div class="note-actions">
+<a data-en="Request Technical Specification" data-es="Solicitar Especificación Técnica" data-it="Richiedi Specifica Tecnica" data-pt="Solicitar Especificação Técnica" href="index.html#contact">Request Technical Specification</a>
+</div>
+</section>
+ 
+<div class="engineering-disclaimer">
+<strong data-en="Engineering Disclaimer" data-es="Aviso de Ingeniería" data-it="Avvertenza Tecnica" data-pt="Aviso de Engenharia">Engineering Disclaimer</strong>
+<p data-en="This article provides general technical guidance. Designations, tolerances, operating limits and construction features may vary according to the specific belt construction and application. Field measurements should be confirmed against drawings, samples or technical records of the original belt before a replacement is manufactured." data-es="Este artículo proporciona orientación técnica general. Las designaciones, tolerancias, límites operativos y características constructivas pueden variar según la construcción específica de la banda y la aplicación. Las mediciones de campo deben confirmarse con planos, muestras o registros técnicos de la banda original antes de fabricar un reemplazo." data-it="Questo articolo fornisce indicazioni tecniche generali. Designazioni, tolleranze, limiti operativi e caratteristiche costruttive possono variare in base alla specifica costruzione del nastro e all'applicazione. Le misure in campo devono essere confermate con disegni, campioni o dati tecnici del nastro originale prima della fabbricazione di un ricambio." data-pt="Este artigo fornece orientação técnica geral. As designações, tolerâncias, limites operacionais e características construtivas podem variar conforme a construção específica da esteira e a aplicação. Medições de campo devem ser confirmadas com desenhos, amostras ou registros técnicos da esteira original antes da fabricação de uma reposição.">This article provides general technical guidance. Designations, tolerances, operating limits and construction features may vary according to the specific belt construction and application. Field measurements should be confirmed against drawings, samples or technical records of the original belt before a replacement is manufactured.</p>
+</div>
+ 
+</article>
+</main>
+ 
+<footer class="site-footer">
+<div class="footer-inner">
+<strong>BELTPRO</strong>
+<span data-en="Spiral Conveyor Systems • Industrial Baking Ovens • Engineering Services — Serving Industry Since 2014" data-es="Sistemas Transportadores Espirales • Hornos Industriales • Servicios de Ingeniería — Al Servicio de la Industria Desde 2014" data-it="Sistemi Trasportatori a Spirale • Forni Industriali • Servizi di Ingegneria — Al Servizio dell'Industria Dal 2014" data-pt="Sistemas Transportadores Espirais • Fornos Industriais • Serviços de Engenharia — Atendendo a Indústria Desde 2014">Spiral Conveyor Systems • Industrial Baking Ovens • Engineering Services — Serving Industry Since 2014</span>
+</div>
+</footer>
+ 
+<script>
+        function setLanguage(lang) {
+            const supported = ['en', 'es', 'pt', 'it'];
+            const selected = supported.includes(lang) ? lang : 'en';
+ 
+            document.documentElement.lang = selected;
+ 
+            const pageTitles = {
+                en: 'BELTPRO | Oven Belt Specification',
+                es: 'BELTPRO | Especificación de Bandas para Hornos',
+                pt: 'BELTPRO | Especificação de Esteiras para Fornos',
+                it: 'BELTPRO | Specifica dei Nastri per Forni'
+            };
+            document.title = pageTitles[selected];
+ 
+            document.querySelectorAll('[data-en]').forEach(function (element) {
+                const translation = element.getAttribute('data-' + selected);
+                if (translation !== null) {
+                    element.textContent = translation;
+                }
+            });
+ 
+            document.querySelectorAll('[data-lang]').forEach(function (button) {
+                button.classList.toggle('active', button.getAttribute('data-lang') === selected);
+            });
+ 
+            try {
+                localStorage.setItem('beltpro_lang', selected);
+            } catch (error) {}
+        }
+ 
+        document.addEventListener('DOMContentLoaded', function () {
+            let savedLanguage = 'en';
+ 
+            try {
+                savedLanguage = localStorage.getItem('beltpro_lang') || 'en';
+            } catch (error) {}
+ 
+            setLanguage(savedLanguage);
+        });
+    </script>
+</body>
+</html>
