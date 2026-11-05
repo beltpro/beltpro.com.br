@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+ 
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -22,32 +22,32 @@
             --radius: 18px;
             --max-width: 1050px;
         }
-
+ 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+ 
         html {
             scroll-behavior: smooth;
         }
-
+ 
         body {
             font-family: Arial, Helvetica, sans-serif;
             background: var(--background);
             color: var(--text);
             line-height: 1.72;
         }
-
+ 
         a {
             color: inherit;
         }
-
+ 
         img {
             max-width: 100%;
         }
-
+ 
         .language-bar {
             background: #071625;
             border-bottom: 1px solid rgba(255, 255, 255, 0.10);
@@ -57,7 +57,7 @@
             gap: 8px;
             flex-wrap: wrap;
         }
-
+ 
         .language-bar button {
             border: 0;
             background: transparent;
@@ -68,13 +68,13 @@
             font-size: 13px;
             font-weight: 700;
         }
-
+ 
         .language-bar button:hover,
         .language-bar button.active {
             color: #ffffff;
             background: rgba(56, 189, 248, 0.16);
         }
-
+ 
         .site-header {
             position: sticky;
             top: 0;
@@ -83,7 +83,7 @@
             box-shadow: 0 8px 25px rgba(2, 8, 23, 0.20);
             backdrop-filter: blur(12px);
         }
-
+ 
         .header-inner {
             width: min(94%, 1180px);
             min-height: 72px;
@@ -93,19 +93,19 @@
             justify-content: space-between;
             gap: 24px;
         }
-
+ 
         .logo-link {
             display: flex;
             align-items: center;
             text-decoration: none;
         }
-
+ 
         .logo-link img {
             height: 48px;
             width: auto;
             display: block;
         }
-
+ 
         .back-link {
             color: #ffffff;
             text-decoration: none;
@@ -115,25 +115,25 @@
             border: 1px solid rgba(255,255,255,.20);
             border-radius: 9px;
         }
-
+ 
         .back-link:hover {
             color: var(--cyan);
             background: rgba(255,255,255,.07);
         }
-
+ 
         .hero {
             color: #ffffff;
             background:
                 linear-gradient(90deg, rgba(5, 20, 35, 0.96), rgba(7, 31, 53, 0.80)),
                 url("beltbackground.jpg") center / cover no-repeat;
         }
-
+ 
         .hero-inner {
             width: min(92%, var(--max-width));
             margin: auto;
             padding: 76px 0 84px;
         }
-
+ 
         .eyebrow {
             display: inline-flex;
             align-items: center;
@@ -145,14 +145,14 @@
             letter-spacing: 1.5px;
             text-transform: uppercase;
         }
-
+ 
         .eyebrow::before {
             content: "";
             width: 34px;
             height: 2px;
             background: var(--cyan);
         }
-
+ 
         .hero h1 {
             max-width: 900px;
             margin-bottom: 20px;
@@ -160,20 +160,20 @@
             line-height: 1.04;
             letter-spacing: -2px;
         }
-
+ 
         .hero p {
             max-width: 800px;
             color: #dbeafe;
             font-size: clamp(17px, 2vw, 21px);
         }
-
+ 
         .hero-actions {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
             margin-top: 28px;
         }
-
+ 
         .action-button {
             display: inline-flex;
             align-items: center;
@@ -186,32 +186,32 @@
             font-weight: 900;
             transition: transform .2s ease, background .2s ease;
         }
-
+ 
         .action-button:hover {
             transform: translateY(-2px);
         }
-
+ 
         .action-primary {
             background: var(--orange);
             color: #1f2937;
         }
-
+ 
         .action-primary:hover {
             background: #fbbf24;
         }
-
+ 
         .action-secondary {
             color: #ffffff;
             border: 1px solid rgba(255,255,255,.28);
             background: rgba(255,255,255,.08);
         }
-
+ 
         .article-shell {
             width: min(92%, var(--max-width));
             margin: auto;
             padding: 64px 0 86px;
         }
-
+ 
         .article-card {
             background: var(--card);
             border: 1px solid var(--border);
@@ -219,7 +219,7 @@
             box-shadow: var(--shadow);
             padding: clamp(28px, 5vw, 58px);
         }
-
+ 
         .article-card h2 {
             margin: 42px 0 16px;
             color: var(--navy);
@@ -227,33 +227,33 @@
             line-height: 1.2;
             letter-spacing: -0.7px;
         }
-
+ 
         .article-card h2:first-child {
             margin-top: 0;
         }
-
+ 
         .article-card h3 {
             margin: 28px 0 10px;
             color: var(--blue);
             font-size: 23px;
         }
-
+ 
         .article-card p {
             margin-bottom: 18px;
             color: #475569;
             font-size: 17px;
         }
-
+ 
         .article-card ul,
         .article-card ol {
             margin: 0 0 20px 24px;
             color: #475569;
         }
-
+ 
         .article-card li {
             margin-bottom: 8px;
         }
-
+ 
         .formula-box {
             margin: 26px 0;
             padding: 24px;
@@ -261,14 +261,14 @@
             border-radius: 12px;
             background: #eef8fd;
         }
-
+ 
         .formula-box strong {
             display: block;
             margin-bottom: 8px;
             color: var(--navy);
             font-size: 18px;
         }
-
+ 
         .example-box {
             margin: 26px 0;
             padding: 24px;
@@ -276,33 +276,33 @@
             border-radius: 12px;
             background: #fff7ed;
         }
-
+ 
         .example-box strong {
             display: block;
             margin-bottom: 10px;
             color: #92400e;
         }
-
+ 
         .consequence-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 17px;
             margin: 26px 0;
         }
-
+ 
         .consequence-card {
             padding: 21px;
             border: 1px solid var(--border);
             border-radius: 12px;
             background: #fbfdff;
         }
-
+ 
         .consequence-card strong {
             display: block;
             margin-bottom: 7px;
             color: var(--navy);
         }
-
+ 
         .website-note {
             margin-top: 42px;
             padding: 26px;
@@ -310,19 +310,19 @@
             border: 1px solid #bfe5f5;
             background: #eef9fd;
         }
-
+ 
         .website-note h2 {
             margin-top: 0;
             font-size: 27px;
         }
-
+ 
         .website-note .note-actions {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
             margin-top: 18px;
         }
-
+ 
         .website-note a {
             display: inline-flex;
             padding: 11px 16px;
@@ -332,11 +332,11 @@
             font-weight: 900;
             text-decoration: none;
         }
-
+ 
         .website-note a:hover {
             background: var(--navy);
         }
-
+ 
         .schedule-box {
             margin-top: 42px;
             padding: 30px;
@@ -345,16 +345,16 @@
             color: #ffffff;
             text-align: center;
         }
-
+ 
         .schedule-box h2 {
             margin-top: 0;
             color: #ffffff;
         }
-
+ 
         .schedule-box p {
             color: #dbeafe;
         }
-
+ 
         .schedule-box a {
             display: inline-flex;
             margin-top: 10px;
@@ -365,11 +365,11 @@
             font-weight: 900;
             text-decoration: none;
         }
-
+ 
         .schedule-box a:hover {
             background: #fbbf24;
         }
-
+ 
         .disclaimer {
             margin-top: 34px;
             padding: 22px;
@@ -378,18 +378,18 @@
             background: #fff7ed;
             color: #6b4d21;
         }
-
+ 
         .disclaimer strong {
             display: block;
             margin-bottom: 7px;
             color: #92400e;
         }
-
+ 
         .site-footer {
             background: #071625;
             color: #cbd5e1;
         }
-
+ 
         .footer-inner {
             width: min(92%, 1180px);
             margin: auto;
@@ -399,44 +399,44 @@
             gap: 20px;
             align-items: center;
         }
-
+ 
         .footer-inner strong {
             color: #ffffff;
         }
-
+ 
         .footer-inner span {
             color: #94a3b8;
             font-size: 14px;
             text-align: right;
         }
-
+ 
         @media (max-width: 760px) {
             .header-inner {
                 min-height: 64px;
             }
-
+ 
             .logo-link img {
                 height: 41px;
             }
-
+ 
             .back-link {
                 font-size: 12px;
                 padding: 8px 10px;
             }
-
+ 
             .hero-inner {
                 padding: 58px 0 64px;
             }
-
+ 
             .consequence-grid {
                 grid-template-columns: 1fr;
             }
-
+ 
             .footer-inner {
                 flex-direction: column;
                 text-align: center;
             }
-
+ 
             .footer-inner span {
                 text-align: center;
             }
@@ -483,7 +483,7 @@
 </section>
 <main class="article-shell">
 <article class="article-card"><h2 data-en="Why Installation Quality Matters" data-es="Por Qué Importa la Calidad de la Instalación" data-it="Perché la Qualità dell'Installazione è Importante" data-pt="Por Que a Qualidade da Instalação é Importante">Why Installation Quality Matters</h2>
-<p data-en="Purchasing a premium conveyor belt is only the first step toward achieving long service life and reliable operation. Even the highest-quality spiral conveyor belt or baking oven band can experience premature failure if installed incorrectly." data-es="La compra de una banda transportadora de primera calidad es solamente el primer paso para obtener una larga vida útil y un funcionamiento confiable. Incluso una banda espiral o una banda para horno de la más alta calidad puede fallar prematuramente si se instala de forma incorrecta." data-it="L'acquisto di un nastro trasportatore di alta qualità è soltanto il primo passo per ottenere una lunga durata e un funzionamento affidabile. Anche un nastro a spirale o un nastro da forno della migliore qualità può subire guasti prematuri se installato in modo non corretto." data-pt="A aquisição de uma esteira transportadora de alta qualidade é apenas o primeiro passo para alcançar longa vida útil e operação confiável. Mesmo uma esteira espiral ou uma banda de forno da mais alta qualidade pode apresentar falha prematura se for instalada incorretamente.">Purchasing a premium conveyor belt is only the first step toward achieving long service life and reliable operation. Even the highest-quality spiral conveyor belt or baking oven band can experience premature failure if installed incorrectly.</p>
+<p data-en="Purchasing a premium conveyor belt is only the first step toward achieving long service life and reliable operation. Even the highest-quality spiral conveyor belt or baking oven band can experience premature failure if installed incorrectly." data-es="La compra de una banda transportadora de primera calidad es solamente el primer paso para obtener una larga vida útil y un funcionamiento confiable. Incluso una banda espiral o una banda para horno de la más alta calidad puede fallar prematuramente si se instala de forma incorrecta." data-it="L'acquisto di un nastro trasportatore di alta qualità è soltanto il primo passo per ottenere una lunga durata e un funzionamento affidabile. Anche un nastro a spirale o un nastro da forno della migliore qualità può subire guasti prematuri se installato in modo non corretto." data-pt="A aquisição de uma esteira transportadora de alta qualidade é apenas o primeiro passo para alcançar longa vida útil e operação confiável. Mesmo uma esteira espiral ou uma esteira de forno da mais alta qualidade pode apresentar falha prematura se for instalada incorretamente.">Purchasing a premium conveyor belt is only the first step toward achieving long service life and reliable operation. Even the highest-quality spiral conveyor belt or baking oven band can experience premature failure if installed incorrectly.</p>
 <p data-en="Most belt manufacturers provide detailed installation procedures based on years of engineering experience. Following these procedures during installation is essential for maximizing equipment reliability, supporting compliance with warranty conditions and achieving the expected service life." data-es="La mayoría de los fabricantes de bandas proporciona procedimientos de instalación detallados, desarrollados a partir de años de experiencia de ingeniería. Seguir estos procedimientos es esencial para maximizar la confiabilidad del equipo, respaldar el cumplimiento de las condiciones de garantía y alcanzar la vida útil esperada." data-it="La maggior parte dei produttori di nastri fornisce procedure di installazione dettagliate, sviluppate sulla base di anni di esperienza ingegneristica. Seguire tali procedure è essenziale per massimizzare l'affidabilità dell'impianto, supportare il rispetto delle condizioni di garanzia e raggiungere la durata prevista." data-pt="A maioria dos fabricantes de esteiras fornece procedimentos detalhados de instalação, desenvolvidos com base em anos de experiência de engenharia. Seguir esses procedimentos é essencial para maximizar a confiabilidade do equipamento, apoiar o cumprimento das condições de garantia e alcançar a vida útil esperada.">Most belt manufacturers provide detailed installation procedures based on years of engineering experience. Following these procedures during installation is essential for maximizing equipment reliability, supporting compliance with warranty conditions and achieving the expected service life.</p>
 <p data-en="Professional installation supervision helps ensure that every critical step is performed correctly before production begins and that the equipment starts operating within established mechanical, thermal and safety parameters." data-es="La supervisión profesional de la instalación ayuda a garantizar que cada etapa crítica se realice correctamente antes del inicio de la producción y que el equipo comience a operar dentro de los parámetros mecánicos, térmicos y de seguridad establecidos." data-it="La supervisione professionale dell'installazione aiuta a garantire che ogni fase critica venga eseguita correttamente prima dell'avvio della produzione e che l'impianto inizi a funzionare entro i parametri meccanici, termici e di sicurezza stabiliti." data-pt="A supervisão profissional da instalação ajuda a garantir que cada etapa crítica seja executada corretamente antes do início da produção e que o equipamento comece a operar dentro dos parâmetros mecânicos, térmicos e de segurança estabelecidos.">Professional installation supervision helps ensure that every critical step is performed correctly before production begins and that the equipment starts operating within established mechanical, thermal and safety parameters.</p>
 <h2 data-en="Spiral Conveyor Belts" data-es="Bandas Transportadoras Espirales" data-it="Nastri Trasportatori a Spirale" data-pt="Esteiras Transportadoras Espirais">Spiral Conveyor Belts</h2>
@@ -511,12 +511,12 @@
 <li data-en="Verification of shaft alignment, bearing condition and drive rotation" data-es="Verificación de la alineación de ejes, condición de rodamientos y sentido de giro" data-it="Verifica dell'allineamento degli alberi, delle condizioni dei cuscinetti e del senso di rotazione" data-pt="Verificação do alinhamento dos eixos, condição dos rolamentos e sentido de rotação">Verification of shaft alignment, bearing condition and drive rotation</li>
 <li data-en="Confirmation that sprockets engage the intended belt components without forcing or interference" data-es="Confirmación de que los piñones engranan los componentes correctos de la banda sin esfuerzo ni interferencia" data-it="Conferma che le ruote dentate ingranino i componenti previsti del nastro senza forzature o interferenze" data-pt="Confirmação de que as rodas dentadas engatam os componentes corretos da esteira sem esforço ou interferência">Confirmation that sprockets engage the intended belt components without forcing or interference</li>
 </ul>
-<h3 data-en="Cage Geometry" data-es="Geometría de la Jaula" data-it="Geometria della Gabbia" data-pt="Geometria da Gaiola">Cage Geometry</h3>
+<h3 data-en="Cage Geometry" data-es="Geometría de la Jaula" data-it="Geometria della Gabbia" data-pt="Geometria do Tambor">Cage Geometry</h3>
 <ul>
 <li data-en="Drum concentricity" data-es="Concentricidad del tambor" data-it="Concentricità del tamburo" data-pt="Concentricidade do tambor">Drum concentricity</li>
-<li data-en="Correct cage diameter" data-es="Diámetro correcto de la jaula" data-it="Diametro corretto della gabbia" data-pt="Diâmetro correto da gaiola">Correct cage diameter</li>
-<li data-en="Proper interface between cage bars and belt" data-es="Interfaz correcta entre las barras de la jaula y la banda" data-it="Corretta interfaccia tra le barre della gabbia e il nastro" data-pt="Interface correta entre as barras da gaiola e a esteira">Proper interface between cage bars and belt</li>
-<li data-en="Uniform cage-bar spacing" data-es="Espaciado uniforme de las barras de la jaula" data-it="Spaziatura uniforme delle barre della gabbia" data-pt="Espaçamento uniforme das barras da gaiola">Uniform cage-bar spacing</li>
+<li data-en="Correct cage diameter" data-es="Diámetro correcto de la jaula" data-it="Diametro corretto della gabbia" data-pt="Diâmetro correto do tambor">Correct cage diameter</li>
+<li data-en="Proper interface between cage bars and belt" data-es="Interfaz correcta entre las barras de la jaula y la banda" data-it="Corretta interfaccia tra le barre della gabbia e il nastro" data-pt="Interface correta entre as barras do tambor e a esteira">Proper interface between cage bars and belt</li>
+<li data-en="Uniform cage-bar spacing" data-es="Espaciado uniforme de las barras de la jaula" data-it="Spaziatura uniforme delle barre della gabbia" data-pt="Espaçamento uniforme das barras do tambor">Uniform cage-bar spacing</li>
 <li data-en="Correct spiral elevation" data-es="Elevación correcta de la espiral" data-it="Corretta elevazione della spirale" data-pt="Elevação correta da espiral">Correct spiral elevation</li>
 <li data-en="Correct level and plumb condition of the spiral structure" data-es="Nivelación y verticalidad correctas de la estructura espiral" data-it="Corretto livellamento e messa a piombo della struttura a spirale" data-pt="Nivelamento e prumo corretos da estrutura espiral">Correct level and plumb condition of the spiral structure</li>
 <li data-en="Verification that the belt follows a smooth path through the complete spiral" data-es="Verificación de que la banda siga una trayectoria suave en toda la espiral" data-it="Verifica che il nastro segua un percorso regolare lungo l'intera spirale" data-pt="Verificação de que a esteira siga uma trajetória suave por toda a espiral">Verification that the belt follows a smooth path through the complete spiral</li>
@@ -547,9 +547,9 @@
 <h3 data-en="Initial Operating Parameters" data-es="Parámetros Iniciales de Operación" data-it="Parametri Operativi Iniziali" data-pt="Parâmetros Iniciais de Operação">Initial Operating Parameters</h3>
 <p data-en="Installation supervision should also establish and document:" data-es="La supervisión de la instalación también debe establecer y documentar:" data-it="La supervisione dell'installazione deve inoltre stabilire e documentare:" data-pt="A supervisão da instalação também deve estabelecer e documentar:">Installation supervision should also establish and document:</p>
 <ul>
-<li data-en="Initial overdrive or belt-to-cage speed relationship" data-es="Overdrive inicial o relación de velocidad entre la banda y la jaula" data-it="Overdrive iniziale o rapporto di velocità tra nastro e gabbia" data-pt="Overdrive inicial ou relação de velocidade entre a esteira e a gaiola">Initial overdrive or belt-to-cage speed relationship</li>
+<li data-en="Initial overdrive or belt-to-cage speed relationship" data-es="Overdrive inicial o relación de velocidad entre la banda y la jaula" data-it="Overdrive iniziale o rapporto di velocità tra nastro e gabbia" data-pt="Overdrive inicial ou relação de velocidade entre a esteira e o tambor">Initial overdrive or belt-to-cage speed relationship</li>
 <li data-en="Chain tension" data-es="Tensión de la cadena" data-it="Tensione della catena" data-pt="Tensão da corrente">Chain tension</li>
-<li data-en="Cage rotation speed" data-es="Velocidad de rotación de la jaula" data-it="Velocità di rotazione della gabbia" data-pt="Velocidade de rotação da gaiola">Cage rotation speed</li>
+<li data-en="Cage rotation speed" data-es="Velocidad de rotación de la jaula" data-it="Velocità di rotazione della gabbia" data-pt="Velocidade de rotação do tambor">Cage rotation speed</li>
 <li data-en="Drive synchronization" data-es="Sincronización de los accionamientos" data-it="Sincronizzazione degli azionamenti" data-pt="Sincronização dos acionamentos">Drive synchronization</li>
 <li data-en="Belt tracking" data-es="Guiado de la banda" data-it="Centraggio del nastro" data-pt="Tracking da esteira">Belt tracking</li>
 <li data-en="Safety-device operation" data-es="Funcionamiento de los dispositivos de seguridad" data-it="Funzionamento dei dispositivi di sicurezza" data-pt="Funcionamento dos dispositivos de segurança">Safety-device operation</li>
@@ -559,15 +559,15 @@
 <li data-en="Baseline operating tension and temperature" data-es="Valores de referencia de tensión y temperatura de operación" data-it="Valori di riferimento di tensione e temperatura operative" data-pt="Valores de referência de tensão e temperatura de operação">Baseline operating tension and temperature</li>
 <li data-en="Acceptable start-up, shutdown and loading sequence" data-es="Secuencia correcta de arranque, parada y carga" data-it="Corretta sequenza di avviamento, arresto e carico" data-pt="Sequência correta de partida, parada e carregamento">Acceptable start-up, shutdown and loading sequence</li>
 </ul>
-<h2 data-en="Industrial Baking Oven Bands" data-es="Bandas para Hornos Industriales" data-it="Nastri per Forni Industriali" data-pt="Bandas para Fornos Industriais">Industrial Baking Oven Bands</h2>
-<p data-en="Industrial baking oven bands require equally careful installation. Unlike spiral systems, baking bands must also maintain dimensional stability while operating at elevated temperatures." data-es="Las bandas para hornos industriales requieren una instalación igualmente cuidadosa. A diferencia de los sistemas espirales, también deben mantener estabilidad dimensional mientras operan a temperaturas elevadas." data-it="I nastri per forni industriali richiedono un'installazione altrettanto accurata. A differenza dei sistemi a spirale, devono mantenere la stabilità dimensionale durante il funzionamento ad alte temperature." data-pt="As bandas para fornos industriais exigem uma instalação igualmente cuidadosa. Diferentemente dos sistemas espirais, também precisam manter estabilidade dimensional enquanto operam em temperaturas elevadas.">Industrial baking oven bands require equally careful installation. Unlike spiral systems, baking bands must also maintain dimensional stability while operating at elevated temperatures.</p>
+<h2 data-en="Industrial Baking Oven Bands" data-es="Bandas para Hornos Industriales" data-it="Nastri per Forni Industriali" data-pt="Esteiras para Fornos Industriais">Industrial Baking Oven Bands</h2>
+<p data-en="Industrial baking oven bands require equally careful installation. Unlike spiral systems, baking bands must also maintain dimensional stability while operating at elevated temperatures." data-es="Las bandas para hornos industriales requieren una instalación igualmente cuidadosa. A diferencia de los sistemas espirales, también deben mantener estabilidad dimensional mientras operan a temperaturas elevadas." data-it="I nastri per forni industriali richiedono un'installazione altrettanto accurata. A differenza dei sistemi a spirale, devono mantenere la stabilità dimensionale durante il funzionamento ad alte temperature." data-pt="As esteiras para fornos industriais exigem uma instalação igualmente cuidadosa. Diferentemente dos sistemas espirais, também precisam manter estabilidade dimensional enquanto operam em temperaturas elevadas.">Industrial baking oven bands require equally careful installation. Unlike spiral systems, baking bands must also maintain dimensional stability while operating at elevated temperatures.</p>
 <p data-en="Improper installation often leads to chronic tracking problems or damage that becomes increasingly difficult to correct. In severe cases, deformation, edge damage or an incorrectly formed splice may create irreversible damage." data-es="Una instalación incorrecta suele provocar problemas crónicos de guiado o daños cada vez más difíciles de corregir. En casos graves, la deformación, el daño de bordes o una unión mal formada pueden causar daños irreversibles." data-it="Un'installazione non corretta provoca spesso problemi cronici di centraggio o danni sempre più difficili da correggere. Nei casi più gravi, deformazioni, danni ai bordi o una giunzione realizzata male possono causare danni irreversibili." data-pt="Uma instalação incorreta frequentemente provoca problemas crônicos de tracking ou danos cada vez mais difíceis de corrigir. Em casos graves, deformações, danos nas bordas ou uma emenda mal executada podem causar danos irreversíveis.">Improper installation often leads to chronic tracking problems or damage that becomes increasingly difficult to correct. In severe cases, deformation, edge damage or an incorrectly formed splice may create irreversible damage.</p>
-<h3 data-en="Band Preparation" data-es="Preparación de la Banda" data-it="Preparazione del Nastro" data-pt="Preparação da Banda">Band Preparation</h3>
+<h3 data-en="Band Preparation" data-es="Preparación de la Banda" data-it="Preparazione del Nastro" data-pt="Preparação da Esteira">Band Preparation</h3>
 <p data-en="Installation supervision verifies:" data-es="La supervisión de la instalación verifica:" data-it="La supervisione dell'installazione verifica:" data-pt="A supervisão da instalação verifica:">Installation supervision verifies:</p>
 <ul>
-<li data-en="Correct belt width" data-es="Ancho correcto de la banda" data-it="Larghezza corretta del nastro" data-pt="Largura correta da banda">Correct belt width</li>
+<li data-en="Correct belt width" data-es="Ancho correcto de la banda" data-it="Larghezza corretta del nastro" data-pt="Largura correta da esteira">Correct belt width</li>
 <li data-en="Proper belt orientation and direction of travel" data-es="Orientación correcta y sentido de marcha" data-it="Corretto orientamento e direzione di marcia" data-pt="Orientação correta e sentido de movimento">Proper belt orientation and direction of travel</li>
-<li data-en="Correct number of crimps for the specific band construction" data-es="Número correcto de crimps para la construcción específica de la banda" data-it="Numero corretto di crimpature per la specifica costruzione del nastro" data-pt="Número correto de crimps para a construção específica da banda">Correct number of crimps for the specific band construction</li>
+<li data-en="Correct number of crimps for the specific band construction" data-es="Número correcto de crimps para la construcción específica de la banda" data-it="Numero corretto di crimpature per la specifica costruzione del nastro" data-pt="Número correto de crimps para a construção específica da esteira">Correct number of crimps for the specific band construction</li>
 <li data-en="Correct joining method and roll sequence" data-es="Método correcto de unión y secuencia de rodillos" data-it="Metodo corretto di giunzione e sequenza dei rulli" data-pt="Método correto de emenda e sequência dos rolos">Correct joining method and roll sequence</li>
 <li data-en="Proper splice alignment" data-es="Alineación correcta de la unión" data-it="Corretto allineamento della giunzione" data-pt="Alinhamento correto da emenda">Proper splice alignment</li>
 <li data-en="Dimensional verification" data-es="Verificación dimensional" data-it="Verifica dimensionale" data-pt="Verificação dimensional">Dimensional verification</li>
@@ -587,7 +587,7 @@
 <li data-en="Correct lagging, coating or surface texture where applicable" data-es="Revestimiento, recubrimiento o textura superficial correctos cuando corresponda" data-it="Rivestimento, copertura o finitura superficiale corretti, quando applicabili" data-pt="Revestimento, cobertura ou textura superficial corretos quando aplicável">Correct lagging, coating or surface texture where applicable</li>
 <li data-en="Absence of buildup, sharp defects or localized high spots" data-es="Ausencia de acumulación, defectos cortantes o puntos altos localizados" data-it="Assenza di accumuli, difetti taglienti o punti alti localizzati" data-pt="Ausência de acúmulo, defeitos cortantes ou pontos altos localizados">Absence of buildup, sharp defects or localized high spots</li>
 </ul>
-<p data-en="Even small alignment errors may create unequal tension across the band width. Under operating tension and elevated temperature, this condition may lead to severe or irreversible band damage." data-es="Incluso pequeños errores de alineación pueden crear una tensión desigual a lo ancho de la banda. Bajo tensión de operación y alta temperatura, esta condición puede provocar daños graves o irreversibles." data-it="Anche piccoli errori di allineamento possono creare una tensione non uniforme lungo la larghezza del nastro. In presenza di tensione operativa e alta temperatura, questa condizione può causare danni gravi o irreversibili." data-pt="Mesmo pequenos erros de alinhamento podem criar tensão desigual ao longo da largura da banda. Sob tensão operacional e alta temperatura, essa condição pode provocar danos graves ou irreversíveis.">Even small alignment errors may create unequal tension across the band width. Under operating tension and elevated temperature, this condition may lead to severe or irreversible band damage.</p>
+<p data-en="Even small alignment errors may create unequal tension across the band width. Under operating tension and elevated temperature, this condition may lead to severe or irreversible band damage." data-es="Incluso pequeños errores de alineación pueden crear una tensión desigual a lo ancho de la banda. Bajo tensión de operación y alta temperatura, esta condición puede provocar daños graves o irreversibles." data-it="Anche piccoli errori di allineamento possono creare una tensione non uniforme lungo la larghezza del nastro. In presenza di tensione operativa e alta temperatura, questa condizione può causare danni gravi o irreversibili." data-pt="Mesmo pequenos erros de alinhamento podem criar tensão desigual ao longo da largura da esteira. Sob tensão operacional e alta temperatura, essa condição pode provocar danos graves ou irreversíveis.">Even small alignment errors may create unequal tension across the band width. Under operating tension and elevated temperature, this condition may lead to severe or irreversible band damage.</p>
 <h3 data-en="Tracking System" data-es="Sistema de Guiado" data-it="Sistema di Centraggio" data-pt="Sistema de Tracking">Tracking System</h3>
 <p data-en="Tracking devices should never be used to compensate for incorrect oven geometry." data-es="Los dispositivos de guiado nunca deben utilizarse para compensar una geometría incorrecta del horno." data-it="I dispositivi di centraggio non devono mai essere usati per compensare una geometria non corretta del forno." data-pt="Os dispositivos de tracking nunca devem ser usados para compensar uma geometria incorreta do forno.">Tracking devices should never be used to compensate for incorrect oven geometry.</p>
 <p data-en="Installation supervision verifies:" data-es="La supervisión de la instalación verifica:" data-it="La supervisione dell'installazione verifica:" data-pt="A supervisão da instalação verifica:">Installation supervision verifies:</p>
@@ -603,11 +603,11 @@
 <li data-en="Protection against continuous rubbing or overcorrection" data-es="Protección contra roce continuo o sobrecorrección" data-it="Protezione contro sfregamento continuo o correzioni eccessive" data-pt="Proteção contra atrito contínuo ou correção excessiva">Protection against continuous rubbing or overcorrection</li>
 </ul>
 <p data-en="Correct positioning minimizes unnecessary contact with the band edges and allows the tracking system to make small corrections with maximum efficiency." data-es="El posicionamiento correcto minimiza el contacto innecesario con los bordes y permite que el sistema de guiado realice pequeñas correcciones con máxima eficiencia." data-it="Il corretto posizionamento riduce al minimo il contatto inutile con i bordi e consente al sistema di centraggio di effettuare piccole correzioni con la massima efficienza." data-pt="O posicionamento correto minimiza o contato desnecessário com as bordas e permite que o sistema de tracking realize pequenas correções com máxima eficiência.">Correct positioning minimizes unnecessary contact with the band edges and allows the tracking system to make small corrections with maximum efficiency.</p>
-<h3 data-en="Applied Band Tension" data-es="Tensión Aplicada a la Banda" data-it="Tensione Applicata al Nastro" data-pt="Tensão Aplicada à Banda">Applied Band Tension</h3>
-<p data-en="Each oven-band construction requires an appropriate operating tension. Too little tension can cause slipping, poor control and unstable tracking, while excessive tension increases bearing loads, drum loads, power consumption and fatigue." data-es="Cada construcción de banda para horno requiere una tensión de operación adecuada. Una tensión insuficiente puede causar deslizamiento, bajo control e inestabilidad de guiado, mientras que una tensión excesiva aumenta las cargas sobre rodamientos y tambores, el consumo de energía y la fatiga." data-it="Ogni costruzione di nastro da forno richiede una tensione operativa adeguata. Una tensione insufficiente può causare slittamento, scarso controllo e centraggio instabile, mentre una tensione eccessiva aumenta i carichi su cuscinetti e tamburi, il consumo energetico e la fatica." data-pt="Cada construção de banda para forno requer uma tensão operacional adequada. Tensão insuficiente pode causar deslizamento, baixo controle e instabilidade de tracking, enquanto tensão excessiva aumenta as cargas nos rolamentos e tambores, o consumo de energia e a fadiga.">Each oven-band construction requires an appropriate operating tension. Too little tension can cause slipping, poor control and unstable tracking, while excessive tension increases bearing loads, drum loads, power consumption and fatigue.</p>
+<h3 data-en="Applied Band Tension" data-es="Tensión Aplicada a la Banda" data-it="Tensione Applicata al Nastro" data-pt="Tensão Aplicada à Esteira">Applied Band Tension</h3>
+<p data-en="Each oven-band construction requires an appropriate operating tension. Too little tension can cause slipping, poor control and unstable tracking, while excessive tension increases bearing loads, drum loads, power consumption and fatigue." data-es="Cada construcción de banda para horno requiere una tensión de operación adecuada. Una tensión insuficiente puede causar deslizamiento, bajo control e inestabilidad de guiado, mientras que una tensión excesiva aumenta las cargas sobre rodamientos y tambores, el consumo de energía y la fatiga." data-it="Ogni costruzione di nastro da forno richiede una tensione operativa adeguata. Una tensione insufficiente può causare slittamento, scarso controllo e centraggio instabile, mentre una tensione eccessiva aumenta i carichi su cuscinetti e tamburi, il consumo energetico e la fatica." data-pt="Cada construção de esteira para forno requer uma tensão operacional adequada. Tensão insuficiente pode causar deslizamento, baixo controle e instabilidade de tracking, enquanto tensão excessiva aumenta as cargas nos rolamentos e tambores, o consumo de energia e a fadiga.">Each oven-band construction requires an appropriate operating tension. Too little tension can cause slipping, poor control and unstable tracking, while excessive tension increases bearing loads, drum loads, power consumption and fatigue.</p>
 <ul>
-<li data-en="Verify the specified tension for the band construction" data-es="Verificar la tensión especificada para la construcción de la banda" data-it="Verificare la tensione specificata per la costruzione del nastro" data-pt="Verificar a tensão especificada para a construção da banda">Verify the specified tension for the band construction</li>
-<li data-en="Apply tension evenly across the band width" data-es="Aplicar la tensión uniformemente a lo ancho de la banda" data-it="Applicare la tensione uniformemente lungo la larghezza del nastro" data-pt="Aplicar a tensão uniformemente ao longo da largura da banda">Apply tension evenly across the band width</li>
+<li data-en="Verify the specified tension for the band construction" data-es="Verificar la tensión especificada para la construcción de la banda" data-it="Verificare la tensione specificata per la costruzione del nastro" data-pt="Verificar a tensão especificada para a construção da esteira">Verify the specified tension for the band construction</li>
+<li data-en="Apply tension evenly across the band width" data-es="Aplicar la tensión uniformemente a lo ancho de la banda" data-it="Applicare la tensione uniformemente lungo la larghezza del nastro" data-pt="Aplicar a tensão uniformemente ao longo da largura da esteira">Apply tension evenly across the band width</li>
 <li data-en="Confirm the tensioning mechanism moves freely" data-es="Confirmar que el mecanismo tensor se mueva libremente" data-it="Confermare che il meccanismo di tensionamento si muova liberamente" data-pt="Confirmar que o mecanismo de tensionamento se mova livremente">Confirm the tensioning mechanism moves freely</li>
 <li data-en="Check available adjustment travel" data-es="Verificar el recorrido disponible de ajuste" data-it="Controllare la corsa di regolazione disponibile" data-pt="Verificar o curso disponível de ajuste">Check available adjustment travel</li>
 <li data-en="Record the final settings for future maintenance reference" data-es="Registrar los ajustes finales como referencia para el mantenimiento" data-it="Registrare le regolazioni finali come riferimento per la manutenzione futura" data-pt="Registrar os ajustes finais como referência para a manutenção">Record the final settings for future maintenance reference</li>
@@ -620,16 +620,16 @@
 <li data-en="Progressive tension adjustment" data-es="Ajuste progresivo de la tensión" data-it="Regolazione progressiva della tensione" data-pt="Ajuste progressivo da tensão">Progressive tension adjustment</li>
 <li data-en="Continuous tracking observation" data-es="Observación continua del guiado" data-it="Osservazione continua del centraggio" data-pt="Observação contínua do tracking">Continuous tracking observation</li>
 <li data-en="Thermal expansion monitoring" data-es="Monitoreo de la expansión térmica" data-it="Monitoraggio dell'espansione termica" data-pt="Monitoramento da expansão térmica">Thermal expansion monitoring</li>
-<li data-en="Verification of band stability" data-es="Verificación de la estabilidad de la banda" data-it="Verifica della stabilità del nastro" data-pt="Verificação da estabilidade da banda">Verification of band stability</li>
+<li data-en="Verification of band stability" data-es="Verificación de la estabilidad de la banda" data-it="Verifica della stabilità del nastro" data-pt="Verificação da estabilidade da esteira">Verification of band stability</li>
 <li data-en="Monitoring of splice behavior through repeated revolutions" data-es="Monitoreo del comportamiento de la unión durante varias vueltas" data-it="Monitoraggio del comportamento della giunzione durante più giri" data-pt="Monitoramento do comportamento da emenda durante várias voltas">Monitoring of splice behavior through repeated revolutions</li>
 <li data-en="Inspection of edge clearances at operating temperature" data-es="Inspección de las holguras de borde a temperatura de operación" data-it="Controllo dei giochi dei bordi alla temperatura operativa" data-pt="Inspeção das folgas das bordas na temperatura de operação">Inspection of edge clearances at operating temperature</li>
 <li data-en="Controlled cool-down and post-run inspection" data-es="Enfriamiento controlado e inspección posterior" data-it="Raffreddamento controllato e ispezione successiva" data-pt="Resfriamento controlado e inspeção posterior">Controlled cool-down and post-run inspection</li>
 </ul>
-<p data-en="Proper burn-in allows the band to stabilize before full production begins and provides an opportunity to identify developing problems before product is introduced." data-es="Un burn-in correcto permite que la banda se estabilice antes de iniciar la producción completa y brinda la oportunidad de identificar problemas antes de introducir producto." data-it="Un burn-in corretto consente al nastro di stabilizzarsi prima dell'avvio della piena produzione e offre l'opportunità di individuare eventuali problemi prima dell'introduzione del prodotto." data-pt="Um burn-in correto permite que a banda se estabilize antes do início da produção completa e oferece a oportunidade de identificar problemas antes da introdução do produto.">Proper burn-in allows the band to stabilize before full production begins and provides an opportunity to identify developing problems before product is introduced.</p>
+<p data-en="Proper burn-in allows the band to stabilize before full production begins and provides an opportunity to identify developing problems before product is introduced." data-es="Un burn-in correcto permite que la banda se estabilice antes de iniciar la producción completa y brinda la oportunidad de identificar problemas antes de introducir producto." data-it="Un burn-in corretto consente al nastro di stabilizzarsi prima dell'avvio della piena produzione e offre l'opportunità di individuare eventuali problemi prima dell'introduzione del prodotto." data-pt="Um burn-in correto permite que a esteira se estabilize antes do início da produção completa e oferece a oportunidade de identificar problemas antes da introdução do produto.">Proper burn-in allows the band to stabilize before full production begins and provides an opportunity to identify developing problems before product is introduced.</p>
 <h3 data-en="Thermal Performance" data-es="Rendimiento Térmico" data-it="Prestazioni Termiche" data-pt="Desempenho Térmico">Thermal Performance</h3>
 <p data-en="A complete installation should also verify:" data-es="Una instalación completa también debe verificar:" data-it="Un'installazione completa deve inoltre verificare:" data-pt="Uma instalação completa também deve verificar:">A complete installation should also verify:</p>
 <ul>
-<li data-en="Uniform temperature across the band width using a thermal camera" data-es="Temperatura uniforme a lo ancho de la banda mediante una cámara térmica" data-it="Temperatura uniforme lungo la larghezza del nastro mediante una termocamera" data-pt="Temperatura uniforme ao longo da largura da banda utilizando uma câmera térmica">Uniform temperature across the band width using a thermal camera</li>
+<li data-en="Uniform temperature across the band width using a thermal camera" data-es="Temperatura uniforme a lo ancho de la banda mediante una cámara térmica" data-it="Temperatura uniforme lungo la larghezza del nastro mediante una termocamera" data-pt="Temperatura uniforme ao longo da largura da esteira utilizando uma câmera térmica">Uniform temperature across the band width using a thermal camera</li>
 <li data-en="Burner performance" data-es="Rendimiento de los quemadores" data-it="Prestazioni dei bruciatori" data-pt="Desempenho dos queimadores">Burner performance</li>
 <li data-en="Airflow balance" data-es="Equilibrio del flujo de aire" data-it="Bilanciamento del flusso d'aria" data-pt="Equilíbrio do fluxo de ar">Airflow balance</li>
 <li data-en="Exhaust operation" data-es="Funcionamiento del sistema de extracción" data-it="Funzionamento del sistema di scarico" data-pt="Funcionamento do sistema de exaustão">Exhaust operation</li>
@@ -637,13 +637,13 @@
 <li data-en="Condition of insulation, seals and access doors" data-es="Condición del aislamiento, sellos y puertas de acceso" data-it="Condizioni dell'isolamento, delle guarnizioni e delle porte di accesso" data-pt="Condição do isolamento, vedações e portas de acesso">Condition of insulation, seals and access doors</li>
 <li data-en="Temperature consistency from one oven zone to another" data-es="Uniformidad de temperatura entre las diferentes zonas del horno" data-it="Uniformità della temperatura tra le diverse zone del forno" data-pt="Uniformidade de temperatura entre as diferentes zonas do forno">Temperature consistency from one oven zone to another</li>
 </ul>
-<p data-en="Temperature differences across the oven may affect product quality, thermal expansion and band tracking. A band exposed to significantly different temperatures from one side to the other may develop unequal expansion and a persistent steering tendency." data-es="Las diferencias de temperatura a través del horno pueden afectar la calidad del producto, la expansión térmica y el guiado. Una banda expuesta a temperaturas muy diferentes entre un lado y otro puede desarrollar una expansión desigual y una tendencia persistente a desplazarse." data-it="Le differenze di temperatura nel forno possono influire sulla qualità del prodotto, sull'espansione termica e sul centraggio. Un nastro esposto a temperature significativamente diverse tra un lato e l'altro può sviluppare un'espansione non uniforme e una persistente tendenza a deviare." data-pt="Diferenças de temperatura ao longo da largura do forno podem afetar a qualidade do produto, a expansão térmica e o tracking. Uma banda exposta a temperaturas significativamente diferentes entre um lado e outro pode desenvolver expansão desigual e uma tendência persistente de deslocamento.">Temperature differences across the oven may affect product quality, thermal expansion and band tracking. A band exposed to significantly different temperatures from one side to the other may develop unequal expansion and a persistent steering tendency.</p>
+<p data-en="Temperature differences across the oven may affect product quality, thermal expansion and band tracking. A band exposed to significantly different temperatures from one side to the other may develop unequal expansion and a persistent steering tendency." data-es="Las diferencias de temperatura a través del horno pueden afectar la calidad del producto, la expansión térmica y el guiado. Una banda expuesta a temperaturas muy diferentes entre un lado y otro puede desarrollar una expansión desigual y una tendencia persistente a desplazarse." data-it="Le differenze di temperatura nel forno possono influire sulla qualità del prodotto, sull'espansione termica e sul centraggio. Un nastro esposto a temperature significativamente diverse tra un lato e l'altro può sviluppare un'espansione non uniforme e una persistente tendenza a deviare." data-pt="Diferenças de temperatura ao longo da largura do forno podem afetar a qualidade do produto, a expansão térmica e o tracking. Uma esteira exposta a temperaturas significativamente diferentes entre um lado e outro pode desenvolver expansão desigual e uma tendência persistente de deslocamento.">Temperature differences across the oven may affect product quality, thermal expansion and band tracking. A band exposed to significantly different temperatures from one side to the other may develop unequal expansion and a persistent steering tendency.</p>
 <h3 data-en="Safety and Alarm Systems" data-es="Sistemas de Seguridad y Alarmas" data-it="Sistemi di Sicurezza e Allarme" data-pt="Sistemas de Segurança e Alarmes">Safety and Alarm Systems</h3>
 <p data-en="Before releasing the equipment for production, supervision should verify:" data-es="Antes de liberar el equipo para producción, la supervisión debe verificar:" data-it="Prima di autorizzare l'impianto alla produzione, la supervisione deve verificare:" data-pt="Antes de liberar o equipamento para produção, a supervisão deve verificar:">Before releasing the equipment for production, supervision should verify:</p>
 <ul>
 <li data-en="Emergency stops" data-es="Paradas de emergencia" data-it="Arresti di emergenza" data-pt="Paradas de emergência">Emergency stops</li>
-<li data-en="Belt alarm sensors" data-es="Sensores de alarma de la banda" data-it="Sensori di allarme del nastro" data-pt="Sensores de alarme da banda">Belt alarm sensors</li>
-<li data-en="Broken-band detection" data-es="Detección de rotura de banda" data-it="Rilevamento della rottura del nastro" data-pt="Detecção de ruptura da banda">Broken-band detection</li>
+<li data-en="Belt alarm sensors" data-es="Sensores de alarma de la banda" data-it="Sensori di allarme del nastro" data-pt="Sensores de alarme da esteira">Belt alarm sensors</li>
+<li data-en="Broken-band detection" data-es="Detección de rotura de banda" data-it="Rilevamento della rottura del nastro" data-pt="Detecção de ruptura da esteira">Broken-band detection</li>
 <li data-en="High-temperature alarms" data-es="Alarmas de alta temperatura" data-it="Allarmi di alta temperatura" data-pt="Alarmes de alta temperatura">High-temperature alarms</li>
 <li data-en="Drive interlocks" data-es="Interbloqueos de los accionamientos" data-it="Interblocchi degli azionamenti" data-pt="Intertravamentos dos acionamentos">Drive interlocks</li>
 <li data-en="Safety switches" data-es="Interruptores de seguridad" data-it="Interruttori di sicurezza" data-pt="Chaves de segurança">Safety switches</li>
@@ -661,7 +661,7 @@
 <li data-en="Operating temperatures and motor currents" data-es="Temperaturas de operación y corrientes de motor" data-it="Temperature operative e correnti dei motori" data-pt="Temperaturas de operação e correntes dos motores">Operating temperatures and motor currents</li>
 <li data-en="Photographs of critical installation details" data-es="Fotografías de detalles críticos de la instalación" data-it="Fotografie dei dettagli critici dell'installazione" data-pt="Fotografias dos detalhes críticos da instalação">Photographs of critical installation details</li>
 <li data-en="Sensor and safety-device test results" data-es="Resultados de las pruebas de sensores y dispositivos de seguridad" data-it="Risultati delle prove dei sensori e dei dispositivi di sicurezza" data-pt="Resultados dos testes de sensores e dispositivos de segurança">Sensor and safety-device test results</li>
-<li data-en="Initial belt-condition and splice-inspection records" data-es="Registros iniciales de condición de la banda e inspección de la unión" data-it="Registri iniziali delle condizioni del nastro e dell'ispezione della giunzione" data-pt="Registros iniciais da condição da banda e inspeção da emenda">Initial belt-condition and splice-inspection records</li>
+<li data-en="Initial belt-condition and splice-inspection records" data-es="Registros iniciales de condición de la banda e inspección de la unión" data-it="Registri iniziali delle condizioni del nastro e dell'ispezione della giunzione" data-pt="Registros iniciais da condição da esteira e inspeção da emenda">Initial belt-condition and splice-inspection records</li>
 </ul>
 <div class="formula-box">
 <strong data-en="Important warranty consideration" data-es="Consideración importante sobre la garantía" data-it="Importante considerazione sulla garanzia" data-pt="Consideração importante sobre a garantia">Important warranty consideration</strong>
@@ -722,7 +722,7 @@
 <p data-en="Professional installation supervision transforms a belt installation into a controlled engineering process, ensuring that the equipment begins its service life under the correct mechanical, thermal and operating conditions. The result is improved reliability, fewer unexpected failures, reduced product loss and years of stable operation." data-es="La supervisión profesional transforma la instalación de una banda en un proceso de ingeniería controlado, asegurando que el equipo inicie su vida útil bajo las condiciones mecánicas, térmicas y operativas correctas. El resultado es mayor confiabilidad, menos fallas inesperadas, menor pérdida de producto y años de operación estable." data-it="La supervisione professionale trasforma l'installazione di un nastro in un processo ingegneristico controllato, garantendo che l'impianto inizi la propria vita utile nelle corrette condizioni meccaniche, termiche e operative. Il risultato è maggiore affidabilità, meno guasti imprevisti, minori perdite di prodotto e anni di funzionamento stabile." data-pt="A supervisão profissional transforma a instalação de uma esteira em um processo de engenharia controlado, garantindo que o equipamento inicie sua vida útil sob as condições mecânicas, térmicas e operacionais corretas. O resultado é maior confiabilidade, menos falhas inesperadas, menor perda de produto e anos de operação estável.">Professional installation supervision transforms a belt installation into a controlled engineering process, ensuring that the equipment begins its service life under the correct mechanical, thermal and operating conditions. The result is improved reliability, fewer unexpected failures, reduced product loss and years of stable operation.</p>
 <section class="website-note">
 <h2 data-en="Protect the Installation from the First Day" data-es="Proteja la Instalación Desde el Primer Día" data-it="Proteggi l'Installazione Fin dal Primo Giorno" data-pt="Proteja a Instalação Desde o Primeiro Dia">Protect the Installation from the First Day</h2>
-<p data-en="BELTPRO provides field installation supervision, alignment verification, commissioning support and operator training for spiral conveyor belts and industrial baking oven bands throughout the Americas." data-es="BELTPRO ofrece supervisión de instalación en campo, verificación de alineación, soporte de puesta en marcha y capacitación de operadores para bandas espirales y bandas de hornos industriales en toda América." data-it="BELTPRO offre supervisione dell'installazione sul campo, verifica dell'allineamento, supporto all'avviamento e formazione degli operatori per nastri a spirale e nastri per forni industriali in tutte le Americhe." data-pt="A BELTPRO oferece supervisão de instalação em campo, verificação de alinhamento, suporte ao comissionamento e treinamento de operadores para esteiras espirais e bandas de fornos industriais em todas as Américas.">BELTPRO provides field installation supervision, alignment verification, commissioning support and operator training for spiral conveyor belts and industrial baking oven bands throughout the Americas.</p>
+<p data-en="BELTPRO provides field installation supervision, alignment verification, commissioning support and operator training for spiral conveyor belts and industrial baking oven bands throughout the Americas." data-es="BELTPRO ofrece supervisión de instalación en campo, verificación de alineación, soporte de puesta en marcha y capacitación de operadores para bandas espirales y bandas de hornos industriales en toda América." data-it="BELTPRO offre supervisione dell'installazione sul campo, verifica dell'allineamento, supporto all'avviamento e formazione degli operatori per nastri a spirale e nastri per forni industriali in tutte le Americhe." data-pt="A BELTPRO oferece supervisão de instalação em campo, verificação de alinhamento, suporte ao comissionamento e treinamento de operadores para esteiras espirais e esteiras de fornos industriais em todas as Américas.">BELTPRO provides field installation supervision, alignment verification, commissioning support and operator training for spiral conveyor belts and industrial baking oven bands throughout the Americas.</p>
 <div class="note-actions">
 <a data-en="Request Installation Supervision" data-es="Solicitar Supervisión de Instalación" data-it="Richiedi Supervisione dell'Installazione" data-pt="Solicitar Supervisão de Instalação" href="index.html#contact">Request Installation Supervision</a>
 </div></section>
@@ -743,9 +743,9 @@
         function setLanguage(lang) {
             const supported = ['en', 'es', 'pt', 'it'];
             const selected = supported.includes(lang) ? lang : 'en';
-
+ 
             document.documentElement.lang = selected;
-
+ 
             const pageTitles = {
                 en: 'BELTPRO | Installation Supervision and Warranty',
                 es: 'BELTPRO | Supervisión de Instalación y Garantía',
@@ -753,30 +753,30 @@
                 it: "BELTPRO | Supervisione dell'Installazione e Garanzia"
             };
             document.title = pageTitles[selected];
-
+ 
             document.querySelectorAll('[data-en]').forEach(function (element) {
                 const translation = element.getAttribute('data-' + selected);
                 if (translation !== null) {
                     element.textContent = translation;
                 }
             });
-
+ 
             document.querySelectorAll('[data-lang]').forEach(function (button) {
                 button.classList.toggle('active', button.getAttribute('data-lang') === selected);
             });
-
+ 
             try {
                 localStorage.setItem('beltpro_lang', selected);
             } catch (error) {}
         }
-
+ 
         document.addEventListener('DOMContentLoaded', function () {
             let savedLanguage = 'en';
-
+ 
             try {
                 savedLanguage = localStorage.getItem('beltpro_lang') || 'en';
             } catch (error) {}
-
+ 
             setLanguage(savedLanguage);
         });
     </script>
