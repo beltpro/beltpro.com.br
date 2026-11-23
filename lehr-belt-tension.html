@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BELTPRO | Lehr Belt Tension in Glass Annealing Ovens</title>
+    <meta name="description"
+          content="Technical article on annealing lehr belts for the glass industry: temperature profile, thermal elongation, weight-roller take-up, the 100 mm rule, spring tension checks and field experience.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        :root {
+            --navy: #0b1f33;
+            --blue: #0f4c81;
+            --cyan: #38bdf8;
+            --orange: #f59e0b;
+            --red: #dc2626;
+            --green: #16a34a;
+            --text: #1f2937;
+            --muted: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #dbe5ee;
+            --shadow: 0 18px 45px rgba(15, 23, 42, 0.10);
+            --radius: 18px;
+            --max-width: 1050px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.72;
+        }
+
+        a { color: inherit; }
+        img { max-width: 100%; }
+
+        .language-bar {
+            background: #071625;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 8px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .language-bar button {
+            border: 0;
+            background: transparent;
+            color: #cbd5e1;
+            padding: 7px 9px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .language-bar button:hover,
+        .language-bar button.active {
+            color: #ffffff;
+            background: rgba(56, 189, 248, 0.16);
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 31, 51, 0.97);
+            box-shadow: 0 8px 25px rgba(2, 8, 23, 0.20);
+            backdrop-filter: blur(12px);
+        }
+
+        .header-inner {
+            width: min(94%, 1180px);
+            min-height: 72px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .logo-link { display: flex; align-items: center; text-decoration: none; }
+        .logo-link img { height: 48px; width: auto; display: block; }
+
+        .back-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 10px 14px;
+            border: 1px solid rgba(255,255,255,.20);
+            border-radius: 9px;
+        }
+
+        .back-link:hover { color: var(--cyan); background: rgba(255,255,255,.07); }
+
+        .hero {
+            color: #ffffff;
+            background:
+                linear-gradient(90deg, rgba(5, 20, 35, 0.96), rgba(7, 31, 53, 0.80)),
+                url("beltbackground.jpg") center / cover no-repeat;
+        }
+
+        .hero-inner {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 76px 0 84px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            color: #bae6fd;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before { content: ""; width: 34px; height: 2px; background: var(--cyan); }
+
+        .hero h1 {
+            max-width: 850px;
+            margin-bottom: 20px;
+            font-size: clamp(42px, 6vw, 68px);
+            line-height: 1.04;
+            letter-spacing: -2px;
+        }
+
+        .hero p { max-width: 800px; color: #dbeafe; font-size: clamp(17px, 2vw, 21px); }
+
+        .article-shell {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 64px 0 86px;
+        }
+
+        .article-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: clamp(28px, 5vw, 58px);
+        }
+
+        .article-card h2 {
+            margin: 42px 0 16px;
+            color: var(--navy);
+            font-size: clamp(28px, 4vw, 39px);
+            line-height: 1.2;
+            letter-spacing: -0.7px;
+        }
+
+        .article-card h2:first-child { margin-top: 0; }
+
+        .article-card h3 { margin: 28px 0 10px; color: var(--blue); font-size: 23px; }
+
+        .article-card p { margin-bottom: 18px; color: #475569; font-size: 17px; }
+
+        .article-card ul,
+        .article-card ol { margin: 0 0 20px 24px; color: #475569; }
+
+        .article-card li { margin-bottom: 8px; }
+
+        .formula-box {
+            margin: 26px 0;
+            padding: 24px;
+            border-left: 5px solid var(--cyan);
+            border-radius: 12px;
+            background: #eef8fd;
+        }
+
+        .formula-box strong { display: block; margin-bottom: 8px; color: var(--navy); font-size: 18px; }
+
+        .formula {
+            color: var(--blue);
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .formula-legend { margin-top: 12px; font-size: 15px !important; }
+
+        .example-box {
+            margin: 26px 0;
+            padding: 24px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+        }
+
+        .example-box strong { display: block; margin-bottom: 10px; color: #92400e; }
+
+        .rule-box {
+            margin: 30px 0;
+            padding: 24px;
+            border-radius: 12px;
+            background: var(--navy);
+            color: #ffffff;
+            text-align: center;
+            font-size: clamp(18px, 3vw, 25px);
+            font-weight: 900;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin: 26px 0;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        table { width: 100%; border-collapse: collapse; min-width: 620px; background: #ffffff; }
+
+        th, td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th { background: var(--navy); color: #ffffff; font-size: 14px; }
+        tr:last-child td { border-bottom: 0; }
+        td:first-child { color: var(--blue); font-weight: 900; }
+
+        .table-note { font-size: 14px !important; color: var(--muted) !important; }
+
+        .consequence-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 17px;
+            margin: 26px 0;
+        }
+
+        .consequence-card {
+            padding: 21px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+        }
+
+        .consequence-card strong { display: block; margin-bottom: 7px; color: var(--navy); }
+
+        /* ---------- Figures (photos + diagram) ---------- */
+        .figure {
+            margin: 30px 0;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fbfdff;
+        }
+
+        .figure img {
+            display: block;
+            width: 100%;
+            max-height: 620px;
+            object-fit: cover;
+        }
+
+        .figure .placeholder {
+            display: none;
+            min-height: 260px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+            border-bottom: 2px dashed var(--cyan);
+            background: #eef8fd;
+            color: var(--blue);
+            font-weight: 800;
+            font-family: "Courier New", monospace;
+        }
+
+        .figure.missing img { display: none; }
+        .figure.missing .placeholder { display: flex; }
+
+        .figure figcaption {
+            padding: 14px 18px;
+            color: var(--muted);
+            font-size: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        .figure-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin: 30px 0;
+        }
+
+        .figure-pair .figure { margin: 0; }
+        .figure-pair .figure img { height: 420px; }
+
+        .diagram { padding: 18px 12px 6px; background: #ffffff; }
+        .diagram svg { display: block; width: 100%; height: auto; }
+
+        .field-box {
+            margin: 26px 0;
+            padding: 24px;
+            border-left: 5px solid var(--orange);
+            border-radius: 12px;
+            background: #fffbeb;
+        }
+
+        .field-box strong { display: block; margin-bottom: 8px; color: #92400e; font-size: 18px; }
+
+        .website-note {
+            margin-top: 42px;
+            padding: 26px;
+            border-radius: 13px;
+            border: 1px solid #bfe5f5;
+            background: #eef9fd;
+        }
+
+        .website-note h2 { margin-top: 0; font-size: 27px; }
+
+        .disclaimer {
+            margin-top: 34px;
+            padding: 22px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+            color: #6b4d21;
+        }
+
+        .disclaimer strong { display: block; margin-bottom: 7px; color: #92400e; }
+
+        .site-footer { background: #071625; color: #cbd5e1; }
+
+        .footer-inner {
+            width: min(92%, 1180px);
+            margin: auto;
+            padding: 34px 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .footer-inner strong { color: #ffffff; }
+        .footer-inner span { color: #94a3b8; font-size: 14px; text-align: right; }
+
+        @media (max-width: 760px) {
+            .header-inner { min-height: 64px; }
+            .logo-link img { height: 41px; }
+            .back-link { font-size: 12px; padding: 8px 10px; }
+            .hero-inner { padding: 58px 0 64px; }
+            .consequence-grid,
+            .figure-pair { grid-template-columns: 1fr; }
+            .figure-pair .figure img { height: auto; }
+            .footer-inner { flex-direction: column; text-align: center; }
+            .footer-inner span { text-align: center; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="language-bar" aria-label="Language selection">
+        <button type="button" data-lang="en" onclick="setLanguage('en')">English</button>
+        <button type="button" data-lang="es" onclick="setLanguage('es')">Español</button>
+        <button type="button" data-lang="pt" onclick="setLanguage('pt')">Português</button>
+        <button type="button" data-lang="it" onclick="setLanguage('it')">Italiano</button>
+    </div>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="logo-link" href="index.html" aria-label="BELTPRO home">
+                <img src="logo.png" alt="BELTPRO Logo">
+            </a>
+
+            <a class="back-link"
+               href="index.html#articles"
+               data-en="← Back to Technical Articles"
+               data-es="← Volver a Artículos Técnicos"
+               data-pt="← Voltar aos Artigos Técnicos"
+               data-it="← Torna agli Articoli Tecnici">
+                ← Back to Technical Articles
+            </a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="eyebrow"
+                  data-en="Technical Article · Glass Industry"
+                  data-es="Artículo Técnico · Industria del Vidrio"
+                  data-pt="Artigo Técnico · Indústria do Vidro"
+                  data-it="Articolo Tecnico · Industria del Vetro">
+                Technical Article · Glass Industry
+            </span>
+
+            <h1 data-en="Lehr Belt Tension in Glass Annealing Ovens"
+                data-es="Tensión de la Banda en Archas de Recocido de Vidrio"
+                data-pt="Tensão da Esteira em Fornos de Recozimento de Vidro (Lehr)"
+                data-it="Tensione del Nastro nei Forni di Ricottura del Vetro (Lehr)">
+                Lehr Belt Tension in Glass Annealing Ovens
+            </h1>
+
+            <p data-en="How thermal elongation, the weight-roller take-up and correct spring adjustment keep a wide wire-mesh lehr belt running smoothly, with lessons from a belt installation in the field."
+               data-es="Cómo la elongación térmica, el tensor de rodillo de peso y el ajuste correcto del resorte mantienen funcionando sin problemas una banda ancha de malla metálica, con lecciones de una instalación de banda en campo."
+               data-pt="Como a dilatação térmica, o tensor por rolo de peso e o ajuste correto da mola mantêm uma esteira larga de malha metálica operando de forma suave, com lições de uma instalação de esteira em campo."
+               data-it="Come l'allungamento termico, il tenditore a rullo di peso e la corretta regolazione della molla mantengono un nastro largo a rete metallica in funzionamento regolare, con lezioni da un'installazione sul campo.">
+                How thermal elongation, the weight-roller take-up and correct spring adjustment keep a wide wire-mesh lehr belt running smoothly, with lessons from a belt installation in the field.
+            </p>
+        </div>
+    </section>
+
+    <main class="article-shell">
+        <article class="article-card">
+
+            <!-- ===================== 1. WHAT A LEHR DOES ===================== -->
+            <h2 data-en="What Does an Annealing Lehr Do?"
+                data-es="¿Qué Hace un Archa de Recocido?"
+                data-pt="O que Faz um Forno de Recozimento (Lehr)?"
+                data-it="Che Cosa Fa un Forno di Ricottura (Lehr)?">
+                What Does an Annealing Lehr Do?
+            </h2>
+
+            <p data-en="Glass containers leave the forming machine hot and with uneven internal stresses. If they cool freely, these stresses stay locked in the glass and can cause breakage later on the filling line or in the hands of the consumer. The annealing lehr is a long tunnel oven that removes these stresses in a controlled way."
+               data-es="Los envases de vidrio salen de la máquina formadora calientes y con tensiones internas desiguales. Si se enfrían libremente, esas tensiones quedan atrapadas en el vidrio y pueden causar roturas más tarde, en la línea de llenado o en manos del consumidor. El archa de recocido es un horno túnel largo que elimina esas tensiones de forma controlada."
+               data-pt="As embalagens de vidro saem da máquina formadora quentes e com tensões internas desiguais. Se esfriarem livremente, essas tensões ficam presas no vidro e podem causar quebras mais tarde, na linha de envase ou nas mãos do consumidor. O lehr de recozimento é um forno túnel longo que elimina essas tensões de forma controlada."
+               data-it="I contenitori in vetro escono dalla macchina formatrice caldi e con tensioni interne non uniformi. Se si raffreddano liberamente, queste tensioni restano bloccate nel vetro e possono causare rotture più avanti, sulla linea di riempimento o nelle mani del consumatore. Il forno di ricottura è un lungo forno a tunnel che elimina queste tensioni in modo controllato.">
+                Glass containers leave the forming machine hot and with uneven internal stresses. If they cool freely, these stresses stay locked in the glass and can cause breakage later on the filling line or in the hands of the consumer. The annealing lehr is a long tunnel oven that removes these stresses in a controlled way.
+            </p>
+
+            <ol>
+                <li data-en="Heating zones bring the ware above the upper annealing point of the glass, where the stresses can relax."
+                    data-es="Las zonas de calentamiento llevan el vidrio por encima del punto superior de recocido, donde las tensiones pueden relajarse."
+                    data-pt="As zonas de aquecimento levam o vidro acima do ponto superior de recozimento, onde as tensões podem se aliviar."
+                    data-it="Le zone di riscaldamento portano il vetro sopra il punto superiore di ricottura, dove le tensioni possono rilassarsi.">
+                    Heating zones bring the ware above the upper annealing point of the glass, where the stresses can relax.
+                </li>
+                <li data-en="Controlled cooling zones lower the temperature slowly through the critical range down to the lower annealing point."
+                    data-es="Las zonas de enfriamiento controlado bajan la temperatura lentamente a través del rango crítico hasta el punto inferior de recocido."
+                    data-pt="As zonas de resfriamento controlado reduzem a temperatura lentamente pela faixa crítica até o ponto inferior de recozimento."
+                    data-it="Le zone di raffreddamento controllato abbassano lentamente la temperatura attraverso l'intervallo critico fino al punto inferiore di ricottura.">
+                    Controlled cooling zones lower the temperature slowly through the critical range down to the lower annealing point.
+                </li>
+                <li data-en="Below that point, fast cooling is safe. The ware typically exits at around 100 °C, ready for cold-end coating."
+                    data-es="Por debajo de ese punto, el enfriamiento rápido es seguro. El vidrio normalmente sale a unos 100 °C, listo para el tratamiento de extremo frío."
+                    data-pt="Abaixo desse ponto, o resfriamento rápido é seguro. O vidro normalmente sai a cerca de 100 °C, pronto para o tratamento de extremidade fria (cold-end coating)."
+                    data-it="Sotto quel punto il raffreddamento rapido è sicuro. Il vetro esce tipicamente a circa 100 °C, pronto per il trattamento a freddo (cold-end coating).">
+                    Below that point, fast cooling is safe. The ware typically exits at around 100 °C, ready for cold-end coating.
+                </li>
+            </ol>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-en="Zone" data-es="Zona" data-pt="Zona" data-it="Zona">Zone</th>
+                            <th data-en="Typical set point" data-es="Temperatura típica" data-pt="Temperatura típica" data-it="Temperatura tipica">Typical set point</th>
+                            <th data-en="Function" data-es="Función" data-pt="Função" data-it="Funzione">Function</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1 – 2</td>
+                            <td>≈ 560 – 548 °C</td>
+                            <td data-en="Reheat and soak above the upper annealing point"
+                                data-es="Recalentar y mantener por encima del punto superior de recocido"
+                                data-pt="Reaquecer e manter acima do ponto superior de recozimento"
+                                data-it="Riscaldare e mantenere sopra il punto superiore di ricottura">Reheat and soak above the upper annealing point</td>
+                        </tr>
+                        <tr>
+                            <td>3 – 5</td>
+                            <td>≈ 529 – 460 °C</td>
+                            <td data-en="Slow, controlled cooling through the annealing range"
+                                data-es="Enfriamiento lento y controlado a través del rango de recocido"
+                                data-pt="Resfriamento lento e controlado pela faixa de recozimento"
+                                data-it="Raffreddamento lento e controllato attraverso l'intervallo di ricottura">Slow, controlled cooling through the annealing range</td>
+                        </tr>
+                        <tr>
+                            <td>6 – 7</td>
+                            <td data-en="Depends on the article" data-es="Depende del artículo" data-pt="Depende do artigo" data-it="Dipende dall'articolo">Depends on the article</td>
+                            <td data-en="Faster cooling below the lower annealing point"
+                                data-es="Enfriamiento más rápido por debajo del punto inferior de recocido"
+                                data-pt="Resfriamento mais rápido abaixo do ponto inferior de recozimento"
+                                data-it="Raffreddamento più rapido sotto il punto inferiore di ricottura">Faster cooling below the lower annealing point</td>
+                        </tr>
+                        <tr>
+                            <td>8+</td>
+                            <td>≈ 100 °C</td>
+                            <td data-en="Final cooling and exit to the cold end"
+                                data-es="Enfriamiento final y salida al extremo frío"
+                                data-pt="Resfriamento final e saída para a extremidade fria"
+                                data-it="Raffreddamento finale e uscita verso il lato freddo">Final cooling and exit to the cold end</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="table-note"
+               data-en="Example profile from a container-glass lehr. Real set points must be tuned to the glass composition, ware weight and production speed."
+               data-es="Perfil de ejemplo de un archa para envases de vidrio. Las temperaturas reales deben ajustarse según la composición del vidrio, el peso del artículo y la velocidad de producción."
+               data-pt="Perfil de exemplo de um lehr para embalagens de vidro. As temperaturas reais devem ser ajustadas conforme a composição do vidro, o peso do artigo e a velocidade de produção."
+               data-it="Profilo di esempio di un forno per contenitori in vetro. Le temperature reali devono essere regolate in base alla composizione del vetro, al peso dell'articolo e alla velocità di produzione.">
+                Example profile from a container-glass lehr. Real set points must be tuned to the glass composition, ware weight and production speed.
+            </p>
+
+            <!-- ===================== 2. THE BELT AND THE DRIVE ===================== -->
+            <h2 data-en="The Lehr Belt and the Drive"
+                data-es="La Banda del Archa y el Accionamiento"
+                data-pt="A Esteira do Lehr e o Acionamento"
+                data-it="Il Nastro del Lehr e l'Azionamento">
+                The Lehr Belt and the Drive
+            </h2>
+
+            <p data-en="The ware travels through the whole tunnel on a wide wire-mesh belt. On the lehr described in this article, the belt is a spiral flat-wire link belt about 3,000 mm wide and 44 m long. The loaded strand slides over a support grate inside the tunnel, and the belt returns underneath the lehr."
+               data-es="El vidrio recorre todo el túnel sobre una banda ancha de malla metálica. En el archa descrita en este artículo, la banda es de espiral con alambre plano, de unos 3.000 mm de ancho y 44 m de largo. El tramo cargado se desliza sobre una parrilla de soporte dentro del túnel y la banda retorna por debajo del archa."
+               data-pt="O vidro percorre todo o túnel sobre uma esteira larga de malha metálica. No lehr descrito neste artigo, a esteira é do tipo espiral com arame chato, com cerca de 3.000 mm de largura e 44 m de comprimento. O ramo carregado desliza sobre uma grelha de suporte dentro do túnel, e a esteira retorna por baixo do forno."
+               data-it="Il vetro attraversa tutto il tunnel su un nastro largo a rete metallica. Nel forno descritto in questo articolo, il nastro è a spirale in filo piatto, largo circa 3.000 mm e lungo 44 m. Il ramo carico scorre su una griglia di supporto all'interno del tunnel e il nastro ritorna sotto il forno.">
+                The ware travels through the whole tunnel on a wide wire-mesh belt. On the lehr described in this article, the belt is a spiral flat-wire link belt about 3,000 mm wide and 44 m long. The loaded strand slides over a support grate inside the tunnel, and the belt returns underneath the lehr.
+            </p>
+
+            <p data-en="The belt is driven at the delivery (cold) end by a rubber-lagged drive drum. A pressure roller above the drum increases the wrap and contact. The drive works by friction only, so everything depends on keeping enough tension between the belt and the rubber lagging."
+               data-es="La banda es accionada en el extremo de descarga (frío) por un tambor motriz recubierto de goma. Un rodillo de presión sobre el tambor aumenta el ángulo de contacto. El accionamiento funciona solo por fricción, por lo que todo depende de mantener tensión suficiente entre la banda y el recubrimiento de goma."
+               data-pt="A esteira é acionada na extremidade de descarga (fria) por um tambor motriz revestido de borracha. Um rolo de pressão sobre o tambor aumenta o ângulo de abraçamento e o contato. O acionamento funciona somente por atrito, portanto tudo depende de manter tensão suficiente entre a esteira e o revestimento de borracha."
+               data-it="Il nastro è azionato all'estremità di scarico (fredda) da un tamburo motore rivestito in gomma. Un rullo di pressione sopra il tamburo aumenta l'avvolgimento e il contatto. L'azionamento funziona solo per attrito, quindi tutto dipende dal mantenere una tensione sufficiente tra il nastro e il rivestimento in gomma.">
+                The belt is driven at the delivery (cold) end by a rubber-lagged drive drum. A pressure roller above the drum increases the wrap and contact. The drive works by friction only, so everything depends on keeping enough tension between the belt and the rubber lagging.
+            </p>
+
+            <!-- PHOTO 1: drive drum (your photo 20190122_161928) -->
+            <figure class="figure">
+                <img src="images/lehr/lehr-drive-drum.jpg"
+                     alt="Lehr drive end with rubber-lagged drive drum, pressure roller and bearing housing"
+                     onerror="this.parentNode.classList.add('missing')">
+                <div class="placeholder">images/lehr/lehr-drive-drum.jpg</div>
+                <figcaption data-en="Figure 1 – Lehr drive end: rubber-lagged drive drum, pressure roller above it and bearing housings with take-up adjustment."
+                            data-es="Figura 1 – Extremo motriz del archa: tambor motriz recubierto de goma, rodillo de presión superior y soportes de rodamiento con ajuste."
+                            data-pt="Figura 1 – Extremidade de acionamento do lehr: tambor motriz revestido de borracha, rolo de pressão superior e mancais com ajuste."
+                            data-it="Figura 1 – Estremità di azionamento del forno: tamburo motore rivestito in gomma, rullo di pressione superiore e supporti dei cuscinetti con regolazione.">
+                    Figure 1 – Lehr drive end: rubber-lagged drive drum, pressure roller above it and bearing housings with take-up adjustment.
+                </figcaption>
+            </figure>
+
+            <!-- ===================== 3. THERMAL ELONGATION ===================== -->
+            <h2 data-en="Why Belt Tension Changes: Thermal Elongation"
+                data-es="Por Qué Cambia la Tensión: Elongación Térmica"
+                data-pt="Por que a Tensão Muda: Dilatação Térmica"
+                data-it="Perché la Tensione Cambia: Allungamento Termico">
+                Why Belt Tension Changes: Thermal Elongation
+            </h2>
+
+            <p data-en="A lehr belt is installed cold but runs hot. As it heats up, the steel grows in length. Without a device to absorb this growth, the belt would go slack, lose traction on the drive drum and start to surge or slip."
+               data-es="Una banda de archa se instala en frío pero trabaja en caliente. Al calentarse, el acero se alarga. Sin un dispositivo que absorba ese alargamiento, la banda quedaría floja, perdería tracción en el tambor motriz y empezaría a dar tirones o a patinar."
+               data-pt="Uma esteira de lehr é instalada fria, mas opera quente. Ao aquecer, o aço se alonga. Sem um dispositivo para absorver esse alongamento, a esteira ficaria frouxa, perderia tração no tambor motriz e começaria a dar trancos ou a patinar."
+               data-it="Un nastro di forno viene installato a freddo ma lavora a caldo. Riscaldandosi, l'acciaio si allunga. Senza un dispositivo che assorba questo allungamento, il nastro si allenterebbe, perderebbe trazione sul tamburo motore e inizierebbe a strattonare o a slittare.">
+                A lehr belt is installed cold but runs hot. As it heats up, the steel grows in length. Without a device to absorb this growth, the belt would go slack, lose traction on the drive drum and start to surge or slip.
+            </p>
+
+            <div class="formula-box">
+                <strong data-en="Thermal elongation"
+                        data-es="Elongación térmica"
+                        data-pt="Dilatação térmica"
+                        data-it="Allungamento termico">Thermal elongation</strong>
+
+                <div class="formula">ΔL = L × α × ΔT</div>
+
+                <p class="formula-legend"
+                   data-en="L = belt length · α = coefficient of thermal expansion of the belt steel (typically 12 to 18 × 10⁻⁶ /°C, depending on the alloy) · ΔT = average temperature rise of the whole belt"
+                   data-es="L = longitud de la banda · α = coeficiente de dilatación térmica del acero (típicamente 12 a 18 × 10⁻⁶ /°C, según la aleación) · ΔT = aumento medio de temperatura de toda la banda"
+                   data-pt="L = comprimento da esteira · α = coeficiente de dilatação térmica do aço (tipicamente 12 a 18 × 10⁻⁶ /°C, conforme a liga) · ΔT = aumento médio de temperatura de toda a esteira"
+                   data-it="L = lunghezza del nastro · α = coefficiente di dilatazione termica dell'acciaio (tipicamente da 12 a 18 × 10⁻⁶ /°C, a seconda della lega) · ΔT = aumento medio di temperatura dell'intero nastro">
+                    L = belt length · α = coefficient of thermal expansion of the belt steel (typically 12 to 18 × 10⁻⁶ /°C, depending on the alloy) · ΔT = average temperature rise of the whole belt
+                </p>
+            </div>
+
+            <div class="example-box">
+                <strong data-en="Example" data-es="Ejemplo" data-pt="Exemplo" data-it="Esempio">Example</strong>
+
+                <p data-en="A 44 m belt with α = 15 × 10⁻⁶ /°C and an average temperature rise of 250 °C grows by about 44,000 mm × 0.000015 × 250 ≈ 165 mm. Because the belt wraps around the weight roller in a loop, the roller only needs to drop about half of that, roughly 80 mm, to take up the extra length."
+                   data-es="Una banda de 44 m con α = 15 × 10⁻⁶ /°C y un aumento medio de temperatura de 250 °C se alarga unos 44.000 mm × 0,000015 × 250 ≈ 165 mm. Como la banda abraza el rodillo de peso formando un lazo, el rodillo solo necesita bajar aproximadamente la mitad, unos 80 mm, para absorber la longitud adicional."
+                   data-pt="Uma esteira de 44 m com α = 15 × 10⁻⁶ /°C e aumento médio de temperatura de 250 °C se alonga cerca de 44.000 mm × 0,000015 × 250 ≈ 165 mm. Como a esteira abraça o rolo de peso formando um laço, o rolo precisa descer apenas cerca da metade, aproximadamente 80 mm, para absorver o comprimento adicional."
+                   data-it="Un nastro di 44 m con α = 15 × 10⁻⁶ /°C e un aumento medio di temperatura di 250 °C si allunga di circa 44.000 mm × 0,000015 × 250 ≈ 165 mm. Poiché il nastro avvolge il rullo di peso formando un'ansa, il rullo deve scendere solo circa la metà, circa 80 mm, per assorbire la lunghezza aggiuntiva.">
+                    A 44 m belt with α = 15 × 10⁻⁶ /°C and an average temperature rise of 250 °C grows by about 44,000 mm × 0.000015 × 250 ≈ 165 mm. Because the belt wraps around the weight roller in a loop, the roller only needs to drop about half of that, roughly 80 mm, to take up the extra length.
+                </p>
+
+                <p data-en="This is an illustrative estimate. The real average belt temperature depends on the lehr profile, the return strand temperature and the belt alloy."
+                   data-es="Esta es una estimación ilustrativa. La temperatura media real de la banda depende del perfil del archa, de la temperatura del tramo de retorno y de la aleación de la banda."
+                   data-pt="Esta é uma estimativa ilustrativa. A temperatura média real da esteira depende do perfil do forno, da temperatura do ramo de retorno e da liga da esteira."
+                   data-it="Questa è una stima illustrativa. La temperatura media reale del nastro dipende dal profilo del forno, dalla temperatura del ramo di ritorno e dalla lega del nastro.">
+                    This is an illustrative estimate. The real average belt temperature depends on the lehr profile, the return strand temperature and the belt alloy.
+                </p>
+            </div>
+
+            <!-- ===================== 4. WEIGHT-ROLLER TAKE-UP ===================== -->
+            <h2 data-en="The Weight-Roller Take-Up"
+                data-es="El Tensor de Rodillo de Peso"
+                data-pt="O Tensor por Rolo de Peso"
+                data-it="Il Tenditore a Rullo di Peso">
+                The Weight-Roller Take-Up
+            </h2>
+
+            <p data-en="The belt tension device sits in the last delivery section, just before the drive. The return strand runs over two fixed rollers and loops down around a free weight roller that moves up and down inside vertical guides. Gravity keeps the belt under constant tension. As the belt grows with heat, the roller drops. As it cools, the roller rises."
+               data-es="El dispositivo tensor está en la última sección de descarga, justo antes del accionamiento. El tramo de retorno pasa sobre dos rodillos fijos y forma un lazo alrededor de un rodillo de peso libre que sube y baja dentro de guías verticales. La gravedad mantiene la banda con tensión constante. Cuando la banda se alarga por el calor, el rodillo baja. Cuando se enfría, el rodillo sube."
+               data-pt="O dispositivo tensor fica na última seção de descarga, logo antes do acionamento. O ramo de retorno passa sobre dois rolos fixos e forma um laço ao redor de um rolo de peso livre, que sobe e desce dentro de guias verticais. A gravidade mantém a esteira com tensão constante. Quando a esteira se alonga com o calor, o rolo desce. Quando esfria, o rolo sobe."
+               data-it="Il dispositivo tenditore si trova nell'ultima sezione di scarico, subito prima dell'azionamento. Il ramo di ritorno passa su due rulli fissi e forma un'ansa attorno a un rullo di peso libero che sale e scende all'interno di guide verticali. La gravità mantiene il nastro a tensione costante. Quando il nastro si allunga per il calore, il rullo scende. Quando si raffredda, il rullo sale.">
+                The belt tension device sits in the last delivery section, just before the drive. The return strand runs over two fixed rollers and loops down around a free weight roller that moves up and down inside vertical guides. Gravity keeps the belt under constant tension. As the belt grows with heat, the roller drops. As it cools, the roller rises.
+            </p>
+
+            <!-- DIAGRAM: redrawn by BELTPRO (no image file needed) -->
+            <figure class="figure">
+                <div class="diagram">
+                    <svg viewBox="0 0 900 340" role="img" aria-label="Weight roller positions: too tight, optimal, too loose">
+                        <defs>
+                            <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                                <path d="M0,0 L8,4 L0,8 z" fill="#dc2626"/>
+                            </marker>
+                        </defs>
+
+                        <!-- ===== Panel A: too tight (roller high) ===== -->
+                        <g>
+                            <rect x="10" y="40" width="280" height="250" rx="10" fill="#fbfdff" stroke="#dbe5ee"/>
+                            <text x="150" y="28" text-anchor="middle" font-family="Arial" font-size="17" font-weight="700" fill="#f59e0b"
+                                  data-en="Too tight" data-es="Demasiado tensa" data-pt="Tensa demais" data-it="Troppo teso">Too tight</text>
+                            <line x1="132" y1="60" x2="132" y2="280" stroke="#64748b" stroke-width="3"/>
+                            <line x1="168" y1="60" x2="168" y2="280" stroke="#64748b" stroke-width="3"/>
+                            <line x1="120" y1="280" x2="180" y2="280" stroke="#0b1f33" stroke-width="4"/>
+                            <line x1="122" y1="230" x2="178" y2="230" stroke="#dc2626" stroke-width="2" stroke-dasharray="6 4"/>
+                            <polyline points="20,54 70,54 150,121 230,54 280,54" fill="none" stroke="#0f4c81" stroke-width="3" stroke-dasharray="8 5"/>
+                            <circle cx="70" cy="70" r="16" fill="#ffffff" stroke="#0b1f33" stroke-width="3"/>
+                            <circle cx="230" cy="70" r="16" fill="#ffffff" stroke="#0b1f33" stroke-width="3"/>
+                            <circle cx="150" cy="105" r="16" fill="#fef3c7" stroke="#f59e0b" stroke-width="3"/>
+                            <text x="150" y="318" text-anchor="middle" font-family="Arial" font-size="13" fill="#64748b"
+                                  data-en="No travel left for expansion" data-es="Sin recorrido para la dilatación" data-pt="Sem curso para a dilatação" data-it="Nessuna corsa per la dilatazione">No travel left for expansion</text>
+                        </g>
+
+                        <!-- ===== Panel B: optimal (roller mid) ===== -->
+                        <g>
+                            <rect x="310" y="40" width="280" height="250" rx="10" fill="#fbfdff" stroke="#38bdf8" stroke-width="2"/>
+                            <text x="450" y="28" text-anchor="middle" font-family="Arial" font-size="17" font-weight="700" fill="#16a34a"
+                                  data-en="Optimal" data-es="Óptimo" data-pt="Ideal" data-it="Ottimale">Optimal</text>
+                            <line x1="432" y1="60" x2="432" y2="280" stroke="#64748b" stroke-width="3"/>
+                            <line x1="468" y1="60" x2="468" y2="280" stroke="#64748b" stroke-width="3"/>
+                            <line x1="420" y1="280" x2="480" y2="280" stroke="#0b1f33" stroke-width="4"/>
+                            <line x1="422" y1="230" x2="478" y2="230" stroke="#dc2626" stroke-width="2" stroke-dasharray="6 4"/>
+                            <polyline points="320,54 370,54 450,186 530,54 580,54" fill="none" stroke="#0f4c81" stroke-width="3" stroke-dasharray="8 5"/>
+                            <circle cx="370" cy="70" r="16" fill="#ffffff" stroke="#0b1f33" stroke-width="3"/>
+                            <circle cx="530" cy="70" r="16" fill="#ffffff" stroke="#0b1f33" stroke-width="3"/>
+                            <circle cx="450" cy="170" r="16" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+                            <text x="450" y="318" text-anchor="middle" font-family="Arial" font-size="13" fill="#64748b"
+                                  data-en="Travel available in both directions" data-es="Recorrido disponible en ambos sentidos" data-pt="Curso disponível nos dois sentidos" data-it="Corsa disponibile in entrambe le direzioni">Travel available in both directions</text>
+                        </g>
+
+                        <!-- ===== Panel C: too loose (roller low, below limit) ===== -->
+                        <g>
+                            <rect x="610" y="40" width="280" height="250" rx="10" fill="#fbfdff" stroke="#dbe5ee"/>
+                            <text x="750" y="28" text-anchor="middle" font-family="Arial" font-size="17" font-weight="700" fill="#dc2626"
+                                  data-en="Too loose" data-es="Demasiado floja" data-pt="Frouxa demais" data-it="Troppo lento">Too loose</text>
+                            <line x1="732" y1="60" x2="732" y2="280" stroke="#64748b" stroke-width="3"/>
+                            <line x1="768" y1="60" x2="768" y2="280" stroke="#64748b" stroke-width="3"/>
+                            <line x1="720" y1="280" x2="780" y2="280" stroke="#0b1f33" stroke-width="4"/>
+                            <line x1="722" y1="230" x2="778" y2="230" stroke="#dc2626" stroke-width="2" stroke-dasharray="6 4"/>
+                            <polyline points="620,54 670,54 750,271 830,54 880,54" fill="none" stroke="#0f4c81" stroke-width="3" stroke-dasharray="8 5"/>
+                            <circle cx="670" cy="70" r="16" fill="#ffffff" stroke="#0b1f33" stroke-width="3"/>
+                            <circle cx="830" cy="70" r="16" fill="#ffffff" stroke="#0b1f33" stroke-width="3"/>
+                            <circle cx="750" cy="255" r="16" fill="#fee2e2" stroke="#dc2626" stroke-width="3"/>
+                            <line x1="810" y1="232" x2="810" y2="278" stroke="#dc2626" stroke-width="2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+                            <text x="818" y="260" font-family="Arial" font-size="14" font-weight="700" fill="#dc2626">100 mm</text>
+                            <text x="750" y="318" text-anchor="middle" font-family="Arial" font-size="13" fill="#64748b"
+                                  data-en="Below the limit: traction is lost" data-es="Bajo el límite: se pierde tracción" data-pt="Abaixo do limite: perda de tração" data-it="Sotto il limite: trazione persa">Below the limit: traction is lost</text>
+                        </g>
+                    </svg>
+                </div>
+                <figcaption data-en="Figure 2 – Weight-roller positions in the take-up guides. The dashed red line marks the minimum clearance of 100 mm above the bottom of the guide."
+                            data-es="Figura 2 – Posiciones del rodillo de peso en las guías del tensor. La línea roja discontinua marca la distancia mínima de 100 mm sobre el fondo de la guía."
+                            data-pt="Figura 2 – Posições do rolo de peso nas guias do tensor. A linha vermelha tracejada marca a folga mínima de 100 mm acima do fundo da guia."
+                            data-it="Figura 2 – Posizioni del rullo di peso nelle guide del tenditore. La linea rossa tratteggiata indica la distanza minima di 100 mm dal fondo della guida.">
+                    Figure 2 – Weight-roller positions in the take-up guides. The dashed red line marks the minimum clearance of 100 mm above the bottom of the guide.
+                </figcaption>
+            </figure>
+
+            <div class="rule-box"
+                 data-en="Never let the weight roller come closer than 100 mm to the bottom of its guide"
+                 data-es="Nunca permita que el rodillo de peso quede a menos de 100 mm del fondo de su guía"
+                 data-pt="Nunca deixe o rolo de peso ficar a menos de 100 mm do fundo da sua guia"
+                 data-it="Non lasciare mai che il rullo di peso arrivi a meno di 100 mm dal fondo della guida">
+                Never let the weight roller come closer than 100 mm to the bottom of its guide
+            </div>
+
+            <p data-en="When the roller reaches the bottom of its guide, it stops working as a tensioner. The belt goes slack at the drive, loses grip on the rubber lagging and slips. A slipping belt scuffs the rubber off the drive drum very quickly, and after that the drive can no longer move the belt reliably."
+               data-es="Cuando el rodillo llega al fondo de la guía, deja de funcionar como tensor. La banda queda floja en el accionamiento, pierde adherencia sobre el recubrimiento de goma y patina. Una banda que patina desgasta la goma del tambor motriz muy rápidamente y, a partir de ahí, el accionamiento ya no puede mover la banda de forma confiable."
+               data-pt="Quando o rolo chega ao fundo da guia, ele deixa de funcionar como tensor. A esteira fica frouxa no acionamento, perde aderência no revestimento de borracha e patina. Uma esteira patinando desgasta a borracha do tambor motriz muito rapidamente e, a partir daí, o acionamento já não consegue mover a esteira de forma confiável."
+               data-it="Quando il rullo raggiunge il fondo della guida, smette di funzionare come tenditore. Il nastro si allenta sull'azionamento, perde aderenza sul rivestimento in gomma e slitta. Un nastro che slitta consuma molto rapidamente la gomma del tamburo motore e, da quel momento, l'azionamento non riesce più a muovere il nastro in modo affidabile.">
+                When the roller reaches the bottom of its guide, it stops working as a tensioner. The belt goes slack at the drive, loses grip on the rubber lagging and slips. A slipping belt scuffs the rubber off the drive drum very quickly, and after that the drive can no longer move the belt reliably.
+            </p>
+
+            <div class="consequence-grid">
+                <div class="consequence-card">
+                    <strong data-en="Loss of traction" data-es="Pérdida de tracción" data-pt="Perda de tração" data-it="Perdita di trazione">Loss of traction</strong>
+                    <p data-en="The belt slips on the drive drum, and the speed through the lehr is no longer constant."
+                       data-es="La banda patina en el tambor motriz y la velocidad a través del archa deja de ser constante."
+                       data-pt="A esteira patina no tambor motriz e a velocidade através do forno deixa de ser constante."
+                       data-it="Il nastro slitta sul tamburo motore e la velocità attraverso il forno non è più costante.">
+                        The belt slips on the drive drum, and the speed through the lehr is no longer constant.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Lagging wear" data-es="Desgaste del recubrimiento" data-pt="Desgaste do revestimento" data-it="Usura del rivestimento">Lagging wear</strong>
+                    <p data-en="Slipping destroys the rubber lagging on the drive drum in a short time."
+                       data-es="El patinaje destruye en poco tiempo el recubrimiento de goma del tambor motriz."
+                       data-pt="A patinação destrói em pouco tempo o revestimento de borracha do tambor motriz."
+                       data-it="Lo slittamento distrugge in breve tempo il rivestimento in gomma del tamburo motore.">
+                        Slipping destroys the rubber lagging on the drive drum in a short time.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Annealing quality" data-es="Calidad del recocido" data-pt="Qualidade do recozimento" data-it="Qualità della ricottura">Annealing quality</strong>
+                    <p data-en="Irregular belt speed changes the time the ware spends in each zone, which can affect the annealing result."
+                       data-es="Una velocidad irregular cambia el tiempo que el vidrio pasa en cada zona, lo que puede afectar el resultado del recocido."
+                       data-pt="Uma velocidade irregular altera o tempo que o vidro permanece em cada zona, o que pode afetar o resultado do recozimento."
+                       data-it="Una velocità irregolare cambia il tempo che il vetro trascorre in ogni zona, con possibili effetti sul risultato della ricottura.">
+                        Irregular belt speed changes the time the ware spends in each zone, which can affect the annealing result.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Ware handling problems" data-es="Problemas de manejo del vidrio" data-pt="Problemas no manuseio do vidro" data-it="Problemi di movimentazione del vetro">Ware handling problems</strong>
+                    <p data-en="Surging and stop-start movement can tip containers and cause jams at the cold-end transfer."
+                       data-es="Los tirones y el movimiento intermitente pueden volcar envases y causar atascos en la transferencia del extremo frío."
+                       data-pt="Trancos e movimento intermitente podem tombar embalagens e causar enroscos na transferência da extremidade fria."
+                       data-it="Strattoni e movimento a scatti possono ribaltare i contenitori e causare inceppamenti al trasferimento del lato freddo.">
+                        Surging and stop-start movement can tip containers and cause jams at the cold-end transfer.
+                    </p>
+                </div>
+            </div>
+
+            <h3 data-en="When the roller is too low: shorten the belt"
+                data-es="Cuando el rodillo está demasiado bajo: acortar la banda"
+                data-pt="Quando o rolo está baixo demais: encurtar a esteira"
+                data-it="Quando il rullo è troppo basso: accorciare il nastro">
+                When the roller is too low: shorten the belt
+            </h3>
+
+            <p data-en="Over time, wire-mesh belts also stretch permanently through wear at the connections. If the weight roller sits close to the 100 mm limit, adding weight or forcing the take-up is not the answer. The correct action is to shorten the belt by the required amount, following the manufacturer's procedure, so the roller returns to the middle of its travel."
+               data-es="Con el tiempo, las bandas de malla metálica también se alargan de forma permanente por el desgaste en las conexiones. Si el rodillo de peso está cerca del límite de 100 mm, agregar peso o forzar el tensor no es la solución. Lo correcto es acortar la banda en la cantidad necesaria, según el procedimiento del fabricante, para que el rodillo vuelva a la mitad de su recorrido."
+               data-pt="Com o tempo, as esteiras de malha metálica também se alongam de forma permanente pelo desgaste nas conexões. Se o rolo de peso estiver perto do limite de 100 mm, adicionar peso ou forçar o tensor não é a solução. O correto é encurtar a esteira na quantidade necessária, conforme o procedimento do fabricante, para que o rolo volte ao meio do seu curso."
+               data-it="Con il tempo, i nastri a rete metallica si allungano anche in modo permanente per l'usura dei collegamenti. Se il rullo di peso è vicino al limite di 100 mm, aggiungere peso o forzare il tenditore non è la soluzione. L'azione corretta è accorciare il nastro della quantità necessaria, secondo la procedura del costruttore, in modo che il rullo torni a metà della sua corsa.">
+                Over time, wire-mesh belts also stretch permanently through wear at the connections. If the weight roller sits close to the 100 mm limit, adding weight or forcing the take-up is not the answer. The correct action is to shorten the belt by the required amount, following the manufacturer's procedure, so the roller returns to the middle of its travel.
+            </p>
+
+            <!-- ===================== 5. SPRING CHECK ===================== -->
+            <h2 data-en="Checking Spring Tension in the Field"
+                data-es="Verificación de la Tensión del Resorte en Campo"
+                data-pt="Verificação da Tensão da Mola em Campo"
+                data-it="Verifica della Tensione della Molla sul Campo">
+                Checking Spring Tension in the Field
+            </h2>
+
+            <p data-en="Lehrs also use spring-loaded tensioning strands: a steel wire rope connected to a heavy tension spring, adjusted by a nut on a threaded bow. The spring is sized for the lehr length and belt width, so the goal is not maximum tension but the correct preload."
+               data-es="Los archas también utilizan tirantes tensados por resorte: un cable de acero conectado a un resorte de tensión robusto, ajustado mediante una tuerca en un arco roscado. El resorte está dimensionado según la longitud del archa y el ancho de la banda, por lo que el objetivo no es la tensión máxima sino la precarga correcta."
+               data-pt="Os lehrs também usam tirantes tensionados por mola: um cabo de aço ligado a uma mola de tração robusta, ajustada por uma porca em um arco roscado. A mola é dimensionada conforme o comprimento do forno e a largura da esteira, portanto o objetivo não é a tensão máxima, e sim a pré-carga correta."
+               data-it="I forni utilizzano anche tiranti tensionati a molla: una fune d'acciaio collegata a una robusta molla di trazione, regolata tramite un dado su un arco filettato. La molla è dimensionata in base alla lunghezza del forno e alla larghezza del nastro, quindi l'obiettivo non è la tensione massima ma il precarico corretto.">
+                Lehrs also use spring-loaded tensioning strands: a steel wire rope connected to a heavy tension spring, adjusted by a nut on a threaded bow. The spring is sized for the lehr length and belt width, so the goal is not maximum tension but the correct preload.
+            </p>
+
+            <div class="field-box">
+                <strong data-en="Quick field check" data-es="Verificación rápida en campo" data-pt="Verificação rápida em campo" data-it="Verifica rapida sul campo">Quick field check</strong>
+                <p data-en="Tighten the nut until the spring coils open to a gap of about 3 mm. A simple way to confirm it is to slide the blade of a folding rule between the coils: if it fits without forcing, the preload is correct. Repeat this check at every regular inspection."
+                   data-es="Apriete la tuerca hasta que las espiras del resorte se separen unos 3 mm. Una forma sencilla de confirmarlo es introducir la hoja de un metro plegable entre las espiras: si entra sin forzar, la precarga es correcta. Repita esta verificación en cada inspección regular."
+                   data-pt="Aperte a porca até que as espiras da mola se abram com uma folga de cerca de 3 mm. Uma forma simples de confirmar é passar a lâmina de um metro dobrável entre as espiras: se entrar sem forçar, a pré-carga está correta. Repita essa verificação em cada inspeção regular."
+                   data-it="Serrare il dado finché le spire della molla si aprono con una distanza di circa 3 mm. Un modo semplice per verificarlo è inserire la lama di un metro pieghevole tra le spire: se entra senza forzare, il precarico è corretto. Ripetere questa verifica a ogni ispezione regolare.">
+                    Tighten the nut until the spring coils open to a gap of about 3 mm. A simple way to confirm it is to slide the blade of a folding rule between the coils: if it fits without forcing, the preload is correct. Repeat this check at every regular inspection.
+                </p>
+            </div>
+
+            <!-- PHOTO 3: spring check (your photo 20190125_103312 - hand with folding rule) -->
+            <figure class="figure">
+                <img src="images/lehr/lehr-tension-spring-check.jpg"
+                     alt="Checking the gap between tension spring coils with the blade of a folding rule"
+                     onerror="this.parentNode.classList.add('missing')">
+                <div class="placeholder">images/lehr/lehr-tension-spring-check.jpg</div>
+                <figcaption data-en="Figure 3 – Field check of the tension spring: the blade of a folding rule slides between the coils, confirming a gap of about 3 mm."
+                            data-es="Figura 3 – Verificación en campo del resorte: la hoja de un metro plegable entra entre las espiras, confirmando una separación de unos 3 mm."
+                            data-pt="Figura 3 – Verificação em campo da mola: a lâmina de um metro dobrável entra entre as espiras, confirmando uma folga de cerca de 3 mm."
+                            data-it="Figura 3 – Verifica sul campo della molla: la lama di un metro pieghevole entra tra le spire, confermando una distanza di circa 3 mm.">
+                    Figure 3 – Field check of the tension spring: the blade of a folding rule slides between the coils, confirming a gap of about 3 mm.
+                </figcaption>
+            </figure>
+
+            <!-- ===================== 6. FIELD EXPERIENCE ===================== -->
+            <h2 data-en="Field Experience: Installing a 3 m Wide Lehr Belt"
+                data-es="Experiencia de Campo: Instalación de una Banda de Archa de 3 m"
+                data-pt="Experiência de Campo: Instalação de uma Esteira de Lehr de 3 m"
+                data-it="Esperienza sul Campo: Installazione di un Nastro da Forno Largo 3 m">
+                Field Experience: Installing a 3 m Wide Lehr Belt
+            </h2>
+
+            <p data-en="On a belt replacement for a container-glass lehr, the new belt was pulled into the tunnel over the support grate. With a belt about 3 m wide, the way it is pulled matters as much as the pulling force. A single pull point on the belt end concentrates the load on a few links, distorts the mesh and makes the belt run crooked. Instead, a pulling bar was fixed across the full width of the belt end, and several wire ropes fanned out from it to the pulling point. Each rope takes a share of the load, so the tension is spread evenly across the width and the belt advances straight and square."
+               data-es="En un cambio de banda de un archa para envases de vidrio, la banda nueva se introdujo en el túnel sobre la parrilla de soporte. Con una banda de unos 3 m de ancho, la forma de tirar importa tanto como la fuerza. Un solo punto de tiro en el extremo de la banda concentra la carga en pocos eslabones, deforma la malla y hace que la banda avance torcida. En su lugar, se fijó una barra de tiro en todo el ancho del extremo de la banda, y varios cables de acero salían en abanico desde ella hasta el punto de tiro. Cada cable toma una parte de la carga, de modo que la tensión se reparte de forma uniforme en todo el ancho y la banda avanza recta y escuadrada."
+               data-pt="Em uma troca de esteira de um lehr para embalagens de vidro, a esteira nova foi puxada para dentro do túnel sobre a grelha de suporte. Com uma esteira de cerca de 3 m de largura, a forma de puxar importa tanto quanto a força. Um único ponto de tração na ponta da esteira concentra a carga em poucos elos, deforma a malha e faz a esteira avançar torta. Em vez disso, foi fixada uma barra de tração em toda a largura da ponta da esteira, e vários cabos de aço saíam em leque dela até o ponto de tração. Cada cabo recebe uma parte da carga, de modo que a tensão se distribui de forma uniforme em toda a largura e a esteira avança reta e no esquadro."
+               data-it="In una sostituzione del nastro di un forno per contenitori in vetro, il nuovo nastro è stato tirato nel tunnel sulla griglia di supporto. Con un nastro largo circa 3 m, il modo di tirare conta quanto la forza. Un unico punto di tiro sull'estremità del nastro concentra il carico su poche maglie, deforma la rete e fa avanzare il nastro storto. Invece, è stata fissata una barra di tiro su tutta la larghezza dell'estremità del nastro, e diverse funi d'acciaio partivano a ventaglio da essa fino al punto di tiro. Ogni fune prende una parte del carico, così la tensione si distribuisce in modo uniforme su tutta la larghezza e il nastro avanza dritto e in squadra.">
+                On a belt replacement for a container-glass lehr, the new belt was pulled into the tunnel over the support grate. With a belt about 3 m wide, the way it is pulled matters as much as the pulling force. A single pull point on the belt end concentrates the load on a few links, distorts the mesh and makes the belt run crooked. Instead, a pulling bar was fixed across the full width of the belt end, and several wire ropes fanned out from it to the pulling point. Each rope takes a share of the load, so the tension is spread evenly across the width and the belt advances straight and square.
+            </p>
+
+            <!-- PHOTO 2: belt pulling with fanned cables (your new photo). Save it as PNG with this exact name. -->
+            <figure class="figure">
+                <img src="images/lehr/lehr-belt-pulling-cables.png"
+                     alt="Wide lehr belt being pulled over the support grate with a pulling bar and several fanned wire ropes"
+                     onerror="this.parentNode.classList.add('missing')">
+                <div class="placeholder">images/lehr/lehr-belt-pulling-cables.png</div>
+                <figcaption data-en="Figure 4 – Pulling the belt over the support grate with a pulling bar and several wire ropes fanned out, so the load is shared across the full belt width."
+                            data-es="Figura 4 – Tiro de la banda sobre la parrilla de soporte con una barra de tiro y varios cables en abanico, para repartir la carga en todo el ancho de la banda."
+                            data-pt="Figura 4 – Puxamento da esteira sobre a grelha de suporte com uma barra de tração e vários cabos em leque, distribuindo a carga em toda a largura da esteira."
+                            data-it="Figura 4 – Tiro del nastro sulla griglia di supporto con una barra di tiro e diverse funi a ventaglio, per ripartire il carico su tutta la larghezza del nastro.">
+                    Figure 4 – Pulling the belt over the support grate with a pulling bar and several wire ropes fanned out, so the load is shared across the full belt width.
+                </figcaption>
+            </figure>
+
+            <h3 data-en="Lessons from the job" data-es="Lecciones del trabajo" data-pt="Lições do trabalho" data-it="Lezioni dal lavoro">Lessons from the job</h3>
+
+            <ul>
+                <li data-en="Never pull a wide belt from a single point. Use a full-width pulling bar with several ropes so every part of the belt end carries a share of the load."
+                    data-es="Nunca tire de una banda ancha desde un solo punto. Use una barra de tiro en todo el ancho con varios cables, para que cada parte del extremo de la banda soporte una parte de la carga."
+                    data-pt="Nunca puxe uma esteira larga por um único ponto. Use uma barra de tração em toda a largura com vários cabos, para que cada parte da ponta da esteira receba uma parte da carga."
+                    data-it="Non tirare mai un nastro largo da un solo punto. Usare una barra di tiro su tutta la larghezza con diverse funi, in modo che ogni parte dell'estremità del nastro porti una quota del carico.">
+                    Never pull a wide belt from a single point. Use a full-width pulling bar with several ropes so every part of the belt end carries a share of the load.
+                </li>
+                <li data-en="Set the take-up with the lehr cold, keeping the weight roller in the upper part of its travel. The belt will grow when hot, and the roller needs room to drop."
+                    data-es="Ajuste el tensor con el archa en frío, manteniendo el rodillo de peso en la parte superior de su recorrido. La banda se alargará en caliente y el rodillo necesita espacio para bajar."
+                    data-pt="Ajuste o tensor com o forno frio, mantendo o rolo de peso na parte superior do seu curso. A esteira vai se alongar quando quente, e o rolo precisa de espaço para descer."
+                    data-it="Regolare il tenditore a forno freddo, mantenendo il rullo di peso nella parte superiore della sua corsa. Il nastro si allungherà a caldo e il rullo ha bisogno di spazio per scendere.">
+                    Set the take-up with the lehr cold, keeping the weight roller in the upper part of its travel. The belt will grow when hot, and the roller needs room to drop.
+                </li>
+                <li data-en="Check the roller position again after the lehr reaches operating temperature, and confirm it is still at least 100 mm above the bottom of the guide."
+                    data-es="Verifique de nuevo la posición del rodillo cuando el archa alcance la temperatura de operación y confirme que sigue al menos 100 mm por encima del fondo de la guía."
+                    data-pt="Verifique novamente a posição do rolo depois que o forno atingir a temperatura de operação e confirme que ele continua pelo menos 100 mm acima do fundo da guia."
+                    data-it="Ricontrollare la posizione del rullo dopo che il forno ha raggiunto la temperatura di esercizio e confermare che sia ancora almeno 100 mm sopra il fondo della guida.">
+                    Check the roller position again after the lehr reaches operating temperature, and confirm it is still at least 100 mm above the bottom of the guide.
+                </li>
+                <li data-en="Inspect the rubber lagging on the drive drum before start-up. A worn drum will slip even with correct tension."
+                    data-es="Inspeccione el recubrimiento de goma del tambor motriz antes del arranque. Un tambor desgastado patinará incluso con la tensión correcta."
+                    data-pt="Inspecione o revestimento de borracha do tambor motriz antes da partida. Um tambor desgastado vai patinar mesmo com a tensão correta."
+                    data-it="Ispezionare il rivestimento in gomma del tamburo motore prima dell'avviamento. Un tamburo usurato slitterà anche con la tensione corretta.">
+                    Inspect the rubber lagging on the drive drum before start-up. A worn drum will slip even with correct tension.
+                </li>
+                <li data-en="Verify the spring preload with the 3 mm coil-gap check, and record the values for the next inspection."
+                    data-es="Verifique la precarga de los resortes con la prueba de separación de 3 mm entre espiras y registre los valores para la próxima inspección."
+                    data-pt="Verifique a pré-carga das molas com o teste da folga de 3 mm entre espiras e registre os valores para a próxima inspeção."
+                    data-it="Verificare il precarico delle molle con la prova dei 3 mm tra le spire e registrare i valori per la prossima ispezione.">
+                    Verify the spring preload with the 3 mm coil-gap check, and record the values for the next inspection.
+                </li>
+            </ul>
+
+            <!-- ===================== 7. CHECKLIST ===================== -->
+            <h2 data-en="Inspection Checklist"
+                data-es="Lista de Verificación"
+                data-pt="Checklist de Inspeção"
+                data-it="Checklist di Ispezione">
+                Inspection Checklist
+            </h2>
+
+            <ol>
+                <li data-en="Weight roller position: at least 100 mm above the bottom of the guide, ideally near the middle of its travel at operating temperature."
+                    data-es="Posición del rodillo de peso: al menos 100 mm sobre el fondo de la guía, idealmente cerca de la mitad de su recorrido a temperatura de operación."
+                    data-pt="Posição do rolo de peso: pelo menos 100 mm acima do fundo da guia, idealmente perto do meio do curso na temperatura de operação."
+                    data-it="Posizione del rullo di peso: almeno 100 mm sopra il fondo della guida, idealmente vicino a metà corsa alla temperatura di esercizio.">
+                    Weight roller position: at least 100 mm above the bottom of the guide, ideally near the middle of its travel at operating temperature.
+                </li>
+                <li data-en="Weight roller moves freely in its guides, with no binding or debris."
+                    data-es="El rodillo de peso se mueve libremente en sus guías, sin trabas ni suciedad."
+                    data-pt="O rolo de peso se move livremente nas guias, sem travamentos ou sujeira."
+                    data-it="Il rullo di peso si muove liberamente nelle guide, senza impuntamenti né detriti.">
+                    Weight roller moves freely in its guides, with no binding or debris.
+                </li>
+                <li data-en="Drive drum lagging: no glazing, cracks or bare spots."
+                    data-es="Recubrimiento del tambor motriz: sin vitrificado, grietas ni zonas sin goma."
+                    data-pt="Revestimento do tambor motriz: sem espelhamento, trincas ou áreas sem borracha."
+                    data-it="Rivestimento del tamburo motore: nessuna vetrificazione, crepe o zone scoperte.">
+                    Drive drum lagging: no glazing, cracks or bare spots.
+                </li>
+                <li data-en="Tension springs: coil gap of about 3 mm."
+                    data-es="Resortes de tensión: separación entre espiras de unos 3 mm."
+                    data-pt="Molas de tração: folga entre espiras de cerca de 3 mm."
+                    data-it="Molle di tensione: distanza tra le spire di circa 3 mm.">
+                    Tension springs: coil gap of about 3 mm.
+                </li>
+                <li data-en="Belt tracking: centered over the full length, with no edge contact with the lehr frame."
+                    data-es="Guiado de la banda: centrada en toda la longitud, sin contacto de los bordes con la estructura del archa."
+                    data-pt="Tracking da esteira: centralizada em todo o comprimento, sem contato das bordas com a estrutura do forno."
+                    data-it="Tracking del nastro: centrato su tutta la lunghezza, senza contatto dei bordi con la struttura del forno.">
+                    Belt tracking: centered over the full length, with no edge contact with the lehr frame.
+                </li>
+                <li data-en="Belt speed: steady, with no surging at the cold-end transfer."
+                    data-es="Velocidad de la banda: constante, sin tirones en la transferencia del extremo frío."
+                    data-pt="Velocidade da esteira: constante, sem trancos na transferência da extremidade fria."
+                    data-it="Velocità del nastro: costante, senza strattoni al trasferimento del lato freddo.">
+                    Belt speed: steady, with no surging at the cold-end transfer.
+                </li>
+            </ol>
+
+            <section class="website-note">
+                <h2 data-en="BELTPRO Field Support for Glass Lehrs"
+                    data-es="Soporte de Campo BELTPRO para Archas de Vidrio"
+                    data-pt="Suporte de Campo BELTPRO para Lehrs de Vidro"
+                    data-it="Supporto sul Campo BELTPRO per Forni di Ricottura">
+                    BELTPRO Field Support for Glass Lehrs
+                </h2>
+
+                <p data-en="BELTPRO supports glass manufacturers with lehr belt installation, take-up and tension adjustment, drive troubleshooting and maintenance training. Contact us to plan your next belt replacement or inspection."
+                   data-es="BELTPRO apoya a los fabricantes de vidrio en la instalación de bandas de archa, ajuste del tensor y de la tensión, diagnóstico del accionamiento y capacitación en mantenimiento. Contáctenos para planificar su próximo cambio de banda o inspección."
+                   data-pt="A BELTPRO apoia fabricantes de vidro na instalação de esteiras de lehr, ajuste do tensor e da tensão, diagnóstico do acionamento e treinamento de manutenção. Fale conosco para planejar a sua próxima troca de esteira ou inspeção."
+                   data-it="BELTPRO supporta i produttori di vetro nell'installazione dei nastri da forno, nella regolazione del tenditore e della tensione, nella diagnosi dell'azionamento e nella formazione per la manutenzione. Contattaci per pianificare la prossima sostituzione del nastro o ispezione.">
+                    BELTPRO supports glass manufacturers with lehr belt installation, take-up and tension adjustment, drive troubleshooting and maintenance training. Contact us to plan your next belt replacement or inspection.
+                </p>
+            </section>
+
+            <div class="disclaimer">
+                <strong data-en="Engineering Disclaimer"
+                        data-es="Aviso de Ingeniería"
+                        data-pt="Aviso de Engenharia"
+                        data-it="Avvertenza di Ingegneria">
+                    Engineering Disclaimer
+                </strong>
+
+                <p data-en="This article is intended for general technical guidance and preliminary engineering reference only. Lehr settings, belt tension and take-up adjustment must always follow the equipment manufacturer's documentation, the actual operating conditions and the plant's safety procedures."
+                   data-es="Este artículo está destinado únicamente a orientación técnica general y referencia preliminar de ingeniería. Los ajustes del archa, la tensión de la banda y el ajuste del tensor deben seguir siempre la documentación del fabricante del equipo, las condiciones reales de operación y los procedimientos de seguridad de la planta."
+                   data-pt="Este artigo destina-se somente a orientação técnica geral e referência preliminar de engenharia. Os ajustes do forno, a tensão da esteira e o ajuste do tensor devem sempre seguir a documentação do fabricante do equipamento, as condições reais de operação e os procedimentos de segurança da planta."
+                   data-it="Questo articolo è destinato esclusivamente a orientamento tecnico generale e riferimento preliminare di ingegneria. Le impostazioni del forno, la tensione del nastro e la regolazione del tenditore devono sempre seguire la documentazione del costruttore, le condizioni operative reali e le procedure di sicurezza dello stabilimento.">
+                    This article is intended for general technical guidance and preliminary engineering reference only. Lehr settings, belt tension and take-up adjustment must always follow the equipment manufacturer's documentation, the actual operating conditions and the plant's safety procedures.
+                </p>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <strong>BELTPRO</strong>
+            <span>
+                © <span id="currentYear"></span> BELTPRO ·
+                <span data-en="Serving Industry Since 2014"
+                      data-es="Atendiendo a la Industria Desde 2014"
+                      data-pt="Atendendo a Indústria Desde 2014"
+                      data-it="Al Servizio dell'Industria Dal 2014">
+                    Serving Industry Since 2014
+                </span>
+            </span>
+        </div>
+    </footer>
+
+    <script>
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-' + lang + ']').forEach(function (element) {
+                element.textContent = element.getAttribute('data-' + lang);
+            });
+
+            document.documentElement.setAttribute('lang', lang);
+
+            try {
+                localStorage.setItem('beltpro_lang', lang);
+            } catch (error) {
+                console.warn('Language preference could not be saved.', error);
+            }
+
+            document.querySelectorAll('.language-bar button').forEach(function (button) {
+                button.classList.toggle('active', button.getAttribute('data-lang') === lang);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var savedLanguage = 'en';
+
+            try {
+                savedLanguage = localStorage.getItem('beltpro_lang') || 'en';
+            } catch (error) {
+                console.warn('Language preference could not be loaded.', error);
+            }
+
+            setLanguage(savedLanguage);
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+
+</body>
+</html>
