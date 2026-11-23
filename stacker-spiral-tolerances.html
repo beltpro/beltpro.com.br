@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BELTPRO | Checking Tolerances on Self-Stacking Spirals</title>
+    <meta name="description"
+          content="Technical article on self-stacking spiral conveyors: why ball dimensions, glide strips, drive chain wear and elongation, belt elongation, side plate deformation and laser levelling of the drive chain decide whether the stack runs straight or collapses.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        :root {
+            --navy: #0b1f33;
+            --blue: #0f4c81;
+            --cyan: #38bdf8;
+            --orange: #f59e0b;
+            --red: #dc2626;
+            --green: #16a34a;
+            --text: #1f2937;
+            --muted: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #dbe5ee;
+            --shadow: 0 18px 45px rgba(15, 23, 42, 0.10);
+            --radius: 18px;
+            --max-width: 1050px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.72;
+        }
+
+        a { color: inherit; }
+        img { max-width: 100%; }
+
+        .language-bar {
+            background: #071625;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 8px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .language-bar button {
+            border: 0;
+            background: transparent;
+            color: #cbd5e1;
+            padding: 7px 9px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .language-bar button:hover,
+        .language-bar button.active {
+            color: #ffffff;
+            background: rgba(56, 189, 248, 0.16);
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 31, 51, 0.97);
+            box-shadow: 0 8px 25px rgba(2, 8, 23, 0.20);
+            backdrop-filter: blur(12px);
+        }
+
+        .header-inner {
+            width: min(94%, 1180px);
+            min-height: 72px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .logo-link { display: flex; align-items: center; text-decoration: none; }
+        .logo-link img { height: 48px; width: auto; display: block; }
+
+        .back-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 10px 14px;
+            border: 1px solid rgba(255,255,255,.20);
+            border-radius: 9px;
+        }
+
+        .back-link:hover { color: var(--cyan); background: rgba(255,255,255,.07); }
+
+        .hero {
+            color: #ffffff;
+            background:
+                linear-gradient(90deg, rgba(5, 20, 35, 0.96), rgba(7, 31, 53, 0.80)),
+                url("beltbackground.jpg") center / cover no-repeat;
+        }
+
+        .hero-inner {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 76px 0 84px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            color: #bae6fd;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before { content: ""; width: 34px; height: 2px; background: var(--cyan); }
+
+        .hero h1 {
+            max-width: 850px;
+            margin-bottom: 20px;
+            font-size: clamp(42px, 6vw, 68px);
+            line-height: 1.04;
+            letter-spacing: -2px;
+        }
+
+        .hero p { max-width: 800px; color: #dbeafe; font-size: clamp(17px, 2vw, 21px); }
+
+        .article-shell {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 64px 0 86px;
+        }
+
+        .article-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: clamp(28px, 5vw, 58px);
+        }
+
+        .article-card h2 {
+            margin: 42px 0 16px;
+            color: var(--navy);
+            font-size: clamp(28px, 4vw, 39px);
+            line-height: 1.2;
+            letter-spacing: -0.7px;
+        }
+
+        .article-card h2:first-child { margin-top: 0; }
+
+        .article-card h3 { margin: 28px 0 10px; color: var(--blue); font-size: 23px; }
+
+        .article-card p { margin-bottom: 18px; color: #475569; font-size: 17px; }
+
+        .article-card ul,
+        .article-card ol { margin: 0 0 20px 24px; color: #475569; }
+
+        .article-card li { margin-bottom: 8px; }
+
+        .formula-box {
+            margin: 26px 0;
+            padding: 24px;
+            border-left: 5px solid var(--cyan);
+            border-radius: 12px;
+            background: #eef8fd;
+        }
+
+        .formula-box strong { display: block; margin-bottom: 8px; color: var(--navy); font-size: 18px; }
+
+        .formula {
+            color: var(--blue);
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .formula-legend { margin-top: 12px; font-size: 15px !important; }
+
+        .example-box {
+            margin: 26px 0;
+            padding: 24px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+        }
+
+        .example-box strong { display: block; margin-bottom: 10px; color: #92400e; }
+
+        .rule-box {
+            margin: 30px 0;
+            padding: 24px;
+            border-radius: 12px;
+            background: var(--navy);
+            color: #ffffff;
+            text-align: center;
+            font-size: clamp(18px, 3vw, 25px);
+            font-weight: 900;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin: 26px 0;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        table { width: 100%; border-collapse: collapse; min-width: 620px; background: #ffffff; }
+
+        th, td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th { background: var(--navy); color: #ffffff; font-size: 14px; }
+        tr:last-child td { border-bottom: 0; }
+        td:first-child { color: var(--blue); font-weight: 900; }
+
+        .table-note { font-size: 14px !important; color: var(--muted) !important; }
+
+        .consequence-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 17px;
+            margin: 26px 0;
+        }
+
+        .consequence-card {
+            padding: 21px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+        }
+
+        .consequence-card strong { display: block; margin-bottom: 7px; color: var(--navy); }
+
+        /* ---------- Figures (photos + diagram) ---------- */
+        .figure {
+            margin: 30px 0;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fbfdff;
+        }
+
+        .figure img {
+            display: block;
+            width: 100%;
+            max-height: 620px;
+            object-fit: cover;
+        }
+
+        .figure .placeholder {
+            display: none;
+            min-height: 260px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+            border-bottom: 2px dashed var(--cyan);
+            background: #eef8fd;
+            color: var(--blue);
+            font-weight: 800;
+            font-family: "Courier New", monospace;
+        }
+
+        .figure.missing img { display: none; }
+        .figure.missing .placeholder { display: flex; }
+
+        .figure figcaption {
+            padding: 14px 18px;
+            color: var(--muted);
+            font-size: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        .figure-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin: 30px 0;
+        }
+
+        .figure-pair .figure { margin: 0; }
+        .figure-pair .figure img { height: 420px; }
+
+        .diagram { padding: 18px 12px 6px; background: #ffffff; }
+        .diagram svg { display: block; width: 100%; height: auto; }
+
+        .field-box {
+            margin: 26px 0;
+            padding: 24px;
+            border-left: 5px solid var(--orange);
+            border-radius: 12px;
+            background: #fffbeb;
+        }
+
+        .field-box strong { display: block; margin-bottom: 8px; color: #92400e; font-size: 18px; }
+
+        .website-note {
+            margin-top: 42px;
+            padding: 26px;
+            border-radius: 13px;
+            border: 1px solid #bfe5f5;
+            background: #eef9fd;
+        }
+
+        .website-note h2 { margin-top: 0; font-size: 27px; }
+
+        .disclaimer {
+            margin-top: 34px;
+            padding: 22px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+            color: #6b4d21;
+        }
+
+        .disclaimer strong { display: block; margin-bottom: 7px; color: #92400e; }
+
+        .site-footer { background: #071625; color: #cbd5e1; }
+
+        .footer-inner {
+            width: min(92%, 1180px);
+            margin: auto;
+            padding: 34px 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .footer-inner strong { color: #ffffff; }
+        .footer-inner span { color: #94a3b8; font-size: 14px; text-align: right; }
+
+        @media (max-width: 760px) {
+            .header-inner { min-height: 64px; }
+            .logo-link img { height: 41px; }
+            .back-link { font-size: 12px; padding: 8px 10px; }
+            .hero-inner { padding: 58px 0 64px; }
+            .consequence-grid,
+            .figure-pair { grid-template-columns: 1fr; }
+            .figure-pair .figure img { height: auto; }
+            .footer-inner { flex-direction: column; text-align: center; }
+            .footer-inner span { text-align: center; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="language-bar" aria-label="Language selection">
+        <button type="button" data-lang="en" onclick="setLanguage('en')">English</button>
+        <button type="button" data-lang="es" onclick="setLanguage('es')">Español</button>
+        <button type="button" data-lang="pt" onclick="setLanguage('pt')">Português</button>
+        <button type="button" data-lang="it" onclick="setLanguage('it')">Italiano</button>
+    </div>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="logo-link" href="index.html" aria-label="BELTPRO home">
+                <img src="logo.png" alt="BELTPRO Logo">
+            </a>
+
+            <a class="back-link"
+               href="index.html#articles"
+               data-en="← Back to Technical Articles"
+               data-es="← Volver a Artículos Técnicos"
+               data-pt="← Voltar aos Artigos Técnicos"
+               data-it="← Torna agli Articoli Tecnici">
+                ← Back to Technical Articles
+            </a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="eyebrow" data-en="Technical Article · Spiral Conveyors" data-es="Artículo Técnico · Transportadores Espirales" data-pt="Artigo Técnico · Transportadores Espirais" data-it="Articolo Tecnico · Trasportatori a Spirale">Technical Article · Spiral Conveyors</span>
+
+            <h1 data-en="Checking Tolerances on Self-Stacking Spirals"
+                data-es="Verificación de Tolerancias en Espirales Autoapilables"
+                data-pt="Verificação de Tolerâncias em Espirais Auto-Empilháveis"
+                data-it="Verifica delle Tolleranze nelle Spirali Autoimpilanti">
+                Checking Tolerances on Self-Stacking Spirals
+            </h1>
+
+            <p data-en="Why small deviations in balls, glide strips, drive chains, belt links and side plates can make a self-stacking spiral collapse, and how precise inspection and laser levelling restore a stable, straight stack."
+               data-es="Por qué pequeñas desviaciones en esferas, tiras deslizantes, cadenas de accionamiento, eslabones de la banda y placas laterales pueden provocar el colapso de una espiral autoapilable, y cómo la inspección precisa y la nivelación láser restablecen una pila estable y recta."
+               data-pt="Por que pequenos desvios em esferas, réguas de deslizamento, correntes de acionamento, elos da esteira e placas laterais podem fazer uma espiral auto-empilhável desmoronar, e como a inspeção precisa e o nivelamento a laser restabelecem uma pilha estável e alinhada."
+               data-it="Perché piccole deviazioni in sfere, listelli di scorrimento, catene di trasmissione, maglie del nastro e piastre laterali possono far crollare una spirale autoimpilante, e come un'ispezione precisa e il livellamento laser ripristinano una pila stabile e dritta.">
+                Why small deviations in balls, glide strips, drive chains, belt links and side plates can make a self-stacking spiral collapse, and how precise inspection and laser levelling restore a stable, straight stack.
+            </p>
+        </div>
+    </section>
+
+    <main class="article-shell">
+        <article class="article-card">
+
+                        <h2 data-en="How a Self-Stacking Spiral Works"
+                data-es="Cómo Funciona una Espiral Autoapilable"
+                data-pt="Como Funciona uma Espiral Auto-Empilhável"
+                data-it="Come Funziona una Spirale Autoimpilante">
+                How a Self-Stacking Spiral Works
+            </h2>
+
+                        <p data-en="In a self-stacking spiral, the belt builds its own structure. Each belt tier rests on the side plates of the tier below, so the stack supports itself without an internal cage or support rails for every level. At the base, a drive chain system carries the stack, turns it and lifts it in a continuous helix."
+               data-es="En una espiral autoapilable, la banda construye su propia estructura. Cada nivel de la banda se apoya sobre las placas laterales del nivel inferior, de modo que la pila se sostiene por sí misma sin una jaula interna ni rieles de soporte para cada nivel. En la base, un sistema de cadenas de accionamiento soporta la pila, la hace girar y la eleva en una hélice continua."
+               data-pt="Em uma espiral auto-empilhável, a própria esteira forma a estrutura. Cada nível da esteira se apoia nas placas laterais do nível de baixo, de modo que a pilha se sustenta sozinha, sem gaiola interna nem trilhos de apoio em cada nível. Na base, um sistema de correntes de acionamento sustenta a pilha, faz com que ela gire e a eleva em uma hélice contínua."
+               data-it="In una spirale autoimpilante, il nastro costruisce la propria struttura. Ogni livello del nastro poggia sulle piastre laterali del livello sottostante, così la pila si sostiene da sola senza una gabbia interna né guide di supporto per ogni livello. Alla base, un sistema di catene di trasmissione sostiene la pila, la fa ruotare e la solleva in un'elica continua.">
+                In a self-stacking spiral, the belt builds its own structure. Each belt tier rests on the side plates of the tier below, so the stack supports itself without an internal cage or support rails for every level. At the base, a drive chain system carries the stack, turns it and lifts it in a continuous helix.
+            </p>
+
+                        <p data-en="This design saves space and allows long retention times in a compact footprint. But it also means that the geometry of every component is part of the structure. A small deviation at the base is carried up and added through every tier of the stack."
+               data-es="Este diseño ahorra espacio y permite largos tiempos de permanencia en un área compacta. Pero también significa que la geometría de cada componente forma parte de la estructura. Una pequeña desviación en la base se transmite y se suma a través de cada nivel de la pila."
+               data-pt="Esse projeto economiza espaço e permite longos tempos de retenção em uma área compacta. Mas também significa que a geometria de cada componente faz parte da estrutura. Um pequeno desvio na base é transmitido e somado em cada nível da pilha."
+               data-it="Questo progetto risparmia spazio e consente lunghi tempi di permanenza in un ingombro ridotto. Ma significa anche che la geometria di ogni componente fa parte della struttura. Una piccola deviazione alla base viene trasmessa e sommata attraverso ogni livello della pila.">
+                This design saves space and allows long retention times in a compact footprint. But it also means that the geometry of every component is part of the structure. A small deviation at the base is carried up and added through every tier of the stack.
+            </p>
+
+            <div class="rule-box" data-en="A small error at the base becomes a large error at the top of the stack" data-es="Un pequeño error en la base se convierte en un gran error en la parte superior de la pila" data-pt="Um pequeno erro na base se torna um grande erro no topo da pilha" data-it="Un piccolo errore alla base diventa un grande errore in cima alla pila">A small error at the base becomes a large error at the top of the stack</div>
+
+                        <h2 data-en="What Happens When the Stack Fails"
+                data-es="Qué Sucede Cuando Falla la Pila"
+                data-pt="O que Acontece Quando a Pilha Falha"
+                data-it="Cosa Succede Quando la Pila Cede">
+                What Happens When the Stack Fails
+            </h2>
+
+                        <p data-en="When the tiers no longer seat correctly on each other, the stack starts to lean, side plates ride out of position and sections of the belt slide off the tier below. The result is destacking: the spiral collapses, product is lost, the belt is damaged and the line stops for hours or days."
+               data-es="Cuando los niveles dejan de asentarse correctamente unos sobre otros, la pila comienza a inclinarse, las placas laterales se salen de posición y tramos de la banda se deslizan fuera del nivel inferior. El resultado es el desapilamiento: la espiral colapsa, se pierde producto, la banda se daña y la línea se detiene durante horas o días."
+               data-pt="Quando os níveis deixam de se assentar corretamente uns sobre os outros, a pilha começa a inclinar, as placas laterais saem de posição e trechos da esteira escorregam para fora do nível de baixo. O resultado é o desempilhamento: a espiral desmorona, o produto é perdido, a esteira é danificada e a linha para por horas ou dias."
+               data-it="Quando i livelli non si appoggiano più correttamente l'uno sull'altro, la pila inizia a inclinarsi, le piastre laterali escono di posizione e tratti del nastro scivolano fuori dal livello sottostante. Il risultato è il disimpilamento: la spirale crolla, il prodotto va perso, il nastro si danneggia e la linea si ferma per ore o giorni.">
+                When the tiers no longer seat correctly on each other, the stack starts to lean, side plates ride out of position and sections of the belt slide off the tier below. The result is destacking: the spiral collapses, product is lost, the belt is damaged and the line stops for hours or days.
+            </p>
+
+            <div class="figure-pair">
+            <figure class="figure">
+                <img src="images/stacker-spiral-destacked.png"
+                     alt="Collapsed self-stacking spiral with tiers sliding off the stack"
+                     onerror="this.parentNode.classList.add('missing')">
+                <div class="placeholder">images/stacker-spiral-destacked.png</div>
+                <figcaption data-en="Before – Destacked spiral: the tiers lost their seating and the stack collapsed."
+                            data-es="Antes – Espiral desapilada: los niveles perdieron su asiento y la pila colapsó."
+                            data-pt="Antes – Espiral desempilhada: os níveis perderam o assentamento e a pilha desmoronou."
+                            data-it="Prima – Spirale disimpilata: i livelli hanno perso l'appoggio e la pila è crollata.">
+                    Before – Destacked spiral: the tiers lost their seating and the stack collapsed.
+                </figcaption>
+            </figure>
+            <figure class="figure">
+                <img src="images/stacker-spiral-correct.png"
+                     alt="Self-stacking spiral running with a straight, evenly stacked belt"
+                     onerror="this.parentNode.classList.add('missing')">
+                <div class="placeholder">images/stacker-spiral-correct.png</div>
+                <figcaption data-en="After – The same type of spiral after BELTPRO service: straight, uniform stacking."
+                            data-es="Después – El mismo tipo de espiral tras el servicio de BELTPRO: apilamiento recto y uniforme."
+                            data-pt="Depois – O mesmo tipo de espiral após o serviço da BELTPRO: empilhamento reto e uniforme."
+                            data-it="Dopo – Lo stesso tipo di spirale dopo l'intervento BELTPRO: impilamento dritto e uniforme.">
+                    After – The same type of spiral after BELTPRO service: straight, uniform stacking.
+                </figcaption>
+            </figure>
+        </div>
+
+                        <p data-en="Destacking is rarely caused by a single failed part. In most cases it is the sum of several components that have each drifted out of tolerance over time. Each one alone may look acceptable, but together they push the stack beyond its stability limit."
+               data-es="El desapilamiento rara vez es causado por una sola pieza dañada. En la mayoría de los casos es la suma de varios componentes que, con el tiempo, han salido de tolerancia. Cada uno por separado puede parecer aceptable, pero juntos llevan la pila más allá de su límite de estabilidad."
+               data-pt="O desempilhamento raramente é causado por uma única peça danificada. Na maioria dos casos é a soma de vários componentes que, com o tempo, saíram da tolerância. Cada um isoladamente pode parecer aceitável, mas juntos levam a pilha além do seu limite de estabilidade."
+               data-it="Il disimpilamento raramente è causato da un solo componente guasto. Nella maggior parte dei casi è la somma di diversi componenti che, nel tempo, sono usciti di tolleranza. Ognuno da solo può sembrare accettabile, ma insieme portano la pila oltre il suo limite di stabilità.">
+                Destacking is rarely caused by a single failed part. In most cases it is the sum of several components that have each drifted out of tolerance over time. Each one alone may look acceptable, but together they push the stack beyond its stability limit.
+            </p>
+
+                        <h2 data-en="The Critical Tolerances"
+                data-es="Las Tolerancias Críticas"
+                data-pt="As Tolerâncias Críticas"
+                data-it="Le Tolleranze Critiche">
+                The Critical Tolerances
+            </h2>
+
+            <div class="consequence-grid">
+                <div class="consequence-card">
+                    <strong data-en="Ball dimensions" data-es="Dimensiones de las esferas" data-pt="Dimensões das esferas" data-it="Dimensioni delle sfere">Ball dimensions</strong>
+                    <p data-en="Worn or mixed-size balls change the support height and rolling friction of the drive system. Uneven support at the base tilts the whole stack."
+                       data-es="Esferas desgastadas o de tamaños mezclados cambian la altura de apoyo y la fricción de rodadura del sistema de accionamiento. Un apoyo desigual en la base inclina toda la pila."
+                       data-pt="Esferas desgastadas ou de tamanhos misturados alteram a altura de apoio e o atrito de rolamento do sistema de acionamento. Um apoio desigual na base inclina toda a pilha."
+                       data-it="Sfere usurate o di dimensioni miste modificano l'altezza di appoggio e l'attrito di rotolamento del sistema di trasmissione. Un appoggio irregolare alla base inclina tutta la pila.">
+                        Worn or mixed-size balls change the support height and rolling friction of the drive system. Uneven support at the base tilts the whole stack.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Glide strip tolerances" data-es="Tolerancias de las tiras deslizantes" data-pt="Tolerâncias das réguas de deslizamento" data-it="Tolleranze dei listelli di scorrimento">Glide strip tolerances</strong>
+                    <p data-en="Worn, stepped or misaligned glide strips create height differences and friction peaks. The belt is lifted unevenly and the tiers stop seating correctly."
+                       data-es="Tiras deslizantes desgastadas, con escalones o desalineadas generan diferencias de altura y picos de fricción. La banda se eleva de forma desigual y los niveles dejan de asentarse correctamente."
+                       data-pt="Réguas de deslizamento desgastadas, com degraus ou desalinhadas criam diferenças de altura e picos de atrito. A esteira é elevada de forma desigual e os níveis deixam de assentar corretamente."
+                       data-it="Listelli di scorrimento usurati, con gradini o disallineati creano differenze di altezza e picchi di attrito. Il nastro viene sollevato in modo irregolare e i livelli non si appoggiano più correttamente.">
+                        Worn, stepped or misaligned glide strips create height differences and friction peaks. The belt is lifted unevenly and the tiers stop seating correctly.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Drive chain wear and elongation" data-es="Desgaste y elongación de la cadena" data-pt="Desgaste e alongamento da corrente" data-it="Usura e allungamento della catena">Drive chain wear and elongation</strong>
+                    <p data-en="As the drive chain wears, its pitch grows. Engagement with the belt changes, the pull becomes uneven and the lifting motion loses its smooth, constant rate."
+                       data-es="Con el desgaste, el paso de la cadena de accionamiento aumenta. El engrane con la banda cambia, la tracción se vuelve desigual y la elevación pierde su ritmo suave y constante."
+                       data-pt="Com o desgaste, o passo da corrente de acionamento aumenta. O engrenamento com a esteira muda, a tração se torna desigual e a elevação perde seu ritmo suave e constante."
+                       data-it="Con l'usura, il passo della catena di trasmissione aumenta. L'ingranamento con il nastro cambia, la trazione diventa irregolare e il sollevamento perde il suo ritmo regolare e costante.">
+                        As the drive chain wears, its pitch grows. Engagement with the belt changes, the pull becomes uneven and the lifting motion loses its smooth, constant rate.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Stacker belt elongation" data-es="Elongación de la banda autoapilable" data-pt="Alongamento da esteira auto-empilhável" data-it="Allungamento del nastro autoimpilante">Stacker belt elongation</strong>
+                    <p data-en="Wear at the rods and links lengthens the belt pitch. A stretched belt no longer matches the drive and the stack geometry, and the side plates drift out of their intended position."
+                       data-es="El desgaste en varillas y eslabones alarga el paso de la banda. Una banda estirada ya no coincide con el accionamiento ni con la geometría de la pila, y las placas laterales se desplazan de su posición prevista."
+                       data-pt="O desgaste nas varetas e nos elos alonga o passo da esteira. Uma esteira esticada deixa de corresponder ao acionamento e à geometria da pilha, e as placas laterais saem da posição prevista."
+                       data-it="L'usura di barre e maglie allunga il passo del nastro. Un nastro allungato non corrisponde più all'azionamento né alla geometria della pila, e le piastre laterali si spostano dalla posizione prevista.">
+                        Wear at the rods and links lengthens the belt pitch. A stretched belt no longer matches the drive and the stack geometry, and the side plates drift out of their intended position.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Side plate deformation" data-es="Deformación de las placas laterales" data-pt="Deformação das placas laterais" data-it="Deformazione delle piastre laterali">Side plate deformation</strong>
+                    <p data-en="The side plates carry the weight of every tier above them. Bent or dented plates cannot seat and interlock properly, so the stack height varies and tiers can ride out."
+                       data-es="Las placas laterales soportan el peso de todos los niveles superiores. Placas dobladas o abolladas no pueden asentarse ni encajar correctamente, por lo que la altura de la pila varía y los niveles pueden salirse."
+                       data-pt="As placas laterais suportam o peso de todos os níveis acima delas. Placas tortas ou amassadas não conseguem assentar e encaixar corretamente, a altura da pilha varia e os níveis podem sair de posição."
+                       data-it="Le piastre laterali sostengono il peso di tutti i livelli sovrastanti. Piastre piegate o ammaccate non possono appoggiarsi e incastrarsi correttamente, quindi l'altezza della pila varia e i livelli possono uscire di posizione.">
+                        The side plates carry the weight of every tier above them. Bent or dented plates cannot seat and interlock properly, so the stack height varies and tiers can ride out.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Drive chain levelling" data-es="Nivelación de las cadenas" data-pt="Nivelamento das correntes" data-it="Livellamento delle catene">Drive chain levelling</strong>
+                    <p data-en="If the drive chains are not level around the full circumference, the base of the stack is tilted from the start. The error is multiplied by the number of tiers."
+                       data-es="Si las cadenas de accionamiento no están niveladas en toda la circunferencia, la base de la pila queda inclinada desde el inicio. El error se multiplica por el número de niveles."
+                       data-pt="Se as correntes de acionamento não estiverem niveladas em toda a circunferência, a base da pilha fica inclinada desde o início. O erro é multiplicado pelo número de níveis."
+                       data-it="Se le catene di trasmissione non sono livellate su tutta la circonferenza, la base della pila è inclinata fin dall'inizio. L'errore viene moltiplicato per il numero di livelli.">
+                        If the drive chains are not level around the full circumference, the base of the stack is tilted from the start. The error is multiplied by the number of tiers.
+                    </p>
+                </div>
+            </div>
+
+                        <p data-en="The correct tolerances depend on the spiral model, belt type and operating conditions. BELTPRO measures each component against the equipment specifications and advises which parts can stay in service and which must be replaced."
+               data-es="Las tolerancias correctas dependen del modelo de espiral, del tipo de banda y de las condiciones de operación. BELTPRO mide cada componente según las especificaciones del equipo y recomienda qué piezas pueden seguir en servicio y cuáles deben reemplazarse."
+               data-pt="As tolerâncias corretas dependem do modelo da espiral, do tipo de esteira e das condições de operação. A BELTPRO mede cada componente conforme as especificações do equipamento e orienta quais peças podem continuar em serviço e quais devem ser substituídas."
+               data-it="Le tolleranze corrette dipendono dal modello di spirale, dal tipo di nastro e dalle condizioni operative. BELTPRO misura ogni componente rispetto alle specifiche dell'attrezzatura e consiglia quali parti possono restare in servizio e quali devono essere sostituite.">
+                The correct tolerances depend on the spiral model, belt type and operating conditions. BELTPRO measures each component against the equipment specifications and advises which parts can stay in service and which must be replaced.
+            </p>
+
+                        <h2 data-en="Laser Levelling for Uniform Elevation"
+                data-es="Nivelación Láser para una Elevación Uniforme"
+                data-pt="Nivelamento a Laser para Elevação Uniforme"
+                data-it="Livellamento Laser per un'Elevazione Uniforme">
+                Laser Levelling for Uniform Elevation
+            </h2>
+
+                        <p data-en="The drive chains set the starting plane of the whole stack. For the belt to rise in a smooth, uniform helix, the chains must be at the correct elevation all the way around the spiral. Visual checks and spirit levels are not precise enough over the full diameter."
+               data-es="Las cadenas de accionamiento definen el plano de partida de toda la pila. Para que la banda suba en una hélice suave y uniforme, las cadenas deben estar a la elevación correcta en todo el contorno de la espiral. Las verificaciones visuales y los niveles de burbuja no son lo bastante precisos en todo el diámetro."
+               data-pt="As correntes de acionamento definem o plano de partida de toda a pilha. Para que a esteira suba em uma hélice suave e uniforme, as correntes precisam estar na elevação correta em toda a volta da espiral. Verificações visuais e níveis de bolha não são precisos o suficiente em todo o diâmetro."
+               data-it="Le catene di trasmissione definiscono il piano di partenza di tutta la pila. Perché il nastro salga in un'elica regolare e uniforme, le catene devono essere alla quota corretta lungo tutta la circonferenza della spirale. I controlli visivi e le livelle a bolla non sono abbastanza precisi sull'intero diametro.">
+                The drive chains set the starting plane of the whole stack. For the belt to rise in a smooth, uniform helix, the chains must be at the correct elevation all the way around the spiral. Visual checks and spirit levels are not precise enough over the full diameter.
+            </p>
+
+                        <p data-en="BELTPRO uses laser levelling to survey the drive chain elevation at points around the full circumference, identify high and low spots, and adjust the supports until the elevation is uniform. The result is a stack that starts level and stays straight all the way to the top."
+               data-es="BELTPRO utiliza nivelación láser para medir la elevación de las cadenas en puntos alrededor de toda la circunferencia, identificar zonas altas y bajas y ajustar los soportes hasta lograr una elevación uniforme. El resultado es una pila que comienza nivelada y se mantiene recta hasta la parte superior."
+               data-pt="A BELTPRO utiliza nivelamento a laser para medir a elevação das correntes em pontos ao redor de toda a circunferência, identificar pontos altos e baixos e ajustar os suportes até que a elevação fique uniforme. O resultado é uma pilha que começa nivelada e permanece reta até o topo."
+               data-it="BELTPRO utilizza il livellamento laser per rilevare la quota delle catene in punti lungo tutta la circonferenza, individuare zone alte e basse e regolare i supporti fino a ottenere un'elevazione uniforme. Il risultato è una pila che parte livellata e resta dritta fino in cima.">
+                BELTPRO uses laser levelling to survey the drive chain elevation at points around the full circumference, identify high and low spots, and adjust the supports until the elevation is uniform. The result is a stack that starts level and stays straight all the way to the top.
+            </p>
+
+                        <h2 data-en="Outfeed Speed Synchronization"
+                data-es="Sincronización de la Velocidad de Salida"
+                data-pt="Sincronização da Velocidade de Saída"
+                data-it="Sincronizzazione della Velocità di Uscita">
+                Outfeed Speed Synchronization
+            </h2>
+
+                        <p data-en="At the top of the stack, the belt leaves the spiral and passes over the outfeed shaft, which has its own drive motor. This outfeed drive must run in sync with the speed of the rotating stack. If the two speeds do not match, the belt slides on the last tier instead of leaving the stack smoothly."
+               data-es="En la parte superior de la pila, la banda sale de la espiral y pasa por el eje de salida, que tiene su propio motor de accionamiento. Este accionamiento de salida debe funcionar sincronizado con la velocidad de la pila en rotación. Si las dos velocidades no coinciden, la banda se desliza sobre el último nivel en lugar de salir de la pila de forma suave."
+               data-pt="No topo da pilha, a esteira sai da espiral e passa pelo eixo de saída, que possui seu próprio motor de acionamento. Esse acionamento de saída precisa trabalhar sincronizado com a velocidade da pilha em rotação. Se as duas velocidades não coincidirem, a esteira escorrega sobre o último nível em vez de sair da pilha de forma suave."
+               data-it="In cima alla pila, il nastro esce dalla spirale e passa sull'albero di uscita, che ha un proprio motore di azionamento. Questo azionamento di uscita deve funzionare in sincronia con la velocità della pila in rotazione. Se le due velocità non coincidono, il nastro scivola sull'ultimo livello invece di uscire dalla pila in modo regolare.">
+                At the top of the stack, the belt leaves the spiral and passes over the outfeed shaft, which has its own drive motor. This outfeed drive must run in sync with the speed of the rotating stack. If the two speeds do not match, the belt slides on the last tier instead of leaving the stack smoothly.
+            </p>
+
+            <div class="consequence-grid">
+                <div class="consequence-card">
+                    <strong data-en="Outfeed too fast" data-es="Salida demasiado rápida" data-pt="Saída rápida demais" data-it="Uscita troppo veloce">Outfeed too fast</strong>
+                    <p data-en="The outfeed pulls the belt faster than the stack delivers it. The extra pull lifts and drags the top tiers and can destack the last levels of the spiral."
+                       data-es="La salida tira de la banda más rápido de lo que la pila la entrega. Esa tracción adicional levanta y arrastra los niveles superiores y puede desapilar los últimos niveles de la espiral."
+                       data-pt="A saída puxa a esteira mais rápido do que a pilha a entrega. Essa tração extra levanta e arrasta os níveis superiores e pode desempilhar os últimos níveis da espiral."
+                       data-it="L'uscita tira il nastro più velocemente di quanto la pila lo consegni. La trazione in eccesso solleva e trascina i livelli superiori e può disimpilare gli ultimi livelli della spirale.">
+                        The outfeed pulls the belt faster than the stack delivers it. The extra pull lifts and drags the top tiers and can destack the last levels of the spiral.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Outfeed too slow" data-es="Salida demasiado lenta" data-pt="Saída lenta demais" data-it="Uscita troppo lenta">Outfeed too slow</strong>
+                    <p data-en="The stack delivers belt faster than the outfeed takes it away. The belt accumulates and bunches up as it exits the spiral, causing jams, link damage and product problems."
+                       data-es="La pila entrega banda más rápido de lo que la salida la retira. La banda se acumula y se amontona al salir de la espiral, causando atascos, daños en los eslabones y problemas con el producto."
+                       data-pt="A pilha entrega esteira mais rápido do que a saída a retira. A esteira se acumula e embola ao sair da espiral, causando enroscos, danos aos elos e problemas com o produto."
+                       data-it="La pila consegna il nastro più velocemente di quanto l'uscita lo porti via. Il nastro si accumula e si ammassa all'uscita dalla spirale, causando inceppamenti, danni alle maglie e problemi al prodotto.">
+                        The stack delivers belt faster than the outfeed takes it away. The belt accumulates and bunches up as it exits the spiral, causing jams, link damage and product problems.
+                    </p>
+                </div>
+            </div>
+
+                        <p data-en="BELTPRO measures the actual RPM of the stack drive and the outfeed shaft in operation, then calculates the correct number of teeth for the outfeed sprockets so the outfeed speed matches the stack. With the right ratio, the belt leaves the last tier smoothly and the whole system runs without slip, pull or accumulation."
+               data-es="BELTPRO mide las RPM reales del accionamiento de la pila y del eje de salida en operación y luego calcula el número correcto de dientes de los piñones de salida para que la velocidad de salida coincida con la de la pila. Con la relación correcta, la banda sale del último nivel de forma suave y todo el sistema funciona sin deslizamiento, tirones ni acumulación."
+               data-pt="A BELTPRO mede as RPM reais do acionamento da pilha e do eixo de saída em operação e, em seguida, calcula o número correto de dentes das engrenagens de saída para que a velocidade de saída corresponda à da pilha. Com a relação correta, a esteira sai do último nível de forma suave e todo o sistema funciona sem escorregamento, tranco ou acúmulo."
+               data-it="BELTPRO misura gli RPM reali dell'azionamento della pila e dell'albero di uscita in funzionamento, quindi calcola il numero corretto di denti dei pignoni di uscita affinché la velocità di uscita corrisponda a quella della pila. Con il rapporto corretto, il nastro lascia l'ultimo livello in modo regolare e l'intero sistema funziona senza slittamenti, strappi o accumuli.">
+                BELTPRO measures the actual RPM of the stack drive and the outfeed shaft in operation, then calculates the correct number of teeth for the outfeed sprockets so the outfeed speed matches the stack. With the right ratio, the belt leaves the last tier smoothly and the whole system runs without slip, pull or accumulation.
+            </p>
+
+            <div class="field-box">
+                <strong data-en="BELTPRO Engineering Calculator" data-es="Calculadora de Ingeniería BELTPRO" data-pt="Calculadora de Engenharia BELTPRO" data-it="Calcolatore di Ingegneria BELTPRO">BELTPRO Engineering Calculator</strong>
+                <p data-en="For a preliminary check, the BELTPRO Stacker Outfeed Drive Ratio Calculator is available in the Calculators section of our website."
+                   data-es="Para una verificación preliminar, la Calculadora de Relación de Salida del Autoapilable de BELTPRO está disponible en la sección de Calculadoras de nuestro sitio web."
+                   data-pt="Para uma verificação preliminar, a Calculadora de Relação de Saída do Auto-Empilhável da BELTPRO está disponível na seção de Calculadoras do nosso site."
+                   data-it="Per una verifica preliminare, il Calcolatore del Rapporto di Uscita dell'Autoimpilante BELTPRO è disponibile nella sezione Calcolatori del nostro sito.">
+                    For a preliminary check, the BELTPRO Stacker Outfeed Drive Ratio Calculator is available in the Calculators section of our website.
+                </p>
+            </div>
+
+                        <h2 data-en="How BELTPRO Inspects a Self-Stacking Spiral"
+                data-es="Cómo BELTPRO Inspecciona una Espiral Autoapilable"
+                data-pt="Como a BELTPRO Inspeciona uma Espiral Auto-Empilhável"
+                data-it="Come BELTPRO Ispeziona una Spirale Autoimpilante">
+                How BELTPRO Inspects a Self-Stacking Spiral
+            </h2>
+
+            <ol>
+                <li data-en="Measure the balls and check for wear, flat spots and size variation."
+                    data-es="Medición de las esferas y verificación de desgaste, zonas planas y variación de tamaño."
+                    data-pt="Medição das esferas e verificação de desgaste, pontos planos e variação de tamanho."
+                    data-it="Misurazione delle sfere e verifica di usura, zone piatte e variazioni di dimensione.">
+                    Measure the balls and check for wear, flat spots and size variation.
+                </li>
+                <li data-en="Inspect the glide strips for wear, steps at the joints and alignment."
+                    data-es="Inspección de las tiras deslizantes: desgaste, escalones en las uniones y alineación."
+                    data-pt="Inspeção das réguas de deslizamento: desgaste, degraus nas emendas e alinhamento."
+                    data-it="Ispezione dei listelli di scorrimento: usura, gradini alle giunzioni e allineamento.">
+                    Inspect the glide strips for wear, steps at the joints and alignment.
+                </li>
+                <li data-en="Measure drive chain elongation and check sprockets and wear parts."
+                    data-es="Medición de la elongación de la cadena de accionamiento y revisión de piñones y piezas de desgaste."
+                    data-pt="Medição do alongamento da corrente de acionamento e verificação de engrenagens e peças de desgaste."
+                    data-it="Misurazione dell'allungamento della catena e controllo di pignoni e parti soggette a usura.">
+                    Measure drive chain elongation and check sprockets and wear parts.
+                </li>
+                <li data-en="Measure belt pitch at several points to evaluate stacker belt elongation."
+                    data-es="Medición del paso de la banda en varios puntos para evaluar su elongación."
+                    data-pt="Medição do passo da esteira em vários pontos para avaliar o alongamento."
+                    data-it="Misurazione del passo del nastro in più punti per valutarne l'allungamento.">
+                    Measure belt pitch at several points to evaluate stacker belt elongation.
+                </li>
+                <li data-en="Inspect side plates for deformation, damage and correct seating."
+                    data-es="Inspección de las placas laterales: deformación, daños y asiento correcto."
+                    data-pt="Inspeção das placas laterais: deformação, danos e assentamento correto."
+                    data-it="Ispezione delle piastre laterali: deformazione, danni e corretto appoggio.">
+                    Inspect side plates for deformation, damage and correct seating.
+                </li>
+                <li data-en="Survey the drive chains with a laser and correct the elevation."
+                    data-es="Levantamiento láser de las cadenas de accionamiento y corrección de la elevación."
+                    data-pt="Levantamento a laser das correntes de acionamento e correção da elevação."
+                    data-it="Rilievo laser delle catene di trasmissione e correzione dell'elevazione.">
+                    Survey the drive chains with a laser and correct the elevation.
+                </li>
+                <li data-en="Measure stack and outfeed RPM and calculate the correct outfeed sprocket teeth."
+                    data-es="Medición de las RPM de la pila y de la salida, y cálculo de los dientes correctos de los piñones de salida."
+                    data-pt="Medição das RPM da pilha e da saída e cálculo do número correto de dentes das engrenagens de saída."
+                    data-it="Misurazione degli RPM della pila e dell'uscita e calcolo del numero corretto di denti dei pignoni di uscita.">
+                    Measure stack and outfeed RPM and calculate the correct outfeed sprocket teeth.
+                </li>
+                <li data-en="Deliver a report with findings, recommended replacements and supervised restart."
+                    data-es="Entrega de un informe con hallazgos, reemplazos recomendados y arranque supervisado."
+                    data-pt="Entrega de relatório com constatações, substituições recomendadas e partida supervisionada."
+                    data-it="Consegna di un rapporto con i risultati, le sostituzioni consigliate e il riavvio supervisionato.">
+                    Deliver a report with findings, recommended replacements and supervised restart.
+                </li>
+            </ol>
+
+                        <h2 data-en="Field Experience: From Collapse to a Straight Stack"
+                data-es="Experiencia de Campo: Del Colapso a una Pila Recta"
+                data-pt="Experiência de Campo: Do Colapso a uma Pilha Reta"
+                data-it="Esperienza sul Campo: Dal Crollo a una Pila Dritta">
+                Field Experience: From Collapse to a Straight Stack
+            </h2>
+
+                        <p data-en="The spiral shown in the before photo had destacked during production. The inspection found several components out of tolerance at the same time, none of which would have explained the failure alone. After replacing the worn parts and laser levelling the drive chains, the stack returned to straight, uniform operation, as shown in the after photo."
+               data-es="La espiral de la foto de antes se había desapilado durante la producción. La inspección encontró varios componentes fuera de tolerancia al mismo tiempo, ninguno de los cuales habría explicado la falla por sí solo. Tras reemplazar las piezas desgastadas y nivelar con láser las cadenas de accionamiento, la pila volvió a operar recta y uniforme, como muestra la foto de después."
+               data-pt="A espiral da foto de antes havia desempilhado durante a produção. A inspeção encontrou vários componentes fora de tolerância ao mesmo tempo, nenhum dos quais explicaria a falha sozinho. Após a substituição das peças desgastadas e o nivelamento a laser das correntes de acionamento, a pilha voltou a operar reta e uniforme, como mostra a foto de depois."
+               data-it="La spirale della foto prima si era disimpilata durante la produzione. L'ispezione ha rilevato diversi componenti fuori tolleranza contemporaneamente, nessuno dei quali da solo avrebbe spiegato il guasto. Dopo la sostituzione delle parti usurate e il livellamento laser delle catene di trasmissione, la pila è tornata a funzionare dritta e uniforme, come mostra la foto dopo.">
+                The spiral shown in the before photo had destacked during production. The inspection found several components out of tolerance at the same time, none of which would have explained the failure alone. After replacing the worn parts and laser levelling the drive chains, the stack returned to straight, uniform operation, as shown in the after photo.
+            </p>
+
+                        <p data-en="The lesson: a self-stacking spiral should be inspected as a complete system. Checking tolerances on a regular schedule costs far less than a single collapse."
+               data-es="La lección: una espiral autoapilable debe inspeccionarse como un sistema completo. Verificar las tolerancias de forma periódica cuesta mucho menos que un solo colapso."
+               data-pt="A lição: uma espiral auto-empilhável deve ser inspecionada como um sistema completo. Verificar as tolerâncias periodicamente custa muito menos do que um único colapso."
+               data-it="La lezione: una spirale autoimpilante deve essere ispezionata come un sistema completo. Verificare le tolleranze con regolarità costa molto meno di un solo crollo.">
+                The lesson: a self-stacking spiral should be inspected as a complete system. Checking tolerances on a regular schedule costs far less than a single collapse.
+            </p>
+
+            <section class="website-note">
+                <h2 data-en="BELTPRO Self-Stacking Spiral Service"
+                    data-es="Servicio BELTPRO para Espirales Autoapilables"
+                    data-pt="Serviço BELTPRO para Espirais Auto-Empilháveis"
+                    data-it="Servizio BELTPRO per Spirali Autoimpilanti">
+                    BELTPRO Self-Stacking Spiral Service
+                </h2>
+
+                <p data-en="BELTPRO performs tolerance inspections, laser levelling, outfeed speed synchronization, component replacement planning and supervised restacking for self-stacking spirals. Contact us to schedule a preventive inspection or to recover a spiral after a destacking event."
+                   data-es="BELTPRO realiza inspecciones de tolerancias, nivelación láser, sincronización de la velocidad de salida, planificación de reemplazo de componentes y reapilamiento supervisado de espirales autoapilables. Contáctenos para programar una inspección preventiva o para recuperar una espiral después de un desapilamiento."
+                   data-pt="A BELTPRO realiza inspeções de tolerâncias, nivelamento a laser, sincronização da velocidade de saída, planejamento de substituição de componentes e reempilhamento supervisionado de espirais auto-empilháveis. Fale conosco para agendar uma inspeção preventiva ou recuperar uma espiral após um desempilhamento."
+                   data-it="BELTPRO esegue ispezioni delle tolleranze, livellamento laser, sincronizzazione della velocità di uscita, pianificazione della sostituzione dei componenti e reimpilamento supervisionato delle spirali autoimpilanti. Contattaci per programmare un'ispezione preventiva o per recuperare una spirale dopo un disimpilamento.">
+                    BELTPRO performs tolerance inspections, laser levelling, outfeed speed synchronization, component replacement planning and supervised restacking for self-stacking spirals. Contact us to schedule a preventive inspection or to recover a spiral after a destacking event.
+                </p>
+            </section>
+
+            <div class="disclaimer">
+                <strong data-en="Engineering Disclaimer" data-es="Aviso de Ingeniería" data-pt="Aviso de Engenharia" data-it="Avvertenza di Ingegneria">Engineering Disclaimer</strong>
+
+                <p data-en="This article is intended for general technical guidance and preliminary engineering reference only. Inspection criteria, tolerances and adjustments must always follow the equipment manufacturer's documentation, the actual operating conditions and the plant's safety procedures."
+                   data-es="Este artículo está destinado únicamente a orientación técnica general y referencia preliminar de ingeniería. Los criterios de inspección, tolerancias y ajustes deben seguir siempre la documentación del fabricante del equipo, las condiciones reales de operación y los procedimientos de seguridad de la planta."
+                   data-pt="Este artigo destina-se somente a orientação técnica geral e referência preliminar de engenharia. Os critérios de inspeção, tolerâncias e ajustes devem sempre seguir a documentação do fabricante do equipamento, as condições reais de operação e os procedimentos de segurança da planta."
+                   data-it="Questo articolo è destinato esclusivamente a orientamento tecnico generale e riferimento preliminare di ingegneria. Criteri di ispezione, tolleranze e regolazioni devono sempre seguire la documentazione del costruttore, le condizioni operative reali e le procedure di sicurezza dello stabilimento.">
+                    This article is intended for general technical guidance and preliminary engineering reference only. Inspection criteria, tolerances and adjustments must always follow the equipment manufacturer's documentation, the actual operating conditions and the plant's safety procedures.
+                </p>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <strong>BELTPRO</strong>
+            <span>
+                © <span id="currentYear"></span> BELTPRO ·
+                <span data-en="Serving Industry Since 2014"
+                      data-es="Atendiendo a la Industria Desde 2014"
+                      data-pt="Atendendo a Indústria Desde 2014"
+                      data-it="Al Servizio dell'Industria Dal 2014">
+                    Serving Industry Since 2014
+                </span>
+            </span>
+        </div>
+    </footer>
+
+    <script>
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-' + lang + ']').forEach(function (element) {
+                element.textContent = element.getAttribute('data-' + lang);
+            });
+
+            document.documentElement.setAttribute('lang', lang);
+
+            try {
+                localStorage.setItem('beltpro_lang', lang);
+            } catch (error) {
+                console.warn('Language preference could not be saved.', error);
+            }
+
+            document.querySelectorAll('.language-bar button').forEach(function (button) {
+                button.classList.toggle('active', button.getAttribute('data-lang') === lang);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var savedLanguage = 'en';
+
+            try {
+                savedLanguage = localStorage.getItem('beltpro_lang') || 'en';
+            } catch (error) {
+                console.warn('Language preference could not be loaded.', error);
+            }
+
+            setLanguage(savedLanguage);
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+
+</body>
+</html>
