@@ -1,3 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BELTPRO | Correct Belt and Sprocket Installation in Can Washers and Dryers</title>
+    <meta name="description"
+          content="Technical article for canning plants: can washer and dryer belts, hold-down mats, aramid (Kevlar) belts, sprocket positioning, shaft alignment and correct belt installation and tensioning.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        :root {
+            --navy: #0b1f33;
+            --blue: #0f4c81;
+            --cyan: #38bdf8;
+            --orange: #f59e0b;
+            --red: #dc2626;
+            --green: #16a34a;
+            --text: #1f2937;
+            --muted: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #dbe5ee;
+            --shadow: 0 18px 45px rgba(15, 23, 42, 0.10);
+            --radius: 18px;
+            --max-width: 1050px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.72;
+        }
+
+        a { color: inherit; }
+        img { max-width: 100%; }
+
+        .language-bar {
+            background: #071625;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 8px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .language-bar button {
+            border: 0;
+            background: transparent;
+            color: #cbd5e1;
+            padding: 7px 9px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .language-bar button:hover,
+        .language-bar button.active {
+            color: #ffffff;
+            background: rgba(56, 189, 248, 0.16);
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 31, 51, 0.97);
+            box-shadow: 0 8px 25px rgba(2, 8, 23, 0.20);
+            backdrop-filter: blur(12px);
+        }
+
+        .header-inner {
+            width: min(94%, 1180px);
+            min-height: 72px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .logo-link { display: flex; align-items: center; text-decoration: none; }
+        .logo-link img { height: 48px; width: auto; display: block; }
+
+        .back-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 10px 14px;
+            border: 1px solid rgba(255,255,255,.20);
+            border-radius: 9px;
+        }
+
+        .back-link:hover { color: var(--cyan); background: rgba(255,255,255,.07); }
+
+        .hero {
+            color: #ffffff;
+            background:
+                linear-gradient(90deg, rgba(5, 20, 35, 0.96), rgba(7, 31, 53, 0.80)),
+                url("beltbackground.jpg") center / cover no-repeat;
+        }
+
+        .hero-inner {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 76px 0 84px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            color: #bae6fd;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before { content: ""; width: 34px; height: 2px; background: var(--cyan); }
+
+        .hero h1 {
+            max-width: 850px;
+            margin-bottom: 20px;
+            font-size: clamp(42px, 6vw, 68px);
+            line-height: 1.04;
+            letter-spacing: -2px;
+        }
+
+        .hero p { max-width: 800px; color: #dbeafe; font-size: clamp(17px, 2vw, 21px); }
+
+        .article-shell {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 64px 0 86px;
+        }
+
+        .article-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: clamp(28px, 5vw, 58px);
+        }
+
+        .article-card h2 {
+            margin: 42px 0 16px;
+            color: var(--navy);
+            font-size: clamp(28px, 4vw, 39px);
+            line-height: 1.2;
+            letter-spacing: -0.7px;
+        }
+
+        .article-card h2:first-child { margin-top: 0; }
+
+        .article-card h3 { margin: 28px 0 10px; color: var(--blue); font-size: 23px; }
+
+        .article-card p { margin-bottom: 18px; color: #475569; font-size: 17px; }
+
+        .article-card ul,
+        .article-card ol { margin: 0 0 20px 24px; color: #475569; }
+
+        .article-card li { margin-bottom: 8px; }
+
+        .formula-box {
+            margin: 26px 0;
+            padding: 24px;
+            border-left: 5px solid var(--cyan);
+            border-radius: 12px;
+            background: #eef8fd;
+        }
+
+        .formula-box strong { display: block; margin-bottom: 8px; color: var(--navy); font-size: 18px; }
+
+        .formula {
+            color: var(--blue);
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .formula-legend { margin-top: 12px; font-size: 15px !important; }
+
+        .example-box {
+            margin: 26px 0;
+            padding: 24px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+        }
+
+        .example-box strong { display: block; margin-bottom: 10px; color: #92400e; }
+
+        .rule-box {
+            margin: 30px 0;
+            padding: 24px;
+            border-radius: 12px;
+            background: var(--navy);
+            color: #ffffff;
+            text-align: center;
+            font-size: clamp(18px, 3vw, 25px);
+            font-weight: 900;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin: 26px 0;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        table { width: 100%; border-collapse: collapse; min-width: 620px; background: #ffffff; }
+
+        th, td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th { background: var(--navy); color: #ffffff; font-size: 14px; }
+        tr:last-child td { border-bottom: 0; }
+        td:first-child { color: var(--blue); font-weight: 900; }
+
+        .table-note { font-size: 14px !important; color: var(--muted) !important; }
+
+        .consequence-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 17px;
+            margin: 26px 0;
+        }
+
+        .consequence-card {
+            padding: 21px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+        }
+
+        .consequence-card strong { display: block; margin-bottom: 7px; color: var(--navy); }
+
+        /* ---------- Figures (photos + diagram) ---------- */
+        .figure {
+            margin: 30px 0;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fbfdff;
+        }
+
+        .figure img {
+            display: block;
+            width: 100%;
+            max-height: 620px;
+            object-fit: cover;
+        }
+
+        .figure .placeholder {
+            display: none;
+            min-height: 260px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+            border-bottom: 2px dashed var(--cyan);
+            background: #eef8fd;
+            color: var(--blue);
+            font-weight: 800;
+            font-family: "Courier New", monospace;
+        }
+
+        .figure.missing img { display: none; }
+        .figure.missing .placeholder { display: flex; }
+
+        .figure figcaption {
+            padding: 14px 18px;
+            color: var(--muted);
+            font-size: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        .figure-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin: 30px 0;
+        }
+
+        .figure-pair .figure { margin: 0; }
+        .figure-pair .figure img { height: 420px; }
+
+        .diagram { padding: 18px 12px 6px; background: #ffffff; }
+        .diagram svg { display: block; width: 100%; height: auto; }
+
+        .field-box {
+            margin: 26px 0;
+            padding: 24px;
+            border-left: 5px solid var(--orange);
+            border-radius: 12px;
+            background: #fffbeb;
+        }
+
+        .field-box strong { display: block; margin-bottom: 8px; color: #92400e; font-size: 18px; }
+
+        .website-note {
+            margin-top: 42px;
+            padding: 26px;
+            border-radius: 13px;
+            border: 1px solid #bfe5f5;
+            background: #eef9fd;
+        }
+
+        .website-note h2 { margin-top: 0; font-size: 27px; }
+
+        .disclaimer {
+            margin-top: 34px;
+            padding: 22px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+            color: #6b4d21;
+        }
+
+        .disclaimer strong { display: block; margin-bottom: 7px; color: #92400e; }
+
+        .site-footer { background: #071625; color: #cbd5e1; }
+
+        .footer-inner {
+            width: min(92%, 1180px);
+            margin: auto;
+            padding: 34px 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .footer-inner strong { color: #ffffff; }
+        .footer-inner span { color: #94a3b8; font-size: 14px; text-align: right; }
+
+        @media (max-width: 760px) {
+            .header-inner { min-height: 64px; }
+            .logo-link img { height: 41px; }
+            .back-link { font-size: 12px; padding: 8px 10px; }
+            .hero-inner { padding: 58px 0 64px; }
+            .consequence-grid,
+            .figure-pair { grid-template-columns: 1fr; }
+            .figure-pair .figure img { height: auto; }
+            .footer-inner { flex-direction: column; text-align: center; }
+            .footer-inner span { text-align: center; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="language-bar" aria-label="Language selection">
+        <button type="button" data-lang="en" onclick="setLanguage('en')">English</button>
+        <button type="button" data-lang="es" onclick="setLanguage('es')">Español</button>
+        <button type="button" data-lang="pt" onclick="setLanguage('pt')">Português</button>
+        <button type="button" data-lang="it" onclick="setLanguage('it')">Italiano</button>
+    </div>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="logo-link" href="index.html" aria-label="BELTPRO home">
+                <img src="logo.png" alt="BELTPRO Logo">
+            </a>
+
+            <a class="back-link"
+               href="index.html#articles"
+               data-en="← Back to Technical Articles"
+               data-es="← Volver a Artículos Técnicos"
+               data-pt="← Voltar aos Artigos Técnicos"
+               data-it="← Torna agli Articoli Tecnici">
+                ← Back to Technical Articles
+            </a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="eyebrow" data-en="Technical Article · Canning Industry" data-es="Artículo Técnico · Industria de Latas" data-pt="Artigo Técnico · Indústria de Latas" data-it="Articolo Tecnico · Industria delle Lattine">Technical Article · Canning Industry</span>
+
+            <h1 data-en="Correct Belt and Sprocket Installation in Can Washers and Dryers"
+                data-es="Instalación Correcta de Bandas y Piñones en Lavadoras y Secadoras de Latas"
+                data-pt="Instalação Correta de Esteiras e Engrenagens em Lavadoras e Secadoras de Latas"
+                data-it="Installazione Corretta di Nastri e Pignoni in Lavatrici e Asciugatrici di Lattine">
+                Correct Belt and Sprocket Installation in Can Washers and Dryers
+            </h1>
+
+            <p data-en="Washer belts, hold-down mats, aramid belts, sprocket positioning, shaft alignment and correct installation: the details that keep a canning line running smoothly and protect belt life."
+               data-es="Bandas de lavadora, mallas de sujeción, bandas de aramida, posicionamiento de piñones, alineación de ejes e instalación correcta: los detalles que mantienen una línea de latas funcionando sin problemas y protegen la vida útil de la banda."
+               data-pt="Esteiras de lavadora, esteiras de retenção (hold down), esteiras de aramida, posicionamento de engrenagens, alinhamento de eixos e instalação correta: os detalhes que mantêm uma linha de latas operando sem problemas e protegem a vida útil da esteira."
+               data-it="Nastri per lavatrici, tappeti di trattenuta, nastri in aramide, posizionamento dei pignoni, allineamento degli alberi e installazione corretta: i dettagli che mantengono una linea di lattine in funzione regolare e proteggono la vita del nastro.">
+                Washer belts, hold-down mats, aramid belts, sprocket positioning, shaft alignment and correct installation: the details that keep a canning line running smoothly and protect belt life.
+            </p>
+        </div>
+    </section>
+
+    <main class="article-shell">
+        <article class="article-card">
+
+                        <h2 data-en="Belts in a Can Washer and Dryer"
+                data-es="Bandas en una Lavadora y Secadora de Latas"
+                data-pt="Esteiras em uma Lavadora e Secadora de Latas"
+                data-it="Nastri in una Lavatrice e Asciugatrice di Lattine">
+                Belts in a Can Washer and Dryer
+            </h2>
+
+                        <p data-en="After forming, cans pass through a multi-stage washer, where they are cleaned and treated with hot chemical sprays, and then through a dryer oven. The cans travel upside down on a wide metal belt, while a second belt above them, the hold-down mat, keeps them in place against the force of the sprays."
+               data-es="Después del conformado, las latas pasan por una lavadora de varias etapas, donde se limpian y se tratan con rociadores químicos calientes, y luego por un horno secador. Las latas viajan boca abajo sobre una banda metálica ancha, mientras una segunda banda superior, la malla de sujeción, las mantiene en su lugar frente a la fuerza de los rociadores."
+               data-pt="Após a conformação, as latas passam por uma lavadora de vários estágios, onde são limpas e tratadas com sprays químicos quentes, e depois por um forno secador. As latas viajam de cabeça para baixo sobre uma esteira metálica larga, enquanto uma segunda esteira por cima, a esteira de retenção (hold down), as mantém no lugar contra a força dos sprays."
+               data-it="Dopo la formatura, le lattine passano attraverso una lavatrice a più stadi, dove vengono pulite e trattate con spruzzi chimici caldi, e poi in un forno asciugatore. Le lattine viaggiano capovolte su un ampio nastro metallico, mentre un secondo nastro superiore, il tappeto di trattenuta, le mantiene in posizione contro la forza degli spruzzi.">
+                After forming, cans pass through a multi-stage washer, where they are cleaned and treated with hot chemical sprays, and then through a dryer oven. The cans travel upside down on a wide metal belt, while a second belt above them, the hold-down mat, keeps them in place against the force of the sprays.
+            </p>
+
+                        <p data-en="These belts work in one of the harshest environments in the plant: acids, alkaline cleaners, high temperatures and continuous operation. Belt material, open area for drainage and airflow, and low friction all matter, but even the best belt will fail early if it is not installed, aligned and tensioned correctly."
+               data-es="Estas bandas trabajan en uno de los ambientes más agresivos de la planta: ácidos, limpiadores alcalinos, altas temperaturas y operación continua. El material de la banda, el área abierta para drenaje y flujo de aire y la baja fricción son importantes, pero incluso la mejor banda fallará antes de tiempo si no se instala, alinea y tensa correctamente."
+               data-pt="Essas esteiras trabalham em um dos ambientes mais agressivos da planta: ácidos, limpadores alcalinos, altas temperaturas e operação contínua. O material da esteira, a área aberta para drenagem e fluxo de ar e o baixo atrito são importantes, mas até a melhor esteira vai falhar antes do tempo se não for instalada, alinhada e tensionada corretamente."
+               data-it="Questi nastri lavorano in uno degli ambienti più aggressivi dello stabilimento: acidi, detergenti alcalini, alte temperature e funzionamento continuo. Il materiale del nastro, l'area aperta per drenaggio e flusso d'aria e il basso attrito sono importanti, ma anche il miglior nastro si guasterà precocemente se non viene installato, allineato e tensionato correttamente.">
+                These belts work in one of the harshest environments in the plant: acids, alkaline cleaners, high temperatures and continuous operation. Belt material, open area for drainage and airflow, and low friction all matter, but even the best belt will fail early if it is not installed, aligned and tensioned correctly.
+            </p>
+
+                        <h2 data-en="Hold-Down Mats"
+                data-es="Mallas de Sujeción (Hold-Down)"
+                data-pt="Esteiras de Retenção (Hold Down)"
+                data-it="Tappeti di Trattenuta (Hold-Down)">
+                Hold-Down Mats
+            </h2>
+
+                        <p data-en="The hold-down mat runs just above the washer belt, supported by hanger brackets and rails. It must keep the cans stable without crushing or marking them. Most hold-down mats are plastic grids with steel rods, which are lighter than metal belts, easier to assemble and gentle on the cans."
+               data-es="La malla de sujeción funciona justo encima de la banda de la lavadora, soportada por soportes colgantes y rieles. Debe mantener las latas estables sin aplastarlas ni marcarlas. La mayoría de las mallas de sujeción son rejillas plásticas con varillas de acero, más livianas que las bandas metálicas, más fáciles de montar y suaves con las latas."
+               data-pt="A esteira de retenção trabalha logo acima da esteira da lavadora, sustentada por suportes suspensos e trilhos. Ela deve manter as latas estáveis sem amassá-las nem marcá-las. A maioria das esteiras de retenção é de grade plástica com varetas de aço, mais leve que as esteiras metálicas, mais fácil de montar e suave com as latas."
+               data-it="Il tappeto di trattenuta scorre appena sopra il nastro della lavatrice, sostenuto da staffe di sospensione e guide. Deve mantenere le lattine stabili senza schiacciarle né segnarle. La maggior parte dei tappeti di trattenuta è costituita da griglie in plastica con barre in acciaio, più leggere dei nastri metallici, più facili da montare e delicate con le lattine.">
+                The hold-down mat runs just above the washer belt, supported by hanger brackets and rails. It must keep the cans stable without crushing or marking them. Most hold-down mats are plastic grids with steel rods, which are lighter than metal belts, easier to assemble and gentle on the cans.
+            </p>
+
+            <figure class="figure">
+                <img src="images/canning-hold-down-mat.png"
+                     alt="Hold-down mat running above the can washer belt"
+                     onerror="this.parentNode.classList.add('missing')">
+                <div class="placeholder">images/canning-hold-down-mat.png</div>
+                <figcaption data-en="Hold-down mat (top) running above the washer belt (bottom)."
+                            data-es="Malla de sujeción (arriba) funcionando sobre la banda de la lavadora (abajo)."
+                            data-pt="Esteira de retenção (em cima) trabalhando sobre a esteira da lavadora (embaixo)."
+                            data-it="Tappeto di trattenuta (sopra) in funzione sopra il nastro della lavatrice (sotto).">
+                    Hold-down mat (top) running above the washer belt (bottom).
+                </figcaption>
+            </figure>
+
+                        <p data-en="Material choice makes a big difference in service life:"
+               data-es="La elección del material marca una gran diferencia en la vida útil:"
+               data-pt="A escolha do material faz grande diferença na vida útil:"
+               data-it="La scelta del materiale fa una grande differenza nella durata:">
+                Material choice makes a big difference in service life:
+            </p>
+
+            <div class="consequence-grid">
+                <div class="consequence-card">
+                    <strong data-en="Polypropylene mats" data-es="Mallas de polipropileno" data-pt="Esteiras de polipropileno" data-it="Tappeti in polipropilene">Polypropylene mats</strong>
+                    <p data-en="Lower cost, but over time they can expand and rub against the structure, become brittle and absorb can lubricant and chemicals."
+                       data-es="Menor costo, pero con el tiempo pueden expandirse y rozar la estructura, volverse quebradizas y absorber lubricante de las latas y químicos."
+                       data-pt="Menor custo, mas com o tempo podem se expandir e encostar na estrutura, ficar quebradiças e absorver lubrificante das latas e químicos."
+                       data-it="Costo inferiore, ma con il tempo possono dilatarsi e sfregare contro la struttura, diventare fragili e assorbire il lubrificante delle lattine e i prodotti chimici.">
+                        Lower cost, but over time they can expand and rub against the structure, become brittle and absorb can lubricant and chemicals.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Fluoropolymer (PVDF) mats" data-es="Mallas de fluoropolímero (PVDF)" data-pt="Esteiras de fluoropolímero (PVDF)" data-it="Tappeti in fluoropolimero (PVDF)">Fluoropolymer (PVDF) mats</strong>
+                    <p data-en="Higher initial cost, but much better chemical resistance. They do not become brittle or expand, last considerably longer and usually fit the existing sprockets."
+                       data-es="Mayor costo inicial, pero resistencia química mucho mayor. No se vuelven quebradizas ni se expanden, duran considerablemente más y normalmente usan los piñones existentes."
+                       data-pt="Maior custo inicial, mas resistência química muito maior. Não ficam quebradiças nem se expandem, duram consideravelmente mais e normalmente usam as engrenagens existentes."
+                       data-it="Costo iniziale più alto, ma resistenza chimica molto superiore. Non diventano fragili né si dilatano, durano molto di più e di solito utilizzano i pignoni esistenti.">
+                        Higher initial cost, but much better chemical resistance. They do not become brittle or expand, last considerably longer and usually fit the existing sprockets.
+                    </p>
+                </div>
+            </div>
+
+                        <p data-en="BELTPRO evaluates the condition of hold-down mats, brackets and rails and advises when an upgrade will pay for itself."
+               data-es="BELTPRO evalúa el estado de las mallas de sujeción, soportes y rieles y recomienda cuándo una mejora se paga por sí sola."
+               data-pt="A BELTPRO avalia a condição das esteiras de retenção, suportes e trilhos e orienta quando uma melhoria se paga."
+               data-it="BELTPRO valuta le condizioni dei tappeti di trattenuta, delle staffe e delle guide e consiglia quando un aggiornamento si ripaga da solo.">
+                BELTPRO evaluates the condition of hold-down mats, brackets and rails and advises when an upgrade will pay for itself.
+            </p>
+
+                        <h2 data-en="Aramid (Kevlar) Belts"
+                data-es="Bandas de Aramida (Kevlar)"
+                data-pt="Esteiras de Aramida (Kevlar)"
+                data-it="Nastri in Aramide (Kevlar)">
+                Aramid (Kevlar) Belts
+            </h2>
+
+                        <p data-en="Aramid belts, commonly known as Kevlar belts, are used in some can dryers and ovens because they are light, flexible and heat resistant. Their weak point is mechanical: they are sensitive to edge damage, rubbing against the structure and uneven tension across the width."
+               data-es="Las bandas de aramida, conocidas comúnmente como bandas de Kevlar, se utilizan en algunas secadoras y hornos de latas porque son livianas, flexibles y resistentes al calor. Su punto débil es mecánico: son sensibles a daños en los bordes, al roce con la estructura y a la tensión desigual a lo ancho."
+               data-pt="As esteiras de aramida, conhecidas como esteiras de Kevlar, são usadas em algumas secadoras e fornos de latas por serem leves, flexíveis e resistentes ao calor. O ponto fraco é mecânico: são sensíveis a danos nas bordas, ao atrito com a estrutura e à tensão desigual ao longo da largura."
+               data-it="I nastri in aramide, comunemente chiamati nastri in Kevlar, sono utilizzati in alcuni asciugatori e forni per lattine perché leggeri, flessibili e resistenti al calore. Il loro punto debole è meccanico: sono sensibili ai danni sui bordi, allo sfregamento contro la struttura e alla tensione non uniforme sulla larghezza.">
+                Aramid belts, commonly known as Kevlar belts, are used in some can dryers and ovens because they are light, flexible and heat resistant. Their weak point is mechanical: they are sensitive to edge damage, rubbing against the structure and uneven tension across the width.
+            </p>
+
+            <figure class="figure">
+                <img src="images/canning-aramid-belt.jpg"
+                     alt="Aramid (Kevlar) mesh belt carrying cans over the terminal roller, with guide rails above"
+                     onerror="this.parentNode.classList.add('missing')">
+                <div class="placeholder">images/canning-aramid-belt.jpg</div>
+                <figcaption data-en="Aramid (Kevlar) mesh belt carrying cans over the terminal roller. The belt edges must run clear of the structure to avoid fraying."
+                            data-es="Banda de malla de aramida (Kevlar) transportando latas sobre el rodillo terminal. Los bordes de la banda deben pasar sin tocar la estructura para evitar que se deshilachen."
+                            data-pt="Esteira de malha de aramida (Kevlar) transportando latas sobre o rolo terminal. As bordas da esteira devem passar sem encostar na estrutura para evitar que desfiem."
+                            data-it="Nastro a rete in aramide (Kevlar) che trasporta lattine sul rullo terminale. I bordi del nastro devono scorrere senza toccare la struttura per evitare sfilacciature.">
+                    Aramid (Kevlar) mesh belt carrying cans over the terminal roller. The belt edges must run clear of the structure to avoid fraying.
+                </figcaption>
+            </figure>
+
+                        <p data-en="A misaligned shaft or a belt that tracks to one side will fray an aramid belt edge quickly. Correct shaft alignment, even tension and careful tracking at start-up are essential. BELTPRO also helps plants compare aramid belts with metal alternatives when frequent replacements become a cost problem."
+               data-es="Un eje desalineado o una banda que se desvía hacia un lado deshilacha rápidamente el borde de una banda de aramida. La alineación correcta de los ejes, la tensión uniforme y un guiado cuidadoso en el arranque son esenciales. BELTPRO también ayuda a las plantas a comparar las bandas de aramida con alternativas metálicas cuando los reemplazos frecuentes se convierten en un problema de costos."
+               data-pt="Um eixo desalinhado ou uma esteira que desvia para um lado desfia rapidamente a borda de uma esteira de aramida. O alinhamento correto dos eixos, a tensão uniforme e um tracking cuidadoso na partida são essenciais. A BELTPRO também ajuda as plantas a comparar esteiras de aramida com alternativas metálicas quando as trocas frequentes se tornam um problema de custo."
+               data-it="Un albero disallineato o un nastro che devia da un lato sfilaccia rapidamente il bordo di un nastro in aramide. Il corretto allineamento degli alberi, una tensione uniforme e un tracking accurato all'avviamento sono essenziali. BELTPRO aiuta anche gli stabilimenti a confrontare i nastri in aramide con alternative metalliche quando le sostituzioni frequenti diventano un problema di costi.">
+                A misaligned shaft or a belt that tracks to one side will fray an aramid belt edge quickly. Correct shaft alignment, even tension and careful tracking at start-up are essential. BELTPRO also helps plants compare aramid belts with metal alternatives when frequent replacements become a cost problem.
+            </p>
+
+                        <h2 data-en="Sprocket Positioning"
+                data-es="Posicionamiento de los Piñones"
+                data-pt="Posicionamento das Engrenagens"
+                data-it="Posizionamento dei Pignoni">
+                Sprocket Positioning
+            </h2>
+
+                        <p data-en="Washer belts are driven by sprockets whose teeth must engage the belt in the correct openings. A sprocket that is off position rides on the wires instead of driving the belt, causing mesh damage, noise, tracking problems and uneven load across the width."
+               data-es="Las bandas de lavadora son accionadas por piñones cuyos dientes deben engranar en las aberturas correctas de la banda. Un piñón fuera de posición se apoya sobre los alambres en lugar de accionar la banda, causando daños en la malla, ruido, problemas de guiado y carga desigual a lo ancho."
+               data-pt="As esteiras de lavadora são acionadas por engrenagens cujos dentes precisam encaixar nas aberturas corretas da esteira. Uma engrenagem fora de posição apoia sobre os arames em vez de acionar a esteira, causando danos à malha, ruído, problemas de tracking e carga desigual ao longo da largura."
+               data-it="I nastri delle lavatrici sono azionati da pignoni i cui denti devono ingranare nelle aperture corrette del nastro. Un pignone fuori posizione appoggia sui fili invece di azionare il nastro, causando danni alla rete, rumore, problemi di tracking e carico non uniforme sulla larghezza.">
+                Washer belts are driven by sprockets whose teeth must engage the belt in the correct openings. A sprocket that is off position rides on the wires instead of driving the belt, causing mesh damage, noise, tracking problems and uneven load across the width.
+            </p>
+
+            <figure class="figure">
+                <img src="images/canning-sprockets-shaft.jpg"
+                     alt="Sprockets keyed on a drive shaft, positioned to match the belt openings"
+                     onerror="this.parentNode.classList.add('missing')">
+                <div class="placeholder">images/canning-sprockets-shaft.jpg</div>
+                <figcaption data-en="Sprockets keyed on the shaft. Each one must line up with the correct belt opening."
+                            data-es="Piñones enchavetados en el eje. Cada uno debe coincidir con la abertura correcta de la banda."
+                            data-pt="Engrenagens montadas com chaveta no eixo. Cada uma deve coincidir com a abertura correta da esteira."
+                            data-it="Pignoni calettati sull'albero. Ognuno deve coincidere con l'apertura corretta del nastro.">
+                    Sprockets keyed on the shaft. Each one must line up with the correct belt opening.
+                </figcaption>
+            </figure>
+
+            <ul>
+                <li data-en="Drive and driven shafts follow different opening patterns, so the layout must be checked on each shaft."
+                    data-es="Los ejes motriz y conducido siguen patrones de aberturas diferentes, por lo que la disposición debe verificarse en cada eje."
+                    data-pt="Os eixos motriz e movido seguem padrões de aberturas diferentes, por isso o posicionamento deve ser verificado em cada eixo."
+                    data-it="Gli alberi motore e condotto seguono schemi di aperture diversi, quindi la disposizione va verificata su ciascun albero.">
+                    Drive and driven shafts follow different opening patterns, so the layout must be checked on each shaft.
+                </li>
+                <li data-en="Only the center sprockets should be locked to the shaft. The others must be free to move sideways so the mesh can expand with heat and chemicals without being forced."
+                    data-es="Solo los piñones centrales deben fijarse al eje. Los demás deben poder desplazarse lateralmente para que la malla se expanda con el calor y los químicos sin ser forzada."
+                    data-pt="Somente as engrenagens centrais devem ser fixadas no eixo. As demais precisam ficar livres para se deslocar lateralmente, para que a malha possa dilatar com o calor e os químicos sem ser forçada."
+                    data-it="Solo i pignoni centrali devono essere bloccati sull'albero. Gli altri devono essere liberi di spostarsi lateralmente, così la rete può dilatarsi con il calore e i prodotti chimici senza essere forzata.">
+                    Only the center sprockets should be locked to the shaft. The others must be free to move sideways so the mesh can expand with heat and chemicals without being forced.
+                </li>
+                <li data-en="All sprockets on a shaft must be the same size and in time with each other, so every tooth pulls evenly."
+                    data-es="Todos los piñones de un eje deben tener el mismo tamaño y estar sincronizados entre sí, para que cada diente tire de forma uniforme."
+                    data-pt="Todas as engrenagens de um eixo devem ter o mesmo tamanho e estar sincronizadas entre si, para que cada dente puxe de forma uniforme."
+                    data-it="Tutti i pignoni di un albero devono avere la stessa dimensione ed essere in fase tra loro, così ogni dente tira in modo uniforme.">
+                    All sprockets on a shaft must be the same size and in time with each other, so every tooth pulls evenly.
+                </li>
+            </ul>
+
+                        <p data-en="BELTPRO checks sprocket type, condition and position against the belt specification, and defines the correct layout during installation."
+               data-es="BELTPRO verifica el tipo, el estado y la posición de los piñones según la especificación de la banda y define la disposición correcta durante la instalación."
+               data-pt="A BELTPRO verifica o tipo, a condição e a posição das engrenagens conforme a especificação da esteira e define o posicionamento correto durante a instalação."
+               data-it="BELTPRO verifica tipo, condizioni e posizione dei pignoni rispetto alle specifiche del nastro e definisce la disposizione corretta durante l'installazione.">
+                BELTPRO checks sprocket type, condition and position against the belt specification, and defines the correct layout during installation.
+            </p>
+
+                        <h2 data-en="Shaft Alignment"
+                data-es="Alineación de Ejes"
+                data-pt="Alinhamento de Eixos"
+                data-it="Allineamento degli Alberi">
+                Shaft Alignment
+            </h2>
+
+                        <p data-en="Every shaft in the washer and dryer must be level, parallel to the others and square to the belt centerline. Even a small misalignment makes the belt drift to one side, rub the frame, damage its edges and interfere with the hold-down mat."
+               data-es="Todos los ejes de la lavadora y la secadora deben estar nivelados, paralelos entre sí y a escuadra con la línea central de la banda. Incluso una pequeña desalineación hace que la banda se desvíe hacia un lado, roce la estructura, dañe sus bordes e interfiera con la malla de sujeción."
+               data-pt="Todos os eixos da lavadora e da secadora devem estar nivelados, paralelos entre si e no esquadro com a linha de centro da esteira. Mesmo um pequeno desalinhamento faz a esteira desviar para um lado, encostar na estrutura, danificar as bordas e interferir na esteira de retenção."
+               data-it="Tutti gli alberi della lavatrice e dell'asciugatore devono essere in bolla, paralleli tra loro e in squadra con l'asse del nastro. Anche un piccolo disallineamento fa deviare il nastro da un lato, sfregare contro il telaio, danneggiarne i bordi e interferire con il tappeto di trattenuta.">
+                Every shaft in the washer and dryer must be level, parallel to the others and square to the belt centerline. Even a small misalignment makes the belt drift to one side, rub the frame, damage its edges and interfere with the hold-down mat.
+            </p>
+
+            <div class="rule-box" data-en="Belt tracking problems usually start with shaft alignment, not with the belt" data-es="Los problemas de guiado de la banda suelen comenzar en la alineación de los ejes, no en la banda" data-pt="Os problemas de tracking da esteira normalmente começam no alinhamento dos eixos, não na esteira" data-it="I problemi di tracking del nastro di solito nascono dall'allineamento degli alberi, non dal nastro">Belt tracking problems usually start with shaft alignment, not with the belt</div>
+
+                        <p data-en="BELTPRO checks and corrects shaft alignment with an optical transit (theodolite), giving the plant a reliable reference for the whole line instead of relying on tape measures and visual checks."
+               data-es="BELTPRO verifica y corrige la alineación de los ejes con un tránsito óptico (teodolito), dando a la planta una referencia confiable para toda la línea en lugar de depender de cintas métricas y verificaciones visuales."
+               data-pt="A BELTPRO verifica e corrige o alinhamento dos eixos com teodolito, oferecendo à planta uma referência confiável para toda a linha em vez de depender de trenas e verificações visuais."
+               data-it="BELTPRO verifica e corregge l'allineamento degli alberi con un transito ottico (teodolite), fornendo allo stabilimento un riferimento affidabile per l'intera linea invece di affidarsi a metri a nastro e controlli visivi.">
+                BELTPRO checks and corrects shaft alignment with an optical transit (theodolite), giving the plant a reliable reference for the whole line instead of relying on tape measures and visual checks.
+            </p>
+
+                        <h2 data-en="Installation and Tensioning"
+                data-es="Instalación y Tensionado"
+                data-pt="Instalação e Tensionamento"
+                data-it="Installazione e Tensionamento">
+                Installation and Tensioning
+            </h2>
+
+                        <p data-en="Wide washer belts are installed by pulling the belt ends together for splicing. Pulling from one or two points distorts the mesh and leaves the belt uneven before it ever runs. The correct method uses a pulling bar with hooks that engage many belt loops across the width, so the pulling force is shared evenly."
+               data-es="Las bandas anchas de lavadora se instalan tirando de los extremos para unirlos y empalmarlos. Tirar desde uno o dos puntos deforma la malla y deja la banda desigual antes de que empiece a funcionar. El método correcto utiliza una barra de tiro con ganchos que engranan muchos lazos de la banda a lo ancho, de modo que la fuerza de tiro se reparte de forma uniforme."
+               data-pt="As esteiras largas de lavadora são instaladas puxando as pontas para uni-las e emendá-las. Puxar por um ou dois pontos deforma a malha e deixa a esteira desigual antes mesmo de começar a operar. O método correto usa uma barra de tração com ganchos que engatam muitos laços da esteira ao longo da largura, de modo que a força de tração se distribui de forma uniforme."
+               data-it="I nastri larghi delle lavatrici si installano tirando le estremità per unirle e giuntarle. Tirare da uno o due punti deforma la rete e lascia il nastro irregolare prima ancora di funzionare. Il metodo corretto utilizza una barra di tiro con ganci che agganciano molte anse del nastro sulla larghezza, così la forza di tiro si distribuisce in modo uniforme.">
+                Wide washer belts are installed by pulling the belt ends together for splicing. Pulling from one or two points distorts the mesh and leaves the belt uneven before it ever runs. The correct method uses a pulling bar with hooks that engage many belt loops across the width, so the pulling force is shared evenly.
+            </p>
+
+            <figure class="figure">
+                <img src="images/canning-belt-pulling-hooks.jpg"
+                     alt="Pulling bar with hooks engaged in the loops of a flat wire belt"
+                     onerror="this.parentNode.classList.add('missing')">
+                <div class="placeholder">images/canning-belt-pulling-hooks.jpg</div>
+                <figcaption data-en="Pulling bar with hooks engaged across the belt loops: the load is shared evenly during splicing."
+                            data-es="Barra de tiro con ganchos enganchados en los lazos de la banda: la carga se reparte de forma uniforme durante el empalme."
+                            data-pt="Barra de tração com ganchos engatados nos laços da esteira: a carga é distribuída de forma uniforme durante a emenda."
+                            data-it="Barra di tiro con ganci agganciati alle anse del nastro: il carico è ripartito in modo uniforme durante la giunzione.">
+                    Pulling bar with hooks engaged across the belt loops: the load is shared evenly during splicing.
+                </figcaption>
+            </figure>
+
+            <div class="consequence-grid">
+                <div class="consequence-card">
+                    <strong data-en="Too tight" data-es="Demasiado tensa" data-pt="Tensa demais" data-it="Troppo teso">Too tight</strong>
+                    <p data-en="Higher load on the belt, sprockets and bearings, faster wear and premature belt stretch."
+                       data-es="Mayor carga en la banda, los piñones y los rodamientos, desgaste más rápido y estiramiento prematuro de la banda."
+                       data-pt="Maior carga na esteira, nas engrenagens e nos rolamentos, desgaste mais rápido e alongamento prematuro da esteira."
+                       data-it="Carico maggiore su nastro, pignoni e cuscinetti, usura più rapida e allungamento prematuro del nastro.">
+                        Higher load on the belt, sprockets and bearings, faster wear and premature belt stretch.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Too loose" data-es="Demasiado floja" data-pt="Frouxa demais" data-it="Troppo lento">Too loose</strong>
+                    <p data-en="The belt can jump sprocket teeth, surge and lose position, upsetting can handling and transfers."
+                       data-es="La banda puede saltar los dientes de los piñones, dar tirones y perder posición, afectando el manejo y las transferencias de latas."
+                       data-pt="A esteira pode pular os dentes das engrenagens, dar trancos e perder posição, prejudicando o manuseio e as transferências das latas."
+                       data-it="Il nastro può saltare i denti dei pignoni, procedere a strappi e perdere posizione, compromettendo la movimentazione e i trasferimenti delle lattine.">
+                        The belt can jump sprocket teeth, surge and lose position, upsetting can handling and transfers.
+                    </p>
+                </div>
+            </div>
+
+                        <p data-en="The correct tension depends on the belt type, width, length and operating temperature. BELTPRO supervises splicing and tensioning and sets the belt to the right running condition at start-up."
+               data-es="La tensión correcta depende del tipo, ancho, longitud y temperatura de operación de la banda. BELTPRO supervisa el empalme y el tensionado y ajusta la banda a la condición de operación correcta en el arranque."
+               data-pt="A tensão correta depende do tipo, da largura, do comprimento e da temperatura de operação da esteira. A BELTPRO supervisiona a emenda e o tensionamento e ajusta a esteira na condição de operação correta na partida."
+               data-it="La tensione corretta dipende dal tipo, dalla larghezza, dalla lunghezza e dalla temperatura di esercizio del nastro. BELTPRO supervisiona la giunzione e il tensionamento e imposta il nastro nella corretta condizione di funzionamento all'avviamento.">
+                The correct tension depends on the belt type, width, length and operating temperature. BELTPRO supervises splicing and tensioning and sets the belt to the right running condition at start-up.
+            </p>
+
+                        <h2 data-en="How BELTPRO Helps Canning Plants"
+                data-es="Cómo BELTPRO Ayuda a las Plantas de Latas"
+                data-pt="Como a BELTPRO Ajuda as Plantas de Latas"
+                data-it="Come BELTPRO Aiuta gli Stabilimenti di Lattine">
+                How BELTPRO Helps Canning Plants
+            </h2>
+
+            <ul>
+                <li data-en="Installation supervision for washer belts, hold-down mats and dryer belts."
+                    data-es="Supervisión de la instalación de bandas de lavadora, mallas de sujeción y bandas de secadora."
+                    data-pt="Supervisão da instalação de esteiras de lavadora, esteiras de retenção e esteiras de secadora."
+                    data-it="Supervisione dell'installazione di nastri per lavatrici, tappeti di trattenuta e nastri per asciugatori.">
+                    Installation supervision for washer belts, hold-down mats and dryer belts.
+                </li>
+                <li data-en="Splicing and tensioning procedures, done right the first time."
+                    data-es="Procedimientos de empalme y tensionado, bien hechos desde la primera vez."
+                    data-pt="Procedimentos de emenda e tensionamento, feitos corretamente desde a primeira vez."
+                    data-it="Procedure di giunzione e tensionamento, eseguite correttamente fin dalla prima volta.">
+                    Splicing and tensioning procedures, done right the first time.
+                </li>
+                <li data-en="Shaft alignment with an optical transit (theodolite)."
+                    data-es="Alineación de ejes con tránsito óptico (teodolito)."
                     data-pt="Alinhamento de eixos com teodolito."
                     data-it="Allineamento degli alberi con transito ottico (teodolite).">
                     Shaft alignment with an optical transit (theodolite).
