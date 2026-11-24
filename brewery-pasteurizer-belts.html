@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BELTPRO | Belt and Sprocket Alignment in Tunnel Pasteurizers</title>
+    <meta name="description"
+          content="Technical article for breweries: flat wire and eye-link belts in tunnel pasteurizers, shaft alignment, sprocket alignment and positioning, wear strips and correct belt installation.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        :root {
+            --navy: #0b1f33;
+            --blue: #0f4c81;
+            --cyan: #38bdf8;
+            --orange: #f59e0b;
+            --red: #dc2626;
+            --green: #16a34a;
+            --text: #1f2937;
+            --muted: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #dbe5ee;
+            --shadow: 0 18px 45px rgba(15, 23, 42, 0.10);
+            --radius: 18px;
+            --max-width: 1050px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.72;
+        }
+
+        a { color: inherit; }
+        img { max-width: 100%; }
+
+        .language-bar {
+            background: #071625;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 8px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .language-bar button {
+            border: 0;
+            background: transparent;
+            color: #cbd5e1;
+            padding: 7px 9px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .language-bar button:hover,
+        .language-bar button.active {
+            color: #ffffff;
+            background: rgba(56, 189, 248, 0.16);
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 31, 51, 0.97);
+            box-shadow: 0 8px 25px rgba(2, 8, 23, 0.20);
+            backdrop-filter: blur(12px);
+        }
+
+        .header-inner {
+            width: min(94%, 1180px);
+            min-height: 72px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .logo-link { display: flex; align-items: center; text-decoration: none; }
+        .logo-link img { height: 48px; width: auto; display: block; }
+
+        .back-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 10px 14px;
+            border: 1px solid rgba(255,255,255,.20);
+            border-radius: 9px;
+        }
+
+        .back-link:hover { color: var(--cyan); background: rgba(255,255,255,.07); }
+
+        .hero {
+            color: #ffffff;
+            background:
+                linear-gradient(90deg, rgba(5, 20, 35, 0.96), rgba(7, 31, 53, 0.80)),
+                url("beltbackground.jpg") center / cover no-repeat;
+        }
+
+        .hero-inner {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 76px 0 84px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            color: #bae6fd;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before { content: ""; width: 34px; height: 2px; background: var(--cyan); }
+
+        .hero h1 {
+            max-width: 850px;
+            margin-bottom: 20px;
+            font-size: clamp(42px, 6vw, 68px);
+            line-height: 1.04;
+            letter-spacing: -2px;
+        }
+
+        .hero p { max-width: 800px; color: #dbeafe; font-size: clamp(17px, 2vw, 21px); }
+
+        .article-shell {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 64px 0 86px;
+        }
+
+        .article-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: clamp(28px, 5vw, 58px);
+        }
+
+        .article-card h2 {
+            margin: 42px 0 16px;
+            color: var(--navy);
+            font-size: clamp(28px, 4vw, 39px);
+            line-height: 1.2;
+            letter-spacing: -0.7px;
+        }
+
+        .article-card h2:first-child { margin-top: 0; }
+
+        .article-card h3 { margin: 28px 0 10px; color: var(--blue); font-size: 23px; }
+
+        .article-card p { margin-bottom: 18px; color: #475569; font-size: 17px; }
+
+        .article-card ul,
+        .article-card ol { margin: 0 0 20px 24px; color: #475569; }
+
+        .article-card li { margin-bottom: 8px; }
+
+        .formula-box {
+            margin: 26px 0;
+            padding: 24px;
+            border-left: 5px solid var(--cyan);
+            border-radius: 12px;
+            background: #eef8fd;
+        }
+
+        .formula-box strong { display: block; margin-bottom: 8px; color: var(--navy); font-size: 18px; }
+
+        .formula {
+            color: var(--blue);
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .formula-legend { margin-top: 12px; font-size: 15px !important; }
+
+        .example-box {
+            margin: 26px 0;
+            padding: 24px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+        }
+
+        .example-box strong { display: block; margin-bottom: 10px; color: #92400e; }
+
+        .rule-box {
+            margin: 30px 0;
+            padding: 24px;
+            border-radius: 12px;
+            background: var(--navy);
+            color: #ffffff;
+            text-align: center;
+            font-size: clamp(18px, 3vw, 25px);
+            font-weight: 900;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin: 26px 0;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        table { width: 100%; border-collapse: collapse; min-width: 620px; background: #ffffff; }
+
+        th, td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th { background: var(--navy); color: #ffffff; font-size: 14px; }
+        tr:last-child td { border-bottom: 0; }
+        td:first-child { color: var(--blue); font-weight: 900; }
+
+        .table-note { font-size: 14px !important; color: var(--muted) !important; }
+
+        .consequence-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 17px;
+            margin: 26px 0;
+        }
+
+        .consequence-card {
+            padding: 21px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+        }
+
+        .consequence-card strong { display: block; margin-bottom: 7px; color: var(--navy); }
+
+        /* ---------- Figures (photos + diagram) ---------- */
+        .figure {
+            margin: 30px 0;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fbfdff;
+        }
+
+        .figure img {
+            display: block;
+            width: 100%;
+            max-height: 620px;
+            object-fit: cover;
+        }
+
+        .figure .placeholder {
+            display: none;
+            min-height: 260px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+            border-bottom: 2px dashed var(--cyan);
+            background: #eef8fd;
+            color: var(--blue);
+            font-weight: 800;
+            font-family: "Courier New", monospace;
+        }
+
+        .figure.missing img { display: none; }
+        .figure.missing .placeholder { display: flex; }
+
+        .figure figcaption {
+            padding: 14px 18px;
+            color: var(--muted);
+            font-size: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        .figure-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin: 30px 0;
+        }
+
+        .figure-pair .figure { margin: 0; }
+        .figure-pair .figure img { height: 420px; }
+
+        .diagram { padding: 18px 12px 6px; background: #ffffff; }
+        .diagram svg { display: block; width: 100%; height: auto; }
+
+        .field-box {
+            margin: 26px 0;
+            padding: 24px;
+            border-left: 5px solid var(--orange);
+            border-radius: 12px;
+            background: #fffbeb;
+        }
+
+        .field-box strong { display: block; margin-bottom: 8px; color: #92400e; font-size: 18px; }
+
+        .website-note {
+            margin-top: 42px;
+            padding: 26px;
+            border-radius: 13px;
+            border: 1px solid #bfe5f5;
+            background: #eef9fd;
+        }
+
+        .website-note h2 { margin-top: 0; font-size: 27px; }
+
+        .disclaimer {
+            margin-top: 34px;
+            padding: 22px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+            color: #6b4d21;
+        }
+
+        .disclaimer strong { display: block; margin-bottom: 7px; color: #92400e; }
+
+        .site-footer { background: #071625; color: #cbd5e1; }
+
+        .footer-inner {
+            width: min(92%, 1180px);
+            margin: auto;
+            padding: 34px 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .footer-inner strong { color: #ffffff; }
+        .footer-inner span { color: #94a3b8; font-size: 14px; text-align: right; }
+
+        @media (max-width: 760px) {
+            .header-inner { min-height: 64px; }
+            .logo-link img { height: 41px; }
+            .back-link { font-size: 12px; padding: 8px 10px; }
+            .hero-inner { padding: 58px 0 64px; }
+            .consequence-grid,
+            .figure-pair { grid-template-columns: 1fr; }
+            .figure-pair .figure img { height: auto; }
+            .footer-inner { flex-direction: column; text-align: center; }
+            .footer-inner span { text-align: center; }
+        }
+        .figure.portrait { max-width: 480px; margin-left: auto; margin-right: auto; }
+        .figure.portrait img { max-height: none; height: auto; }
+    </style>
+</head>
+
+<body>
+
+    <div class="language-bar" aria-label="Language selection">
+        <button type="button" data-lang="en" onclick="setLanguage('en')">English</button>
+        <button type="button" data-lang="es" onclick="setLanguage('es')">Español</button>
+        <button type="button" data-lang="pt" onclick="setLanguage('pt')">Português</button>
+        <button type="button" data-lang="it" onclick="setLanguage('it')">Italiano</button>
+    </div>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="logo-link" href="index.html" aria-label="BELTPRO home">
+                <img src="logo.png" alt="BELTPRO Logo">
+            </a>
+
+            <a class="back-link"
+               href="index.html#articles"
+               data-en="← Back to Technical Articles"
+               data-es="← Volver a Artículos Técnicos"
+               data-pt="← Voltar aos Artigos Técnicos"
+               data-it="← Torna agli Articoli Tecnici">
+                ← Back to Technical Articles
+            </a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="eyebrow" data-en="Technical Article · Brewing Industry" data-es="Artículo Técnico · Industria Cervecera" data-pt="Artigo Técnico · Indústria Cervejeira" data-it="Articolo Tecnico · Industria della Birra">Technical Article · Brewing Industry</span>
+
+            <h1 data-en="Belt and Sprocket Alignment in Tunnel Pasteurizers"
+                data-es="Alineación de Bandas y Piñones en Pasteurizadores de Túnel"
+                data-pt="Alinhamento de Esteiras e Engrenagens em Pasteurizadores de Túnel"
+                data-it="Allineamento di Nastri e Pignoni nei Pastorizzatori a Tunnel">
+                Belt and Sprocket Alignment in Tunnel Pasteurizers
+            </h1>
+
+            <p data-en="Flat wire and eye-link belts carry thousands of bottles and cans through the pasteurizer every hour. Shaft alignment and correct sprocket positioning decide whether the belt runs for years or is damaged in months."
+               data-es="Las bandas de alambre plano y de eslabones (eye-link) transportan miles de botellas y latas por hora a través del pasteurizador. La alineación de los ejes y el posicionamiento correcto de los piñones deciden si la banda funciona durante años o se daña en pocos meses."
+               data-pt="As esteiras de arame chato e de elos (eye-link) transportam milhares de garrafas e latas por hora através do pasteurizador. O alinhamento dos eixos e o posicionamento correto das engrenagens decidem se a esteira opera por anos ou se danifica em poucos meses."
+               data-it="I nastri in filo piatto e a maglie (eye-link) trasportano migliaia di bottiglie e lattine all'ora attraverso il pastorizzatore. L'allineamento degli alberi e il corretto posizionamento dei pignoni decidono se il nastro funziona per anni o si danneggia in pochi mesi.">
+                Flat wire and eye-link belts carry thousands of bottles and cans through the pasteurizer every hour. Shaft alignment and correct sprocket positioning decide whether the belt runs for years or is damaged in months.
+            </p>
+        </div>
+    </section>
+
+    <main class="article-shell">
+        <article class="article-card">
+
+                        <h2 data-en="How a Tunnel Pasteurizer Works"
+                data-es="Cómo Funciona un Pasteurizador de Túnel"
+                data-pt="Como Funciona um Pasteurizador de Túnel"
+                data-it="Come Funziona un Pastorizzatore a Tunnel">
+                How a Tunnel Pasteurizer Works
+            </h2>
+
+                        <p data-en="In a tunnel pasteurizer, filled and capped bottles or cans travel slowly on a wide belt through a series of zones. Water is sprayed over the containers at controlled temperatures: first to warm them up, then to hold the beer at pasteurization temperature, and finally to cool them down before they leave the tunnel."
+               data-es="En un pasteurizador de túnel, las botellas o latas llenas y tapadas avanzan lentamente sobre una banda ancha a través de una serie de zonas. Se rocía agua sobre los envases a temperaturas controladas: primero para calentarlos, luego para mantener la cerveza a la temperatura de pasteurización y finalmente para enfriarlos antes de salir del túnel."
+               data-pt="Em um pasteurizador de túnel, as garrafas ou latas cheias e tampadas avançam lentamente sobre uma esteira larga através de uma série de zonas. A água é aspergida sobre as embalagens em temperaturas controladas: primeiro para aquecê-las, depois para manter a cerveja na temperatura de pasteurização e por fim para resfriá-las antes de saírem do túnel."
+               data-it="In un pastorizzatore a tunnel, bottiglie o lattine riempite e tappate avanzano lentamente su un nastro largo attraverso una serie di zone. L'acqua viene spruzzata sui contenitori a temperature controllate: prima per riscaldarli, poi per mantenere la birra alla temperatura di pastorizzazione e infine per raffreddarli prima che escano dal tunnel.">
+                In a tunnel pasteurizer, filled and capped bottles or cans travel slowly on a wide belt through a series of zones. Water is sprayed over the containers at controlled temperatures: first to warm them up, then to hold the beer at pasteurization temperature, and finally to cool them down before they leave the tunnel.
+            </p>
+
+            <figure class="figure portrait">
+                <img src="images/brewery-pasteurizer-sprays.jpg"
+                     alt="Beer bottles under water sprays inside a tunnel pasteurizer"
+                     onerror="this.parentNode.classList.add('missing')">
+                <div class="placeholder">images/brewery-pasteurizer-sprays.jpg</div>
+                <figcaption data-en="Bottles under the water sprays inside a tunnel pasteurizer."
+                            data-es="Botellas bajo los rociadores de agua dentro de un pasteurizador de túnel."
+                            data-pt="Garrafas sob os sprays de água dentro de um pasteurizador de túnel."
+                            data-it="Bottiglie sotto gli spruzzi d'acqua all'interno di un pastorizzatore a tunnel.">
+                    Bottles under the water sprays inside a tunnel pasteurizer.
+                </figcaption>
+            </figure>
+
+                        <p data-en="The belt speed sets how long each container stays in every zone. If the belt slips, surges or stops unevenly, the time at temperature changes and the pasteurization result is no longer what the brewery set. A belt that runs smoothly and at constant speed is part of product quality, not just maintenance."
+               data-es="La velocidad de la banda define cuánto tiempo permanece cada envase en cada zona. Si la banda patina, da tirones o se detiene de forma irregular, el tiempo a temperatura cambia y el resultado de la pasteurización deja de ser el que definió la cervecería. Una banda que funciona de forma suave y a velocidad constante es parte de la calidad del producto, no solo del mantenimiento."
+               data-pt="A velocidade da esteira define quanto tempo cada embalagem permanece em cada zona. Se a esteira patina, dá trancos ou para de forma irregular, o tempo na temperatura muda e o resultado da pasteurização deixa de ser o definido pela cervejaria. Uma esteira que opera de forma suave e em velocidade constante faz parte da qualidade do produto, não apenas da manutenção."
+               data-it="La velocità del nastro determina quanto tempo ogni contenitore resta in ciascuna zona. Se il nastro slitta, procede a strappi o si ferma in modo irregolare, il tempo a temperatura cambia e il risultato della pastorizzazione non è più quello impostato dal birrificio. Un nastro che funziona in modo regolare e a velocità costante fa parte della qualità del prodotto, non solo della manutenzione.">
+                The belt speed sets how long each container stays in every zone. If the belt slips, surges or stops unevenly, the time at temperature changes and the pasteurization result is no longer what the brewery set. A belt that runs smoothly and at constant speed is part of product quality, not just maintenance.
+            </p>
+
+                        <h2 data-en="Flat Wire and Eye-Link Belts"
+                data-es="Bandas de Alambre Plano y de Eslabones"
+                data-pt="Esteiras de Arame Chato e de Elos"
+                data-it="Nastri in Filo Piatto e a Maglie">
+                Flat Wire and Eye-Link Belts
+            </h2>
+
+                        <p data-en="Pasteurizer belts are wide, long and permanently wet with warm, treated water. They must carry the full weight of filled containers, let the water drain freely and resist corrosion. Two stainless steel belt types are most common:"
+               data-es="Las bandas de pasteurizador son anchas, largas y están permanentemente mojadas con agua tibia y tratada. Deben soportar todo el peso de los envases llenos, permitir que el agua drene libremente y resistir la corrosión. Los dos tipos de banda de acero inoxidable más comunes son:"
+               data-pt="As esteiras de pasteurizador são largas, longas e ficam permanentemente molhadas com água morna e tratada. Elas precisam suportar todo o peso das embalagens cheias, deixar a água escoar livremente e resistir à corrosão. Os dois tipos de esteira de aço inoxidável mais comuns são:"
+               data-it="I nastri dei pastorizzatori sono larghi, lunghi e costantemente bagnati da acqua calda e trattata. Devono sostenere tutto il peso dei contenitori pieni, lasciar defluire liberamente l'acqua e resistere alla corrosione. I due tipi di nastro in acciaio inox più comuni sono:">
+                Pasteurizer belts are wide, long and permanently wet with warm, treated water. They must carry the full weight of filled containers, let the water drain freely and resist corrosion. Two stainless steel belt types are most common:
+            </p>
+
+            <div class="consequence-grid">
+                <div class="consequence-card">
+                    <strong data-en="Flat wire belts" data-es="Bandas de alambre plano" data-pt="Esteiras de arame chato" data-it="Nastri in filo piatto">Flat wire belts</strong>
+                    <p data-en="Light, with a very high open area for water flow and a flat, stable surface for containers. They are driven positively by sprockets that engage the belt openings."
+                       data-es="Livianas, con un área abierta muy alta para el paso del agua y una superficie plana y estable para los envases. Son accionadas de forma positiva por piñones que engranan en las aberturas de la banda."
+                       data-pt="Leves, com área aberta muito alta para a passagem da água e uma superfície plana e estável para as embalagens. São acionadas de forma positiva por engrenagens que encaixam nas aberturas da esteira."
+                       data-it="Leggeri, con un'area aperta molto elevata per il passaggio dell'acqua e una superficie piana e stabile per i contenitori. Sono azionati in modo positivo da pignoni che ingranano nelle aperture del nastro.">
+                        Light, with a very high open area for water flow and a flat, stable surface for containers. They are driven positively by sprockets that engage the belt openings.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Eye-link belts (OGBL)" data-es="Bandas de eslabones (OGBL)" data-pt="Esteiras de elos (OGBL)" data-it="Nastri a maglie (OGBL)">Eye-link belts (OGBL)</strong>
+                    <p data-en="Links joined by cross rods form a strong, heavy-duty belt for long, wide pasteurizers and heavy bottle loads. The rods and link eyes are the wear points to watch."
+                       data-es="Eslabones unidos por varillas transversales forman una banda robusta para pasteurizadores largos y anchos y cargas pesadas de botellas. Las varillas y los ojos de los eslabones son los puntos de desgaste a vigilar."
+                       data-pt="Elos unidos por varetas transversais formam uma esteira robusta para pasteurizadores longos e largos e cargas pesadas de garrafas. As varetas e os olhais dos elos são os pontos de desgaste a acompanhar."
+                       data-it="Maglie unite da barre trasversali formano un nastro robusto per pastorizzatori lunghi e larghi e carichi pesanti di bottiglie. Le barre e gli occhielli delle maglie sono i punti di usura da controllare.">
+                        Links joined by cross rods form a strong, heavy-duty belt for long, wide pasteurizers and heavy bottle loads. The rods and link eyes are the wear points to watch.
+                    </p>
+                </div>
+            </div>
+
+                        <h2 data-en="Why Shaft Alignment Matters"
+                data-es="Por Qué Importa la Alineación de los Ejes"
+                data-pt="Por que o Alinhamento dos Eixos é Importante"
+                data-it="Perché l'Allineamento degli Alberi è Importante">
+                Why Shaft Alignment Matters
+            </h2>
+
+                        <p data-en="A pasteurizer belt is driven and guided by many sprockets spread across each shaft. Every shaft must be level, parallel to the others and square to the belt centerline. When a shaft is out of line, the sprockets no longer pull straight: some teeth push sideways on the wires or links instead of driving the belt forward."
+               data-es="Una banda de pasteurizador es accionada y guiada por muchos piñones distribuidos a lo largo de cada eje. Cada eje debe estar nivelado, paralelo a los demás y a escuadra con la línea central de la banda. Cuando un eje está desalineado, los piñones dejan de tirar en línea recta: algunos dientes empujan lateralmente los alambres o eslabones en lugar de hacer avanzar la banda."
+               data-pt="Uma esteira de pasteurizador é acionada e guiada por muitas engrenagens distribuídas ao longo de cada eixo. Cada eixo deve estar nivelado, paralelo aos demais e no esquadro com a linha de centro da esteira. Quando um eixo está desalinhado, as engrenagens deixam de puxar em linha reta: alguns dentes empurram lateralmente os arames ou elos em vez de fazer a esteira avançar."
+               data-it="Un nastro di pastorizzatore è azionato e guidato da molti pignoni distribuiti lungo ogni albero. Ogni albero deve essere in bolla, parallelo agli altri e in squadra con l'asse del nastro. Quando un albero è disallineato, i pignoni non tirano più in linea retta: alcuni denti spingono lateralmente i fili o le maglie invece di far avanzare il nastro.">
+                A pasteurizer belt is driven and guided by many sprockets spread across each shaft. Every shaft must be level, parallel to the others and square to the belt centerline. When a shaft is out of line, the sprockets no longer pull straight: some teeth push sideways on the wires or links instead of driving the belt forward.
+            </p>
+
+            <div class="rule-box" data-en="A misaligned shaft turns every sprocket into a tool that slowly damages the mesh" data-es="Un eje desalineado convierte cada piñón en una herramienta que daña lentamente la malla" data-pt="Um eixo desalinhado transforma cada engrenagem em uma ferramenta que danifica lentamente a malha" data-it="Un albero disallineato trasforma ogni pignone in un attrezzo che danneggia lentamente la rete">A misaligned shaft turns every sprocket into a tool that slowly damages the mesh</div>
+
+            <div class="consequence-grid">
+                <div class="consequence-card">
+                    <strong data-en="Bent and broken mesh" data-es="Malla doblada y rota" data-pt="Malha torta e quebrada" data-it="Rete piegata e rotta">Bent and broken mesh</strong>
+                    <p data-en="Side loads from misaligned teeth bend flat wires and crack link eyes, starting at the sprocket lines."
+                       data-es="Las cargas laterales de los dientes desalineados doblan los alambres planos y agrietan los ojos de los eslabones, empezando en las líneas de los piñones."
+                       data-pt="As cargas laterais dos dentes desalinhados entortam os arames chatos e trincam os olhais dos elos, começando nas linhas das engrenagens."
+                       data-it="I carichi laterali dei denti disallineati piegano i fili piatti e incrinano gli occhielli delle maglie, a partire dalle linee dei pignoni.">
+                        Side loads from misaligned teeth bend flat wires and crack link eyes, starting at the sprocket lines.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Belt tracking problems" data-es="Problemas de guiado" data-pt="Problemas de tracking" data-it="Problemi di tracking">Belt tracking problems</strong>
+                    <p data-en="The belt is pushed toward one side, rubs the frame and side guides, and wears its edges."
+                       data-es="La banda es empujada hacia un lado, roza la estructura y las guías laterales y desgasta sus bordes."
+                       data-pt="A esteira é empurrada para um lado, encosta na estrutura e nas guias laterais e desgasta as bordas."
+                       data-it="Il nastro viene spinto da un lato, sfrega contro la struttura e le guide laterali e ne consuma i bordi.">
+                        The belt is pushed toward one side, rubs the frame and side guides, and wears its edges.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Rod and link wear" data-es="Desgaste de varillas y eslabones" data-pt="Desgaste de varetas e elos" data-it="Usura di barre e maglie">Rod and link wear</strong>
+                    <p data-en="Uneven load concentrates on a few rods and links, which stretch and wear long before the rest of the belt."
+                       data-es="La carga desigual se concentra en pocas varillas y eslabones, que se estiran y desgastan mucho antes que el resto de la banda."
+                       data-pt="A carga desigual se concentra em poucas varetas e elos, que se alongam e desgastam muito antes do resto da esteira."
+                       data-it="Il carico non uniforme si concentra su poche barre e maglie, che si allungano e si consumano molto prima del resto del nastro.">
+                        Uneven load concentrates on a few rods and links, which stretch and wear long before the rest of the belt.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Bottle handling problems" data-es="Problemas con las botellas" data-pt="Problemas com as garrafas" data-it="Problemi con le bottiglie">Bottle handling problems</strong>
+                    <p data-en="A belt that is uneven or surging tips bottles, causes jams at infeed and outfeed and increases breakage."
+                       data-es="Una banda irregular o que da tirones vuelca botellas, provoca atascos en la entrada y la salida y aumenta las roturas."
+                       data-pt="Uma esteira irregular ou que dá trancos tomba garrafas, provoca enroscos na entrada e na saída e aumenta as quebras."
+                       data-it="Un nastro irregolare o che procede a strappi ribalta le bottiglie, provoca inceppamenti in ingresso e in uscita e aumenta le rotture.">
+                        A belt that is uneven or surging tips bottles, causes jams at infeed and outfeed and increases breakage.
+                    </p>
+                </div>
+            </div>
+
+                        <p data-en="BELTPRO aligns pasteurizer shafts with an optical transit (theodolite), using a single reference line for the whole machine. After alignment, the bearing positions are marked so any later movement can be seen and corrected immediately."
+               data-es="BELTPRO alinea los ejes del pasteurizador con un tránsito óptico (teodolito), utilizando una única línea de referencia para toda la máquina. Después de la alineación, se marcan las posiciones de los rodamientos para que cualquier movimiento posterior se detecte y se corrija de inmediato."
+               data-pt="A BELTPRO alinha os eixos do pasteurizador com teodolito, usando uma única linha de referência para toda a máquina. Após o alinhamento, as posições dos mancais são marcadas para que qualquer movimento posterior seja percebido e corrigido imediatamente."
+               data-it="BELTPRO allinea gli alberi del pastorizzatore con un transito ottico (teodolite), utilizzando un'unica linea di riferimento per l'intera macchina. Dopo l'allineamento, le posizioni dei cuscinetti vengono marcate così che ogni spostamento successivo possa essere visto e corretto subito.">
+                BELTPRO aligns pasteurizer shafts with an optical transit (theodolite), using a single reference line for the whole machine. After alignment, the bearing positions are marked so any later movement can be seen and corrected immediately.
+            </p>
+
+                        <h2 data-en="Sprocket Alignment and Positioning"
+                data-es="Alineación y Posicionamiento de los Piñones"
+                data-pt="Alinhamento e Posicionamento das Engrenagens"
+                data-it="Allineamento e Posizionamento dei Pignoni">
+                Sprocket Alignment and Positioning
+            </h2>
+
+                        <p data-en="Even with perfectly aligned shafts, the belt can be damaged if the sprockets themselves are wrong. Each sprocket must sit in the correct belt opening, line up with the matching sprocket on the next shaft and be in time with the others on its own shaft."
+               data-es="Incluso con ejes perfectamente alineados, la banda puede dañarse si los propios piñones están mal. Cada piñón debe estar en la abertura correcta de la banda, alineado con el piñón correspondiente del siguiente eje y sincronizado con los demás de su propio eje."
+               data-pt="Mesmo com eixos perfeitamente alinhados, a esteira pode ser danificada se as próprias engrenagens estiverem erradas. Cada engrenagem deve estar na abertura correta da esteira, alinhada com a engrenagem correspondente do próximo eixo e sincronizada com as demais do seu próprio eixo."
+               data-it="Anche con alberi perfettamente allineati, il nastro può danneggiarsi se sono sbagliati i pignoni stessi. Ogni pignone deve trovarsi nell'apertura corretta del nastro, essere allineato con il pignone corrispondente dell'albero successivo ed essere in fase con gli altri del proprio albero.">
+                Even with perfectly aligned shafts, the belt can be damaged if the sprockets themselves are wrong. Each sprocket must sit in the correct belt opening, line up with the matching sprocket on the next shaft and be in time with the others on its own shaft.
+            </p>
+
+            <ul>
+                <li data-en="A sprocket in the wrong opening rides on the wires or links instead of driving them, bending the mesh at every revolution."
+                    data-es="Un piñón en la abertura equivocada se apoya sobre los alambres o eslabones en lugar de accionarlos, doblando la malla en cada vuelta."
+                    data-pt="Uma engrenagem na abertura errada apoia sobre os arames ou elos em vez de acioná-los, entortando a malha a cada volta."
+                    data-it="Un pignone nell'apertura sbagliata appoggia sui fili o sulle maglie invece di azionarli, piegando la rete a ogni giro.">
+                    A sprocket in the wrong opening rides on the wires or links instead of driving them, bending the mesh at every revolution.
+                </li>
+                <li data-en="Drive and idler shafts can follow different opening patterns, so the layout must be checked shaft by shaft."
+                    data-es="Los ejes motriz y conducido pueden seguir patrones de aberturas diferentes, por lo que la disposición debe verificarse eje por eje."
+                    data-pt="Os eixos motriz e movido podem seguir padrões de aberturas diferentes, por isso o posicionamento deve ser verificado eixo por eixo."
+                    data-it="Gli alberi motore e condotto possono seguire schemi di aperture diversi, quindi la disposizione va verificata albero per albero.">
+                    Drive and idler shafts can follow different opening patterns, so the layout must be checked shaft by shaft.
+                </li>
+                <li data-en="Only the center sprockets are normally locked. The others must float sideways so the belt can expand with the warm water without being forced."
+                    data-es="Normalmente solo los piñones centrales se fijan. Los demás deben poder desplazarse lateralmente para que la banda se dilate con el agua caliente sin ser forzada."
+                    data-pt="Normalmente somente as engrenagens centrais são fixadas. As demais devem ficar livres lateralmente para que a esteira possa dilatar com a água quente sem ser forçada."
+                    data-it="Normalmente solo i pignoni centrali sono bloccati. Gli altri devono poter scorrere lateralmente, così il nastro può dilatarsi con l'acqua calda senza essere forzato.">
+                    Only the center sprockets are normally locked. The others must float sideways so the belt can expand with the warm water without being forced.
+                </li>
+                <li data-en="Worn sprockets should be replaced as a set. Mixing new and worn teeth on the same shaft creates uneven pull across the width."
+                    data-es="Los piñones desgastados deben reemplazarse en conjunto. Mezclar dientes nuevos y desgastados en el mismo eje crea una tracción desigual a lo ancho."
+                    data-pt="As engrenagens desgastadas devem ser trocadas em conjunto. Misturar dentes novos e desgastados no mesmo eixo cria uma tração desigual ao longo da largura."
+                    data-it="I pignoni usurati vanno sostituiti in blocco. Mescolare denti nuovi e usurati sullo stesso albero crea una trazione non uniforme sulla larghezza.">
+                    Worn sprockets should be replaced as a set. Mixing new and worn teeth on the same shaft creates uneven pull across the width.
+                </li>
+            </ul>
+
+            <div class="field-box">
+                <strong data-en="BELTPRO defines the layout" data-es="BELTPRO define la disposición" data-pt="A BELTPRO define o posicionamento" data-it="BELTPRO definisce la disposizione">BELTPRO defines the layout</strong>
+                <p data-en="The correct sprocket positions depend on the belt type, its pitch and width, and the machine design. BELTPRO checks sprocket type and condition, aligns every sprocket line across the shafts and sets the correct openings during installation."
+                   data-es="Las posiciones correctas de los piñones dependen del tipo de banda, su paso y ancho y del diseño de la máquina. BELTPRO verifica el tipo y estado de los piñones, alinea cada línea de piñones entre los ejes y define las aberturas correctas durante la instalación."
+                   data-pt="As posições corretas das engrenagens dependem do tipo de esteira, do passo e da largura e do projeto da máquina. A BELTPRO verifica o tipo e a condição das engrenagens, alinha cada linha de engrenagens entre os eixos e define as aberturas corretas durante a instalação."
+                   data-it="Le posizioni corrette dei pignoni dipendono dal tipo di nastro, dal passo e dalla larghezza e dal progetto della macchina. BELTPRO verifica tipo e condizioni dei pignoni, allinea ogni linea di pignoni tra gli alberi e definisce le aperture corrette durante l'installazione.">
+                    The correct sprocket positions depend on the belt type, its pitch and width, and the machine design. BELTPRO checks sprocket type and condition, aligns every sprocket line across the shafts and sets the correct openings during installation.
+                </p>
+            </div>
+
+                        <h2 data-en="Belt Support and Wear Strips"
+                data-es="Soporte de la Banda y Tiras de Desgaste"
+                data-pt="Suporte da Esteira e Réguas de Desgaste"
+                data-it="Supporto del Nastro e Listelli di Usura">
+                Belt Support and Wear Strips
+            </h2>
+
+                        <p data-en="Inside the tunnel, the loaded belt slides on wear strips. Worn, loose or stepped strips create height differences that bend the mesh, increase friction on the drive and make bottles unstable. Wear strips, return rollers and infeed and outfeed transfers should be inspected together with the belt and sprockets."
+               data-es="Dentro del túnel, la banda cargada se desliza sobre tiras de desgaste. Tiras desgastadas, sueltas o con escalones crean diferencias de altura que doblan la malla, aumentan la fricción en el accionamiento y vuelven inestables las botellas. Las tiras de desgaste, los rodillos de retorno y las transferencias de entrada y salida deben inspeccionarse junto con la banda y los piñones."
+               data-pt="Dentro do túnel, a esteira carregada desliza sobre réguas de desgaste. Réguas desgastadas, soltas ou com degraus criam diferenças de altura que entortam a malha, aumentam o atrito no acionamento e deixam as garrafas instáveis. As réguas de desgaste, os rolos de retorno e as transferências de entrada e saída devem ser inspecionados junto com a esteira e as engrenagens."
+               data-it="All'interno del tunnel, il nastro carico scorre su listelli di usura. Listelli usurati, allentati o con gradini creano differenze di altezza che piegano la rete, aumentano l'attrito sull'azionamento e rendono instabili le bottiglie. Listelli di usura, rulli di ritorno e trasferimenti in ingresso e in uscita vanno ispezionati insieme al nastro e ai pignoni.">
+                Inside the tunnel, the loaded belt slides on wear strips. Worn, loose or stepped strips create height differences that bend the mesh, increase friction on the drive and make bottles unstable. Wear strips, return rollers and infeed and outfeed transfers should be inspected together with the belt and sprockets.
+            </p>
+
+                        <h2 data-en="How BELTPRO Helps Breweries"
+                data-es="Cómo BELTPRO Ayuda a las Cervecerías"
+                data-pt="Como a BELTPRO Ajuda as Cervejarias"
+                data-it="Come BELTPRO Aiuta i Birrifici">
+                How BELTPRO Helps Breweries
+            </h2>
+
+            <ul>
+                <li data-en="Shaft alignment with an optical transit, with bearing positions marked afterwards."
+                    data-es="Alineación de ejes con tránsito óptico y marcación posterior de la posición de los rodamientos."
+                    data-pt="Alinhamento de eixos com teodolito e marcação posterior da posição dos mancais."
+                    data-it="Allineamento degli alberi con transito ottico e successiva marcatura della posizione dei cuscinetti.">
+                    Shaft alignment with an optical transit, with bearing positions marked afterwards.
+                </li>
+                <li data-en="Sprocket inspection, alignment and positioning in the correct belt openings."
+                    data-es="Inspección, alineación y posicionamiento de los piñones en las aberturas correctas de la banda."
+                    data-pt="Inspeção, alinhamento e posicionamento das engrenagens nas aberturas corretas da esteira."
+                    data-it="Ispezione, allineamento e posizionamento dei pignoni nelle aperture corrette del nastro.">
+                    Sprocket inspection, alignment and positioning in the correct belt openings.
+                </li>
+                <li data-en="Installation, splicing and tensioning of flat wire and eye-link belts."
+                    data-es="Instalación, empalme y tensionado de bandas de alambre plano y de eslabones."
+                    data-pt="Instalação, emenda e tensionamento de esteiras de arame chato e de elos."
+                    data-it="Installazione, giunzione e tensionamento di nastri in filo piatto e a maglie.">
+                    Installation, splicing and tensioning of flat wire and eye-link belts.
+                </li>
+                <li data-en="Inspection of wear strips, return rollers and transfers."
+                    data-es="Inspección de tiras de desgaste, rodillos de retorno y transferencias."
+                    data-pt="Inspeção de réguas de desgaste, rolos de retorno e transferências."
+                    data-it="Ispezione di listelli di usura, rulli di ritorno e trasferimenti.">
+                    Inspection of wear strips, return rollers and transfers.
+                </li>
+                <li data-en="Troubleshooting of tracking, mesh damage and bottle falls."
+                    data-es="Diagnóstico de problemas de guiado, daños en la malla y caída de botellas."
+                    data-pt="Diagnóstico de problemas de tracking, danos na malha e queda de garrafas."
+                    data-it="Diagnosi di problemi di tracking, danni alla rete e caduta di bottiglie.">
+                    Troubleshooting of tracking, mesh damage and bottle falls.
+                </li>
+                <li data-en="Training for maintenance teams and detailed technical reports."
+                    data-es="Capacitación para equipos de mantenimiento e informes técnicos detallados."
+                    data-pt="Treinamento para equipes de manutenção e relatórios técnicos detalhados."
+                    data-it="Formazione per i team di manutenzione e rapporti tecnici dettagliati.">
+                    Training for maintenance teams and detailed technical reports.
+                </li>
+            </ul>
+
+            <section class="website-note">
+                <h2 data-en="Keep Your Pasteurizer Belts Running Straight"
+                    data-es="Mantenga las Bandas de su Pasteurizador Funcionando Rectas"
+                    data-pt="Mantenha as Esteiras do seu Pasteurizador Operando Retas"
+                    data-it="Mantenete Dritti i Nastri del Vostro Pastorizzatore">
+                    Keep Your Pasteurizer Belts Running Straight
+                </h2>
+
+                <p data-en="Whether you are installing a new belt, replacing sprockets or dealing with recurring mesh damage, BELTPRO can help your brewery protect its pasteurizer belts. Contact us to plan your next installation or inspection."
+                   data-es="Ya sea que esté instalando una banda nueva, reemplazando piñones o enfrentando daños recurrentes en la malla, BELTPRO puede ayudar a su cervecería a proteger las bandas del pasteurizador. Contáctenos para planificar su próxima instalación o inspección."
+                   data-pt="Seja para instalar uma esteira nova, trocar engrenagens ou resolver danos recorrentes na malha, a BELTPRO pode ajudar a sua cervejaria a proteger as esteiras do pasteurizador. Fale conosco para planejar a sua próxima instalação ou inspeção."
+                   data-it="Che si tratti di installare un nuovo nastro, sostituire i pignoni o affrontare danni ricorrenti alla rete, BELTPRO può aiutare il vostro birrificio a proteggere i nastri del pastorizzatore. Contattateci per pianificare la prossima installazione o ispezione.">
+                    Whether you are installing a new belt, replacing sprockets or dealing with recurring mesh damage, BELTPRO can help your brewery protect its pasteurizer belts. Contact us to plan your next installation or inspection.
+                </p>
+            </section>
+
+            <div class="disclaimer">
+                <strong data-en="Engineering Disclaimer" data-es="Aviso de Ingeniería" data-pt="Aviso de Engenharia" data-it="Avvertenza di Ingegneria">Engineering Disclaimer</strong>
+
+                <p data-en="This article is intended for general technical guidance and preliminary engineering reference only. Belt selection, installation, alignment and adjustments must always follow the equipment and belt manufacturers' documentation, the actual operating conditions and the plant's safety procedures."
+                   data-es="Este artículo está destinado únicamente a orientación técnica general y referencia preliminar de ingeniería. La selección, instalación, alineación y ajustes de la banda deben seguir siempre la documentación de los fabricantes del equipo y de la banda, las condiciones reales de operación y los procedimientos de seguridad de la planta."
+                   data-pt="Este artigo destina-se somente a orientação técnica geral e referência preliminar de engenharia. A seleção, instalação, alinhamento e ajustes da esteira devem sempre seguir a documentação dos fabricantes do equipamento e da esteira, as condições reais de operação e os procedimentos de segurança da planta."
+                   data-it="Questo articolo è destinato esclusivamente a orientamento tecnico generale e riferimento preliminare di ingegneria. Selezione, installazione, allineamento e regolazioni del nastro devono sempre seguire la documentazione dei costruttori dell'impianto e del nastro, le condizioni operative reali e le procedure di sicurezza dello stabilimento.">
+                    This article is intended for general technical guidance and preliminary engineering reference only. Belt selection, installation, alignment and adjustments must always follow the equipment and belt manufacturers' documentation, the actual operating conditions and the plant's safety procedures.
+                </p>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <strong>BELTPRO</strong>
+            <span>
+                © <span id="currentYear"></span> BELTPRO ·
+                <span data-en="Serving Industry Since 2014"
+                      data-es="Atendiendo a la Industria Desde 2014"
+                      data-pt="Atendendo a Indústria Desde 2014"
+                      data-it="Al Servizio dell'Industria Dal 2014">
+                    Serving Industry Since 2014
+                </span>
+            </span>
+        </div>
+    </footer>
+
+    <script>
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-' + lang + ']').forEach(function (element) {
+                element.textContent = element.getAttribute('data-' + lang);
+            });
+
+            document.documentElement.setAttribute('lang', lang);
+
+            try {
+                localStorage.setItem('beltpro_lang', lang);
+            } catch (error) {
+                console.warn('Language preference could not be saved.', error);
+            }
+
+            document.querySelectorAll('.language-bar button').forEach(function (button) {
+                button.classList.toggle('active', button.getAttribute('data-lang') === lang);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var savedLanguage = 'en';
+
+            try {
+                savedLanguage = localStorage.getItem('beltpro_lang') || 'en';
+            } catch (error) {
+                console.warn('Language preference could not be loaded.', error);
+            }
+
+            setLanguage(savedLanguage);
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+
+</body>
+</html>
