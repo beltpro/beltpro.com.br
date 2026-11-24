@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BELTPRO | Temperature Gradient Across the Oven Band Width</title>
+    <meta name="description"
+          content="Technical article on temperature differences across the width of an oven band: causes such as poor insulation, open doors and external air flow, effects on band tracking and band life, and thermal camera analysis.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        :root {
+            --navy: #0b1f33;
+            --blue: #0f4c81;
+            --cyan: #38bdf8;
+            --orange: #f59e0b;
+            --red: #dc2626;
+            --green: #16a34a;
+            --text: #1f2937;
+            --muted: #64748b;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --border: #dbe5ee;
+            --shadow: 0 18px 45px rgba(15, 23, 42, 0.10);
+            --radius: 18px;
+            --max-width: 1050px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.72;
+        }
+
+        a { color: inherit; }
+        img { max-width: 100%; }
+
+        .language-bar {
+            background: #071625;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 8px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .language-bar button {
+            border: 0;
+            background: transparent;
+            color: #cbd5e1;
+            padding: 7px 9px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .language-bar button:hover,
+        .language-bar button.active {
+            color: #ffffff;
+            background: rgba(56, 189, 248, 0.16);
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 31, 51, 0.97);
+            box-shadow: 0 8px 25px rgba(2, 8, 23, 0.20);
+            backdrop-filter: blur(12px);
+        }
+
+        .header-inner {
+            width: min(94%, 1180px);
+            min-height: 72px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .logo-link { display: flex; align-items: center; text-decoration: none; }
+        .logo-link img { height: 48px; width: auto; display: block; }
+
+        .back-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 10px 14px;
+            border: 1px solid rgba(255,255,255,.20);
+            border-radius: 9px;
+        }
+
+        .back-link:hover { color: var(--cyan); background: rgba(255,255,255,.07); }
+
+        .hero {
+            color: #ffffff;
+            background:
+                linear-gradient(90deg, rgba(5, 20, 35, 0.96), rgba(7, 31, 53, 0.80)),
+                url("beltbackground.jpg") center / cover no-repeat;
+        }
+
+        .hero-inner {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 76px 0 84px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            color: #bae6fd;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before { content: ""; width: 34px; height: 2px; background: var(--cyan); }
+
+        .hero h1 {
+            max-width: 850px;
+            margin-bottom: 20px;
+            font-size: clamp(42px, 6vw, 68px);
+            line-height: 1.04;
+            letter-spacing: -2px;
+        }
+
+        .hero p { max-width: 800px; color: #dbeafe; font-size: clamp(17px, 2vw, 21px); }
+
+        .article-shell {
+            width: min(92%, var(--max-width));
+            margin: auto;
+            padding: 64px 0 86px;
+        }
+
+        .article-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: clamp(28px, 5vw, 58px);
+        }
+
+        .article-card h2 {
+            margin: 42px 0 16px;
+            color: var(--navy);
+            font-size: clamp(28px, 4vw, 39px);
+            line-height: 1.2;
+            letter-spacing: -0.7px;
+        }
+
+        .article-card h2:first-child { margin-top: 0; }
+
+        .article-card h3 { margin: 28px 0 10px; color: var(--blue); font-size: 23px; }
+
+        .article-card p { margin-bottom: 18px; color: #475569; font-size: 17px; }
+
+        .article-card ul,
+        .article-card ol { margin: 0 0 20px 24px; color: #475569; }
+
+        .article-card li { margin-bottom: 8px; }
+
+        .formula-box {
+            margin: 26px 0;
+            padding: 24px;
+            border-left: 5px solid var(--cyan);
+            border-radius: 12px;
+            background: #eef8fd;
+        }
+
+        .formula-box strong { display: block; margin-bottom: 8px; color: var(--navy); font-size: 18px; }
+
+        .formula {
+            color: var(--blue);
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .formula-legend { margin-top: 12px; font-size: 15px !important; }
+
+        .example-box {
+            margin: 26px 0;
+            padding: 24px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+        }
+
+        .example-box strong { display: block; margin-bottom: 10px; color: #92400e; }
+
+        .rule-box {
+            margin: 30px 0;
+            padding: 24px;
+            border-radius: 12px;
+            background: var(--navy);
+            color: #ffffff;
+            text-align: center;
+            font-size: clamp(18px, 3vw, 25px);
+            font-weight: 900;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin: 26px 0;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        table { width: 100%; border-collapse: collapse; min-width: 620px; background: #ffffff; }
+
+        th, td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th { background: var(--navy); color: #ffffff; font-size: 14px; }
+        tr:last-child td { border-bottom: 0; }
+        td:first-child { color: var(--blue); font-weight: 900; }
+
+        .table-note { font-size: 14px !important; color: var(--muted) !important; }
+
+        .consequence-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 17px;
+            margin: 26px 0;
+        }
+
+        .consequence-card {
+            padding: 21px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+        }
+
+        .consequence-card strong { display: block; margin-bottom: 7px; color: var(--navy); }
+
+        /* ---------- Figures (photos + diagram) ---------- */
+        .figure {
+            margin: 30px 0;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fbfdff;
+        }
+
+        .figure img {
+            display: block;
+            width: 100%;
+            max-height: 620px;
+            object-fit: cover;
+        }
+
+        .figure .placeholder {
+            display: none;
+            min-height: 260px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+            border-bottom: 2px dashed var(--cyan);
+            background: #eef8fd;
+            color: var(--blue);
+            font-weight: 800;
+            font-family: "Courier New", monospace;
+        }
+
+        .figure.missing img { display: none; }
+        .figure.missing .placeholder { display: flex; }
+
+        .figure figcaption {
+            padding: 14px 18px;
+            color: var(--muted);
+            font-size: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        .figure-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin: 30px 0;
+        }
+
+        .figure-pair .figure { margin: 0; }
+        .figure-pair .figure img { height: 420px; }
+
+        .diagram { padding: 18px 12px 6px; background: #ffffff; }
+        .diagram svg { display: block; width: 100%; height: auto; }
+
+        .field-box {
+            margin: 26px 0;
+            padding: 24px;
+            border-left: 5px solid var(--orange);
+            border-radius: 12px;
+            background: #fffbeb;
+        }
+
+        .field-box strong { display: block; margin-bottom: 8px; color: #92400e; font-size: 18px; }
+
+        .website-note {
+            margin-top: 42px;
+            padding: 26px;
+            border-radius: 13px;
+            border: 1px solid #bfe5f5;
+            background: #eef9fd;
+        }
+
+        .website-note h2 { margin-top: 0; font-size: 27px; }
+
+        .disclaimer {
+            margin-top: 34px;
+            padding: 22px;
+            border: 1px solid #f4d7ad;
+            border-radius: 12px;
+            background: #fff7ed;
+            color: #6b4d21;
+        }
+
+        .disclaimer strong { display: block; margin-bottom: 7px; color: #92400e; }
+
+        .site-footer { background: #071625; color: #cbd5e1; }
+
+        .footer-inner {
+            width: min(92%, 1180px);
+            margin: auto;
+            padding: 34px 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .footer-inner strong { color: #ffffff; }
+        .footer-inner span { color: #94a3b8; font-size: 14px; text-align: right; }
+
+        @media (max-width: 760px) {
+            .header-inner { min-height: 64px; }
+            .logo-link img { height: 41px; }
+            .back-link { font-size: 12px; padding: 8px 10px; }
+            .hero-inner { padding: 58px 0 64px; }
+            .consequence-grid,
+            .figure-pair { grid-template-columns: 1fr; }
+            .figure-pair .figure img { height: auto; }
+            .footer-inner { flex-direction: column; text-align: center; }
+            .footer-inner span { text-align: center; }
+        }
+        .figure-pair.thermal .figure img { height: auto; max-height: none; object-fit: contain; background: #000; }
+    </style>
+</head>
+
+<body>
+
+    <div class="language-bar" aria-label="Language selection">
+        <button type="button" data-lang="en" onclick="setLanguage('en')">English</button>
+        <button type="button" data-lang="es" onclick="setLanguage('es')">Español</button>
+        <button type="button" data-lang="pt" onclick="setLanguage('pt')">Português</button>
+        <button type="button" data-lang="it" onclick="setLanguage('it')">Italiano</button>
+    </div>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="logo-link" href="index.html" aria-label="BELTPRO home">
+                <img src="logo.png" alt="BELTPRO Logo">
+            </a>
+
+            <a class="back-link"
+               href="index.html#articles"
+               data-en="← Back to Technical Articles"
+               data-es="← Volver a Artículos Técnicos"
+               data-pt="← Voltar aos Artigos Técnicos"
+               data-it="← Torna agli Articoli Tecnici">
+                ← Back to Technical Articles
+            </a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="eyebrow" data-en="Technical Article · Industrial Ovens" data-es="Artículo Técnico · Hornos Industriales" data-pt="Artigo Técnico · Fornos Industriais" data-it="Articolo Tecnico · Forni Industriali">Technical Article · Industrial Ovens</span>
+
+            <h1 data-en="Temperature Gradient Across the Oven Band Width"
+                data-es="Gradiente de Temperatura a lo Ancho de la Banda del Horno"
+                data-pt="Gradiente de Temperatura ao Longo da Largura da Esteira do Forno"
+                data-it="Gradiente di Temperatura sulla Larghezza del Nastro del Forno">
+                Temperature Gradient Across the Oven Band Width
+            </h1>
+
+            <p data-en="When one side of an oven band runs colder than the other, the band starts to drift, its edges suffer and its life gets shorter. Thermal imaging shows where the heat is being lost and why."
+               data-es="Cuando un lado de la banda del horno funciona más frío que el otro, la banda empieza a desviarse, sus bordes sufren y su vida útil se acorta. La termografía muestra dónde se pierde el calor y por qué."
+               data-pt="Quando um lado da esteira do forno trabalha mais frio que o outro, a esteira começa a desviar, as bordas sofrem e a vida útil diminui. A termografia mostra onde o calor está sendo perdido e por quê."
+               data-it="Quando un lato del nastro del forno lavora più freddo dell'altro, il nastro inizia a deviare, i bordi ne risentono e la sua vita si accorcia. La termografia mostra dove si perde il calore e perché.">
+                When one side of an oven band runs colder than the other, the band starts to drift, its edges suffer and its life gets shorter. Thermal imaging shows where the heat is being lost and why.
+            </p>
+        </div>
+    </section>
+
+    <main class="article-shell">
+        <article class="article-card">
+
+                        <h2 data-en="Why Temperature Must Be Even Across the Band"
+                data-es="Por Qué la Temperatura Debe Ser Uniforme a lo Ancho"
+                data-pt="Por que a Temperatura Deve Ser Uniforme na Largura"
+                data-it="Perché la Temperatura Deve Essere Uniforme sulla Larghezza">
+                Why Temperature Must Be Even Across the Band
+            </h2>
+
+                        <p data-en="An oven band grows as it heats up. When the whole width is at the same temperature, both edges grow by the same amount and the band stays straight. When one side is colder, that side grows less than the other, so the band is effectively shorter on the cold side and longer on the hot side."
+               data-es="Una banda de horno se alarga al calentarse. Cuando todo el ancho está a la misma temperatura, ambos bordes se alargan lo mismo y la banda se mantiene recta. Cuando un lado está más frío, ese lado se alarga menos que el otro, por lo que la banda queda en la práctica más corta en el lado frío y más larga en el lado caliente."
+               data-pt="Uma esteira de forno se alonga ao aquecer. Quando toda a largura está na mesma temperatura, as duas bordas se alongam o mesmo e a esteira permanece reta. Quando um lado está mais frio, esse lado se alonga menos que o outro, então a esteira fica na prática mais curta no lado frio e mais longa no lado quente."
+               data-it="Un nastro da forno si allunga riscaldandosi. Quando tutta la larghezza è alla stessa temperatura, entrambi i bordi si allungano allo stesso modo e il nastro resta dritto. Quando un lato è più freddo, quel lato si allunga meno dell'altro, quindi il nastro risulta in pratica più corto sul lato freddo e più lungo sul lato caldo.">
+                An oven band grows as it heats up. When the whole width is at the same temperature, both edges grow by the same amount and the band stays straight. When one side is colder, that side grows less than the other, so the band is effectively shorter on the cold side and longer on the hot side.
+            </p>
+
+                        <p data-en="The difference in length changes the tension across the width. One edge carries more load than the other, and the band starts to steer to one side, exactly as if the oven terminals were out of alignment. Because the effect comes from heat and not from the mechanics, tracking adjustments made cold often do not hold once the oven is at temperature."
+               data-es="La diferencia de longitud cambia la tensión a lo ancho. Un borde soporta más carga que el otro y la banda empieza a desviarse hacia un lado, exactamente como si los terminales del horno estuvieran desalineados. Como el efecto proviene del calor y no de la mecánica, los ajustes de guiado hechos en frío a menudo no se mantienen cuando el horno alcanza la temperatura."
+               data-pt="A diferença de comprimento altera a tensão ao longo da largura. Uma borda passa a suportar mais carga que a outra e a esteira começa a desviar para um lado, exatamente como se os terminais do forno estivessem desalinhados. Como o efeito vem do calor e não da mecânica, os ajustes de tracking feitos a frio muitas vezes não se mantêm quando o forno atinge a temperatura."
+               data-it="La differenza di lunghezza modifica la tensione sulla larghezza. Un bordo porta più carico dell'altro e il nastro inizia a deviare da un lato, esattamente come se i terminali del forno fossero disallineati. Poiché l'effetto nasce dal calore e non dalla meccanica, le regolazioni di tracking fatte a freddo spesso non tengono quando il forno è in temperatura.">
+                The difference in length changes the tension across the width. One edge carries more load than the other, and the band starts to steer to one side, exactly as if the oven terminals were out of alignment. Because the effect comes from heat and not from the mechanics, tracking adjustments made cold often do not hold once the oven is at temperature.
+            </p>
+
+            <div class="rule-box" data-en="A cold side on the band behaves like a misaligned terminal" data-es="Un lado frío en la banda se comporta como un terminal desalineado" data-pt="Um lado frio na esteira se comporta como um terminal desalinhado" data-it="Un lato freddo del nastro si comporta come un terminale disallineato">A cold side on the band behaves like a misaligned terminal</div>
+
+                        <h2 data-en="Common Causes of Uneven Temperature"
+                data-es="Causas Comunes de Temperatura Desigual"
+                data-pt="Causas Comuns de Temperatura Desigual"
+                data-it="Cause Comuni di Temperatura non Uniforme">
+                Common Causes of Uneven Temperature
+            </h2>
+
+            <div class="consequence-grid">
+                <div class="consequence-card">
+                    <strong data-en="Damaged or missing insulation" data-es="Aislamiento dañado o faltante" data-pt="Isolamento danificado ou ausente" data-it="Isolamento danneggiato o mancante">Damaged or missing insulation</strong>
+                    <p data-en="Gaps, wet or compressed insulation and loose panels let heat escape on one side of the chamber."
+                       data-es="Huecos, aislamiento húmedo o comprimido y paneles sueltos dejan escapar el calor por un lado de la cámara."
+                       data-pt="Frestas, isolamento úmido ou compactado e painéis soltos deixam o calor escapar por um lado da câmara."
+                       data-it="Fessure, isolamento bagnato o compresso e pannelli allentati lasciano uscire il calore da un lato della camera.">
+                        Gaps, wet or compressed insulation and loose panels let heat escape on one side of the chamber.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Open or poorly sealed doors" data-es="Puertas abiertas o mal selladas" data-pt="Portas abertas ou mal vedadas" data-it="Porte aperte o mal sigillate">Open or poorly sealed doors</strong>
+                    <p data-en="Inspection doors left open, or doors with worn seals, cool the band locally on that side."
+                       data-es="Las puertas de inspección abiertas, o con sellos desgastados, enfrían la banda localmente en ese lado."
+                       data-pt="Portas de inspeção abertas, ou com vedações desgastadas, resfriam a esteira localmente naquele lado."
+                       data-it="Porte d'ispezione lasciate aperte, o con guarnizioni usurate, raffreddano localmente il nastro su quel lato.">
+                        Inspection doors left open, or doors with worn seals, cool the band locally on that side.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="External air flow" data-es="Corrientes de aire externas" data-pt="Correntes de ar externas" data-it="Correnti d'aria esterne">External air flow</strong>
+                    <p data-en="Building fans, open factory doors, air conditioning and drafts near the oven entry or exit cool one edge more than the other."
+                       data-es="Ventiladores, puertas abiertas de la fábrica, aire acondicionado y corrientes cerca de la entrada o salida del horno enfrían un borde más que el otro."
+                       data-pt="Ventiladores, portões abertos da fábrica, ar-condicionado e correntes de ar perto da entrada ou saída do forno resfriam uma borda mais que a outra."
+                       data-it="Ventilatori, portoni aperti, aria condizionata e correnti vicino all'ingresso o all'uscita del forno raffreddano un bordo più dell'altro.">
+                        Building fans, open factory doors, air conditioning and drafts near the oven entry or exit cool one edge more than the other.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Burners, dampers and extraction" data-es="Quemadores, compuertas y extracción" data-pt="Queimadores, dampers e exaustão" data-it="Bruciatori, serrande ed estrazione">Burners, dampers and extraction</strong>
+                    <p data-en="Unbalanced burners, partly closed dampers or uneven exhaust create hot and cold sides inside the zones."
+                       data-es="Quemadores desbalanceados, compuertas parcialmente cerradas o extracción desigual crean lados calientes y fríos dentro de las zonas."
+                       data-pt="Queimadores desbalanceados, dampers parcialmente fechados ou exaustão desigual criam lados quentes e frios dentro das zonas."
+                       data-it="Bruciatori sbilanciati, serrande parzialmente chiuse o estrazione non uniforme creano lati caldi e freddi all'interno delle zone.">
+                        Unbalanced burners, partly closed dampers or uneven exhaust create hot and cold sides inside the zones.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Product not reaching the edges" data-es="Producto que no llega a los bordes" data-pt="Produto que não chega às bordas" data-it="Prodotto che non arriva ai bordi">Product not reaching the edges</strong>
+                    <p data-en="Where there is no product to absorb heat, that part of the band runs hotter than the loaded area."
+                       data-es="Donde no hay producto que absorba el calor, esa parte de la banda funciona más caliente que la zona cargada."
+                       data-pt="Onde não há produto para absorver o calor, essa parte da esteira trabalha mais quente que a área carregada."
+                       data-it="Dove non c'è prodotto ad assorbire il calore, quella parte del nastro lavora più calda della zona caricata.">
+                        Where there is no product to absorb heat, that part of the band runs hotter than the loaded area.
+                    </p>
+                </div>
+
+                <div class="consequence-card">
+                    <strong data-en="Oven entry and exit" data-es="Entrada y salida del horno" data-pt="Entrada e saída do forno" data-it="Ingresso e uscita del forno">Oven entry and exit</strong>
+                    <p data-en="The band leaves the chamber and cools quickly in open sections, where any draft acts directly on one side."
+                       data-es="La banda sale de la cámara y se enfría rápidamente en los tramos abiertos, donde cualquier corriente actúa directamente sobre un lado."
+                       data-pt="A esteira sai da câmara e esfria rapidamente nos trechos abertos, onde qualquer corrente de ar atua diretamente sobre um lado."
+                       data-it="Il nastro esce dalla camera e si raffredda rapidamente nei tratti aperti, dove qualsiasi corrente agisce direttamente su un lato.">
+                        The band leaves the chamber and cools quickly in open sections, where any draft acts directly on one side.
+                    </p>
+                </div>
+            </div>
+
+                        <h2 data-en="Effects on the Band"
+                data-es="Efectos en la Banda"
+                data-pt="Efeitos na Esteira"
+                data-it="Effetti sul Nastro">
+                Effects on the Band
+            </h2>
+
+            <ul>
+                <li data-en="Mistracking: the band drifts toward one side and tracking corrections never hold for long."
+                    data-es="Desvío: la banda se desplaza hacia un lado y las correcciones de guiado nunca duran mucho."
+                    data-pt="Desvio: a esteira se desloca para um lado e as correções de tracking nunca duram muito."
+                    data-it="Deviazione: il nastro si sposta da un lato e le correzioni di tracking non durano mai a lungo.">
+                    Mistracking: the band drifts toward one side and tracking corrections never hold for long.
+                </li>
+                <li data-en="Edge damage: the band rubs the oven frame or side walls, and edges wear, crack or curl."
+                    data-es="Daños en los bordes: la banda roza la estructura o las paredes laterales del horno, y los bordes se desgastan, se agrietan o se ondulan."
+                    data-pt="Danos nas bordas: a esteira encosta na estrutura ou nas paredes laterais do forno, e as bordas se desgastam, trincam ou ondulam."
+                    data-it="Danni ai bordi: il nastro sfrega contro la struttura o le pareti laterali del forno e i bordi si usurano, si crepano o si arricciano.">
+                    Edge damage: the band rubs the oven frame or side walls, and edges wear, crack or curl.
+                </li>
+                <li data-en="Permanent distortion: repeated uneven stress at high temperature can leave the band curved or wavy."
+                    data-es="Deformación permanente: la tensión desigual repetida a alta temperatura puede dejar la banda curvada u ondulada."
+                    data-pt="Deformação permanente: a tensão desigual repetida em alta temperatura pode deixar a esteira curvada ou ondulada."
+                    data-it="Deformazione permanente: sollecitazioni non uniformi ripetute ad alta temperatura possono lasciare il nastro curvo od ondulato.">
+                    Permanent distortion: repeated uneven stress at high temperature can leave the band curved or wavy.
+                </li>
+                <li data-en="Uneven baking: product on the cold side bakes differently from product on the hot side."
+                    data-es="Horneado desigual: el producto del lado frío se hornea de forma diferente al del lado caliente."
+                    data-pt="Assamento desigual: o produto do lado frio assa de forma diferente do produto do lado quente."
+                    data-it="Cottura non uniforme: il prodotto sul lato freddo cuoce diversamente da quello sul lato caldo.">
+                    Uneven baking: product on the cold side bakes differently from product on the hot side.
+                </li>
+                <li data-en="Shorter band life and unplanned stops for repairs."
+                    data-es="Menor vida útil de la banda y paradas no planificadas para reparaciones."
+                    data-pt="Menor vida útil da esteira e paradas não planejadas para reparos."
+                    data-it="Vita del nastro ridotta e fermi non pianificati per riparazioni.">
+                    Shorter band life and unplanned stops for repairs.
+                </li>
+            </ul>
+
+                        <h2 data-en="Thermal Camera Analysis"
+                data-es="Análisis con Cámara Termográfica"
+                data-pt="Análise com Câmera Termográfica"
+                data-it="Analisi con Termocamera">
+                Thermal Camera Analysis
+            </h2>
+
+                        <p data-en="BELTPRO uses a thermal camera to measure the band temperature on both sides, at the same positions along the oven, with the oven in normal production. Comparing the operator side and the non-operator side at each point shows whether the band is heated evenly and where a difference starts."
+               data-es="BELTPRO utiliza una cámara termográfica para medir la temperatura de la banda en ambos lados, en las mismas posiciones a lo largo del horno, con el horno en producción normal. Comparar el lado operador y el lado opuesto en cada punto muestra si la banda se calienta de forma uniforme y dónde comienza una diferencia."
+               data-pt="A BELTPRO utiliza uma câmera termográfica para medir a temperatura da esteira nos dois lados, nas mesmas posições ao longo do forno, com o forno em produção normal. Comparar o lado operador e o lado oposto em cada ponto mostra se a esteira está aquecida de forma uniforme e onde começa uma diferença."
+               data-it="BELTPRO utilizza una termocamera per misurare la temperatura del nastro su entrambi i lati, nelle stesse posizioni lungo il forno, con il forno in normale produzione. Confrontare il lato operatore e il lato opposto in ogni punto mostra se il nastro è riscaldato in modo uniforme e dove inizia una differenza.">
+                BELTPRO uses a thermal camera to measure the band temperature on both sides, at the same positions along the oven, with the oven in normal production. Comparing the operator side and the non-operator side at each point shows whether the band is heated evenly and where a difference starts.
+            </p>
+
+            <div class="figure-pair thermal">
+            <figure class="figure">
+                <img src="images/oven-band-thermal-operator-side.jpg"
+                     alt="Thermal image of the oven band on the operator side at the drive drum"
+                     onerror="this.parentNode.classList.add('missing')">
+                <div class="placeholder">images/oven-band-thermal-operator-side.jpg</div>
+                <figcaption data-en="Operator side of the oven band at the drive drum."
+                            data-es="Lado operador de la banda del horno en el tambor motriz."
+                            data-pt="Lado operador da esteira do forno no tambor motriz."
+                            data-it="Lato operatore del nastro del forno al tamburo motore.">
+                    Operator side of the oven band at the drive drum.
+                </figcaption>
+            </figure>
+            <figure class="figure">
+                <img src="images/oven-band-thermal-non-operator-side.jpg"
+                     alt="Thermal image of the oven band on the non-operator side at the drive drum"
+                     onerror="this.parentNode.classList.add('missing')">
+                <div class="placeholder">images/oven-band-thermal-non-operator-side.jpg</div>
+                <figcaption data-en="Non-operator side of the oven band at the drive drum."
+                            data-es="Lado opuesto al operador de la banda del horno en el tambor motriz."
+                            data-pt="Lado oposto ao operador da esteira do forno no tambor motriz."
+                            data-it="Lato opposto all'operatore del nastro del forno al tamburo motore.">
+                    Non-operator side of the oven band at the drive drum.
+                </figcaption>
+            </figure>
+        </div>
+
+                        <p data-en="The camera also looks beyond the band. Thermal images of the oven walls, doors, seals and surrounding area reveal heat leaks, damaged insulation and cold air entering the chamber, so the root cause can be corrected instead of only adjusting the band tracking."
+               data-es="La cámara también mira más allá de la banda. Las imágenes térmicas de las paredes, puertas, sellos y alrededores del horno revelan fugas de calor, aislamiento dañado y aire frío que entra en la cámara, de modo que se puede corregir la causa raíz en lugar de solo ajustar el guiado de la banda."
+               data-pt="A câmera também olha além da esteira. As imagens térmicas das paredes, portas, vedações e arredores do forno revelam vazamentos de calor, isolamento danificado e ar frio entrando na câmara, de modo que a causa raiz pode ser corrigida em vez de apenas ajustar o tracking da esteira."
+               data-it="La termocamera guarda anche oltre il nastro. Le immagini termiche di pareti, porte, guarnizioni e dintorni del forno rivelano perdite di calore, isolamento danneggiato e aria fredda che entra nella camera, così si può correggere la causa principale invece di limitarsi a regolare il tracking del nastro.">
+                The camera also looks beyond the band. Thermal images of the oven walls, doors, seals and surrounding area reveal heat leaks, damaged insulation and cold air entering the chamber, so the root cause can be corrected instead of only adjusting the band tracking.
+            </p>
+
+            <div class="field-box">
+                <strong data-en="What the analysis delivers" data-es="Qué entrega el análisis" data-pt="O que a análise entrega" data-it="Cosa fornisce l'analisi">What the analysis delivers</strong>
+                <p data-en="A report with thermal images of both band sides along the oven, the temperature difference at each point, the likely causes found on the oven and its surroundings, and the recommended corrections."
+                   data-es="Un informe con imágenes térmicas de ambos lados de la banda a lo largo del horno, la diferencia de temperatura en cada punto, las causas probables encontradas en el horno y sus alrededores y las correcciones recomendadas."
+                   data-pt="Um relatório com imagens térmicas dos dois lados da esteira ao longo do forno, a diferença de temperatura em cada ponto, as causas prováveis encontradas no forno e nos arredores e as correções recomendadas."
+                   data-it="Un rapporto con immagini termiche di entrambi i lati del nastro lungo il forno, la differenza di temperatura in ogni punto, le cause probabili individuate sul forno e nei dintorni e le correzioni consigliate.">
+                    A report with thermal images of both band sides along the oven, the temperature difference at each point, the likely causes found on the oven and its surroundings, and the recommended corrections.
+                </p>
+            </div>
+
+                        <h2 data-en="Thermal Analysis and Alignment Work Together"
+                data-es="Análisis Térmico y Alineación Trabajan Juntos"
+                data-pt="Análise Térmica e Alinhamento Trabalham Juntos"
+                data-it="Analisi Termica e Allineamento Lavorano Insieme">
+                Thermal Analysis and Alignment Work Together
+            </h2>
+
+                        <p data-en="A band that tracks badly can have a mechanical cause, such as terminals out of parallel, or a thermal cause, such as one cold side. Often both are present. By combining optical alignment of the terminals with thermal analysis of the band, BELTPRO separates the two causes and corrects each one, so the band runs straight both cold and at operating temperature."
+               data-es="Una banda que se desvía puede tener una causa mecánica, como terminales fuera de paralelismo, o una causa térmica, como un lado frío. A menudo ambas están presentes. Combinando la alineación óptica de los terminales con el análisis térmico de la banda, BELTPRO separa las dos causas y corrige cada una, para que la banda funcione recta tanto en frío como a temperatura de operación."
+               data-pt="Uma esteira que desvia pode ter uma causa mecânica, como terminais fora de paralelismo, ou uma causa térmica, como um lado frio. Muitas vezes as duas estão presentes. Combinando o alinhamento óptico dos terminais com a análise térmica da esteira, a BELTPRO separa as duas causas e corrige cada uma, para que a esteira opere reta tanto a frio quanto na temperatura de operação."
+               data-it="Un nastro che devia può avere una causa meccanica, come terminali non paralleli, o una causa termica, come un lato freddo. Spesso sono presenti entrambe. Combinando l'allineamento ottico dei terminali con l'analisi termica del nastro, BELTPRO separa le due cause e corregge ciascuna, così il nastro funziona dritto sia a freddo sia alla temperatura di esercizio.">
+                A band that tracks badly can have a mechanical cause, such as terminals out of parallel, or a thermal cause, such as one cold side. Often both are present. By combining optical alignment of the terminals with thermal analysis of the band, BELTPRO separates the two causes and corrects each one, so the band runs straight both cold and at operating temperature.
+            </p>
+
+            <section class="website-note">
+                <h2 data-en="BELTPRO Oven Band Thermal Analysis"
+                    data-es="Análisis Térmico de Bandas de Horno BELTPRO"
+                    data-pt="Análise Térmica de Esteiras de Forno BELTPRO"
+                    data-it="Analisi Termica del Nastro del Forno BELTPRO">
+                    BELTPRO Oven Band Thermal Analysis
+                </h2>
+
+                <p data-en="If your oven band keeps drifting, has damaged edges or needs constant tracking corrections, a thermal analysis can show what the mechanics alone cannot. Contact BELTPRO to schedule a thermal survey of your oven."
+                   data-es="Si la banda de su horno se desvía constantemente, tiene bordes dañados o necesita correcciones de guiado continuas, un análisis térmico puede mostrar lo que la mecánica por sí sola no muestra. Contacte a BELTPRO para programar un levantamiento térmico de su horno."
+                   data-pt="Se a esteira do seu forno vive desviando, tem bordas danificadas ou precisa de correções de tracking constantes, uma análise térmica pode mostrar o que a mecânica sozinha não mostra. Fale com a BELTPRO para agendar um levantamento térmico do seu forno."
+                   data-it="Se il nastro del vostro forno continua a deviare, ha bordi danneggiati o richiede continue correzioni di tracking, un'analisi termica può mostrare ciò che la sola meccanica non rivela. Contattate BELTPRO per programmare un rilievo termico del vostro forno.">
+                    If your oven band keeps drifting, has damaged edges or needs constant tracking corrections, a thermal analysis can show what the mechanics alone cannot. Contact BELTPRO to schedule a thermal survey of your oven.
+                </p>
+            </section>
+
+            <div class="disclaimer">
+                <strong data-en="Engineering Disclaimer" data-es="Aviso de Ingeniería" data-pt="Aviso de Engenharia" data-it="Avvertenza di Ingegneria">Engineering Disclaimer</strong>
+
+                <p data-en="This article is intended for general technical guidance and preliminary engineering reference only. Oven settings and band adjustments must always follow the equipment and band manufacturers' documentation, the actual operating conditions and the plant's safety procedures."
+                   data-es="Este artículo está destinado únicamente a orientación técnica general y referencia preliminar de ingeniería. Los ajustes del horno y de la banda deben seguir siempre la documentación de los fabricantes del equipo y de la banda, las condiciones reales de operación y los procedimientos de seguridad de la planta."
+                   data-pt="Este artigo destina-se somente a orientação técnica geral e referência preliminar de engenharia. Os ajustes do forno e da esteira devem sempre seguir a documentação dos fabricantes do equipamento e da esteira, as condições reais de operação e os procedimentos de segurança da planta."
+                   data-it="Questo articolo è destinato esclusivamente a orientamento tecnico generale e riferimento preliminare di ingegneria. Le impostazioni del forno e le regolazioni del nastro devono sempre seguire la documentazione dei costruttori dell'impianto e del nastro, le condizioni operative reali e le procedure di sicurezza dello stabilimento.">
+                    This article is intended for general technical guidance and preliminary engineering reference only. Oven settings and band adjustments must always follow the equipment and band manufacturers' documentation, the actual operating conditions and the plant's safety procedures.
+                </p>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <strong>BELTPRO</strong>
+            <span>
+                © <span id="currentYear"></span> BELTPRO ·
+                <span data-en="Serving Industry Since 2014"
+                      data-es="Atendiendo a la Industria Desde 2014"
+                      data-pt="Atendendo a Indústria Desde 2014"
+                      data-it="Al Servizio dell'Industria Dal 2014">
+                    Serving Industry Since 2014
+                </span>
+            </span>
+        </div>
+    </footer>
+
+    <script>
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-' + lang + ']').forEach(function (element) {
+                element.textContent = element.getAttribute('data-' + lang);
+            });
+
+            document.documentElement.setAttribute('lang', lang);
+
+            try {
+                localStorage.setItem('beltpro_lang', lang);
+            } catch (error) {
+                console.warn('Language preference could not be saved.', error);
+            }
+
+            document.querySelectorAll('.language-bar button').forEach(function (button) {
+                button.classList.toggle('active', button.getAttribute('data-lang') === lang);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var savedLanguage = 'en';
+
+            try {
+                savedLanguage = localStorage.getItem('beltpro_lang') || 'en';
+            } catch (error) {
+                console.warn('Language preference could not be loaded.', error);
+            }
+
+            setLanguage(savedLanguage);
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+
+</body>
+</html>
