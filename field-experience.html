@@ -140,6 +140,11 @@
                 "@type": "ListItem",
                 "position": 6,
                 "name": "Troubleshooting and Optimization"
+              },
+              {
+                "@type": "ListItem",
+                "position": 7,
+                "name": "Spiral Retrofit"
               }
             ]
           }
@@ -649,6 +654,22 @@
             font-weight: 900;
         }
 
+        /* Wide card: spans both columns, image beside text */
+        .experience-card-wide {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .experience-card-wide .experience-image {
+            aspect-ratio: auto;
+            min-height: 100%;
+        }
+
+        .experience-card-wide .experience-content {
+            align-self: center;
+        }
+
         /* =========================================================
            CTA
         ========================================================= */
@@ -974,6 +995,14 @@
 
             .experience-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .experience-card-wide {
+                display: block;
+            }
+
+            .experience-card-wide .experience-image {
+                aspect-ratio: 16 / 9;
             }
 
             .cta {
@@ -1699,6 +1728,29 @@
                     </div>
                 </article>
 
+                <article class="experience-card experience-card-wide">
+                    <div class="experience-image">
+                        <img src="retrofit-cover.png"
+                             alt="Spiral drum teeth replacement with new teeth being laser aligned"
+                             loading="lazy">
+                        <span class="experience-number">07</span>
+                    </div>
+                    <div class="experience-content">
+                        <h3 data-en="Spiral Retrofit"
+                            data-es="Retrofit de Espirales"
+                            data-pt="Retrofit de Espirais"
+                            data-it="Retrofit di Spirali">
+                            Spiral Retrofit
+                        </h3>
+                        <ul>
+                            <li data-en="Spiral drum teeth replacement" data-es="Reemplazo de dientes del tambor del espiral" data-pt="Substituição dos dentes do tambor da espiral" data-it="Sostituzione dei denti del tamburo della spirale">Spiral drum teeth replacement</li>
+                            <li data-en="Laser alignment of new drum teeth" data-es="Alineación láser de los nuevos dientes del tambor" data-pt="Alinhamento a laser dos novos dentes do tambor" data-it="Allineamento laser dei nuovi denti del tamburo">Laser alignment of new drum teeth</li>
+                            <li data-en="Drive cage repair: replacement of damaged square tubing" data-es="Reparación de la jaula de accionamiento: reemplazo de tubos cuadrados dañados" data-pt="Reparo da gaiola de acionamento: substituição de tubos quadrados danificados" data-it="Riparazione della gabbia di azionamento: sostituzione dei tubolari quadri danneggiati">Drive cage repair: replacement of damaged square tubing</li>
+                            <li data-en="Cage and drum verification after repair" data-es="Verificación de la jaula y del tambor después de la reparación" data-pt="Verificação da gaiola e do tambor após o reparo" data-it="Verifica della gabbia e del tamburo dopo la riparazione">Cage and drum verification after repair</li>
+                        </ul>
+                    </div>
+                </article>
+
             </div>
         </div>
     </main>
@@ -1908,7 +1960,6 @@
             <div class="footer-column">
                 <h3 data-en="Contact" data-es="Contacto" data-pt="Contato" data-it="Contatto">Contact</h3>
                 <a href="https://wa.me/5514998005395" target="_blank" rel="noopener">+55 14 99800-5395</a>
-                <a href="mailto:engenharia@beltpro.com.br">engenharia@beltpro.com.br</a>
                 <a href="mailto:engenharia@beltpro.com.br">engenharia@beltpro.com.br</a>
                 <a href="https://www.beltpro.com.br">www.beltpro.com.br</a>
             </div>
