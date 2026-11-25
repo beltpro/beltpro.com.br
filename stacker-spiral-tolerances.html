@@ -303,6 +303,75 @@
         .diagram { padding: 18px 12px 6px; background: #ffffff; }
         .diagram svg { display: block; width: 100%; height: auto; }
 
+        /* ---------- Drive types ---------- */
+        .drive-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin: 26px 0;
+        }
+
+        .drive-card {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fbfdff;
+        }
+
+        .drive-card img {
+            display: block;
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+
+        .drive-card-body { padding: 18px 18px 6px; }
+
+        .drive-card-body strong {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--navy);
+            font-size: 19px;
+        }
+
+        .drive-card-body p { font-size: 15px !important; }
+
+        .drive-card-body .inspect {
+            color: var(--blue) !important;
+            font-weight: 700;
+        }
+
+        /* ---------- Roller wear ---------- */
+        .wear-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin: 26px 0;
+        }
+
+        .wear-card {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fbfdff;
+        }
+
+        .wear-card img {
+            display: block;
+            width: 100%;
+            height: 280px;
+            object-fit: contain;
+            background: #2b2f36;
+        }
+
+        .wear-card .wear-caption {
+            padding: 12px 16px;
+            margin: 0 !important;
+            font-size: 14px !important;
+            color: var(--muted) !important;
+        }
+
+
         .field-box {
             margin: 26px 0;
             padding: 24px;
@@ -355,7 +424,10 @@
             .back-link { font-size: 12px; padding: 8px 10px; }
             .hero-inner { padding: 58px 0 64px; }
             .consequence-grid,
-            .figure-pair { grid-template-columns: 1fr; }
+            .figure-pair,
+            .drive-grid,
+            .wear-grid { grid-template-columns: 1fr; }
+            .drive-card img { height: 260px; }
             .figure-pair .figure img { height: auto; }
             .footer-inner { flex-direction: column; text-align: center; }
             .footer-inner span { text-align: center; }
@@ -434,6 +506,88 @@
             </p>
 
             <div class="rule-box" data-en="A small error at the base becomes a large error at the top of the stack" data-es="Un pequeño error en la base se convierte en un gran error en la parte superior de la pila" data-pt="Um pequeno erro na base se torna um grande erro no topo da pilha" data-it="Un piccolo errore alla base diventa un grande errore in cima alla pila">A small error at the base becomes a large error at the top of the stack</div>
+
+            <h2 data-en="Drive Types: Wagon, Ball and Roller"
+                data-es="Tipos de Accionamiento: Vagón, Esferas y Rodillos"
+                data-pt="Tipos de Acionamento: Vagão, Esferas e Roletes"
+                data-it="Tipi di Azionamento: Carrelli, Sfere e Rulli">
+                Drive Types: Wagon, Ball and Roller
+            </h2>
+
+            <p data-en="A self-stacking spiral is driven from the base of the stack. How the drive system supports and turns the first tier depends on the design. The three most common are the wagon drive, the ball drive and the roller drive. Each one has its own wear parts and its own inspection points."
+               data-es="Una espiral autoapilable se acciona desde la base de la pila. La forma en que el sistema de accionamiento soporta y hace girar el primer nivel depende del diseño. Los tres más comunes son el accionamiento por vagones, por esferas y por rodillos. Cada uno tiene sus propias piezas de desgaste y sus propios puntos de inspección."
+               data-pt="Uma espiral auto-empilhável é acionada pela base da pilha. A forma como o sistema de acionamento sustenta e gira o primeiro nível depende do projeto. Os três mais comuns são o acionamento por vagões, por esferas e por roletes. Cada um tem suas próprias peças de desgaste e seus próprios pontos de inspeção."
+               data-it="Una spirale autoimpilante è azionata dalla base della pila. Il modo in cui il sistema di azionamento sostiene e fa ruotare il primo livello dipende dal progetto. I tre più comuni sono l'azionamento a carrelli, a sfere e a rulli. Ognuno ha le proprie parti soggette a usura e i propri punti di ispezione.">
+                A self-stacking spiral is driven from the base of the stack. How the drive system supports and turns the first tier depends on the design. The three most common are the wagon drive, the ball drive and the roller drive. Each one has its own wear parts and its own inspection points.
+            </p>
+
+            <div class="drive-grid">
+                <div class="drive-card">
+                    <img src="images/stacker-wagon-drive.jpg"
+                         alt="Wagon drive chain entering the base of a self-stacking spiral"
+                         loading="lazy">
+                    <div class="drive-card-body">
+                        <strong data-en="Wagon Drive" data-es="Accionamiento por Vagones" data-pt="Acionamento por Vagões" data-it="Azionamento a Carrelli">Wagon Drive</strong>
+                        <p data-en="A chain of wagons runs in a closed loop under the stack. The wagons carry the first tier, turn it and transfer the weight of the stack to the track."
+                           data-es="Una cadena de vagones circula en un circuito cerrado bajo la pila. Los vagones soportan el primer nivel, lo hacen girar y transmiten el peso de la pila al riel."
+                           data-pt="Uma corrente de vagões circula em circuito fechado sob a pilha. Os vagões sustentam o primeiro nível, fazem-no girar e transferem o peso da pilha para o trilho."
+                           data-it="Una catena di carrelli scorre in un circuito chiuso sotto la pila. I carrelli sostengono il primo livello, lo fanno ruotare e trasferiscono il peso della pila alla guida.">
+                            A chain of wagons runs in a closed loop under the stack. The wagons carry the first tier, turn it and transfer the weight of the stack to the track.
+                        </p>
+                        <p class="inspect"
+                           data-en="Check: wagon wear, chain elongation, track condition and alignment."
+                           data-es="Verificar: desgaste de los vagones, elongación de la cadena, estado y alineación del riel."
+                           data-pt="Verificar: desgaste dos vagões, alongamento da corrente, estado e alinhamento do trilho."
+                           data-it="Verificare: usura dei carrelli, allungamento della catena, stato e allineamento della guida.">
+                            Check: wagon wear, chain elongation, track condition and alignment.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="drive-card">
+                    <img src="images/stacker-ball-drive.jpg"
+                         alt="Ball drive ring at the base of a self-stacking spiral"
+                         loading="lazy">
+                    <div class="drive-card-body">
+                        <strong data-en="Ball Drive" data-es="Accionamiento por Esferas" data-pt="Acionamento por Esferas" data-it="Azionamento a Sfere">Ball Drive</strong>
+                        <p data-en="The stack rests on balls held in a drive ring that turns around the base. The balls carry the full weight of the stack, so their size and condition set the height and level of the first tier."
+                           data-es="La pila se apoya sobre esferas alojadas en un anillo de accionamiento que gira alrededor de la base. Las esferas soportan todo el peso de la pila, por lo que su tamaño y estado definen la altura y la nivelación del primer nivel."
+                           data-pt="A pilha se apoia sobre esferas alojadas em um anel de acionamento que gira ao redor da base. As esferas suportam todo o peso da pilha, por isso seu tamanho e estado definem a altura e o nivelamento do primeiro nível."
+                           data-it="La pila poggia su sfere alloggiate in un anello di azionamento che ruota attorno alla base. Le sfere sostengono tutto il peso della pila, quindi le loro dimensioni e condizioni determinano l'altezza e il livellamento del primo livello.">
+                            The stack rests on balls held in a drive ring that turns around the base. The balls carry the full weight of the stack, so their size and condition set the height and level of the first tier.
+                        </p>
+                        <p class="inspect"
+                           data-en="Check: ball diameter, flat spots, mixed sizes and ring condition."
+                           data-es="Verificar: diámetro de las esferas, zonas planas, tamaños mezclados y estado del anillo."
+                           data-pt="Verificar: diâmetro das esferas, pontos planos, tamanhos misturados e estado do anel."
+                           data-it="Verificare: diametro delle sfere, zone piatte, dimensioni miste e stato dell'anello.">
+                            Check: ball diameter, flat spots, mixed sizes and ring condition.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="drive-card">
+                    <img src="images/stacker-roller-drive.jpg"
+                         alt="Roller drive with plastic and steel rollers on the drive chain"
+                         loading="lazy">
+                    <div class="drive-card-body">
+                        <strong data-en="Roller Drive" data-es="Accionamiento por Rodillos" data-pt="Acionamento por Roletes" data-it="Azionamento a Rulli">Roller Drive</strong>
+                        <p data-en="Plastic and steel rollers mounted on the drive chain support and move the stack. Both types of roller wear over time, lowering the support height and changing how the chain engages the belt."
+                           data-es="Rodillos plásticos y de acero montados en la cadena de accionamiento soportan y mueven la pila. Ambos tipos de rodillo se desgastan con el tiempo, reduciendo la altura de apoyo y cambiando el engrane de la cadena con la banda."
+                           data-pt="Roletes plásticos e de aço montados na corrente de acionamento sustentam e movimentam a pilha. Os dois tipos de rolete se desgastam com o tempo, reduzindo a altura de apoio e alterando o engrenamento da corrente com a esteira."
+                           data-it="Rulli in plastica e in acciaio montati sulla catena di trasmissione sostengono e muovono la pila. Entrambi i tipi di rullo si usurano nel tempo, abbassando l'altezza di appoggio e modificando l'ingranamento della catena con il nastro.">
+                            Plastic and steel rollers mounted on the drive chain support and move the stack. Both types of roller wear over time, lowering the support height and changing how the chain engages the belt.
+                        </p>
+                        <p class="inspect"
+                           data-en="Check: steel and plastic roller diameter, bearings and chain elongation."
+                           data-es="Verificar: diámetro de los rodillos de acero y plásticos, rodamientos y elongación de la cadena."
+                           data-pt="Verificar: diâmetro dos roletes de aço e plásticos, rolamentos e alongamento da corrente."
+                           data-it="Verificare: diametro dei rulli in acciaio e in plastica, cuscinetti e allungamento della catena.">
+                            Check: steel and plastic roller diameter, bearings and chain elongation.
+                        </p>
+                    </div>
+                </div>
+            </div>
 
                         <h2 data-en="What Happens When the Stack Fails"
                 data-es="Qué Sucede Cuando Falla la Pila"
@@ -559,6 +713,62 @@
                 The correct tolerances depend on the spiral model, belt type and operating conditions. BELTPRO measures each component against the equipment specifications and advises which parts can stay in service and which must be replaced.
             </p>
 
+            <h2 data-en="Roller Wear on Roller Drives"
+                data-es="Desgaste de los Rodillos en Accionamientos por Rodillos"
+                data-pt="Desgaste dos Roletes em Acionamentos por Roletes"
+                data-it="Usura dei Rulli negli Azionamenti a Rulli">
+                Roller Wear on Roller Drives
+            </h2>
+
+            <p data-en="Roller wear is gradual and hard to see. A roller that looks fine can already be several tenths of a millimetre below its nominal diameter. Around the full drive ring, these small differences add up to an uneven base, and the stack starts to lean."
+               data-es="El desgaste de los rodillos es gradual y difícil de ver. Un rodillo que parece estar bien puede estar ya varias décimas de milímetro por debajo de su diámetro nominal. En todo el anillo de accionamiento, estas pequeñas diferencias se suman en una base irregular y la pila comienza a inclinarse."
+               data-pt="O desgaste dos roletes é gradual e difícil de perceber. Um rolete que parece bom pode já estar vários décimos de milímetro abaixo do seu diâmetro nominal. Em todo o anel de acionamento, essas pequenas diferenças se somam em uma base irregular e a pilha começa a inclinar."
+               data-it="L'usura dei rulli è graduale e difficile da vedere. Un rullo che sembra in buono stato può essere già diversi decimi di millimetro sotto il diametro nominale. Lungo tutto l'anello di azionamento, queste piccole differenze si sommano in una base irregolare e la pila inizia a inclinarsi.">
+                Roller wear is gradual and hard to see. A roller that looks fine can already be several tenths of a millimetre below its nominal diameter. Around the full drive ring, these small differences add up to an uneven base, and the stack starts to lean.
+            </p>
+
+            <p data-en="Each roller is measured with a calliper and compared with its nominal diameter of 35 mm. Steel rollers and plastic rollers wear at different rates and have different wear limits."
+               data-es="Cada rodillo se mide con un calibrador y se compara con su diámetro nominal de 35 mm. Los rodillos de acero y los plásticos se desgastan a ritmos diferentes y tienen límites de desgaste distintos."
+               data-pt="Cada rolete é medido com paquímetro e comparado com seu diâmetro nominal de 35 mm. Roletes de aço e plásticos se desgastam em ritmos diferentes e têm limites de desgaste distintos."
+               data-it="Ogni rullo viene misurato con un calibro e confrontato con il suo diametro nominale di 35 mm. I rulli in acciaio e in plastica si usurano a velocità diverse e hanno limiti di usura differenti.">
+                Each roller is measured with a calliper and compared with its nominal diameter of 35 mm. Steel rollers and plastic rollers wear at different rates and have different wear limits.
+            </p>
+
+            <div class="wear-grid">
+                <div class="wear-card">
+                    <img src="images/stacker-steel-roller.jpg"
+                         alt="Steel roller measured across its diameter, nominal 35 mm"
+                         loading="lazy">
+                    <p class="wear-caption"
+                       data-en="Steel roller: nominal diameter 35 mm."
+                       data-es="Rodillo de acero: diámetro nominal 35 mm."
+                       data-pt="Rolete de aço: diâmetro nominal 35 mm."
+                       data-it="Rullo in acciaio: diametro nominale 35 mm.">
+                        Steel roller: nominal diameter 35 mm.
+                    </p>
+                </div>
+
+                <div class="wear-card">
+                    <img src="images/stacker-plastic-roller.jpg"
+                         alt="Plastic roller measured across dimensions A and B"
+                         loading="lazy">
+                    <p class="wear-caption"
+                       data-en="Plastic roller: nominal diameter 35 mm, measured across A and B."
+                       data-es="Rodillo plástico: diámetro nominal 35 mm, medido en A y B."
+                       data-pt="Rolete plástico: diâmetro nominal 35 mm, medido em A e B."
+                       data-it="Rullo in plastica: diametro nominale 35 mm, misurato su A e B.">
+                        Plastic roller: nominal diameter 35 mm, measured across A and B.
+                    </p>
+                </div>
+            </div>
+
+            <p data-en="Where each roller sits between its nominal diameter and its wear limit decides whether it can stay in service, should be planned for replacement, or is at risk of failure. BELTPRO measures the full set of rollers, evaluates them against the condition criteria for the drive and gives a clear replacement plan, so rollers are changed before they cause a destacking event."
+               data-es="La posición de cada rodillo entre su diámetro nominal y su límite de desgaste determina si puede seguir en servicio, si debe planificarse su reemplazo o si presenta riesgo de falla. BELTPRO mide todo el conjunto de rodillos, los evalúa según los criterios de condición del accionamiento y entrega un plan de reemplazo claro, para que los rodillos se cambien antes de provocar un desapilamiento."
+               data-pt="A posição de cada rolete entre seu diâmetro nominal e seu limite de desgaste define se ele pode continuar em serviço, se a substituição deve ser planejada ou se há risco de falha. A BELTPRO mede todo o conjunto de roletes, avalia-os conforme os critérios de condição do acionamento e entrega um plano de substituição claro, para que os roletes sejam trocados antes de causarem um desempilhamento."
+               data-it="La posizione di ogni rullo tra il diametro nominale e il limite di usura stabilisce se può restare in servizio, se la sostituzione va pianificata o se c'è rischio di guasto. BELTPRO misura l'intero set di rulli, li valuta secondo i criteri di condizione dell'azionamento e fornisce un piano di sostituzione chiaro, così i rulli vengono cambiati prima di causare un disimpilamento.">
+                Where each roller sits between its nominal diameter and its wear limit decides whether it can stay in service, should be planned for replacement, or is at risk of failure. BELTPRO measures the full set of rollers, evaluates them against the condition criteria for the drive and gives a clear replacement plan, so rollers are changed before they cause a destacking event.
+            </p>
+
                         <h2 data-en="Laser Levelling for Uniform Elevation"
                 data-es="Nivelación Láser para una Elevación Uniforme"
                 data-pt="Nivelamento a Laser para Elevação Uniforme"
@@ -641,11 +851,11 @@
             </h2>
 
             <ol>
-                <li data-en="Measure the balls and check for wear, flat spots and size variation."
-                    data-es="Medición de las esferas y verificación de desgaste, zonas planas y variación de tamaño."
-                    data-pt="Medição das esferas e verificação de desgaste, pontos planos e variação de tamanho."
-                    data-it="Misurazione delle sfere e verifica di usura, zone piatte e variazioni di dimensione.">
-                    Measure the balls and check for wear, flat spots and size variation.
+                <li data-en="Measure the balls or rollers and check for wear, flat spots and size variation."
+                    data-es="Medición de las esferas o rodillos y verificación de desgaste, zonas planas y variación de tamaño."
+                    data-pt="Medição das esferas ou roletes e verificação de desgaste, pontos planos e variação de tamanho."
+                    data-it="Misurazione delle sfere o dei rulli e verifica di usura, zone piatte e variazioni di dimensione.">
+                    Measure the balls or rollers and check for wear, flat spots and size variation.
                 </li>
                 <li data-en="Inspect the glide strips for wear, steps at the joints and alignment."
                     data-es="Inspección de las tiras deslizantes: desgaste, escalones en las uniones y alineación."
