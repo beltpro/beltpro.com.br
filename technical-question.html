@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9937NXCF9J"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-9937NXCF9J');
+</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ask a Technical Question | BELTPRO</title>
+<meta content="Send your technical question about spiral conveyors, oven bands and conveyor belts to BELTPRO engineer Ricardo Pio Barakat. Attach photos and get a reply by email or WhatsApp." name="description"/>
+<meta content="index, follow" name="robots"/>
+<link href="https://www.beltpro.com.br/technical-question.html" rel="canonical"/>
+<link href="favicon.png" rel="icon" type="image/png"/>
+
+<!-- Phone field with country selector (intl-tel-input) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/css/intlTelInput.css"/>
+
+<style>
+  :root {
+    --navy: #082f49;
+    --blue: #0f4c81;
+    --blue-2: #0369a1;
+    --sky: #38bdf8;
+    --orange: #f97316;
+    --green: #16a34a;
+    --red: #b91c1c;
+    --ink: #172033;
+    --muted: #5f6b7a;
+    --line: #dbe4ee;
+    --soft: #f4f8fb;
+    --white: #ffffff;
+    --shadow: 0 18px 45px rgba(15, 76, 129, 0.12);
+    --radius: 20px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background: var(--soft);
+    color: var(--ink);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  img { max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, a { -webkit-tap-highlight-color: transparent; }
+
+  .shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 9px; margin-bottom: 14px;
+    color: var(--sky); font-size: 13px; font-weight: 800;
+    letter-spacing: 0.13em; text-transform: uppercase;
+  }
+  .eyebrow::before { content: ""; width: 28px; height: 3px; border-radius: 99px; background: var(--orange); }
+
+  /* Language bar (same as home page) */
+  .language-bar { background: #061f33; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .language-inner { min-height: 42px; display: flex; justify-content: flex-end; align-items: center; gap: 7px; }
+  .language-bar button {
+    border: 0; background: transparent; color: #d9e7f2; padding: 7px 10px;
+    border-radius: 999px; cursor: pointer; font-size: 13px; font-weight: 700; transition: .2s ease;
+  }
+  .language-bar button:hover,
+  .language-bar button.active { background: rgba(56,189,248,.16); color: var(--white); }
+
+  /* Slim navigation */
+  .site-nav {
+    position: sticky; top: 0; z-index: 1000;
+    background: rgba(8,47,73,.96); backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 8px 25px rgba(2, 22, 38, 0.14);
+  }
+  .nav-inner { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .nav-brand img { display: block; width: 140px; max-height: 50px; object-fit: contain; }
+  .nav-back {
+    color: #edf7fc; font-size: 14px; font-weight: 760; padding: 10px 12px; border-radius: 10px; transition: .2s ease;
+  }
+  .nav-back:hover { background: rgba(255,255,255,.09); color: var(--sky); }
+
+  /* Page layout */
+  .page-hero {
+    background: linear-gradient(145deg, #071f32, #0b446b);
+    color: var(--white);
+    padding: 64px 0 120px;
+  }
+  .page-hero h1 {
+    font-size: clamp(34px, 5vw, 54px); line-height: 1.08; letter-spacing: -0.04em; margin-bottom: 16px;
+  }
+  .page-hero p { max-width: 720px; color: #d4e7f1; font-size: 18px; }
+
+  .form-layout {
+    display: grid; grid-template-columns: 1fr 340px; gap: 28px; align-items: start;
+    margin-top: -80px; padding-bottom: 90px;
+  }
+
+  .card {
+    background: var(--white); border: 1px solid var(--line); border-radius: 24px;
+    box-shadow: var(--shadow); padding: 38px;
+  }
+
+  .tips {
+    background: var(--white); border: 1px solid var(--line); border-radius: 20px;
+    box-shadow: var(--shadow); padding: 28px;
+  }
+  .tips h2 { color: var(--navy); font-size: 18px; line-height: 1.3; margin-bottom: 14px; }
+  .tips ul { list-style: none; }
+  .tips li { position: relative; padding: 8px 0 8px 28px; color: var(--muted); font-size: 15px; border-bottom: 1px solid var(--line); }
+  .tips li:last-child { border-bottom: 0; }
+  .tips li::before { content: "✓"; position: absolute; left: 0; top: 8px; color: var(--green); font-weight: 900; }
+  .tips .direct { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+  .tips .direct a { color: var(--blue-2); font-weight: 750; }
+
+  /* Form fields */
+  .field { margin-bottom: 22px; }
+  .field label.field-label,
+  .field .field-label {
+    display: block; margin-bottom: 8px; color: var(--navy); font-weight: 800; font-size: 15px;
+  }
+  .optional { color: var(--muted); font-weight: 600; font-size: 13px; }
+
+  .input,
+  textarea.input {
+    width: 100%; min-height: 50px; padding: 12px 14px;
+    border: 1px solid #cbd5e1; border-radius: 11px; background: var(--white);
+    font: inherit; font-size: 16px; color: var(--ink);
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  textarea.input { min-height: 180px; resize: vertical; line-height: 1.55; }
+  .input:focus { outline: none; border-color: var(--blue-2); box-shadow: 0 0 0 4px rgba(3,105,161,.12); }
+  .field.has-error .input,
+  .field.has-error .iti input { border-color: var(--red); }
+
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+  .hint { margin-top: 6px; color: var(--muted); font-size: 13px; }
+  .counter { margin-top: 6px; color: var(--muted); font-size: 12px; text-align: right; }
+  .error { display: none; margin-top: 7px; color: var(--red); font-size: 14px; font-weight: 700; }
+  .field.has-error .error { display: block; }
+
+  /* Phone field */
+  .iti { width: 100%; }
+  .iti input.input { padding-left: 52px; }
+  .iti--separate-dial-code input.input { padding-left: 0; } /* plugin sets padding inline */
+  .iti__country-container { z-index: 5; }
+  .iti--inline-dropdown .iti__dropdown-content { border-radius: 11px; border-color: var(--line); box-shadow: 0 18px 40px rgba(2,31,51,.18); }
+
+  /* Photos */
+  .photo-area { display: flex; flex-wrap: wrap; gap: 12px; align-items: stretch; }
+  .photo-thumb {
+    position: relative; width: 120px; height: 120px; border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--line); background: var(--soft);
+  }
+  .photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-thumb button {
+    position: absolute; top: 6px; right: 6px; width: 28px; height: 28px; border: 0; border-radius: 50%;
+    background: rgba(8,47,73,.85); color: var(--white); font-size: 16px; line-height: 1; cursor: pointer;
+  }
+  .photo-thumb button:hover { background: var(--red); }
+  .photo-add {
+    width: 120px; height: 120px; display: grid; place-items: center; text-align: center;
+    border: 2px dashed #b6cad9; border-radius: 14px; background: #f8fbfd;
+    color: var(--blue-2); font-weight: 800; font-size: 14px; cursor: pointer; padding: 10px;
+    transition: .2s ease;
+  }
+  .photo-add:hover { border-color: var(--blue-2); background: #edf7fc; }
+  .photo-add[hidden] { display: none; }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* Consent */
+  .consent { display: flex; gap: 12px; align-items: flex-start; color: #405065; font-size: 14px; cursor: pointer; }
+  .consent input { margin-top: 3px; width: 19px; height: 19px; flex: 0 0 19px; accent-color: var(--blue); }
+
+  /* Honeypot (hidden from people, visible to bots) */
+  .hp { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+
+  /* Status + button */
+  .form-status {
+    display: none; margin: 4px 0 18px; padding: 13px 15px; border-radius: 11px; font-size: 14px; font-weight: 700;
+  }
+  .form-status.show { display: block; }
+  .form-status.error-box { background: #fef2f2; color: var(--red); border: 1px solid #fecaca; }
+  .form-status.info-box { background: #eff8ff; color: var(--blue); border: 1px solid #bfdbfe; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    min-height: 52px; padding: 13px 24px; border: 1px solid transparent; border-radius: 12px;
+    font: inherit; font-weight: 800; font-size: 16px; cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease, opacity .2s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--orange); color: var(--white); box-shadow: 0 12px 30px rgba(249,115,22,.28); }
+  .btn-primary:hover { background: #ea580c; }
+  .btn-outline { background: var(--white); color: var(--blue); border-color: var(--line); }
+  .btn[disabled] { opacity: .7; cursor: wait; transform: none; }
+  .btn-submit { width: 100%; }
+
+  .spinner {
+    width: 18px; height: 18px; border-radius: 50%;
+    border: 3px solid rgba(255,255,255,.4); border-top-color: var(--white);
+    animation: spin .8s linear infinite; display: none;
+  }
+  .btn.loading .spinner { display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Success */
+  .success { text-align: center; padding: 30px 10px; }
+  .success-icon {
+    width: 72px; height: 72px; margin: 0 auto 18px; display: grid; place-items: center;
+    border-radius: 50%; background: #dcfce7; color: var(--green); font-size: 36px; font-weight: 900;
+  }
+  .success h2 { color: var(--navy); font-size: 30px; letter-spacing: -.03em; margin-bottom: 10px; }
+  .success p { color: var(--muted); max-width: 480px; margin: 0 auto 24px; }
+
+  footer { padding: 30px 0; background: #061f33; color: #8fa8b7; font-size: 13px; text-align: center; }
+  footer a { color: #cbdce8; }
+  footer a:hover { color: var(--sky); }
+
+  @media (max-width: 960px) {
+    .form-layout { grid-template-columns: 1fr; }
+    .tips { order: 2; }
+  }
+
+  @media (max-width: 760px) {
+    .shell { width: min(100% - 26px, 1180px); }
+    .language-inner { justify-content: center; flex-wrap: wrap; padding: 5px 0; }
+    .language-bar button { font-size: 12px; padding: 6px 8px; }
+    .nav-brand img { width: 120px; }
+    .page-hero { padding: 48px 0 110px; }
+    .card { padding: 24px 18px; }
+    .field-row { grid-template-columns: 1fr; gap: 0; }
+    .photo-thumb, .photo-add { width: 104px; height: 104px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="language-bar">
+  <div class="shell language-inner">
+    <button data-lang="en" onclick="setLanguage('en')" type="button">🇺🇸 English</button>
+    <button data-lang="es" onclick="setLanguage('es')" type="button">🇪🇸 Español</button>
+    <button data-lang="pt" onclick="setLanguage('pt')" type="button">🇧🇷 Português</button>
+    <button data-lang="it" onclick="setLanguage('it')" type="button">🇮🇹 Italiano</button>
+  </div>
+</div>
+
+<nav aria-label="Main navigation" class="site-nav">
+  <div class="shell nav-inner">
+    <a aria-label="BELTPRO home" class="nav-brand" href="index.html">
+      <img alt="BELTPRO Logo" src="images/logo-white-blue.png"/>
+    </a>
+    <a class="nav-back" href="index.html"
+       data-en="← Back to home" data-es="← Volver al inicio" data-it="← Torna alla home" data-pt="← Voltar ao início">← Back to home</a>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="shell">
+    <span class="eyebrow" data-en="Technical Support" data-es="Soporte Técnico" data-it="Supporto Tecnico" data-pt="Suporte Técnico">Technical Support</span>
+    <h1 data-en="Ask a technical question" data-es="Envíe su duda técnica" data-it="Invia la tua domanda tecnica" data-pt="Envie sua dúvida técnica">Ask a technical question</h1>
+    <p data-en="Describe the problem with your spiral conveyor, oven band or belt system. We will review it and reply by email or WhatsApp."
+       data-es="Describa el problema con su transportador espiral, banda de horno o sistema de bandas. Lo analizaremos y responderemos por correo electrónico o WhatsApp."
+       data-it="Descrivi il problema con il tuo trasportatore a spirale, nastro del forno o sistema di nastri. Lo analizzeremo e risponderemo via email o WhatsApp."
+       data-pt="Descreva o problema com seu transportador espiral, esteira de forno ou sistema de esteiras. Vamos analisar e responder por e-mail ou WhatsApp.">Describe the problem with your spiral conveyor, oven band or belt system. We will review it and reply by email or WhatsApp.</p>
+  </div>
+</header>
+
+<main class="shell form-layout">
+
+  <div class="card">
+    <form id="questionForm" novalidate>
+
+      <!-- Honeypot: real people never see or fill this field -->
+      <div class="hp" aria-hidden="true">
+        <label>Website <input type="text" name="website" id="website" tabindex="-1" autocomplete="off"/></label>
+      </div>
+
+      <div class="field" id="fieldQuestion">
+        <label class="field-label" for="question"
+               data-en="Your question" data-es="Su duda" data-it="La tua domanda" data-pt="Sua dúvida">Your question</label>
+        <textarea class="input" id="question" name="question" maxlength="4000" required
+                  data-ph-en="Describe the equipment, the problem and what you have already tried..."
+                  data-ph-es="Describa el equipo, el problema y lo que ya ha intentado..."
+                  data-ph-it="Descrivi l'attrezzatura, il problema e cosa hai già provato..."
+                  data-ph-pt="Descreva o equipamento, o problema e o que você já tentou..."
+                  placeholder="Describe the equipment, the problem and what you have already tried..."></textarea>
+        <div class="counter"><span id="questionCount">0</span> / 4000</div>
+        <div class="error" id="errorQuestion"></div>
+      </div>
+
+      <div class="field-row">
+        <div class="field" id="fieldName">
+          <label class="field-label" for="name">
+            <span data-en="Name / Company" data-es="Nombre / Empresa" data-it="Nome / Azienda" data-pt="Nome / Empresa">Name / Company</span>
+            <span class="optional" data-en="(optional)" data-es="(opcional)" data-it="(facoltativo)" data-pt="(opcional)">(optional)</span>
+          </label>
+          <input class="input" id="name" name="name" type="text" maxlength="120" autocomplete="name"/>
+        </div>
+
+        <div class="field" id="fieldEmail">
+          <label class="field-label" for="email"
+                 data-en="Email" data-es="Correo electrónico" data-it="Email" data-pt="E-mail">Email</label>
+          <input class="input" id="email" name="email" type="email" maxlength="160" autocomplete="email" required/>
+          <div class="error" id="errorEmail"></div>
+        </div>
+      </div>
+
+      <div class="field" id="fieldPhone">
+        <label class="field-label" for="phone"
+               data-en="Phone / WhatsApp" data-es="Teléfono / WhatsApp" data-it="Telefono / WhatsApp" data-pt="Telefone / WhatsApp">Phone / WhatsApp</label>
+        <input class="input" id="phone" name="phone_local" type="tel" autocomplete="tel" required/>
+        <div class="hint"
+             data-en="We may contact you on WhatsApp about this question."
+             data-es="Podemos contactarle por WhatsApp sobre esta duda."
+             data-it="Potremmo contattarti su WhatsApp per questa domanda."
+             data-pt="Podemos entrar em contato pelo WhatsApp sobre esta dúvida.">We may contact you on WhatsApp about this question.</div>
+        <div class="error" id="errorPhone"></div>
+      </div>
+
+      <div class="field" id="fieldPhotos">
+        <span class="field-label">
+          <span data-en="Photos" data-es="Fotos" data-it="Foto" data-pt="Fotos">Photos</span>
+          <span class="optional" data-en="(optional, up to 2)" data-es="(opcional, hasta 2)" data-it="(facoltativo, fino a 2)" data-pt="(opcional, até 2)">(optional, up to 2)</span>
+        </span>
+        <div class="photo-area" id="photoArea">
+          <label class="photo-add" id="photoAdd" for="photoInput">
+            <span data-en="+ Add photo" data-es="+ Agregar foto" data-it="+ Aggiungi foto" data-pt="+ Adicionar foto">+ Add photo</span>
+          </label>
+        </div>
+        <input class="visually-hidden" id="photoInput" type="file" accept="image/*" multiple/>
+        <div class="hint"
+             data-en="JPG or PNG. Large photos are reduced automatically."
+             data-es="JPG o PNG. Las fotos grandes se reducen automáticamente."
+             data-it="JPG o PNG. Le foto grandi vengono ridotte automaticamente."
+             data-pt="JPG ou PNG. Fotos grandes são reduzidas automaticamente.">JPG or PNG. Large photos are reduced automatically.</div>
+        <div class="error" id="errorPhotos"></div>
+      </div>
+
+      <div class="field" id="fieldConsent">
+        <label class="consent">
+          <input id="consent" name="consent" type="checkbox" required/>
+          <span data-en="I agree that BELTPRO may use the information provided only to respond to this question."
+                data-es="Autorizo a BELTPRO a utilizar los datos proporcionados únicamente para responder a esta duda."
+                data-it="Autorizzo BELTPRO a utilizzare i dati forniti esclusivamente per rispondere a questa domanda."
+                data-pt="Autorizo a BELTPRO a usar os dados informados apenas para responder a esta dúvida.">I agree that BELTPRO may use the information provided only to respond to this question.</span>
+        </label>
+        <div class="error" id="errorConsent"></div>
+      </div>
+
+      <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+
+      <button class="btn btn-primary btn-submit" id="submitButton" type="submit">
+        <span class="spinner" aria-hidden="true"></span>
+        <span id="submitLabel" data-en="Send question →" data-es="Enviar duda →" data-it="Invia domanda →" data-pt="Enviar dúvida →">Send question →</span>
+      </button>
+    </form>
+
+    <div class="success" id="successPanel" hidden>
+      <div class="success-icon">✓</div>
+      <h2 data-en="Question sent!" data-es="¡Duda enviada!" data-it="Domanda inviata!" data-pt="Dúvida enviada!">Question sent!</h2>
+      <p data-en="Thank you. We received your question and will reply as soon as possible by email or WhatsApp."
+         data-es="Gracias. Recibimos su duda y responderemos lo antes posible por correo electrónico o WhatsApp."
+         data-it="Grazie. Abbiamo ricevuto la tua domanda e risponderemo il prima possibile via email o WhatsApp."
+         data-pt="Obrigado. Recebemos sua dúvida e responderemos o mais breve possível por e-mail ou WhatsApp.">Thank you. We received your question and will reply as soon as possible by email or WhatsApp.</p>
+      <button class="btn btn-outline" id="sendAnother" type="button"
+              data-en="Send another question" data-es="Enviar otra duda" data-it="Invia un'altra domanda" data-pt="Enviar outra dúvida">Send another question</button>
+    </div>
+  </div>
+
+  <aside class="tips">
+    <h2 data-en="To get a faster answer, include:" data-es="Para una respuesta más rápida, incluya:" data-it="Per una risposta più rapida, indica:" data-pt="Para uma resposta mais rápida, informe:">To get a faster answer, include:</h2>
+    <ul>
+      <li data-en="Equipment type and manufacturer" data-es="Tipo de equipo y fabricante" data-it="Tipo di attrezzatura e produttore" data-pt="Tipo de equipamento e fabricante">Equipment type and manufacturer</li>
+      <li data-en="Belt type, width and operating temperature" data-es="Tipo de banda, ancho y temperatura de operación" data-it="Tipo di nastro, larghezza e temperatura di esercizio" data-pt="Tipo de esteira, largura e temperatura de operação">Belt type, width and operating temperature</li>
+      <li data-en="What is happening and since when" data-es="Qué está ocurriendo y desde cuándo" data-it="Cosa sta succedendo e da quando" data-pt="O que está acontecendo e desde quando">What is happening and since when</li>
+      <li data-en="A photo of the problem area, if possible" data-es="Una foto de la zona del problema, si es posible" data-it="Una foto della zona del problema, se possibile" data-pt="Uma foto da região do problema, se possível">A photo of the problem area, if possible</li>
+    </ul>
+    <div class="direct">
+      <span data-en="Prefer email?" data-es="¿Prefiere correo electrónico?" data-it="Preferisci l'email?" data-pt="Prefere e-mail?">Prefer email?</span>
+      <a href="mailto:engenharia@beltpro.com.br">engenharia@beltpro.com.br</a>
+    </div>
+  </aside>
+
+</main>
+
+<footer>
+  <div class="shell">
+    © <span id="currentYear"></span> BELTPRO · <a href="index.html">www.beltpro.com.br</a>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/intlTelInput.min.js"></script>
+<script>
+  /* ============================================================
+     CONFIGURATION
+     ============================================================ */
+  const API_BASE = 'https://spiral-tension-api.onrender.com';
+  const SUBMIT_URL = API_BASE + '/technical-question';
+  const MAX_PHOTOS = 2;
+  const MAX_PHOTO_BYTES = 5 * 1024 * 1024;   // after compression
+  const MAX_SIDE = 1600;                      // px, longest side after compression
+  const JPEG_QUALITY = 0.82;
+  const MIN_QUESTION_LENGTH = 15;
+  const REQUEST_TIMEOUT_MS = 90000;           // Render free plan can take ~1 min to wake up
+
+  /* ============================================================
+     TEXTS USED BY JAVASCRIPT (4 languages)
+     ============================================================ */
+  const MESSAGES = {
+    pageTitle: {
+      en: 'Ask a Technical Question | BELTPRO',
+      es: 'Envíe su Duda Técnica | BELTPRO',
+      it: 'Invia la tua Domanda Tecnica | BELTPRO',
+      pt: 'Envie sua Dúvida Técnica | BELTPRO'
+    },
+    questionRequired: {
+      en: 'Please describe your question.',
+      es: 'Describa su duda.',
+      it: 'Descrivi la tua domanda.',
+      pt: 'Descreva sua dúvida.'
+    },
+    questionTooShort: {
+      en: 'Please add a little more detail (at least 15 characters).',
+      es: 'Agregue un poco más de detalle (mínimo 15 caracteres).',
+      it: 'Aggiungi qualche dettaglio in più (almeno 15 caratteri).',
+      pt: 'Dê um pouco mais de detalhes (mínimo de 15 caracteres).'
+    },
+    emailInvalid: {
+      en: 'Please enter a valid email address.',
+      es: 'Ingrese un correo electrónico válido.',
+      it: 'Inserisci un indirizzo email valido.',
+      pt: 'Informe um e-mail válido.'
+    },
+    phoneRequired: {
+      en: 'Please enter your phone / WhatsApp number.',
+      es: 'Ingrese su teléfono / WhatsApp.',
+      it: 'Inserisci il tuo numero di telefono / WhatsApp.',
+      pt: 'Informe seu telefone / WhatsApp.'
+    },
+    phoneInvalid: {
+      en: "This phone number doesn't look valid for the selected country.",
+      es: 'Este número no parece válido para el país seleccionado.',
+      it: 'Questo numero non sembra valido per il paese selezionato.',
+      pt: 'Este número não parece válido para o país selecionado.'
+    },
+    consentRequired: {
+      en: 'Please confirm the consent to continue.',
+      es: 'Marque la autorización para continuar.',
+      it: 'Conferma il consenso per continuare.',
+      pt: 'Marque a autorização para continuar.'
+    },
+    photoLimit: {
+      en: 'You can attach up to 2 photos.',
+      es: 'Puede adjuntar hasta 2 fotos.',
+      it: 'Puoi allegare fino a 2 foto.',
+      pt: 'Você pode anexar até 2 fotos.'
+    },
+    photoType: {
+      en: 'Only image files are accepted.',
+      es: 'Solo se aceptan archivos de imagen.',
+      it: 'Sono accettati solo file immagine.',
+      pt: 'Somente arquivos de imagem são aceitos.'
+    },
+    photoTooLarge: {
+      en: 'This photo is too large. Please use a photo under 5 MB.',
+      es: 'Esta foto es demasiado grande. Use una foto de menos de 5 MB.',
+      it: 'Questa foto è troppo grande. Usa una foto inferiore a 5 MB.',
+      pt: 'Esta foto é muito grande. Use uma foto com menos de 5 MB.'
+    },
+    sending: {
+      en: 'Sending...',
+      es: 'Enviando...',
+      it: 'Invio in corso...',
+      pt: 'Enviando...'
+    },
+    waking: {
+      en: 'Connecting to the server, this can take up to a minute. Please keep this page open.',
+      es: 'Conectando con el servidor, esto puede tardar hasta un minuto. Mantenga esta página abierta.',
+      it: 'Connessione al server in corso, può richiedere fino a un minuto. Tieni aperta questa pagina.',
+      pt: 'Conectando ao servidor, isso pode levar até um minuto. Mantenha esta página aberta.'
+    },
+    network: {
+      en: "We couldn't send your question. Please check your connection and try again.",
+      es: 'No fue posible enviar su duda. Verifique su conexión e inténtelo de nuevo.',
+      it: 'Non è stato possibile inviare la tua domanda. Controlla la connessione e riprova.',
+      pt: 'Não foi possível enviar sua dúvida. Verifique sua conexão e tente novamente.'
+    },
+    timeout: {
+      en: 'The server took too long to respond. Please try again.',
+      es: 'El servidor tardó demasiado en responder. Inténtelo de nuevo.',
+      it: 'Il server ha impiegato troppo tempo a rispondere. Riprova.',
+      pt: 'O servidor demorou demais para responder. Tente novamente.'
+    },
+    rateLimited: {
+      en: 'Too many submissions. Please wait a few minutes and try again.',
+      es: 'Demasiados envíos seguidos. Espere unos minutos e inténtelo de nuevo.',
+      it: 'Troppi invii ravvicinati. Attendi qualche minuto e riprova.',
+      pt: 'Muitos envios seguidos. Aguarde alguns minutos e tente novamente.'
+    },
+    server: {
+      en: 'Something went wrong on our side. Please try again or email engenharia@beltpro.com.br.',
+      es: 'Ocurrió un error de nuestro lado. Inténtelo de nuevo o escriba a engenharia@beltpro.com.br.',
+      it: 'Si è verificato un errore da parte nostra. Riprova o scrivi a engenharia@beltpro.com.br.',
+      pt: 'Ocorreu um erro do nosso lado. Tente novamente ou envie um e-mail para engenharia@beltpro.com.br.'
+    },
+    removePhoto: {
+      en: 'Remove photo',
+      es: 'Quitar foto',
+      it: 'Rimuovi foto',
+      pt: 'Remover foto'
+    },
+    searchPlaceholder: {
+      en: 'Search country',
+      es: 'Buscar país',
+      it: 'Cerca paese',
+      pt: 'Buscar país'
+    },
+    zeroSearchResults: {
+      en: 'No results',
+      es: 'Sin resultados',
+      it: 'Nessun risultato',
+      pt: 'Nenhum resultado'
+    }
+  };
+
+  // Error codes the server may return -> message keys above
+  const SERVER_ERRORS = {
+    question_required: 'questionRequired',
+    question_too_short: 'questionTooShort',
+    invalid_email: 'emailInvalid',
+    invalid_phone: 'phoneInvalid',
+    consent_required: 'consentRequired',
+    too_many_photos: 'photoLimit',
+    invalid_photo_type: 'photoType',
+    photo_too_large: 'photoTooLarge',
+    rate_limited: 'rateLimited'
+  };
+
+  const LOCALES = { en: 'en', es: 'es', it: 'it', pt: 'pt-BR' };
+  const DEFAULT_COUNTRY_BY_LANG = { pt: 'br', es: 'es', it: 'it', en: 'us' };
+
+  let currentLang = 'en';
+  let iti = null;
+  let photos = [];        // [{ file, url }]
+  let sending = false;
+
+  function t(key) {
+    const entry = MESSAGES[key];
+    if (!entry) return key;
+    return entry[currentLang] || entry.en;
+  }
+
+  /* ============================================================
+     LANGUAGE (same mechanism as the home page)
+     ============================================================ */
+  function setLanguage(lang) {
+    if (!MESSAGES.pageTitle[lang]) lang = 'en';
+    currentLang = lang;
+
+    document.querySelectorAll('[data-' + lang + ']').forEach(function (el) {
+      el.innerHTML = el.getAttribute('data-' + lang);
+    });
+    document.querySelectorAll('[data-ph-' + lang + ']').forEach(function (el) {
+      el.setAttribute('placeholder', el.getAttribute('data-ph-' + lang));
+    });
+
+    document.documentElement.setAttribute('lang', lang);
+    document.title = t('pageTitle');
+    try { localStorage.setItem('beltpro_lang', lang); } catch (e) {}
+
+    document.querySelectorAll('.language-bar button').forEach(function (btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+
+    document.querySelectorAll('.photo-thumb button').forEach(function (btn) {
+      btn.setAttribute('aria-label', t('removePhoto'));
+    });
+
+    // Rebuild the phone field so country names appear in the new language
+    if (iti) rebuildPhoneField();
+
+    // Re-translate any visible error messages
+    retranslateErrors();
+  }
+
+  /* ============================================================
+     PHONE FIELD (intl-tel-input)
+     ============================================================ */
+  function guessCountry() {
+    const list = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || ''];
+    for (let i = 0; i < list.length; i++) {
+      const match = /[-_]([A-Za-z]{2})$/.exec(list[i] || '');
+      if (match) return match[1].toLowerCase();
+    }
+    return DEFAULT_COUNTRY_BY_LANG[currentLang] || 'br';
+  }
+
+  function buildPhoneI18n() {
+    const i18n = {
+      searchPlaceholder: t('searchPlaceholder'),
+      zeroSearchResults: t('zeroSearchResults')
+    };
+
+    // Country names in the current language, using the browser's built-in translations
+    try {
+      if (typeof Intl.DisplayNames === 'function' && window.intlTelInput && typeof window.intlTelInput.getCountryData === 'function') {
+        const names = new Intl.DisplayNames([LOCALES[currentLang]], { type: 'region' });
+        window.intlTelInput.getCountryData().forEach(function (country) {
+          const name = names.of(country.iso2.toUpperCase());
+          if (name && name.toUpperCase() !== country.iso2.toUpperCase()) i18n[country.iso2] = name;
+        });
+      }
+    } catch (e) { /* keep plugin defaults */ }
+
+    return i18n;
+  }
+
+  function createPhoneField(country) {
+    const input = document.getElementById('phone');
+    return window.intlTelInput(input, {
+      initialCountry: country || guessCountry(),
+      separateDialCode: true,
+      countrySearch: true,
+      i18n: buildPhoneI18n(),
+      loadUtils: function () {
+        return import('https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/utils.js');
+      }
+    });
+  }
+
+  function rebuildPhoneField() {
+    const number = iti.getNumber();
+    const country = (iti.getSelectedCountryData() || {}).iso2;
+    iti.destroy();
+    iti = createPhoneField(country);
+    if (number) iti.setNumber(number);
+  }
+
+  /* ============================================================
+     FIELD ERRORS
+     ============================================================ */
+  const errorState = {};   // fieldId -> message key
+
+  function setFieldError(fieldId, errorId, key) {
+    errorState[fieldId] = { errorId: errorId, key: key };
+    document.getElementById(fieldId).classList.add('has-error');
+    document.getElementById(errorId).textContent = t(key);
+  }
+
+  function clearFieldError(fieldId) {
+    const state = errorState[fieldId];
+    if (!state) return;
+    document.getElementById(fieldId).classList.remove('has-error');
+    document.getElementById(state.errorId).textContent = '';
+    delete errorState[fieldId];
+  }
+
+  function clearAllErrors() {
+    Object.keys(errorState).forEach(clearFieldError);
+    hideStatus();
+  }
+
+  let statusKey = null;
+  let statusType = null;
+
+  function showStatus(key, type) {
+    statusKey = key;
+    statusType = type;
+    const box = document.getElementById('formStatus');
+    box.textContent = t(key);
+    box.className = 'form-status show ' + (type === 'error' ? 'error-box' : 'info-box');
+  }
+
+  function hideStatus() {
+    statusKey = null;
+    statusType = null;
+    const box = document.getElementById('formStatus');
+    box.textContent = '';
+    box.className = 'form-status';
+  }
+
+  function retranslateErrors() {
+    Object.keys(errorState).forEach(function (fieldId) {
+      const state = errorState[fieldId];
+      document.getElementById(state.errorId).textContent = t(state.key);
+    });
+    if (statusKey) showStatus(statusKey, statusType);
+  }
+
+  /* ============================================================
+     PHOTOS: preview, remove, compress
+     ============================================================ */
+  function renderPhotos() {
+    const area = document.getElementById('photoArea');
+    const addButton = document.getElementById('photoAdd');
+
+    area.querySelectorAll('.photo-thumb').forEach(function (el) { el.remove(); });
+
+    photos.forEach(function (photo, index) {
+      const thumb = document.createElement('div');
+      thumb.className = 'photo-thumb';
+
+      const img = document.createElement('img');
+      img.src = photo.url;
+      img.alt = photo.file.name;
+
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.textContent = '×';
+      remove.setAttribute('aria-label', t('removePhoto'));
+      remove.addEventListener('click', function () {
+        URL.revokeObjectURL(photo.url);
+        photos.splice(index, 1);
+        clearFieldError('fieldPhotos');
+        renderPhotos();
+      });
+
+      thumb.appendChild(img);
+      thumb.appendChild(remove);
+      area.insertBefore(thumb, addButton);
+    });
+
+    addButton.hidden = photos.length >= MAX_PHOTOS;
+  }
+
+  document.getElementById('photoInput').addEventListener('change', function (event) {
+    const files = Array.prototype.slice.call(event.target.files || []);
+    clearFieldError('fieldPhotos');
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+
+      if (photos.length >= MAX_PHOTOS) {
+        setFieldError('fieldPhotos', 'errorPhotos', 'photoLimit');
+        break;
+      }
+      if (!file.type || file.type.indexOf('image/') !== 0) {
+        setFieldError('fieldPhotos', 'errorPhotos', 'photoType');
+        continue;
+      }
+      if (file.size > 30 * 1024 * 1024) {
+        setFieldError('fieldPhotos', 'errorPhotos', 'photoTooLarge');
+        continue;
+      }
+      photos.push({ file: file, url: URL.createObjectURL(file) });
+    }
+
+    event.target.value = '';   // allows selecting the same file again later
+    renderPhotos();
+  });
+
+  function loadImage(file) {
+    return new Promise(function (resolve, reject) {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = function () { URL.revokeObjectURL(url); resolve(img); };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('decode-failed')); };
+      img.src = url;
+    });
+  }
+
+  async function compressImage(file) {
+    try {
+      const img = await loadImage(file);
+      const scale = Math.min(1, MAX_SIDE / Math.max(img.naturalWidth, img.naturalHeight));
+      const width = Math.round(img.naturalWidth * scale);
+      const height = Math.round(img.naturalHeight * scale);
+
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';           // transparent PNGs get a white background
+      ctx.fillRect(0, 0, width, height);
+      ctx.drawImage(img, 0, 0, width, height);
+
+      const blob = await new Promise(function (resolve) {
+        canvas.toBlob(resolve, 'image/jpeg', JPEG_QUALITY);
+      });
+
+      if (!blob || blob.size >= file.size) return file;   // original was already small
+
+      const baseName = (file.name || 'photo').replace(/\.[^.]+$/, '');
+      return new File([blob], baseName + '.jpg', { type: 'image/jpeg' });
+    } catch (e) {
+      return file;   // browser couldn't read it (e.g. some HEIC files): send the original
+    }
+  }
+
+  /* ============================================================
+     VALIDATION
+     ============================================================ */
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
+  }
+
+  function validateForm() {
+    let firstInvalid = null;
+    const question = document.getElementById('question').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phoneRaw = document.getElementById('phone').value.trim();
+    const consent = document.getElementById('consent').checked;
+
+    if (!question) {
+      setFieldError('fieldQuestion', 'errorQuestion', 'questionRequired');
+      firstInvalid = firstInvalid || 'question';
+    } else if (question.length < MIN_QUESTION_LENGTH) {
+      setFieldError('fieldQuestion', 'errorQuestion', 'questionTooShort');
+      firstInvalid = firstInvalid || 'question';
+    }
+
+    if (!isValidEmail(email)) {
+      setFieldError('fieldEmail', 'errorEmail', 'emailInvalid');
+      firstInvalid = firstInvalid || 'email';
+    }
+
+    if (!phoneRaw) {
+      setFieldError('fieldPhone', 'errorPhone', 'phoneRequired');
+      firstInvalid = firstInvalid || 'phone';
+    } else {
+      const valid = iti.isValidNumber();
+      // valid === null means the validation library hasn't loaded yet: fall back to a length check
+      const fallbackOk = iti.getNumber().replace(/\D/g, '').length >= 8;
+      if (valid === false || (valid === null && !fallbackOk)) {
+        setFieldError('fieldPhone', 'errorPhone', 'phoneInvalid');
+        firstInvalid = firstInvalid || 'phone';
+      }
+    }
+
+    if (!consent) {
+      setFieldError('fieldConsent', 'errorConsent', 'consentRequired');
+      firstInvalid = firstInvalid || 'consent';
+    }
+
+    if (firstInvalid) {
+      const el = document.getElementById(firstInvalid);
+      el.focus();
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return false;
+    }
+    return true;
+  }
+
+  // Clear a field's error as soon as the user fixes it
+  document.getElementById('question').addEventListener('input', function () {
+    document.getElementById('questionCount').textContent = this.value.length;
+    clearFieldError('fieldQuestion');
+  });
+  document.getElementById('email').addEventListener('input', function () { clearFieldError('fieldEmail'); });
+  document.getElementById('phone').addEventListener('input', function () { clearFieldError('fieldPhone'); });
+  document.getElementById('phone').addEventListener('countrychange', function () { clearFieldError('fieldPhone'); });
+  document.getElementById('consent').addEventListener('change', function () { clearFieldError('fieldConsent'); });
+
+  /* ============================================================
+     SUBMIT
+     ============================================================ */
+  async function fetchWithTimeout(url, options, timeoutMs) {
+    const controller = new AbortController();
+    const timer = setTimeout(function () { controller.abort(); }, timeoutMs);
+    try {
+      return await fetch(url, Object.assign({}, options, { signal: controller.signal }));
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  function setSending(isSending) {
+    sending = isSending;
+    const button = document.getElementById('submitButton');
+    const label = document.getElementById('submitLabel');
+    button.disabled = isSending;
+    button.classList.toggle('loading', isSending);
+    label.innerHTML = isSending ? t('sending') : label.getAttribute('data-' + currentLang);
+  }
+
+  document.getElementById('questionForm').addEventListener('submit', async function (event) {
+    event.preventDefault();
+    if (sending) return;
+
+    clearAllErrors();
+    if (!validateForm()) return;
+
+    setSending(true);
+    const slowTimer = setTimeout(function () { showStatus('waking', 'info'); }, 6000);
+
+    try {
+      const data = new FormData();
+      data.append('question', document.getElementById('question').value.trim());
+      data.append('name', document.getElementById('name').value.trim());
+      data.append('email', document.getElementById('email').value.trim());
+      data.append('phone', iti.getNumber());                                   // e.g. +5514998005395
+      data.append('phone_country', (iti.getSelectedCountryData() || {}).iso2 || '');
+      data.append('lang', currentLang);
+      data.append('consent', 'yes');
+      data.append('website', document.getElementById('website').value);       // honeypot
+      data.append('page', window.location.href);
+
+      for (let i = 0; i < photos.length; i++) {
+        const compressed = await compressImage(photos[i].file);
+        if (compressed.size > MAX_PHOTO_BYTES) {
+          clearTimeout(slowTimer);
+          hideStatus();
+          setFieldError('fieldPhotos', 'errorPhotos', 'photoTooLarge');
+          setSending(false);
+          return;
+        }
+        data.append('photos', compressed, compressed.name);
+      }
+
+      const response = await fetchWithTimeout(SUBMIT_URL, { method: 'POST', body: data }, REQUEST_TIMEOUT_MS);
+      const result = await response.json().catch(function () { return {}; });
+
+      clearTimeout(slowTimer);
+      hideStatus();
+
+      if (response.ok && result.ok) {
+        showSuccess();
+        if (typeof gtag === 'function') gtag('event', 'technical_question_submitted');
+        return;
+      }
+
+      const key = (response.status === 429) ? 'rateLimited' : (SERVER_ERRORS[result.error] || 'server');
+      showStatus(key, 'error');
+    } catch (error) {
+      clearTimeout(slowTimer);
+      showStatus(error && error.name === 'AbortError' ? 'timeout' : 'network', 'error');
+    } finally {
+      if (sending) setSending(false);
+    }
+  });
+
+  function showSuccess() {
+    document.getElementById('questionForm').hidden = true;
+    document.getElementById('successPanel').hidden = false;
+    document.querySelector('.card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.getElementById('sendAnother').addEventListener('click', function () {
+    const form = document.getElementById('questionForm');
+    form.reset();
+    photos.forEach(function (p) { URL.revokeObjectURL(p.url); });
+    photos = [];
+    renderPhotos();
+    iti.setNumber('');
+    document.getElementById('questionCount').textContent = '0';
+    clearAllErrors();
+    document.getElementById('successPanel').hidden = true;
+    form.hidden = false;
+    document.getElementById('question').focus();
+  });
+
+  /* ============================================================
+     START
+     ============================================================ */
+  document.addEventListener('DOMContentLoaded', function () {
+    let saved = 'en';
+    try { saved = localStorage.getItem('beltpro_lang') || 'en'; } catch (e) {}
+
+    currentLang = MESSAGES.pageTitle[saved] ? saved : 'en';
+    iti = createPhoneField();
+    setLanguage(currentLang);
+
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Wake up the Render server while the visitor is typing (free plan sleeps after 15 min)
+    fetch(API_BASE + '/', { mode: 'no-cors', cache: 'no-store' }).catch(function () {});
+  });
+</script>
+</body>
+</html>
